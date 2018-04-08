@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[选择排序]]></title>
+    <url>%2F2018%2F04%2F08%2F%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[##简单的写一下选择排序的源代码 ###定义 选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。 选择排序是不稳定的排序方法（比如序列[5， 5， 3]第一次就将第一个[5]与[3]交换，导致第一个5挪动到第二个5后面）。 时间复杂度选择排序的交换操作介于 0 和 (n - 1） 次之间。选择排序的比较操作为 n (n - 1） / 2 次之间。选择排序的赋值操作介于 0 和 3 (n - 1） 次之间。 比较次数O(n^2），比较次数与关键字的初始状态无关，总的比较次数N=(n-1）+(n-2）+…+1=n*(n-1）/2。交换次数O(n），最好情况是，已经有序，交换0次；最坏情况交换n-1次，逆序交换n/2次。交换次数比冒泡排序少多了，由于交换所需CPU时间比比较所需的CPU时间多，n值较小时，选择排序比冒泡排序快 ###参考代码 1234567891011121314151617181920212223242526272829303132#include&lt;stdio.h&gt;//选择排序 int main() &#123; void selectsort(int array[],int n); int a[10],i; printf("输入10个数:\n"); for(i=0; i&lt;10; i++) &#123; scanf("%d",&amp;a[i]); &#125; selectsort(a,10); printf("选择排序之后:\n"); for(i=0; i&lt;10; i++) &#123; printf("%d ",a[i]); &#125; printf("\n"); return 0;&#125;void selectsort(int array[],int n) &#123; int i,j,min,temp; for(i=0; i&lt;n-1; i++) &#123; min=i; for(j=i+1; j&lt;n; j++)&#123; if(array[j]&lt;array[min]) min=j; &#125; temp=array[min]; array[min]=array[i]; array[i]=temp; &#125;&#125;]]></content>
+  </entry>
+  <entry>
     <title><![CDATA[第一篇博客测试]]></title>
     <url>%2F2018%2F04%2F08%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[这是我的第一篇博客= =，成功搭建了本网站地址 第一级标题生成一个hexo博客1$ hexo new "My New Post" 更多的信息: Writing 在本地跑起来1$ hexo server 更多的信息: Server 生成静态文件（保存）1$ hexo generate 更多的信息: Generating 上传到github1$ hexo deploy 更多的信息: Deployment]]></content>
+    <content type="text"><![CDATA[这是我的第一篇博客= =，成功搭建了本网站地址 第一级标题生成一个hexo博客1$ hexo new "My New Post" 更多的信息: Writing 在本地跑起来1$ hexo server 更多的信息: Server 生成静态文件（保存） 1$ hexo generate 更多的信息: Generating 上传到github1$ hexo deploy 更多的信息: Deployment]]></content>
   </entry>
 </search>
