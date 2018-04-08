@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Hello World]]></title>
+    <title><![CDATA[第一篇博客测试]]></title>
     <url>%2F2018%2F04%2F08%2Fhello-world%2F</url>
-    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post1$ hexo new "My New Post" More info: Writing Run server1$ hexo server More info: Server Generate static files1$ hexo generate More info: Generating Deploy to remote sites1$ hexo deploy More info: Deployment]]></content>
+    <content type="text"><![CDATA[这是我的第一篇博客= =，成功搭建了本网站地址 第一级标题生成一个hexo博客1$ hexo new "My New Post" 更多的信息: Writing 在本地跑起来1$ hexo server 更多的信息: Server 生成静态文件（保存）1$ hexo generate 更多的信息: Generating 上传到github1$ hexo deploy 更多的信息: Deployment]]></content>
   </entry>
 </search>
