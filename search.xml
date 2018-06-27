@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python中的Docstring]]></title>
+    <url>%2F2018%2F06%2F27%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
+    <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[最大公约数和最小公倍数]]></title>
     <url>%2F2018%2F04%2F10%2F%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%2F</url>
     <content type="text"><![CDATA[使用的辗转相除法辗转相除法：辗转相除法是求两个自然数的最大公约数的一种方法，也叫欧几里德算法。 例如，求（319，377）： ∵ 319÷377=0（余319） ∴（319，377）=（377，319）； ∵ 377÷319=1（余58） ∴（377，319）=（319，58）； ∵ 319÷58=5（余29） ∴ （319，58）=（58，29）； ∵ 58÷29=2（余0） ∴ （58，29）= 29； ∴ （319，377）=29。 可以写成右边的格式。 用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。 代码 12345678910111213141516171819202122232425262728293031#include&lt;stdio.h&gt;int main() &#123; int maxgongyue(int x,int y); int mingongbei(int num,int finax); int x,y,num; printf("请输入俩个数:\n"); scanf("%d %d",&amp;x,&amp;y); num=x*y; printf("最大公约数是:%d\n",maxgongyue(x,y)); printf("最小公倍数是:%d\n",mingongbei(num,maxgongyue(x,y))); return 0;&#125;int maxgongyue(int x,int y)&#123; int temp,yushu; if(x&lt;y) &#123; //交换成大的在前，小的在后 temp=x; x=y; y=temp; &#125; while(y!=0) &#123; //辗转相除法，如果余数不为0，则循环 yushu=x%y; //求余数 x=y; //将小的赋值给大的 y=yushu; //将余数赋值给小的 &#125;//一直除到余数为0时，这时候的x就是最大公约数 return(x);&#125;int mingongbei(int num,int finax)&#123; return(num/finax);&#125;]]></content>
