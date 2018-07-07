@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python中的引用和切片]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E5%92%8C%E5%88%87%E7%89%87%2F</url>
+    <content type="text"><![CDATA[引用和切片造成的不同影响当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部分。这叫作将名称绑定（Binding）给那一个对象。一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是需要你注意的： 123456789101112131415161718192021222324252627'''如果直接引用对象的话，对mylist操作也会影响到原本的shoplist如果想要不影响原本的，必须引用的是对象的切片，切片即为副本'''print('Simple Assignment')shoplist = ['apple', 'mango', 'carrot', 'banana']# mylist 只是指向同一对象的另一种名称mylist = shoplist# 我购买了第一项项目，所以我将其从列表中删除del shoplist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到 shoplist 和 mylist 二者都# 打印出了其中都没有 apple 的同样的列表，以此我们确认# 它们指向的是同一个对象print('Copy by making a full slice')# 通过生成一份完整的切片制作一份列表的副本mylist = shoplist[:]# 删除第一个项目del mylist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到现在两份列表已出现不同]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python中的Docstring]]></title>
     <url>%2F2018%2F06%2F27%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
     <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
