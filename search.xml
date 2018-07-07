@@ -1,6 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python中的集合]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E9%9B%86%E5%90%88%2F</url>
+    <content type="text"><![CDATA[集合集合（Set）是简单对象的无序集合（Collection）。当集合中的项目存在与否比起次序或其出现次数更加重要时，我们就会使用集合。通过使用集合，你可以测试某些对象的资格或情况，检查它们是否是其它集合的子集，找到两个集合的交集，等等。 代码12345678910111213# 集合 判断子集bri = set(['brazil', 'russia', 'india'])if 'india' in bri: print('True')if 'usa' in bri: print('False')bric = bri.copy()bric.add('china')print(bric.issuperset(bri))bri.remove('russia')print(bri &amp; bric) 输出结果TrueTrue{‘india’, ‘brazil’}]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中字典（key-value）]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E5%AD%97%E5%85%B8%EF%BC%88key-value%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码123456789101112131415161718192021222324252627# 字典# "ab"是地址（Address）薄(Book)的缩写ab = &#123; 'Swaroop': 'swaroop@swaroopch.com', 'Larry': 'larry@wall.org', 'Matsumoto': 'matz@ruby-lang.org', 'Spammer': 'spammer@hptmail.com'&#125;print("Swaroop's address is", ab['Swaroop'])# 删除一对键值-值配对del ab['Spammer']print('\nThere are &#123;&#125; contacts in the address-book\n'.format(len(ab)))#我们通过使用字典的 item 方法来访问字典中的每一对键值—值配对信息，这一操作将返回一份包含元组的列表for name, address in ab.items(): print('Contact &#123;&#125; at &#123;&#125;'.format(name, address))# 添加一对键值-值配对ab['Guido'] = 'guido@python.org'if 'Guido' in ab: print("\nGuido's address is", ab['Guido'])]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中的列表]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E5%88%97%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[列表列表 是一种用于保存一系列有序项目的集合，也就是说，你可以利用列表保存一串项目的序列。想象起来也不难，你可以想象你有一张购物清单，上面列出了需要购买的商品，除开在购物清单上你可能为每件物品都单独列一行，在 Python 中你需要在它们之间多加上一个逗号。 代码123456789101112131415161718192021222324252627# 列表# This is my shopping list'''在这里要注意在调用 print 函数时我们使用 end 参数，这样就能通过一个空格来结束输出工作，而不是通常的换行。'''shoplist = ['apple', 'mango', 'carrot', 'banana']print('I have', len(shoplist), 'items to purchase')print('These item are:', end=' ')for item in shoplist: print(item, end=' ')print('\nI also have to buy rice.')shoplist.append('rice')print('My shopping list is now', shoplist)print('I will sort my list now')shoplist.sort()print('Sorted shopping list is', shoplist)print('The first item I will buy is', shoplist[0])olditem = shoplist[0]del shoplist[0]print('I bought the', olditem)print('My shopping list is now', shoplist)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中的元组]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[元组元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。 代码123456789101112131415# 元组'''推荐使用括号来指明元组的开始和结束尽管括号是一个可选选项明了胜过晦涩，显式优于隐式'''zoo = ('python', 'elephant', 'penguin')print('Number of animals in the zoo is', len(zoo))new_zoo = 'monkey', 'camel', zooprint('Number of animals in the zoo is', len(new_zoo))print('All animals in new zoo are', new_zoo)print('Animals brought from old zoo are', new_zoo[2])print('Last animal brought from old zoo is', new_zoo[2][2])print('Number of animals in the new zoo is', len(new_zoo) - 1 + len(new_zoo[2]))]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中的序列以及切片的解释]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E5%BA%8F%E5%88%97%E4%BB%A5%E5%8F%8A%E5%88%87%E7%89%87%E7%9A%84%E8%A7%A3%E9%87%8A%2F</url>
+    <content type="text"><![CDATA[python中的序列以及切片的解释切片：有一种切片（Slicing）运算符，它能够允许我们序列中的某段切片——也就是序列之中的一部分。 序列1234567891011121314151617181920212223242526272829303132333435# 序列 跑一下看看shoplist = ['apple', 'mango', 'carrot', 'banana']name = 'swaroop'# Indexing or 'Subscription' operation ## 索引或“下标（Subcription）”操作符 #print('Item 0 is', shoplist[0])print('Item 1 is', shoplist[1])print('Item 2 is', shoplist[2])print('Item 3 is', shoplist[3])print('Item -1 is', shoplist[-1])print('Item -2 is', shoplist[-2])print('Character 0 is', name[0])# Slicing on a list #print('Item 1 to 3 is', shoplist[1:3])print('Item 2 to end is', shoplist[2:])print('Item 1 to -1 is', shoplist[1:-1])print('Item start to end is', shoplist[:])# 从某一字符串中切片 #print('characters 1 to 3 is', name[1:3])print('characters 2 to end is', name[2:])print('characters 1 to -1 is', name[1:-1])print('characters start to end is', name[:])'''你会注意到当步长为 2 时，我们得到的是第 0、2、4…… 位项目。当步长为 3 时，我们得到的是第 0、3……位项目。'''print(shoplist[::1])print(shoplist[::2])print(shoplist[::3])print(shoplist[::-1])]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中字符串的一些基本操作]]></title>
+    <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[python字符串的一些基本操作在这里，我们会看见一此操作中包含了好多字符串方法。 startwith 方法用于查找字符串是否以给定的字符串内容开头。 in 运算符用以检查给定的字符串是否是查询的字符串中的一部分。find 方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find会返回 -1。 str 类同样还拥有一个简洁的方法用以 联结（Join） 序列中的项目，其中字符串将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。 123456789101112131415# 这是一个字符串对象name = 'Swaroop'if name.startswith('Swa'): print('Yes, the string starts with "Swa"')if 'a' in name: print('Yes, it contains the string "a"')if name.find('war') != -1: print('Yes,it contains the string "war"')delimiter = '_*_'mylist = ['Brazil', 'Russia', 'India', 'China']print(delimiter.join(mylist))]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python中的引用和切片]]></title>
     <url>%2F2018%2F07%2F07%2Fpython%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E5%92%8C%E5%88%87%E7%89%87%2F</url>
     <content type="text"><![CDATA[引用和切片造成的不同影响当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部分。这叫作将名称绑定（Binding）给那一个对象。一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是需要你注意的： 123456789101112131415161718192021222324252627'''如果直接引用对象的话，对mylist操作也会影响到原本的shoplist如果想要不影响原本的，必须引用的是对象的切片，切片即为副本'''print('Simple Assignment')shoplist = ['apple', 'mango', 'carrot', 'banana']# mylist 只是指向同一对象的另一种名称mylist = shoplist# 我购买了第一项项目，所以我将其从列表中删除del shoplist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到 shoplist 和 mylist 二者都# 打印出了其中都没有 apple 的同样的列表，以此我们确认# 它们指向的是同一个对象print('Copy by making a full slice')# 通过生成一份完整的切片制作一份列表的副本mylist = shoplist[:]# 删除第一个项目del mylist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到现在两份列表已出现不同]]></content>
