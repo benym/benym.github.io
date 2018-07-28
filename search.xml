@@ -419,9 +419,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾(文本对齐、去除空白)]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90%E3%80%81%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD)%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾(文本对齐、去除空白)文本对齐的方法，以及用strip函数去除字符串的中空白字符 代码1234567891011121314151617181920# 假设：以下内容是从网络上抓取下来的# 要求：顺序并且居中对齐输出一下内容poem = ["\t\n登鹤鹊楼", "王之涣", "白日依山尽\t\n", "黄河入海流", "欲穷千里目", "更上一层楼"]for poem_str in poem: # 先使用strip方法去除字符串中的空白字符 # 居中对齐 ''' Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。 ''' print("|%s|" % poem_str.strip().center(10, " ")) # 向左对齐 # print("|%s|" % poem_str.ljust(10, " ")) # 向右对齐 # print("|%s|" % poem_str.rjust(10, " ")) 运行结果123456| 登鹤鹊楼 || 王之涣 || 白日依山尽 || 黄河入海流 || 欲穷千里目 || 更上一层楼 |]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾(拆分与合并)]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾(拆分与合并)字符串中split函数和join函数的使用 代码123456789101112131415# 假设：以下内容是从网络上抓取的# 要求：# 1、将字符串中的空白字符全部去掉# 2、再使用" "作为分隔符，拼接成一个整齐的字符串poem_str = "登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"print(poem_str)# 1、拆分字符串 split方法会返回列表poem_list = poem_str.split()print(poem_list)# 2、合并字符串result = " ".join(poem_list)print(result) 运行结果1234567原始字符串： 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼拆分字符串后： ['登鹤鹊楼', '王之涣', '白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼']合并字符串后: 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -430,9 +430,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾(拆分与合并)]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾(拆分与合并)字符串中split函数和join函数的使用 代码123456789101112131415# 假设：以下内容是从网络上抓取的# 要求：# 1、将字符串中的空白字符全部去掉# 2、再使用" "作为分隔符，拼接成一个整齐的字符串poem_str = "登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"print(poem_str)# 1、拆分字符串 split方法会返回列表poem_list = poem_str.split()print(poem_list)# 2、合并字符串result = " ".join(poem_list)print(result) 运行结果1234567原始字符串： 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼拆分字符串后： ['登鹤鹊楼', '王之涣', '白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼']合并字符串后: 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾(文本对齐、去除空白)]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90%E3%80%81%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD)%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾(文本对齐、去除空白)文本对齐的方法，以及用strip函数去除字符串的中空白字符 代码1234567891011121314151617181920# 假设：以下内容是从网络上抓取下来的# 要求：顺序并且居中对齐输出一下内容poem = ["\t\n登鹤鹊楼", "王之涣", "白日依山尽\t\n", "黄河入海流", "欲穷千里目", "更上一层楼"]for poem_str in poem: # 先使用strip方法去除字符串中的空白字符 # 居中对齐 ''' Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。 ''' print("|%s|" % poem_str.strip().center(10, " ")) # 向左对齐 # print("|%s|" % poem_str.ljust(10, " ")) # 向右对齐 # print("|%s|" % poem_str.rjust(10, " ")) 运行结果123456| 登鹤鹊楼 || 王之涣 || 白日依山尽 || 黄河入海流 || 欲穷千里目 || 更上一层楼 |]]></content>
       <categories>
         <category>Python</category>
       </categories>
