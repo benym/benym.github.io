@@ -23,17 +23,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F28%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>python面向对象</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[装饰器]]></title>
     <url>%2F2018%2F07%2F28%2F%E8%A3%85%E9%A5%B0%E5%99%A8%2F</url>
     <content type="text"><![CDATA[装饰器装饰器（Decorators）是应用包装函数的快捷方式。这有助于将某一功能与一些代码一遍又一遍地“包装”。举个例子，我为自己创建了一个 retry 装饰器，这样我可以将其运用到任何函数之中，如果在一次运行中抛出了任何错误，它就会尝试重新运行，直到最大次数 5 次，并且每次运行期间都会有一定的延迟。这对于你在对一台远程计算机进行网络调用的情况十分有用： 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445# 从time模块引入sleep函数from time import sleepfrom functools import wrapsimport logginglogging.basicConfig()log = logging.getLogger("retry")def retry(f): @wraps(f) def wrapped_f(*args, **kwargs): MAX_ATTEMPTS = 5 for attempt in range(1, MAX_ATTEMPTS + 1): try: return f(*args, **kwargs) except: log.exception("Attempt %s %s failed : %s", attempt, MAX_ATTEMPTS, (args, kwargs)) sleep(10 * attempt) log.critical("All %s attempts failed : %s", MAX_ATTEMPTS, (args, kwargs)) return wrapped_fcounter = 0@retrydef save_to_database(arg): print("Write to a database or make a network call or etc.") print("This will be automatically retried if exception is thrown.") global counter counter += 1 # 这将在第一次调用时抛出异常 # 在第二次运行时正常工作（也就是重试） if counter &lt; 2: raise ValueError(arg)# 让你写的脚本模块既可以导入到别的模块中用，另外该模块自己也可执行。if __name__ == '__main__': save_to_database("Some bad value") 运行结果1234567891011ERROR:retry:Attempt 1 5 failed : (('Some bad value',), &#123;&#125;)Traceback (most recent call last): File "E:/PythonProject/more/more_decorators.py", line 16, in wrapped_f return f(*args, **kwargs) File "E:/PythonProject/more/more_decorators.py", line 40, in save_to_database raise ValueError(arg)ValueError: Some bad valueWrite to a database or make a network call or etc.This will be automatically retried if exception is thrown.Write to a database or make a network call or etc.This will be automatically retried if exception is thrown.]]></content>
@@ -42,6 +31,17 @@
       </categories>
       <tags>
         <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F28%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python面向对象</tag>
       </tags>
   </entry>
   <entry>
@@ -364,14 +364,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中的Docstring]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
-    <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
+    <title><![CDATA[python中的lambda函数]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84lambda%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[python中的lambda函数lambda函数相当于定义了一个匿名的函数，减少了代码量 代码1234567891011121314151617181920212223242526272829303132333435# Lambda表格 也是lambda函数points = [&#123;'x': 2, 'y': 3&#125;, &#123;'x': 4, 'y': 1&#125;]points.sort(key=lambda i: i['y'])print(points)'''要注意到一个 list 的 sort 方法可以获得一个 key 参数，用以决定列表的排序方式（通常我们只知道升序与降序）。在我们的案例中，我们希望进行一次自定义排序，为此我们需要编写一个函数，但是又不是为函数编写一个独立的 def 块，只在这一个地方使用，因此我们使用 Lambda 表达式来创建一个新函数。'''# lambda函数的其他使用方法add = lambda x, y: x + yprint(add(1, 2)) # 结果为3# 需求：将列表中的元素按照绝对值大小进行升序排列list1 = [3, 5, -4, -1, 0, -2, -6]print(sorted(list1, key=lambda x: abs(x)))'''等价于def get_abs(x): return abs(x)list1.sort(key=get_abs)print(list1)或者def get_abs(x): return abs(x) print(sorted(list1, key=get_abs))''' 运行结果123[&#123;&apos;y&apos;: 1, &apos;x&apos;: 4&#125;, &#123;&apos;y&apos;: 3, &apos;x&apos;: 2&#125;]3[0, -1, -2, 3, -4, 5, -6]]]></content>
       <categories>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>基本教程</tag>
+        <tag>python函数</tag>
       </tags>
   </entry>
   <entry>
@@ -386,14 +386,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中的lambda函数]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84lambda%E5%87%BD%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[python中的lambda函数lambda函数相当于定义了一个匿名的函数，减少了代码量 代码1234567891011121314151617181920212223242526272829303132333435# Lambda表格 也是lambda函数points = [&#123;'x': 2, 'y': 3&#125;, &#123;'x': 4, 'y': 1&#125;]points.sort(key=lambda i: i['y'])print(points)'''要注意到一个 list 的 sort 方法可以获得一个 key 参数，用以决定列表的排序方式（通常我们只知道升序与降序）。在我们的案例中，我们希望进行一次自定义排序，为此我们需要编写一个函数，但是又不是为函数编写一个独立的 def 块，只在这一个地方使用，因此我们使用 Lambda 表达式来创建一个新函数。'''# lambda函数的其他使用方法add = lambda x, y: x + yprint(add(1, 2)) # 结果为3# 需求：将列表中的元素按照绝对值大小进行升序排列list1 = [3, 5, -4, -1, 0, -2, -6]print(sorted(list1, key=lambda x: abs(x)))'''等价于def get_abs(x): return abs(x)list1.sort(key=get_abs)print(list1)或者def get_abs(x): return abs(x) print(sorted(list1, key=get_abs))''' 运行结果123[&#123;&apos;y&apos;: 1, &apos;x&apos;: 4&#125;, &#123;&apos;y&apos;: 3, &apos;x&apos;: 2&#125;]3[0, -1, -2, 3, -4, 5, -6]]]></content>
+    <title><![CDATA[python中的Docstring]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
+    <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
       <categories>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>python函数</tag>
+        <tag>基本教程</tag>
       </tags>
   </entry>
   <entry>
@@ -441,9 +441,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾(切片回顾)]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E5%88%87%E7%89%87%E5%9B%9E%E9%A1%BE)%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾(切片回顾)代码123456789101112131415161718192021222324# 字符串的切片 字符串[开始索引:结束索引:步长]# 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2# 切片方法适用于字符串、列表、元组num_str = "0123456789"# 截取2-5的字符串print(num_str[2:6])# 截取2-末尾的字符串print(num_str[2:])# 从起始位置截取到5位置的字符串 num_str[0:6]等价print(num_str[:6])# 生成切片的副本print(num_str[:])# 从开始位置开始，每隔一个字符截取字符串print(num_str[::2])# 从索引1开始，每隔一个取一个print(num_str[1::2])# 截取从2到(末尾-1)的字符串print(num_str[2:-1])# 截取字符串末尾两个字符print(num_str[-2:])# 字符串的逆序 num_str[::-1]等价print(num_str[-1::-1]) 运行结果123456789&gt;&gt;&gt;2345&gt;&gt;&gt;23456789&gt;&gt;&gt;012345&gt;&gt;&gt;0123456789&gt;&gt;&gt;02468&gt;&gt;&gt;13579&gt;&gt;&gt;2345678&gt;&gt;&gt;89&gt;&gt;&gt;9876543210]]></content>
+    <title><![CDATA[python中字符串的一些基本操作]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[python字符串的一些基本操作在这里，我们会看见一此操作中包含了好多字符串方法。 startwith 方法用于查找字符串是否以给定的字符串内容开头。 in 运算符用以检查给定的字符串是否是查询的字符串中的一部分。find 方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find会返回 -1。 str 类同样还拥有一个简洁的方法用以 联结（Join） 序列中的项目，其中字符串将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。 123456789101112131415# 这是一个字符串对象name = 'Swaroop'if name.startswith('Swa'): print('Yes, the string starts with "Swa"')if 'a' in name: print('Yes, it contains the string "a"')if name.find('war') != -1: print('Yes,it contains the string "war"')delimiter = '_*_'mylist = ['Brazil', 'Russia', 'India', 'China']print(delimiter.join(mylist))]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -452,9 +452,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些基本操作]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[python字符串的一些基本操作在这里，我们会看见一此操作中包含了好多字符串方法。 startwith 方法用于查找字符串是否以给定的字符串内容开头。 in 运算符用以检查给定的字符串是否是查询的字符串中的一部分。find 方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find会返回 -1。 str 类同样还拥有一个简洁的方法用以 联结（Join） 序列中的项目，其中字符串将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。 123456789101112131415# 这是一个字符串对象name = 'Swaroop'if name.startswith('Swa'): print('Yes, the string starts with "Swa"')if 'a' in name: print('Yes, it contains the string "a"')if name.find('war') != -1: print('Yes,it contains the string "war"')delimiter = '_*_'mylist = ['Brazil', 'Russia', 'India', 'China']print(delimiter.join(mylist))]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾(切片回顾)]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E5%88%87%E7%89%87%E5%9B%9E%E9%A1%BE)%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾(切片回顾)代码123456789101112131415161718192021222324# 字符串的切片 字符串[开始索引:结束索引:步长]# 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2# 切片方法适用于字符串、列表、元组num_str = "0123456789"# 截取2-5的字符串print(num_str[2:6])# 截取2-末尾的字符串print(num_str[2:])# 从起始位置截取到5位置的字符串 num_str[0:6]等价print(num_str[:6])# 生成切片的副本print(num_str[:])# 从开始位置开始，每隔一个字符截取字符串print(num_str[::2])# 从索引1开始，每隔一个取一个print(num_str[1::2])# 截取从2到(末尾-1)的字符串print(num_str[2:-1])# 截取字符串末尾两个字符print(num_str[-2:])# 字符串的逆序 num_str[::-1]等价print(num_str[-1::-1]) 运行结果123456789&gt;&gt;&gt;2345&gt;&gt;&gt;23456789&gt;&gt;&gt;012345&gt;&gt;&gt;0123456789&gt;&gt;&gt;02468&gt;&gt;&gt;13579&gt;&gt;&gt;2345678&gt;&gt;&gt;89&gt;&gt;&gt;9876543210]]></content>
       <categories>
         <category>Python</category>
       </categories>
