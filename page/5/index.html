@@ -10,9 +10,16 @@
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-<meta name="theme-color" content="#222">
+<meta name="theme-color" content="#fff">
 
 
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
 
 
 
@@ -40,15 +47,57 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="https://fonts.cat.net/css?family=Lato:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Roboto Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
 
 
 
 
 
 
+  
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
 
@@ -62,13 +111,17 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png?v=5.1.4">
 
 
-  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml" />
 
 
 
-
-
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Python,Hexo,博客,算法,机器学习" />
 
 
 
@@ -98,10 +151,10 @@
     root: '/',
     scheme: 'Gemini',
     version: '5.1.4',
-    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
     fancybox: true,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":true,"async":true,"transition":{"post_block":"perspectiveLeftIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"perspectiveLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -435,7 +488,7 @@
           <h3 id="python字符串的一些基本操作"><a href="#python字符串的一些基本操作" class="headerlink" title="python字符串的一些基本操作"></a>python字符串的一些基本操作</h3><p>在这里，我们会看见一此操作中包含了好多字符串方法。 startwith  方法用于查找字符串是<br>否以给定的字符串内容开头。 in  运算符用以检查给定的字符串是否是查询的字符串中的一<br>部分。<br>find  方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find<br>会返回 -1。 str  类同样还拥有一个简洁的方法用以  联结（Join）  序列中的项目，其中字符串<br>将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/28/python中字符串的一些基本操作/#more" rel="contents">
+            <a class="btn" href="/2018/07/28/python中字符串的一些基本操作/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -681,7 +734,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/finally异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
@@ -700,7 +753,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/28/finally异常处理/" itemprop="url">finally异常处理</a></h1>
+                <a class="post-title-link" href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="url">list(列表)、tuple（元组）、dict（字典）的回顾</a></h1>
         
 
         <div class="post-meta">
@@ -753,8 +806,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/28/finally异常处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/finally异常处理/" itemprop="commentCount"></span>
+                <a href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -762,7 +815,7 @@
 
           
           
-             <span id="/2018/07/28/finally异常处理/" class="leancloud_visitors" data-flag-title="finally异常处理">
+             <span id="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" class="leancloud_visitors" data-flag-title="list(列表)、tuple（元组）、dict（字典）的回顾">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -787,7 +840,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  157
+                  518
                 </span>
               
 
@@ -803,7 +856,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  3
                 </span>
               
             </div>
@@ -825,11 +878,14 @@
 
       
         
-          
-            <h3 id="finally异常处理"><a href="#finally异常处理" class="headerlink" title="finally异常处理"></a>finally异常处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">f = <span class="keyword">None</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = open(<span class="string">"poem.txt"</span>)</span><br><span class="line">    <span class="comment"># 我们常用的文件阅读风格</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        line = f.readline()</span><br><span class="line">        <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(line, end=<span class="string">''</span>)</span><br><span class="line">        sys.stdout.flush()</span><br><span class="line">        print(<span class="string">"Press ctrl+c now"</span>)</span><br><span class="line">        <span class="comment"># 为了确保它能运行一段时间</span></span><br><span class="line">        time.sleep(<span class="number">2</span>)  <span class="comment"># time.sleep 函数任意在每打印一行后插入两秒休眠</span></span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    print(<span class="string">"Could not find file poem.txt"</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    print(<span class="string">"!! You cancelled the reading from the file."</span>)</span><br><span class="line"><span class="keyword">finally</span>:  <span class="comment"># 始终执行</span></span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        f.close()</span><br><span class="line">    print(<span class="string">"(Cleaning up: Closed the file)"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12165456478Press ctrl+c now</span><br><span class="line">(Cleaning up: Closed the file)</span><br></pre></td></tr></table></figure>
-
-          
+          <h3 id="list-列表-、tuple（元组）、dict（字典）的回顾"><a href="#list-列表-、tuple（元组）、dict（字典）的回顾" class="headerlink" title="list(列表)、tuple（元组）、dict（字典）的回顾"></a>list(列表)、tuple（元组）、dict（字典）的回顾</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">5</span>, <span class="number">6</span>, <span class="number">87</span>, <span class="number">671</span>, <span class="number">3</span>, <span class="number">54</span>, <span class="number">67</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-6</span>, <span class="number">-7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升序排序</span></span><br><span class="line"></span><br><span class="line">list1.sort()</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降序排序</span></span><br><span class="line">list1.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表和元组之间相互转换</span></span><br><span class="line">print(type(list1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、列表转换成元组</span></span><br><span class="line">num_tuple = tuple(list1)</span><br><span class="line">print(type(num_tuple))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 、元组转换成列表</span></span><br><span class="line">num2_list = list(num_tuple)</span><br><span class="line">print(type(num2_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典的使用</span></span><br><span class="line"><span class="comment"># 1、取值</span></span><br><span class="line">dict_test = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>&#125;</span><br><span class="line">print(dict_test[<span class="string">"name"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、增加/修改</span></span><br><span class="line">dict_test[<span class="string">"age"</span>] = <span class="number">18</span>  <span class="comment"># 增加</span></span><br><span class="line">dict_test[<span class="string">"name"</span>] = <span class="string">"yyy"</span>  <span class="comment"># 修改</span></span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 3、删除</span></span><br><span class="line">dict_test.pop(<span class="string">"name"</span>)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 4、统计键值对的数量</span></span><br><span class="line">print(len(dict_test))</span><br><span class="line"><span class="comment"># 5、合并字典</span></span><br><span class="line"><span class="comment"># 如果被合并的字典中包含已经存在的键值对，会覆盖原有的键值对</span></span><br><span class="line">temp_dict = &#123;<span class="string">"height"</span>: <span class="number">123</span>,</span><br><span class="line">             <span class="string">"age"</span>: <span class="number">20</span>&#125;</span><br><span class="line">dict_test.update(temp_dict)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 6、清空字典</span></span><br><span class="line">dict_test.clear()</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 7、迭代遍历字典</span></span><br><span class="line"><span class="comment"># 变量k是每次循环中，获取到的键值对的值</span></span><br><span class="line">new_dict = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">            <span class="string">"age"</span>: <span class="number">20</span>,</span><br><span class="line">            <span class="string">"height"</span>: <span class="number">200</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> new_dict:</span><br><span class="line">    print(<span class="string">"&#123;&#125; - &#123;&#125;"</span>.format(k, new_dict[k]))</span><br><span class="line"><span class="comment"># 8、列表中保存多个字典,并用for循环迭代输出</span></span><br><span class="line">list2 = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"qqq"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"163"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">119</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"sss"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"cc"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">110</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list2:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1071,7 +1127,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/finally异常处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
@@ -1090,7 +1146,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="url">list(列表)、tuple（元组）、dict（字典）的回顾</a></h1>
+                <a class="post-title-link" href="/2018/07/28/finally异常处理/" itemprop="url">finally异常处理</a></h1>
         
 
         <div class="post-meta">
@@ -1143,8 +1199,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="commentCount"></span>
+                <a href="/2018/07/28/finally异常处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/finally异常处理/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1152,7 +1208,7 @@
 
           
           
-             <span id="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/" class="leancloud_visitors" data-flag-title="list(列表)、tuple（元组）、dict（字典）的回顾">
+             <span id="/2018/07/28/finally异常处理/" class="leancloud_visitors" data-flag-title="finally异常处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1177,7 +1233,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  518
+                  157
                 </span>
               
 
@@ -1193,7 +1249,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -1215,14 +1271,11 @@
 
       
         
-          <h3 id="list-列表-、tuple（元组）、dict（字典）的回顾"><a href="#list-列表-、tuple（元组）、dict（字典）的回顾" class="headerlink" title="list(列表)、tuple（元组）、dict（字典）的回顾"></a>list(列表)、tuple（元组）、dict（字典）的回顾</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">5</span>, <span class="number">6</span>, <span class="number">87</span>, <span class="number">671</span>, <span class="number">3</span>, <span class="number">54</span>, <span class="number">67</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-6</span>, <span class="number">-7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升序排序</span></span><br><span class="line"></span><br><span class="line">list1.sort()</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降序排序</span></span><br><span class="line">list1.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表和元组之间相互转换</span></span><br><span class="line">print(type(list1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、列表转换成元组</span></span><br><span class="line">num_tuple = tuple(list1)</span><br><span class="line">print(type(num_tuple))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 、元组转换成列表</span></span><br><span class="line">num2_list = list(num_tuple)</span><br><span class="line">print(type(num2_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典的使用</span></span><br><span class="line"><span class="comment"># 1、取值</span></span><br><span class="line">dict_test = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>&#125;</span><br><span class="line">print(dict_test[<span class="string">"name"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、增加/修改</span></span><br><span class="line">dict_test[<span class="string">"age"</span>] = <span class="number">18</span>  <span class="comment"># 增加</span></span><br><span class="line">dict_test[<span class="string">"name"</span>] = <span class="string">"yyy"</span>  <span class="comment"># 修改</span></span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 3、删除</span></span><br><span class="line">dict_test.pop(<span class="string">"name"</span>)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 4、统计键值对的数量</span></span><br><span class="line">print(len(dict_test))</span><br><span class="line"><span class="comment"># 5、合并字典</span></span><br><span class="line"><span class="comment"># 如果被合并的字典中包含已经存在的键值对，会覆盖原有的键值对</span></span><br><span class="line">temp_dict = &#123;<span class="string">"height"</span>: <span class="number">123</span>,</span><br><span class="line">             <span class="string">"age"</span>: <span class="number">20</span>&#125;</span><br><span class="line">dict_test.update(temp_dict)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 6、清空字典</span></span><br><span class="line">dict_test.clear()</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 7、迭代遍历字典</span></span><br><span class="line"><span class="comment"># 变量k是每次循环中，获取到的键值对的值</span></span><br><span class="line">new_dict = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">            <span class="string">"age"</span>: <span class="number">20</span>,</span><br><span class="line">            <span class="string">"height"</span>: <span class="number">200</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> new_dict:</span><br><span class="line">    print(<span class="string">"&#123;&#125; - &#123;&#125;"</span>.format(k, new_dict[k]))</span><br><span class="line"><span class="comment"># 8、列表中保存多个字典,并用for循环迭代输出</span></span><br><span class="line">list2 = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"qqq"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"163"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">119</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"sss"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"cc"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">110</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list2:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/28/list(列表)、tuple（元组）、dict（字典）的回顾/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="finally异常处理"><a href="#finally异常处理" class="headerlink" title="finally异常处理"></a>finally异常处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">f = <span class="keyword">None</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = open(<span class="string">"poem.txt"</span>)</span><br><span class="line">    <span class="comment"># 我们常用的文件阅读风格</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        line = f.readline()</span><br><span class="line">        <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(line, end=<span class="string">''</span>)</span><br><span class="line">        sys.stdout.flush()</span><br><span class="line">        print(<span class="string">"Press ctrl+c now"</span>)</span><br><span class="line">        <span class="comment"># 为了确保它能运行一段时间</span></span><br><span class="line">        time.sleep(<span class="number">2</span>)  <span class="comment"># time.sleep 函数任意在每打印一行后插入两秒休眠</span></span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    print(<span class="string">"Could not find file poem.txt"</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    print(<span class="string">"!! You cancelled the reading from the file."</span>)</span><br><span class="line"><span class="keyword">finally</span>:  <span class="comment"># 始终执行</span></span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        f.close()</span><br><span class="line">    print(<span class="string">"(Cleaning up: Closed the file)"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12165456478Press ctrl+c now</span><br><span class="line">(Cleaning up: Closed the file)</span><br></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -1421,7 +1474,7 @@
 <h3 id="生成静态文件（保存）"><a href="#生成静态文件（保存）" class="headerlink" title="生成静态文件（保存）"></a>生成静态文件（保存）</h3>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/28/hello-world/#more" rel="contents">
+            <a class="btn" href="/2018/07/28/hello-world/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1683,6 +1736,8 @@
 
   <aside id="sidebar" class="sidebar">
     
+      <div id="sidebar-dimmer"></div>
+    
     <div class="sidebar-inner">
 
       
@@ -1814,9 +1869,9 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; © 2018 &mdash; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
-    <i class="fa fa-user"></i>
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">一个据说只有20的青年</span>
 
@@ -1833,15 +1888,9 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
-  <span class="post-meta-divider">|</span>
-
-
-
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
 
 
 
@@ -1891,6 +1940,8 @@
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
         
+          <span id="scrollpercent"><span>0</span>%</span>
+        
       </div>
     
 
@@ -1931,32 +1982,32 @@
 
   
   
-    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
   
 
   
   
-    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
   
 
   
