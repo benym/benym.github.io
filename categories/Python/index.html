@@ -340,34 +340,19 @@
       </div>
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/28/输入输出——简单的回文判断/" itemprop="url">
-              
-                <span itemprop="name">输入输出——简单的回文判断</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-28T20:27:37+08:00"
-              content="2018-07-28" >
-          07-28
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+	  
+      
+      
+      
 
       
+        
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
+        </div>
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -396,6 +381,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -424,6 +417,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -431,9 +432,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/07/28/继承的运用/" itemprop="url">
+            <a class="post-title-link" href="/2018/07/28/输入输出——简单的回文判断/" itemprop="url">
               
-                <span itemprop="name">继承的运用</span>
+                <span itemprop="name">输入输出——简单的回文判断</span>
               
             </a>
         
@@ -452,6 +453,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -480,6 +489,50 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
+        
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/2018/07/28/继承的运用/" itemprop="url">
+              
+                <span itemprop="name">继承的运用</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-07-28T20:27:37+08:00"
+              content="2018-07-28" >
+          07-28
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -508,6 +561,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -536,6 +597,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -564,6 +633,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -571,9 +648,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/07/28/打印直角三角形/" itemprop="url">
+            <a class="post-title-link" href="/2018/07/28/打印九九乘法表/" itemprop="url">
               
-                <span itemprop="name">打印直角三角形</span>
+                <span itemprop="name">打印九九乘法表</span>
               
             </a>
         
@@ -592,6 +669,14 @@
 
 
       
+	  
+      
+      
+      
+
+      
+      
+
         
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
@@ -599,9 +684,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/07/28/打印九九乘法表/" itemprop="url">
+            <a class="post-title-link" href="/2018/07/28/打印直角三角形/" itemprop="url">
               
-                <span itemprop="name">打印九九乘法表</span>
+                <span itemprop="name">打印直角三角形</span>
               
             </a>
         
@@ -813,7 +898,32 @@
 
 
 
-
+<div id="days"></div>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("03/01/2018 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
         
 <div class="busuanzi-count">
   <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -955,6 +1065,8 @@
 
 
   
+  
+
 
   
 
