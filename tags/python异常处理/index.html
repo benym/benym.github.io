@@ -179,7 +179,20 @@
 
 
 
-
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
   <title>标签: python异常处理 | Ben.Y</title>
   
 
@@ -446,9 +459,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/07/23/简单的异常处理/" itemprop="url">
+            <a class="post-title-link" href="/2018/07/23/finally异常处理/" itemprop="url">
               
-                <span itemprop="name">简单的异常处理</span>
+                <span itemprop="name">finally异常处理</span>
               
             </a>
         
@@ -482,9 +495,9 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/07/23/finally异常处理/" itemprop="url">
+            <a class="post-title-link" href="/2018/07/23/简单的异常处理/" itemprop="url">
               
-                <span itemprop="name">finally异常处理</span>
+                <span itemprop="name">简单的异常处理</span>
               
             </a>
         
