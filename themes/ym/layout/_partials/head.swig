@@ -156,6 +156,7 @@
 {% endif %}
 
 {% include 'head/custom-head.swig' %}
+
 <script>
 (function(){
     var bp = document.createElement('script');
