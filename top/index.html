@@ -140,7 +140,7 @@
 <meta property="og:site_name" content="Ben.Y">
 <meta property="og:description" content="博客文章阅读量排行榜">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-01T14:17:55.935Z">
+<meta property="og:updated_time" content="2018-08-02T01:21:30.420Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="热门文章">
 <meta name="twitter:description" content="博客文章阅读量排行榜">
@@ -375,7 +375,7 @@
   query.descending('time');
   query.limit(1000);
   query.find().then(function (todo) {
-    for (var i=0;i<5;i++){
+    for (var i=0;i<8;i++){
       var result=todo[i].attributes;
       time=result.time;
       title=result.title;
@@ -789,28 +789,6 @@ show_date_time();
 
 
 
-
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
-  
-  <script type="text/javascript">
-    var GUEST = ['nick','mail','link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item=>{
-      return GUEST.indexOf(item)>-1;
-    });
-    new Valine({
-        el: '#comments' ,
-        verify: false,
-        notify: false,
-        appId: 'rrJw3n1GITgknmle4GAv9Yfj-gzGzoHsz',
-        appKey: '6i8gxSzzOFIaGpEfldvoWGJO',
-        placeholder: 'Just go go',
-        avatar:'mm',
-        guest_info:guest,
-        pageSize:'10' || 10,
-    });
-  </script>
 
 
 

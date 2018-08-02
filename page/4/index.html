@@ -353,200 +353,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的序列以及切片的解释/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/28/python中的序列以及切片的解释/" itemprop="url">python中的序列以及切片的解释</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
-                2018-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/28/python中的序列以及切片的解释/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中的序列以及切片的解释/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/28/python中的序列以及切片的解释/" class="leancloud_visitors" data-flag-title="python中的序列以及切片的解释">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  288
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="python中的序列以及切片的解释"><a href="#python中的序列以及切片的解释" class="headerlink" title="python中的序列以及切片的解释"></a>python中的序列以及切片的解释</h3><h2 id="切片："><a href="#切片：" class="headerlink" title="切片："></a>切片：</h2><p>有一种切片（Slicing）运算<br>符，它能够允许我们序列中的某段切片——也就是序列之中的一部分。</p>
-<h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 序列  跑一下看看</span></span><br><span class="line"></span><br><span class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</span><br><span class="line">name = <span class="string">'swaroop'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Indexing or 'Subscription' operation #</span></span><br><span class="line"><span class="comment"># 索引或“下标（Subcription）”操作符 #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 0 is'</span>, shoplist[0])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 is'</span>, shoplist[1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 2 is'</span>, shoplist[2])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 3 is'</span>, shoplist[3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item -1 is'</span>, shoplist[-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item -2 is'</span>, shoplist[-2])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Character 0 is'</span>, name[0])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Slicing on a list #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 to 3 is'</span>, shoplist[1:3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 2 to end is'</span>, shoplist[2:])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 to -1 is'</span>, shoplist[1:-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item start to end is'</span>, shoplist[:])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从某一字符串中切片 #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 1 to 3 is'</span>, name[1:3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 2 to end is'</span>, name[2:])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 1 to -1 is'</span>, name[1:-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters start to end is'</span>, name[:])</span><br><span class="line"></span><br><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">你会注意到当步长为 2 时，我们得到的是第 0、2、4…… 位项目。当步长为 3 时，我们得到</span></span><br><span class="line"><span class="string">的是第 0、3……位项目。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"><span class="built_in">print</span>(shoplist[::1])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::2])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::3])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::-1])</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的列表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -741,6 +547,200 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的序列以及切片的解释/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/28/python中的序列以及切片的解释/" itemprop="url">python中的序列以及切片的解释</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
+                2018-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/28/python中的序列以及切片的解释/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中的序列以及切片的解释/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/28/python中的序列以及切片的解释/" class="leancloud_visitors" data-flag-title="python中的序列以及切片的解释">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  288
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="python中的序列以及切片的解释"><a href="#python中的序列以及切片的解释" class="headerlink" title="python中的序列以及切片的解释"></a>python中的序列以及切片的解释</h3><h2 id="切片："><a href="#切片：" class="headerlink" title="切片："></a>切片：</h2><p>有一种切片（Slicing）运算<br>符，它能够允许我们序列中的某段切片——也就是序列之中的一部分。</p>
+<h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 序列  跑一下看看</span></span><br><span class="line"></span><br><span class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</span><br><span class="line">name = <span class="string">'swaroop'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Indexing or 'Subscription' operation #</span></span><br><span class="line"><span class="comment"># 索引或“下标（Subcription）”操作符 #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 0 is'</span>, shoplist[0])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 is'</span>, shoplist[1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 2 is'</span>, shoplist[2])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 3 is'</span>, shoplist[3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item -1 is'</span>, shoplist[-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item -2 is'</span>, shoplist[-2])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Character 0 is'</span>, name[0])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Slicing on a list #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 to 3 is'</span>, shoplist[1:3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 2 to end is'</span>, shoplist[2:])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item 1 to -1 is'</span>, shoplist[1:-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'Item start to end is'</span>, shoplist[:])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从某一字符串中切片 #</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 1 to 3 is'</span>, name[1:3])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 2 to end is'</span>, name[2:])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters 1 to -1 is'</span>, name[1:-1])</span><br><span class="line"><span class="built_in">print</span>(<span class="string">'characters start to end is'</span>, name[:])</span><br><span class="line"></span><br><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">你会注意到当步长为 2 时，我们得到的是第 0、2、4…… 位项目。当步长为 3 时，我们得到</span></span><br><span class="line"><span class="string">的是第 0、3……位项目。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"><span class="built_in">print</span>(shoplist[::1])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::2])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::3])</span><br><span class="line"><span class="built_in">print</span>(shoplist[::-1])</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的元组/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -888,395 +888,6 @@
           
             <h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提<br>供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也<br>就是说，你不能编辑或更改元组。<br>元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部<br>用逗号进行分隔。<br>元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的<br>数值不会改变。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 元组</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">推荐使用括号来指明元组的开始和结束</span></span><br><span class="line"><span class="string">尽管括号是一个可选选项</span></span><br><span class="line"><span class="string">明了胜过晦涩，显式优于隐式</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">zoo = (<span class="string">'python'</span>, <span class="string">'elephant'</span>, <span class="string">'penguin'</span>)</span><br><span class="line">print(<span class="string">'Number of animals in the zoo is'</span>, len(zoo))</span><br><span class="line">new_zoo = <span class="string">'monkey'</span>, <span class="string">'camel'</span>, zoo</span><br><span class="line">print(<span class="string">'Number of animals in the zoo is'</span>, len(new_zoo))</span><br><span class="line">print(<span class="string">'All animals in new zoo are'</span>, new_zoo)</span><br><span class="line">print(<span class="string">'Animals brought from old zoo are'</span>, new_zoo[<span class="number">2</span>])</span><br><span class="line">print(<span class="string">'Last animal brought from old zoo is'</span>, new_zoo[<span class="number">2</span>][<span class="number">2</span>])</span><br><span class="line">print(<span class="string">'Number of animals in the new zoo is'</span>,</span><br><span class="line">      len(new_zoo) - <span class="number">1</span> + len(new_zoo[<span class="number">2</span>]))</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的Docstring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/28/python中的Docstring/" itemprop="url">python中的Docstring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
-                2018-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/28/python中的Docstring/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中的Docstring/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/28/python中的Docstring/" class="leancloud_visitors" data-flag-title="python中的Docstring">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  204
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="基本教程"><a href="#基本教程" class="headerlink" title="基本教程"></a>基本教程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">文档字符串的应用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。</span></span><br><span class="line"><span class="string">第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非</span></span><br><span class="line"><span class="string">凡功能的文档字符串中都遵循这一约定。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def print_max(x, y):</span><br><span class="line">    <span class="string">''</span><span class="string">'Prints the maximum of two numbers.打印两个数值中的最大数。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The two values must be integers.这两个数都应该是整数</span></span><br><span class="line"><span class="string">    '</span><span class="string">''</span></span><br><span class="line">    <span class="comment"># 如果可能，将其转换至整数类型</span></span><br><span class="line">    x = int(x)</span><br><span class="line">    y = int(y)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> x &gt; y:</span><br><span class="line">        <span class="built_in">print</span>(x, <span class="string">'is maximum'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(y, <span class="string">'is maximum'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print_max(3, 5)</span><br><span class="line"><span class="built_in">print</span>(print_max.__doc__)</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中对列表和元组的切片操作/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/28/python中对列表和元组的切片操作/" itemprop="url">python中对列表和元组的切片操作</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
-                2018-07-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/28/python中对列表和元组的切片操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中对列表和元组的切片操作/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/28/python中对列表和元组的切片操作/" class="leancloud_visitors" data-flag-title="python中对列表和元组的切片操作">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  104
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="python中对列表和元组的切片操作"><a href="#python中对列表和元组的切片操作" class="headerlink" title="python中对列表和元组的切片操作"></a>python中对列表和元组的切片操作</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切片方法用于列表、元组,切片方法不能用于字典</span></span><br><span class="line">list_tmp = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">tuple_tmp = (<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment"># 列表输出</span></span><br><span class="line">print([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>][<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(list_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line"><span class="comment"># 元组输出</span></span><br><span class="line">print((<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(tuple_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2]</span><br><span class="line">[1, 2]</span><br><span class="line">(3, 2)</span><br><span class="line">(3, 2)</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1719,7 +1330,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中字符串的一些方法回顾/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中的Docstring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
@@ -1738,7 +1349,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/28/python中字符串的一些方法回顾/" itemprop="url">python中字符串的一些方法回顾</a></h1>
+                <a class="post-title-link" href="/2018/07/28/python中的Docstring/" itemprop="url">python中的Docstring</a></h1>
         
 
         <div class="post-meta">
@@ -1791,8 +1402,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/28/python中字符串的一些方法回顾/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中字符串的一些方法回顾/" itemprop="commentCount"></span>
+                <a href="/2018/07/28/python中的Docstring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中的Docstring/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1800,7 +1411,7 @@
 
           
           
-             <span id="/2018/07/28/python中字符串的一些方法回顾/" class="leancloud_visitors" data-flag-title="python中字符串的一些方法回顾">
+             <span id="/2018/07/28/python中的Docstring/" class="leancloud_visitors" data-flag-title="python中的Docstring">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1825,7 +1436,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  265
+                  204
                 </span>
               
 
@@ -1864,8 +1475,202 @@
       
         
           
-            <h3 id="python中字符串的一些方法回顾"><a href="#python中字符串的一些方法回顾" class="headerlink" title="python中字符串的一些方法回顾"></a>python中字符串的一些方法回顾</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">hello_str = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、统计字符串长度</span></span><br><span class="line">print(len(hello_str))</span><br><span class="line"><span class="comment"># 2、统计某一个小字符串出现的次数</span></span><br><span class="line">print(hello_str.count(<span class="string">"llo"</span>))</span><br><span class="line"><span class="comment"># 3、某一个子字符串出现的位置</span></span><br><span class="line">print(hello_str.index(<span class="string">"llo"</span>))</span><br><span class="line"><span class="comment"># 4、输出数学的平方</span></span><br><span class="line">num_str = <span class="string">"\u00b2"</span></span><br><span class="line">print(num_str)</span><br><span class="line"><span class="comment"># 5、判断是否以指定字符串开始</span></span><br><span class="line">print(hello_str.startswith(<span class="string">"hello"</span>))</span><br><span class="line"><span class="comment"># 6、判断是否以指定字符串结束</span></span><br><span class="line">print(hello_str.endswith(<span class="string">"world"</span>))</span><br><span class="line"><span class="comment"># 7、查找指定字符串</span></span><br><span class="line"><span class="comment"># 在index方法中，如果指定的字符串不存在，会直接报错</span></span><br><span class="line"><span class="comment"># 在find方法中，如果指定的字符串不存在，会返回-1</span></span><br><span class="line">print(hello_str.find(<span class="string">"llo"</span>))</span><br><span class="line">print(hello_str.find(<span class="string">"CCC"</span>))</span><br><span class="line"><span class="comment"># 8、替换字符串</span></span><br><span class="line"><span class="comment"># replace方法执行完成之后会返回一个新的字符串，但是不会修改原有字符串的内容</span></span><br><span class="line">hh = hello_str.replace(<span class="string">"world"</span>, <span class="string">"python"</span>)</span><br><span class="line">print(hh)</span><br><span class="line">print(hello_str)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">11</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">²</span><br><span class="line">True</span><br><span class="line">True</span><br><span class="line">2</span><br><span class="line">-1</span><br><span class="line">hello python</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+            <h3 id="基本教程"><a href="#基本教程" class="headerlink" title="基本教程"></a>基本教程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">文档字符串的应用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。</span></span><br><span class="line"><span class="string">第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非</span></span><br><span class="line"><span class="string">凡功能的文档字符串中都遵循这一约定。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def print_max(x, y):</span><br><span class="line">    <span class="string">''</span><span class="string">'Prints the maximum of two numbers.打印两个数值中的最大数。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The two values must be integers.这两个数都应该是整数</span></span><br><span class="line"><span class="string">    '</span><span class="string">''</span></span><br><span class="line">    <span class="comment"># 如果可能，将其转换至整数类型</span></span><br><span class="line">    x = int(x)</span><br><span class="line">    y = int(y)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> x &gt; y:</span><br><span class="line">        <span class="built_in">print</span>(x, <span class="string">'is maximum'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(y, <span class="string">'is maximum'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print_max(3, 5)</span><br><span class="line"><span class="built_in">print</span>(print_max.__doc__)</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中对列表和元组的切片操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/28/python中对列表和元组的切片操作/" itemprop="url">python中对列表和元组的切片操作</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
+                2018-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/28/python中对列表和元组的切片操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中对列表和元组的切片操作/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/28/python中对列表和元组的切片操作/" class="leancloud_visitors" data-flag-title="python中对列表和元组的切片操作">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  104
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="python中对列表和元组的切片操作"><a href="#python中对列表和元组的切片操作" class="headerlink" title="python中对列表和元组的切片操作"></a>python中对列表和元组的切片操作</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切片方法用于列表、元组,切片方法不能用于字典</span></span><br><span class="line">list_tmp = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">tuple_tmp = (<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment"># 列表输出</span></span><br><span class="line">print([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>][<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(list_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line"><span class="comment"># 元组输出</span></span><br><span class="line">print((<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(tuple_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2]</span><br><span class="line">[1, 2]</span><br><span class="line">(3, 2)</span><br><span class="line">(3, 2)</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2062,6 +1867,201 @@
             <h3 id="python中字符串的一些方法回顾-文本对齐、去除空白"><a href="#python中字符串的一些方法回顾-文本对齐、去除空白" class="headerlink" title="python中字符串的一些方法回顾(文本对齐、去除空白)"></a>python中字符串的一些方法回顾(文本对齐、去除空白)</h3><p>文本对齐的方法，以及用strip函数去除字符串的中空白字符</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取下来的</span></span><br><span class="line"><span class="comment"># 要求：顺序并且居中对齐输出一下内容</span></span><br><span class="line">poem = [<span class="string">"\t\n登鹤鹊楼"</span>,</span><br><span class="line">        <span class="string">"王之涣"</span>,</span><br><span class="line">        <span class="string">"白日依山尽\t\n"</span>,</span><br><span class="line">        <span class="string">"黄河入海流"</span>,</span><br><span class="line">        <span class="string">"欲穷千里目"</span>,</span><br><span class="line">        <span class="string">"更上一层楼"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> poem_str <span class="keyword">in</span> poem:</span><br><span class="line">    <span class="comment"># 先使用strip方法去除字符串中的空白字符</span></span><br><span class="line">    <span class="comment"># 居中对齐  </span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">      Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    print(<span class="string">"|%s|"</span> % poem_str.strip().center(<span class="number">10</span>, <span class="string">"　"</span>))</span><br><span class="line">    <span class="comment"># 向左对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.ljust(10, "　"))</span></span><br><span class="line">    <span class="comment"># 向右对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.rjust(10, "　"))</span></span><br></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|　　　登鹤鹊楼　　　|</span><br><span class="line">|　　　王之涣　　　　|</span><br><span class="line">|　　白日依山尽　　　|</span><br><span class="line">|　　黄河入海流　　　|</span><br><span class="line">|　　欲穷千里目　　　|</span><br><span class="line">|　　更上一层楼　　　|</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/python中字符串的一些方法回顾/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/28/python中字符串的一些方法回顾/" itemprop="url">python中字符串的一些方法回顾</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-28T20:27:37+08:00">
+                2018-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/28/python中字符串的一些方法回顾/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/python中字符串的一些方法回顾/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/28/python中字符串的一些方法回顾/" class="leancloud_visitors" data-flag-title="python中字符串的一些方法回顾">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  265
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="python中字符串的一些方法回顾"><a href="#python中字符串的一些方法回顾" class="headerlink" title="python中字符串的一些方法回顾"></a>python中字符串的一些方法回顾</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">hello_str = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、统计字符串长度</span></span><br><span class="line">print(len(hello_str))</span><br><span class="line"><span class="comment"># 2、统计某一个小字符串出现的次数</span></span><br><span class="line">print(hello_str.count(<span class="string">"llo"</span>))</span><br><span class="line"><span class="comment"># 3、某一个子字符串出现的位置</span></span><br><span class="line">print(hello_str.index(<span class="string">"llo"</span>))</span><br><span class="line"><span class="comment"># 4、输出数学的平方</span></span><br><span class="line">num_str = <span class="string">"\u00b2"</span></span><br><span class="line">print(num_str)</span><br><span class="line"><span class="comment"># 5、判断是否以指定字符串开始</span></span><br><span class="line">print(hello_str.startswith(<span class="string">"hello"</span>))</span><br><span class="line"><span class="comment"># 6、判断是否以指定字符串结束</span></span><br><span class="line">print(hello_str.endswith(<span class="string">"world"</span>))</span><br><span class="line"><span class="comment"># 7、查找指定字符串</span></span><br><span class="line"><span class="comment"># 在index方法中，如果指定的字符串不存在，会直接报错</span></span><br><span class="line"><span class="comment"># 在find方法中，如果指定的字符串不存在，会返回-1</span></span><br><span class="line">print(hello_str.find(<span class="string">"llo"</span>))</span><br><span class="line">print(hello_str.find(<span class="string">"CCC"</span>))</span><br><span class="line"><span class="comment"># 8、替换字符串</span></span><br><span class="line"><span class="comment"># replace方法执行完成之后会返回一个新的字符串，但是不会修改原有字符串的内容</span></span><br><span class="line">hh = hello_str.replace(<span class="string">"world"</span>, <span class="string">"python"</span>)</span><br><span class="line">print(hh)</span><br><span class="line">print(hello_str)</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">11</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">²</span><br><span class="line">True</span><br><span class="line">True</span><br><span class="line">2</span><br><span class="line">-1</span><br><span class="line">hello python</span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
 
           
         

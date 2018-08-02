@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[选择排序]]></title>
-    <url>%2F2018%2F07%2F28%2F%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[简单的写一下选择排序的源代码定义选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。 选择排序是不稳定的排序方法（比如序列[5， 5， 3]第一次就将第一个[5]与[3]交换，导致第一个5挪动到第二个5后面）。 时间复杂度选择排序的交换操作介于 0 和 (n - 1） 次之间。选择排序的比较操作为 n (n - 1） / 2 次之间。选择排序的赋值操作介于 0 和 3 (n - 1） 次之间。 比较次数O(n^2），比较次数与关键字的初始状态无关，总的比较次数N=(n-1）+(n-2）+…+1=n*(n-1）/2。交换次数O(n），最好情况是，已经有序，交换0次；最坏情况交换n-1次，逆序交换n/2次。交换次数比冒泡排序少多了，由于交换所需CPU时间比比较所需的CPU时间多，n值较小时，选择排序比冒泡排序快 参考代码 1234567891011121314151617181920212223242526272829303132#include&lt;stdio.h&gt;//选择排序 int main() &#123; void selectsort(int array[],int n); int a[10],i; printf("输入10个数:\n"); for(i=0; i&lt;10; i++) &#123; scanf("%d",&amp;a[i]); &#125; selectsort(a,10); printf("选择排序之后:\n"); for(i=0; i&lt;10; i++) &#123; printf("%d ",a[i]); &#125; printf("\n"); return 0;&#125;void selectsort(int array[],int n) &#123; int i,j,min,temp; for(i=0; i&lt;n-1; i++) &#123; min=i; for(j=i+1; j&lt;n; j++)&#123; if(array[j]&lt;array[min]) min=j; &#125; temp=array[min]; array[min]=array[i]; array[i]=temp; &#125;&#125;]]></content>
+    <title><![CDATA[装饰器]]></title>
+    <url>%2F2018%2F07%2F28%2F%E8%A3%85%E9%A5%B0%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[装饰器装饰器（Decorators）是应用包装函数的快捷方式。这有助于将某一功能与一些代码一遍又一遍地“包装”。举个例子，我为自己创建了一个 retry 装饰器，这样我可以将其运用到任何函数之中，如果在一次运行中抛出了任何错误，它就会尝试重新运行，直到最大次数 5 次，并且每次运行期间都会有一定的延迟。这对于你在对一台远程计算机进行网络调用的情况十分有用： 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445# 从time模块引入sleep函数from time import sleepfrom functools import wrapsimport logginglogging.basicConfig()log = logging.getLogger("retry")def retry(f): @wraps(f) def wrapped_f(*args, **kwargs): MAX_ATTEMPTS = 5 for attempt in range(1, MAX_ATTEMPTS + 1): try: return f(*args, **kwargs) except: log.exception("Attempt %s %s failed : %s", attempt, MAX_ATTEMPTS, (args, kwargs)) sleep(10 * attempt) log.critical("All %s attempts failed : %s", MAX_ATTEMPTS, (args, kwargs)) return wrapped_fcounter = 0@retrydef save_to_database(arg): print("Write to a database or make a network call or etc.") print("This will be automatically retried if exception is thrown.") global counter counter += 1 # 这将在第一次调用时抛出异常 # 在第二次运行时正常工作（也就是重试） if counter &lt; 2: raise ValueError(arg)# 让你写的脚本模块既可以导入到别的模块中用，另外该模块自己也可执行。if __name__ == '__main__': save_to_database("Some bad value") 运行结果1234567891011ERROR:retry:Attempt 1 5 failed : (('Some bad value',), &#123;&#125;)Traceback (most recent call last): File "E:/PythonProject/more/more_decorators.py", line 16, in wrapped_f return f(*args, **kwargs) File "E:/PythonProject/more/more_decorators.py", line 40, in save_to_database raise ValueError(arg)ValueError: Some bad valueWrite to a database or make a network call or etc.This will be automatically retried if exception is thrown.Write to a database or make a network call or etc.This will be automatically retried if exception is thrown.]]></content>
       <categories>
-        <category>C语言</category>
+        <category>Python</category>
       </categories>
       <tags>
-        <tag>排序算法</tag>
+        <tag>基本教程</tag>
       </tags>
   </entry>
   <entry>
@@ -23,20 +23,31 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[装饰器]]></title>
-    <url>%2F2018%2F07%2F28%2F%E8%A3%85%E9%A5%B0%E5%99%A8%2F</url>
-    <content type="text"><![CDATA[装饰器装饰器（Decorators）是应用包装函数的快捷方式。这有助于将某一功能与一些代码一遍又一遍地“包装”。举个例子，我为自己创建了一个 retry 装饰器，这样我可以将其运用到任何函数之中，如果在一次运行中抛出了任何错误，它就会尝试重新运行，直到最大次数 5 次，并且每次运行期间都会有一定的延迟。这对于你在对一台远程计算机进行网络调用的情况十分有用： 代码123456789101112131415161718192021222324252627282930313233343536373839404142434445# 从time模块引入sleep函数from time import sleepfrom functools import wrapsimport logginglogging.basicConfig()log = logging.getLogger("retry")def retry(f): @wraps(f) def wrapped_f(*args, **kwargs): MAX_ATTEMPTS = 5 for attempt in range(1, MAX_ATTEMPTS + 1): try: return f(*args, **kwargs) except: log.exception("Attempt %s %s failed : %s", attempt, MAX_ATTEMPTS, (args, kwargs)) sleep(10 * attempt) log.critical("All %s attempts failed : %s", MAX_ATTEMPTS, (args, kwargs)) return wrapped_fcounter = 0@retrydef save_to_database(arg): print("Write to a database or make a network call or etc.") print("This will be automatically retried if exception is thrown.") global counter counter += 1 # 这将在第一次调用时抛出异常 # 在第二次运行时正常工作（也就是重试） if counter &lt; 2: raise ValueError(arg)# 让你写的脚本模块既可以导入到别的模块中用，另外该模块自己也可执行。if __name__ == '__main__': save_to_database("Some bad value") 运行结果1234567891011ERROR:retry:Attempt 1 5 failed : (('Some bad value',), &#123;&#125;)Traceback (most recent call last): File "E:/PythonProject/more/more_decorators.py", line 16, in wrapped_f return f(*args, **kwargs) File "E:/PythonProject/more/more_decorators.py", line 40, in save_to_database raise ValueError(arg)ValueError: Some bad valueWrite to a database or make a network call or etc.This will be automatically retried if exception is thrown.Write to a database or make a network call or etc.This will be automatically retried if exception is thrown.]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F28%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>基本教程</tag>
+        <tag>python面向对象</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F28%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[选择排序]]></title>
+    <url>%2F2018%2F07%2F28%2F%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[简单的写一下选择排序的源代码定义选择排序（Selection sort）是一种简单直观的排序算法。它的工作原理是每一次从待排序的数据元素中选出最小（或最大）的一个元素，存放在序列的起始位置，直到全部待排序的数据元素排完。 选择排序是不稳定的排序方法（比如序列[5， 5， 3]第一次就将第一个[5]与[3]交换，导致第一个5挪动到第二个5后面）。 时间复杂度选择排序的交换操作介于 0 和 (n - 1） 次之间。选择排序的比较操作为 n (n - 1） / 2 次之间。选择排序的赋值操作介于 0 和 3 (n - 1） 次之间。 比较次数O(n^2），比较次数与关键字的初始状态无关，总的比较次数N=(n-1）+(n-2）+…+1=n*(n-1）/2。交换次数O(n），最好情况是，已经有序，交换0次；最坏情况交换n-1次，逆序交换n/2次。交换次数比冒泡排序少多了，由于交换所需CPU时间比比较所需的CPU时间多，n值较小时，选择排序比冒泡排序快 参考代码 1234567891011121314151617181920212223242526272829303132#include&lt;stdio.h&gt;//选择排序 int main() &#123; void selectsort(int array[],int n); int a[10],i; printf("输入10个数:\n"); for(i=0; i&lt;10; i++) &#123; scanf("%d",&amp;a[i]); &#125; selectsort(a,10); printf("选择排序之后:\n"); for(i=0; i&lt;10; i++) &#123; printf("%d ",a[i]); &#125; printf("\n"); return 0;&#125;void selectsort(int array[],int n) &#123; int i,j,min,temp; for(i=0; i&lt;n-1; i++) &#123; min=i; for(j=i+1; j&lt;n; j++)&#123; if(array[j]&lt;array[min]) min=j; &#125; temp=array[min]; array[min]=array[i]; array[i]=temp; &#125;&#125;]]></content>
+      <categories>
+        <category>C语言</category>
+      </categories>
+      <tags>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[继承的运用]]></title>
+    <url>%2F2018%2F07%2F28%2F%E7%BB%A7%E6%89%BF%E7%9A%84%E8%BF%90%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[继承的运用代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849# 继承的运用# coding = UTF-8class SchoolMember: '''代表学校里的成员。''' def __init__(self, name, age): self.name = name self.age = age print('(Initialized SchoolMember: &#123;&#125;)'.format((self.name))) def tell(self): '''告诉我有关我的细节。''' print('Name:"&#123;&#125;" Age:"&#123;&#125;"'.format(self.name, self.age), end=" ")class Teacher(SchoolMember): '''代表一位老师。''' def __init__(self, name, age, salary): SchoolMember.__init__(self, name, age) self.salary = salary print('(Initialized Teacher: &#123;&#125;)'.format(self.name)) def tell(self): SchoolMember.tell(self) print('Salary: "&#123;:d&#125;"'.format(self.salary))class Student(SchoolMember): '''代表一位学生。''' def __init__(self, name, age, marks): SchoolMember.__init__(self, name, age) self.marks = marks print('(Initialized Student: &#123;&#125;)'.format(self.name)) def tell(self): SchoolMember.tell(self) print('Marks: "&#123;:d&#125;"'.format(self.marks))t = Teacher('Mrs. Shrividya', 40, 30000)s = Student('Swaroop', 25, 75)print()members = [t, s]for member in members: # 对全体师生工作 member.tell() 运行结果 1234567(Initialized SchoolMember: Mrs. Shrividya)(Initialized Teacher: Mrs. Shrividya)(Initialized SchoolMember: Swaroop)(Initialized Student: Swaroop)Name:"Mrs. Shrividya" Age:"40" Salary: "30000"Name:"Swaroop" Age:"25" Marks: "75"]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -56,17 +67,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[继承的运用]]></title>
-    <url>%2F2018%2F07%2F28%2F%E7%BB%A7%E6%89%BF%E7%9A%84%E8%BF%90%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[继承的运用代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849# 继承的运用# coding = UTF-8class SchoolMember: '''代表学校里的成员。''' def __init__(self, name, age): self.name = name self.age = age print('(Initialized SchoolMember: &#123;&#125;)'.format((self.name))) def tell(self): '''告诉我有关我的细节。''' print('Name:"&#123;&#125;" Age:"&#123;&#125;"'.format(self.name, self.age), end=" ")class Teacher(SchoolMember): '''代表一位老师。''' def __init__(self, name, age, salary): SchoolMember.__init__(self, name, age) self.salary = salary print('(Initialized Teacher: &#123;&#125;)'.format(self.name)) def tell(self): SchoolMember.tell(self) print('Salary: "&#123;:d&#125;"'.format(self.salary))class Student(SchoolMember): '''代表一位学生。''' def __init__(self, name, age, marks): SchoolMember.__init__(self, name, age) self.marks = marks print('(Initialized Student: &#123;&#125;)'.format(self.name)) def tell(self): SchoolMember.tell(self) print('Marks: "&#123;:d&#125;"'.format(self.marks))t = Teacher('Mrs. Shrividya', 40, 30000)s = Student('Swaroop', 25, 75)print()members = [t, s]for member in members: # 对全体师生工作 member.tell() 运行结果 1234567(Initialized SchoolMember: Mrs. Shrividya)(Initialized Teacher: Mrs. Shrividya)(Initialized SchoolMember: Swaroop)(Initialized Student: Swaroop)Name:"Mrs. Shrividya" Age:"40" Salary: "30000"Name:"Swaroop" Age:"25" Marks: "75"]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>python面向对象</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[简单的异常处理]]></title>
     <url>%2F2018%2F07%2F28%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
     <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
@@ -75,28 +75,6 @@
       </categories>
       <tags>
         <tag>python异常处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[用户自己引发的异常处理]]></title>
-    <url>%2F2018%2F07%2F28%2F%E7%94%A8%E6%88%B7%E8%87%AA%E5%B7%B1%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[由用户自行定义的异常类处理代码12345678910111213141516171819202122232425# encoding = UTF-8# 用户自己引发异常class ShortInputException(Exception): '''一个由用户定义的异常类''' def __init__(self, length, atleast): Exception.__init__(self) self.length = length self.atleast = atleasttry: text = input('Enter someting --&gt;') if len(text) &lt; 3: raise ShortInputException(len(text), 3) # 其他工作能够在此处正常运行except EOFError: print('Why did you do an EOF on me?')except ShortInputException as ex: print(('ShortInputException: The input was ' + '&#123;0&#125; long,expected at least &#123;1&#125;') .format(ex.length, ex.atleast))else: print('No exception was raised.') 运行结果 1.如果输入超过了3位数，截获错误 12Enter someting --&gt;88888No exception was raised. 2.如果输入没有超过3位数 12Enter someting --&gt;12ShortInputException: The input was 2 long,expected at least 3]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>python异常处理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[最大公约数和最小公倍数]]></title>
-    <url>%2F2018%2F07%2F28%2F%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[使用的辗转相除法辗转相除法：辗转相除法是求两个自然数的最大公约数的一种方法，也叫欧几里德算法。 例如，求（319，377）： ∵ 319÷377=0（余319） ∴（319，377）=（377，319）； ∵ 377÷319=1（余58） ∴（377，319）=（319，58）； ∵ 319÷58=5（余29） ∴ （319，58）=（58，29）； ∵ 58÷29=2（余0） ∴ （58，29）= 29； ∴ （319，377）=29。 可以写成右边的格式。 用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。 代码 12345678910111213141516171819202122232425262728293031#include&lt;stdio.h&gt;int main() &#123; int maxgongyue(int x,int y); int mingongbei(int num,int finax); int x,y,num; printf("请输入俩个数:\n"); scanf("%d %d",&amp;x,&amp;y); num=x*y; printf("最大公约数是:%d\n",maxgongyue(x,y)); printf("最小公倍数是:%d\n",mingongbei(num,maxgongyue(x,y))); return 0;&#125;int maxgongyue(int x,int y)&#123; int temp,yushu; if(x&lt;y) &#123; //交换成大的在前，小的在后 temp=x; x=y; y=temp; &#125; while(y!=0) &#123; //辗转相除法，如果余数不为0，则循环 yushu=x%y; //求余数 x=y; //将小的赋值给大的 y=yushu; //将余数赋值给小的 &#125;//一直除到余数为0时，这时候的x就是最大公约数 return(x);&#125;int mingongbei(int num,int finax)&#123; return(num/finax);&#125;]]></content>
-      <categories>
-        <category>C语言</category>
-      </categories>
-      <tags>
-        <tag>经典算法</tag>
       </tags>
   </entry>
   <entry>
@@ -111,6 +89,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[最大公约数和最小公倍数]]></title>
+    <url>%2F2018%2F07%2F28%2F%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[使用的辗转相除法辗转相除法：辗转相除法是求两个自然数的最大公约数的一种方法，也叫欧几里德算法。 例如，求（319，377）： ∵ 319÷377=0（余319） ∴（319，377）=（377，319）； ∵ 377÷319=1（余58） ∴（377，319）=（319，58）； ∵ 319÷58=5（余29） ∴ （319，58）=（58，29）； ∵ 58÷29=2（余0） ∴ （58，29）= 29； ∴ （319，377）=29。 可以写成右边的格式。 用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。 代码 12345678910111213141516171819202122232425262728293031#include&lt;stdio.h&gt;int main() &#123; int maxgongyue(int x,int y); int mingongbei(int num,int finax); int x,y,num; printf("请输入俩个数:\n"); scanf("%d %d",&amp;x,&amp;y); num=x*y; printf("最大公约数是:%d\n",maxgongyue(x,y)); printf("最小公倍数是:%d\n",mingongbei(num,maxgongyue(x,y))); return 0;&#125;int maxgongyue(int x,int y)&#123; int temp,yushu; if(x&lt;y) &#123; //交换成大的在前，小的在后 temp=x; x=y; y=temp; &#125; while(y!=0) &#123; //辗转相除法，如果余数不为0，则循环 yushu=x%y; //求余数 x=y; //将小的赋值给大的 y=yushu; //将余数赋值给小的 &#125;//一直除到余数为0时，这时候的x就是最大公约数 return(x);&#125;int mingongbei(int num,int finax)&#123; return(num/finax);&#125;]]></content>
+      <categories>
+        <category>C语言</category>
+      </categories>
+      <tags>
+        <tag>经典算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[整合建立输出增删改查的链表]]></title>
     <url>%2F2018%2F07%2F28%2F%E6%95%B4%E5%90%88%E5%BB%BA%E7%AB%8B%E8%BE%93%E5%87%BA%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5%E7%9A%84%E9%93%BE%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[简单贴一下链表的建立等常用操作 链表定义链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。 源代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;#define LEN sizeof(struct Student)//输入格式 1 89// 2 99// 0 0struct Student &#123; long num; float score; struct Student *next;&#125;;int n;struct Student *creat();struct Student *del(struct Student *head,long num);struct Student *insert(struct Student *head,struct Student *stu);void print(struct Student *head);int main() &#123; struct Student *head,*stu; long del_num; printf("请输入数据:\n"); head=creat(); print(head); printf("请输入要删除的数字:\n"); scanf("%ld",&amp;del_num); while(del_num!=0) &#123; //当输入的学号为0时结束循环 head=del(head,del_num); //删除结点后返回链表的头地址 print(head); //输出全部结点 printf("请输入要删除的数字:\n"); scanf("%ld",&amp;del_num); &#125; printf("请输入要添加的数据:\n"); stu=(struct Student *)malloc(LEN); //开辟一个新结点 scanf("%ld %f",&amp;stu-&gt;num,&amp;stu-&gt;score); while(stu-&gt;num!=0) &#123; //当输入的学号为0时结束循环 head=insert(head,stu); //返回链表的头地址，赋值给head print(head); //输出全部结点 printf("请输入要添加的数据:\n"); stu=(struct Student *)malloc(LEN); //开辟一个新结点 scanf("%ld %f",&amp;stu-&gt;num,&amp;stu-&gt;score); &#125; return 0;&#125;struct Student *creat(void) &#123; //返回一个指向链表头的指针 struct Student *head; struct Student *p1,*p2; n=0; p1=p2=(struct Student *)malloc(LEN);//开辟一个新的结点使p1，p2指向它 scanf("%ld %f",&amp;p1-&gt;num,&amp;p1-&gt;score);//输入第1个学生的学号和成绩 head=NULL; while(p1-&gt;num!=0) &#123; n=n+1; if(n==1) &#123; //如果这个结点是头结点，那么就把head指向p1 head=p1; &#125; else &#123; p2-&gt;next=p1; //如果不是，则使这个结点的next指向新开辟结点 &#125; p2=p1; //使p2指向刚才建立的结点 p1=(struct Student *)malloc(LEN);//生成新的结点 ，使p1指向它 scanf("%ld %f",&amp;p1-&gt;num,&amp;p1-&gt;score); &#125; p2-&gt;next=NULL; //当p2是表尾时，把NULL赋值给next，结束链表建立 return(head);&#125;void print(struct Student *head) &#123; struct Student *p; printf("\nNow,These %d records are:\n",n); p=head; if(head!=NULL) &#123; do &#123; printf("%ld %5.1f\n",p-&gt;num,p-&gt;score); p=p-&gt;next; &#125; while(p!=NULL); &#125;&#125;struct Student *insert(struct Student *head,struct Student *stu) &#123; struct Student *p0,*p1,*p2; p1=head; //使p1指向头结点 p0=stu; //指向要插入的结点 if(head==NULL) &#123; //原来的链表是空表 head=p0; p0-&gt;next=NULL; &#125; else &#123; while((p0-&gt;num&gt;p1-&gt;num)&amp;&amp;(p1-&gt;next!=NULL)) &#123; p2=p1; //使p2指向刚才p1指向的结点 p1=p1-&gt;next;//p1后移一个结点 &#125; if(p0-&gt;num&lt;p1-&gt;num) &#123; if(head==p1) &#123; head=p0; //插到原来第1个结点之前 &#125; else &#123; p2-&gt;next=p0;//插到p2指向的结点之后 p0-&gt;next=p1; &#125; &#125; else &#123; p1-&gt;next=p0; p0-&gt;next=NULL; //插到最后的结点之后 &#125; &#125; n=n+1; return(head); //结点数+1&#125;struct Student *del(struct Student *head,long num) &#123; struct Student *p1,*p2; if(head==NULL) &#123; printf("这是一张空表\n"); return(head); &#125; p1=head; //使p1指向第1个结点 while(num!=p1-&gt;num&amp;&amp;p1-&gt;next!=NULL) &#123; //p1指向的不是所要找的结点且后面还有结点 p2=p1; p1=p1-&gt;next; //p1向后移一个结点 &#125; if(num==p1-&gt;num) &#123; //找到了 if(p1==head) &#123; //若p1指向的是首结点，把第2个结点地址赋予head head=p1-&gt;next; &#125; else &#123; //否则将下一个结点地址赋给前一结点地址 p2-&gt;next=p1-&gt;next; &#125; printf("删除:%ld\n",num); n=n-1; &#125; else &#123; printf("%ld没有找到\n",num);//找不到该结点 &#125; return(head);&#125;]]></content>
@@ -119,6 +108,17 @@
       </categories>
       <tags>
         <tag>链表算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用户自己引发的异常处理]]></title>
+    <url>%2F2018%2F07%2F28%2F%E7%94%A8%E6%88%B7%E8%87%AA%E5%B7%B1%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[由用户自行定义的异常类处理代码12345678910111213141516171819202122232425# encoding = UTF-8# 用户自己引发异常class ShortInputException(Exception): '''一个由用户定义的异常类''' def __init__(self, length, atleast): Exception.__init__(self) self.length = length self.atleast = atleasttry: text = input('Enter someting --&gt;') if len(text) &lt; 3: raise ShortInputException(len(text), 3) # 其他工作能够在此处正常运行except EOFError: print('Why did you do an EOF on me?')except ShortInputException as ex: print(('ShortInputException: The input was ' + '&#123;0&#125; long,expected at least &#123;1&#125;') .format(ex.length, ex.atleast))else: print('No exception was raised.') 运行结果 1.如果输入超过了3位数，截获错误 12Enter someting --&gt;88888No exception was raised. 2.如果输入没有超过3位数 12Enter someting --&gt;12ShortInputException: The input was 2 long,expected at least 3]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python异常处理</tag>
       </tags>
   </entry>
   <entry>
@@ -177,9 +177,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[在函数中接受元组与字典]]></title>
-    <url>%2F2018%2F07%2F28%2F%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E6%8E%A5%E5%8F%97%E5%85%83%E7%BB%84%E4%B8%8E%E5%AD%97%E5%85%B8%2F</url>
-    <content type="text"><![CDATA[在函数中接受元组与字典 有一种特殊方法，即分别使用 * 或 ** 作为元组或字典的前缀，来使它们作为一个参数为函数所接收。当函数需要一个可变数量的实参时，这将非常有用。 代码12345678910111213141516# 当args变量前面添加了一个*时，函数的所有其他的参数都将传递到args中，并作为一个元组储存# 如果采用的是 ** 前缀，则额外的参数将被视为字典的键值—值配对。def powersum(power, *args): '''Return the sum of each argument raised to the specified power.''' total = 0 # 在for循环中，i每次获取的是args的值，也就是说初值由args而定 for i in args: total += pow(i, power) return total# 这里可以debug一下看下i的变化，在这里一开始的时候power=2，*args=（3，4）# i在初始时为3print(powersum(2, 3, 4))# 这里i初始时为10print(powersum(2, 10)) 运行结果 25100]]></content>
+    <title><![CDATA[利用python进行文件的自动备份（第二版）]]></title>
+    <url>%2F2018%2F07%2F28%2F%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[利用python进行文件的自动备份（第二版）代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354import osimport time'''第二版是第一版的改进，启用一种更好的文件命名机制——使用时间作为文件名，存储在以当前时间为名字的文件夹中，这一文件夹则照常存储在主备份目录下。'''# 例如在 Windows 下：source = [r'E:\aaa.txt']# 在这里要注意到我们必须在字符串中使用双引号# 用以括起其中包含空格的名称。# 2. 备份文件必须存储在一个# 主备份目录中# 例如在 Windows 下：target_dir = 'E:\\Backup\\'# 要记得将这里的目录地址修改至你将使用的路径# 如果目标目录还不存在，则进行创建if not os.path.exists(target_dir): os.mkdir(target_dir) # 创建目录# 3.备份文件将打包压缩成zip文件# 4.zip压缩文件的文件名由当前日期与时间构成# 其中os.sep 表示更改操作系统中的路径分隔符today = target_dir + os.sep + time.strftime('%Y%m%d')# 将当前时间作为zip文件的文件名now = time.strftime('%H%M%S')# zip文件名称格式target = today + os.sep + now + 'zip'# 如果子目录尚不存在则创建一个if not os.path.exists(today): os.mkdir(today) print('Successfully created diectory', today)# 5.原本这里是使用zip命令，但是在windows环境下面这个是不是系统命令，所以解决方案如下：'''1.1.下载7-Zip并安装2.将安装文件中的7z.exe移至‘C:\Windows’目录下3.将程序中的 zip_command = "zip -qr '%s' %s"%(target,''.join(source))改为：zip_command = "7z a %s %s"%(target, ' '.join(source))或者是"7z a &#123;0&#125; &#123;1&#125;".format(target, ' '.join(source))'''zip_command = "7z a &#123;0&#125; &#123;1&#125;".format(target, ' '.join(source))# 运行备份print('Zip command is:')print(zip_command)print('Running:')if os.system(zip_command) == 0: print('Successful backup to', target)else: print('Backup FAILED') 运行结果123456789101112131415161718Zip command is:7z a E:\Backup\\20180723\185035zip E:\aaa.txtRunning:7-Zip 18.05 (x64) : Copyright (c) 1999-2018 Igor Pavlov : 2018-04-30Scanning the drive:1 file, 10 bytes (1 KiB)Creating archive: E:\Backup\\20180723\185035zip.7zAdd new data to archive: 1 file, 10 bytes (1 KiB)Files read from disk: 1Archive size: 136 bytes (1 KiB)Everything is OkSuccessful backup to E:\Backup\\20180723\185035zip]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -188,9 +188,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[利用python进行文件的自动备份（第二版）]]></title>
-    <url>%2F2018%2F07%2F28%2F%E5%88%A9%E7%94%A8python%E8%BF%9B%E8%A1%8C%E6%96%87%E4%BB%B6%E7%9A%84%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%EF%BC%88%E7%AC%AC%E4%BA%8C%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[利用python进行文件的自动备份（第二版）代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354import osimport time'''第二版是第一版的改进，启用一种更好的文件命名机制——使用时间作为文件名，存储在以当前时间为名字的文件夹中，这一文件夹则照常存储在主备份目录下。'''# 例如在 Windows 下：source = [r'E:\aaa.txt']# 在这里要注意到我们必须在字符串中使用双引号# 用以括起其中包含空格的名称。# 2. 备份文件必须存储在一个# 主备份目录中# 例如在 Windows 下：target_dir = 'E:\\Backup\\'# 要记得将这里的目录地址修改至你将使用的路径# 如果目标目录还不存在，则进行创建if not os.path.exists(target_dir): os.mkdir(target_dir) # 创建目录# 3.备份文件将打包压缩成zip文件# 4.zip压缩文件的文件名由当前日期与时间构成# 其中os.sep 表示更改操作系统中的路径分隔符today = target_dir + os.sep + time.strftime('%Y%m%d')# 将当前时间作为zip文件的文件名now = time.strftime('%H%M%S')# zip文件名称格式target = today + os.sep + now + 'zip'# 如果子目录尚不存在则创建一个if not os.path.exists(today): os.mkdir(today) print('Successfully created diectory', today)# 5.原本这里是使用zip命令，但是在windows环境下面这个是不是系统命令，所以解决方案如下：'''1.1.下载7-Zip并安装2.将安装文件中的7z.exe移至‘C:\Windows’目录下3.将程序中的 zip_command = "zip -qr '%s' %s"%(target,''.join(source))改为：zip_command = "7z a %s %s"%(target, ' '.join(source))或者是"7z a &#123;0&#125; &#123;1&#125;".format(target, ' '.join(source))'''zip_command = "7z a &#123;0&#125; &#123;1&#125;".format(target, ' '.join(source))# 运行备份print('Zip command is:')print(zip_command)print('Running:')if os.system(zip_command) == 0: print('Successful backup to', target)else: print('Backup FAILED') 运行结果123456789101112131415161718Zip command is:7z a E:\Backup\\20180723\185035zip E:\aaa.txtRunning:7-Zip 18.05 (x64) : Copyright (c) 1999-2018 Igor Pavlov : 2018-04-30Scanning the drive:1 file, 10 bytes (1 KiB)Creating archive: E:\Backup\\20180723\185035zip.7zAdd new data to archive: 1 file, 10 bytes (1 KiB)Files read from disk: 1Archive size: 136 bytes (1 KiB)Everything is OkSuccessful backup to E:\Backup\\20180723\185035zip]]></content>
+    <title><![CDATA[在函数中接受元组与字典]]></title>
+    <url>%2F2018%2F07%2F28%2F%E5%9C%A8%E5%87%BD%E6%95%B0%E4%B8%AD%E6%8E%A5%E5%8F%97%E5%85%83%E7%BB%84%E4%B8%8E%E5%AD%97%E5%85%B8%2F</url>
+    <content type="text"><![CDATA[在函数中接受元组与字典 有一种特殊方法，即分别使用 * 或 ** 作为元组或字典的前缀，来使它们作为一个参数为函数所接收。当函数需要一个可变数量的实参时，这将非常有用。 代码12345678910111213141516# 当args变量前面添加了一个*时，函数的所有其他的参数都将传递到args中，并作为一个元组储存# 如果采用的是 ** 前缀，则额外的参数将被视为字典的键值—值配对。def powersum(power, *args): '''Return the sum of each argument raised to the specified power.''' total = 0 # 在for循环中，i每次获取的是args的值，也就是说初值由args而定 for i in args: total += pow(i, power) return total# 这里可以debug一下看下i的变化，在这里一开始的时候power=2，*args=（3，4）# i在初始时为3print(powersum(2, 3, 4))# 这里i初始时为10print(powersum(2, 10)) 运行结果 25100]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -221,17 +221,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[列表推导]]></title>
-    <url>%2F2018%2F07%2F28%2F%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%2F</url>
-    <content type="text"><![CDATA[列表推导列表推导（List Comprehension）用于从一份现有的列表中得到一份新列表。想象一下，现在你已经有了一份数字列表，你想得到一个相应的列表，其中的数字在大于 2 的情况下将乘以2。列表推导就是这类情况的理想选择。 代码1234567891011121314151617# 列表推导'''程序理解：当满足了某些条件时（ if i &gt; 2 ），我们进行指定的操作（ 2*i ），以此来获得一份新的列表。要注意到原始列表依旧保持不变。'''listone = [2, 3, 4]listtwo = [2 * i for i in listone if i &gt; 2]print(listtwo)'''列表推导的优点在于，当我们使用循环来处理列表中的每个元素并将其存储到新的列表中时它能够减少代码量''' 运行结果 [6, 8]]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>基本教程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[任意行数的杨辉三角形（动态分配）]]></title>
     <url>%2F2018%2F07%2F28%2F%E4%BB%BB%E6%84%8F%E8%A1%8C%E6%95%B0%E7%9A%84%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2%EF%BC%88%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%EF%BC%89%2F</url>
     <content type="text"><![CDATA[杨辉三角形金字塔型和直角三角形 代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main() &#123; int i,j,num; int **a; printf("请输入你想打印的杨辉三角形行数:\n"); scanf("%d",&amp;num); a=(int **)malloc(num*sizeof(int *)); for (i = 0; i &lt; num; ++i) &#123; //为每列分配num个大小空间 a[i] = (int*)malloc(sizeof(int)*num); &#125; //书上分开打印// for(i=0; i&lt;num; i++) &#123;// a[i][i]=1;// a[i][0]=1;// &#125;// for(i=2; i&lt;num; i++) &#123;// for(j=1; j&lt;=i-1; j++) &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125;// &#125;// for(i=0;i&lt;num;i++)&#123;// for(j=0;j&lt;=i;j++)&#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125;// printf("\n"); //优化 for(i=0; i&lt;num; i++) &#123; for(j=0; j&lt;=i; j++) &#123;// if(i==0||j==0||j==i) &#123;// a[i][j]=1;// &#125; else &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125; printf("%4d",(a[i][j])=(i==0||j==0||j==i)?1:a[i-1][j-1]+a[i-1][j]); &#125; printf("\n"); &#125;// for(i=0; i&lt;num; i++) &#123;// for(j=0; j&lt;=i; j++) &#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125; for (i = 0; i &lt; num; i++) &#123; free(a[i]); &#125; free(a); printf("\n"); return 0;&#125;]]></content>
@@ -254,14 +243,14 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[with open异常处理]]></title>
-    <url>%2F2018%2F07%2F28%2Fwith-open%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[with open异常处理代码123456with open("poem.txt") as f: for line in f: print(line, end='')''' with open能够将之前的try..finally最后执行的关闭文件的操作，交给with open自动完成''' 运行结果 poem.txt里面的内容为：12165456478 1&gt;&gt;&gt;12165456478]]></content>
+    <title><![CDATA[列表推导]]></title>
+    <url>%2F2018%2F07%2F28%2F%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC%2F</url>
+    <content type="text"><![CDATA[列表推导列表推导（List Comprehension）用于从一份现有的列表中得到一份新列表。想象一下，现在你已经有了一份数字列表，你想得到一个相应的列表，其中的数字在大于 2 的情况下将乘以2。列表推导就是这类情况的理想选择。 代码1234567891011121314151617# 列表推导'''程序理解：当满足了某些条件时（ if i &gt; 2 ），我们进行指定的操作（ 2*i ），以此来获得一份新的列表。要注意到原始列表依旧保持不变。'''listone = [2, 3, 4]listtwo = [2 * i for i in listone if i &gt; 2]print(listtwo)'''列表推导的优点在于，当我们使用循环来处理列表中的每个元素并将其存储到新的列表中时它能够减少代码量''' 运行结果 [6, 8]]]></content>
       <categories>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>python异常处理</tag>
+        <tag>基本教程</tag>
       </tags>
   </entry>
   <entry>
@@ -276,9 +265,42 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[with open异常处理]]></title>
+    <url>%2F2018%2F07%2F28%2Fwith-open%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[with open异常处理代码123456with open("poem.txt") as f: for line in f: print(line, end='')''' with open能够将之前的try..finally最后执行的关闭文件的操作，交给with open自动完成''' 运行结果 poem.txt里面的内容为：12165456478 1&gt;&gt;&gt;12165456478]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python异常处理</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python的pickle模块]]></title>
     <url>%2F2018%2F07%2F28%2Fpython%E7%9A%84pickle%E6%A8%A1%E5%9D%97%2F</url>
     <content type="text"><![CDATA[python的pickle模块Python 提供了一个叫作 Pickle 的标准模块，通过它你可以将任何纯 Python 对象存储到一个文件中，并在稍后将其取回。这叫作持久地（Persistently）存储对象。 代码123456789101112131415161718192021222324252627282930313233'''在Pickle模块中有2个常用的函数方法，一个叫做dump()，另一个叫做load()。pickle.dump(对象, 文件，[使用协议])load()方法的作用正好与上面的dump()方法相反，上面是序列化数据，这个方法作用是反序列化。pickle.load(文件)目的主要是为了将一些数据，如字符串、列表、字典等长期的以文件形式保存下来'''import pickle# The name of the file where we will store the objectshoplistfile = 'shoplist.data'# The list of things to buyshoplist = ['apple', 'mango', 'carrot']# Write to the filef = open(shoplistfile, 'wb')# Dump the object to a filepickle.dump(shoplist, f)f.close()# Destroy the shoplist variabledel shoplist# Read back from the storagef = open(shoplistfile, 'rb')# Load the object from the filestoredlist = pickle.load(f)print(storedlist) 运行结果1['apple', 'mango', 'carrot']]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python模块</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中的引用和切片]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E5%92%8C%E5%88%87%E7%89%87%2F</url>
+    <content type="text"><![CDATA[引用和切片造成的不同影响当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部分。这叫作将名称绑定（Binding）给那一个对象。一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是需要你注意的： 123456789101112131415161718192021222324252627'''如果直接引用对象的话，对mylist操作也会影响到原本的shoplist如果想要不影响原本的，必须引用的是对象的切片，切片即为副本'''print('Simple Assignment')shoplist = ['apple', 'mango', 'carrot', 'banana']# mylist 只是指向同一对象的另一种名称mylist = shoplist# 我购买了第一项项目，所以我将其从列表中删除del shoplist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到 shoplist 和 mylist 二者都# 打印出了其中都没有 apple 的同样的列表，以此我们确认# 它们指向的是同一个对象print('Copy by making a full slice')# 通过生成一份完整的切片制作一份列表的副本mylist = shoplist[:]# 删除第一个项目del mylist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到现在两份列表已出现不同]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python日志模块]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97%2F</url>
+    <content type="text"><![CDATA[日志模块的应用代码123456789101112131415161718192021222324252627# 日志模块import osimport platformimport logging# os.getenv()获取一个环境变量，如果没有返回none# os.path.join()： 将多个路径组合后返回if platform.platform().startswith('Windows'): logging_file = os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'), 'test.log')else: logging_file = os.path.join(os.getenv('HOME'), 'test.log')print("Logging to", logging_file)logging.basicConfig( level=logging.DEBUG, format='%(asctime)s: %(levelname)s :%(message)s', filename=logging_file, filemode='w',)# 日志文件将存储在电脑上logging.debug("Start of the program")logging.info("Doing something")logging.warning("Dying now") 运行结果12345Logging to C:\Users\dylink\test.log电脑查看该目录文件为2018-07-23 20:03:55,441: DEBUG :Start of the program2018-07-23 20:03:55,441: INFO :Doing something2018-07-23 20:03:55,441: WARNING :Dying now]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -298,17 +320,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中的引用和切片]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E5%92%8C%E5%88%87%E7%89%87%2F</url>
-    <content type="text"><![CDATA[引用和切片造成的不同影响当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部分。这叫作将名称绑定（Binding）给那一个对象。一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是需要你注意的： 123456789101112131415161718192021222324252627'''如果直接引用对象的话，对mylist操作也会影响到原本的shoplist如果想要不影响原本的，必须引用的是对象的切片，切片即为副本'''print('Simple Assignment')shoplist = ['apple', 'mango', 'carrot', 'banana']# mylist 只是指向同一对象的另一种名称mylist = shoplist# 我购买了第一项项目，所以我将其从列表中删除del shoplist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到 shoplist 和 mylist 二者都# 打印出了其中都没有 apple 的同样的列表，以此我们确认# 它们指向的是同一个对象print('Copy by making a full slice')# 通过生成一份完整的切片制作一份列表的副本mylist = shoplist[:]# 删除第一个项目del mylist[0]print('shoplist is', shoplist)print('mylist is', mylist)# 注意到现在两份列表已出现不同]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>基本教程</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[python对象的实例化]]></title>
     <url>%2F2018%2F07%2F28%2Fpython%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96%2F</url>
     <content type="text"><![CDATA[python对象的实例化代码1234567891011121314'''__init__ 方法会在类的对象被实例化（Instantiated）时立即运行。这一方法可以对任何你想进行操作的目标对象进行初始化（Initialization）操作。'''class Person: def __init__(self, name): self.name = name def say_hi(self): print('Hello,my name is', self.name)p = Person('Swaroop')p.say_hi() 运行结果 Hello,my name is Swaroop]]></content>
@@ -317,28 +328,6 @@
       </categories>
       <tags>
         <tag>python面向对象</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python日志模块]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97%2F</url>
-    <content type="text"><![CDATA[日志模块的应用代码123456789101112131415161718192021222324252627# 日志模块import osimport platformimport logging# os.getenv()获取一个环境变量，如果没有返回none# os.path.join()： 将多个路径组合后返回if platform.platform().startswith('Windows'): logging_file = os.path.join(os.getenv('HOMEDRIVE'), os.getenv('HOMEPATH'), 'test.log')else: logging_file = os.path.join(os.getenv('HOME'), 'test.log')print("Logging to", logging_file)logging.basicConfig( level=logging.DEBUG, format='%(asctime)s: %(levelname)s :%(message)s', filename=logging_file, filemode='w',)# 日志文件将存储在电脑上logging.debug("Start of the program")logging.info("Doing something")logging.warning("Dying now") 运行结果12345Logging to C:\Users\dylink\test.log电脑查看该目录文件为2018-07-23 20:03:55,441: DEBUG :Start of the program2018-07-23 20:03:55,441: INFO :Doing something2018-07-23 20:03:55,441: WARNING :Dying now]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>python模块</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python中的序列以及切片的解释]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%BA%8F%E5%88%97%E4%BB%A5%E5%8F%8A%E5%88%87%E7%89%87%E7%9A%84%E8%A7%A3%E9%87%8A%2F</url>
-    <content type="text"><![CDATA[python中的序列以及切片的解释切片：有一种切片（Slicing）运算符，它能够允许我们序列中的某段切片——也就是序列之中的一部分。 序列1234567891011121314151617181920212223242526272829303132333435# 序列 跑一下看看shoplist = ['apple', 'mango', 'carrot', 'banana']name = 'swaroop'# Indexing or 'Subscription' operation ## 索引或“下标（Subcription）”操作符 #print('Item 0 is', shoplist[0])print('Item 1 is', shoplist[1])print('Item 2 is', shoplist[2])print('Item 3 is', shoplist[3])print('Item -1 is', shoplist[-1])print('Item -2 is', shoplist[-2])print('Character 0 is', name[0])# Slicing on a list #print('Item 1 to 3 is', shoplist[1:3])print('Item 2 to end is', shoplist[2:])print('Item 1 to -1 is', shoplist[1:-1])print('Item start to end is', shoplist[:])# 从某一字符串中切片 #print('characters 1 to 3 is', name[1:3])print('characters 2 to end is', name[2:])print('characters 1 to -1 is', name[1:-1])print('characters start to end is', name[:])'''你会注意到当步长为 2 时，我们得到的是第 0、2、4…… 位项目。当步长为 3 时，我们得到的是第 0、3……位项目。'''print(shoplist[::1])print(shoplist[::2])print(shoplist[::3])print(shoplist[::-1])]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>基本教程</tag>
       </tags>
   </entry>
   <entry>
@@ -353,31 +342,20 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[python中的序列以及切片的解释]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%BA%8F%E5%88%97%E4%BB%A5%E5%8F%8A%E5%88%87%E7%89%87%E7%9A%84%E8%A7%A3%E9%87%8A%2F</url>
+    <content type="text"><![CDATA[python中的序列以及切片的解释切片：有一种切片（Slicing）运算符，它能够允许我们序列中的某段切片——也就是序列之中的一部分。 序列1234567891011121314151617181920212223242526272829303132333435# 序列 跑一下看看shoplist = ['apple', 'mango', 'carrot', 'banana']name = 'swaroop'# Indexing or 'Subscription' operation ## 索引或“下标（Subcription）”操作符 #print('Item 0 is', shoplist[0])print('Item 1 is', shoplist[1])print('Item 2 is', shoplist[2])print('Item 3 is', shoplist[3])print('Item -1 is', shoplist[-1])print('Item -2 is', shoplist[-2])print('Character 0 is', name[0])# Slicing on a list #print('Item 1 to 3 is', shoplist[1:3])print('Item 2 to end is', shoplist[2:])print('Item 1 to -1 is', shoplist[1:-1])print('Item start to end is', shoplist[:])# 从某一字符串中切片 #print('characters 1 to 3 is', name[1:3])print('characters 2 to end is', name[2:])print('characters 1 to -1 is', name[1:-1])print('characters start to end is', name[:])'''你会注意到当步长为 2 时，我们得到的是第 0、2、4…… 位项目。当步长为 3 时，我们得到的是第 0、3……位项目。'''print(shoplist[::1])print(shoplist[::2])print(shoplist[::3])print(shoplist[::-1])]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python中的元组]]></title>
     <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84%2F</url>
     <content type="text"><![CDATA[元组元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。 代码123456789101112131415# 元组'''推荐使用括号来指明元组的开始和结束尽管括号是一个可选选项明了胜过晦涩，显式优于隐式'''zoo = ('python', 'elephant', 'penguin')print('Number of animals in the zoo is', len(zoo))new_zoo = 'monkey', 'camel', zooprint('Number of animals in the zoo is', len(new_zoo))print('All animals in new zoo are', new_zoo)print('Animals brought from old zoo are', new_zoo[2])print('Last animal brought from old zoo is', new_zoo[2][2])print('Number of animals in the new zoo is', len(new_zoo) - 1 + len(new_zoo[2]))]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>基本教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python中的Docstring]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
-    <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
-      <categories>
-        <category>Python</category>
-      </categories>
-      <tags>
-        <tag>基本教程</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python中对列表和元组的切片操作]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AF%B9%E5%88%97%E8%A1%A8%E5%92%8C%E5%85%83%E7%BB%84%E7%9A%84%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[python中对列表和元组的切片操作代码123456789# 切片方法用于列表、元组,切片方法不能用于字典list_tmp = [0, 1, 2, 3, 4]tuple_tmp = (4, 3, 2, 1, 0)# 列表输出print([0, 1, 2, 3, 4][1:3])print(list_tmp[1:3])# 元组输出print((4, 3, 2, 1, 0)[1:3])print(tuple_tmp[1:3]) 运行结果1234[1, 2][1, 2](3, 2)(3, 2)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -408,9 +386,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾代码12345678910111213141516171819202122232425hello_str = "hello world"# 1、统计字符串长度print(len(hello_str))# 2、统计某一个小字符串出现的次数print(hello_str.count("llo"))# 3、某一个子字符串出现的位置print(hello_str.index("llo"))# 4、输出数学的平方num_str = "\u00b2"print(num_str)# 5、判断是否以指定字符串开始print(hello_str.startswith("hello"))# 6、判断是否以指定字符串结束print(hello_str.endswith("world"))# 7、查找指定字符串# 在index方法中，如果指定的字符串不存在，会直接报错# 在find方法中，如果指定的字符串不存在，会返回-1print(hello_str.find("llo"))print(hello_str.find("CCC"))# 8、替换字符串# replace方法执行完成之后会返回一个新的字符串，但是不会修改原有字符串的内容hh = hello_str.replace("world", "python")print(hh)print(hello_str) 运行结果123456789101112²TrueTrue2-1hello pythonhello world]]></content>
+    <title><![CDATA[python中的Docstring]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84Docstring%2F</url>
+    <content type="text"><![CDATA[基本教程1234567891011121314151617181920212223242526'''文档字符串的应用该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非凡功能的文档字符串中都遵循这一约定。'''def print_max(x, y): '''Prints the maximum of two numbers.打印两个数值中的最大数。 The two values must be integers.这两个数都应该是整数 ''' # 如果可能，将其转换至整数类型 x = int(x) y = int(y) if x &gt; y: print(x, 'is maximum') else: print(y, 'is maximum')print_max(3, 5)print(print_max.__doc__)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>基本教程</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[python中对列表和元组的切片操作]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AF%B9%E5%88%97%E8%A1%A8%E5%92%8C%E5%85%83%E7%BB%84%E7%9A%84%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[python中对列表和元组的切片操作代码123456789# 切片方法用于列表、元组,切片方法不能用于字典list_tmp = [0, 1, 2, 3, 4]tuple_tmp = (4, 3, 2, 1, 0)# 列表输出print([0, 1, 2, 3, 4][1:3])print(list_tmp[1:3])# 元组输出print((4, 3, 2, 1, 0)[1:3])print(tuple_tmp[1:3]) 运行结果1234[1, 2][1, 2](3, 2)(3, 2)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -430,9 +419,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾(拆分与合并)]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾(拆分与合并)字符串中split函数和join函数的使用 代码123456789101112131415# 假设：以下内容是从网络上抓取的# 要求：# 1、将字符串中的空白字符全部去掉# 2、再使用" "作为分隔符，拼接成一个整齐的字符串poem_str = "登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"print(poem_str)# 1、拆分字符串 split方法会返回列表poem_list = poem_str.split()print(poem_list)# 2、合并字符串result = " ".join(poem_list)print(result) 运行结果1234567原始字符串： 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼拆分字符串后： ['登鹤鹊楼', '王之涣', '白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼']合并字符串后: 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾代码12345678910111213141516171819202122232425hello_str = "hello world"# 1、统计字符串长度print(len(hello_str))# 2、统计某一个小字符串出现的次数print(hello_str.count("llo"))# 3、某一个子字符串出现的位置print(hello_str.index("llo"))# 4、输出数学的平方num_str = "\u00b2"print(num_str)# 5、判断是否以指定字符串开始print(hello_str.startswith("hello"))# 6、判断是否以指定字符串结束print(hello_str.endswith("world"))# 7、查找指定字符串# 在index方法中，如果指定的字符串不存在，会直接报错# 在find方法中，如果指定的字符串不存在，会返回-1print(hello_str.find("llo"))print(hello_str.find("CCC"))# 8、替换字符串# replace方法执行完成之后会返回一个新的字符串，但是不会修改原有字符串的内容hh = hello_str.replace("world", "python")print(hh)print(hello_str) 运行结果123456789101112²TrueTrue2-1hello pythonhello world]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -441,9 +430,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字符串的一些方法回顾(切片回顾)]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E5%88%87%E7%89%87%E5%9B%9E%E9%A1%BE)%2F</url>
-    <content type="text"><![CDATA[python中字符串的一些方法回顾(切片回顾)代码123456789101112131415161718192021222324# 字符串的切片 字符串[开始索引:结束索引:步长]# 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2# 切片方法适用于字符串、列表、元组num_str = "0123456789"# 截取2-5的字符串print(num_str[2:6])# 截取2-末尾的字符串print(num_str[2:])# 从起始位置截取到5位置的字符串 num_str[0:6]等价print(num_str[:6])# 生成切片的副本print(num_str[:])# 从开始位置开始，每隔一个字符截取字符串print(num_str[::2])# 从索引1开始，每隔一个取一个print(num_str[1::2])# 截取从2到(末尾-1)的字符串print(num_str[2:-1])# 截取字符串末尾两个字符print(num_str[-2:])# 字符串的逆序 num_str[::-1]等价print(num_str[-1::-1]) 运行结果123456789&gt;&gt;&gt;2345&gt;&gt;&gt;23456789&gt;&gt;&gt;012345&gt;&gt;&gt;0123456789&gt;&gt;&gt;02468&gt;&gt;&gt;13579&gt;&gt;&gt;2345678&gt;&gt;&gt;89&gt;&gt;&gt;9876543210]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾(拆分与合并)]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾(拆分与合并)字符串中split函数和join函数的使用 代码123456789101112131415# 假设：以下内容是从网络上抓取的# 要求：# 1、将字符串中的空白字符全部去掉# 2、再使用" "作为分隔符，拼接成一个整齐的字符串poem_str = "登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"print(poem_str)# 1、拆分字符串 split方法会返回列表poem_list = poem_str.split()print(poem_list)# 2、合并字符串result = " ".join(poem_list)print(result) 运行结果1234567原始字符串： 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼拆分字符串后： ['登鹤鹊楼', '王之涣', '白日依山尽', '黄河入海流', '欲穷千里目', '更上一层楼']合并字符串后: 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -463,9 +452,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[list(列表)、tuple（元组）、dict（字典）的回顾]]></title>
-    <url>%2F2018%2F07%2F28%2Flist(%E5%88%97%E8%A1%A8)%E3%80%81tuple%EF%BC%88%E5%85%83%E7%BB%84%EF%BC%89%E3%80%81dict%EF%BC%88%E5%AD%97%E5%85%B8%EF%BC%89%E7%9A%84%E5%9B%9E%E9%A1%BE%2F</url>
-    <content type="text"><![CDATA[list(列表)、tuple（元组）、dict（字典）的回顾代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263list1 = [5, 6, 87, 671, 3, 54, 67, 0, 1, -6, -7]# 升序排序list1.sort()print(list1)# 降序排序list1.sort(reverse=True)print(list1)# 列表和元组之间相互转换print(type(list1))# 1、列表转换成元组num_tuple = tuple(list1)print(type(num_tuple))# 2 、元组转换成列表num2_list = list(num_tuple)print(type(num2_list))# 字典的使用# 1、取值dict_test = &#123;"name": "xxx"&#125;print(dict_test["name"])# 2、增加/修改dict_test["age"] = 18 # 增加dict_test["name"] = "yyy" # 修改print(dict_test)# 3、删除dict_test.pop("name")print(dict_test)# 4、统计键值对的数量print(len(dict_test))# 5、合并字典# 如果被合并的字典中包含已经存在的键值对，会覆盖原有的键值对temp_dict = &#123;"height": 123, "age": 20&#125;dict_test.update(temp_dict)print(dict_test)# 6、清空字典dict_test.clear()print(dict_test)# 7、迭代遍历字典# 变量k是每次循环中，获取到的键值对的值new_dict = &#123;"name": "xxx", "age": 20, "height": 200&#125;for k in new_dict: print("&#123;&#125; - &#123;&#125;".format(k, new_dict[k]))# 8、列表中保存多个字典,并用for循环迭代输出list2 = [ &#123;"name": "qqq", "email": "163", "phone": 119&#125;, &#123;"name": "sss", "email": "cc", "phone": 110&#125;]for i in list2: print(i) 运行结果12345678910111213141516[-7, -6, 0, 1, 3, 5, 6, 54, 67, 87, 671][671, 87, 67, 54, 6, 5, 3, 1, 0, -6, -7]&lt;class &apos;list&apos;&gt;&lt;class &apos;tuple&apos;&gt;&lt;class &apos;list&apos;&gt;xxx&#123;&apos;age&apos;: 18, &apos;name&apos;: &apos;yyy&apos;&#125;&#123;&apos;age&apos;: 18&#125;1&#123;&apos;age&apos;: 20, &apos;height&apos;: 123&#125;&#123;&#125;age - 20name - xxxheight - 200&#123;&apos;phone&apos;: 119, &apos;name&apos;: &apos;qqq&apos;, &apos;email&apos;: &apos;163&apos;&#125;&#123;&apos;phone&apos;: 110, &apos;name&apos;: &apos;sss&apos;, &apos;email&apos;: &apos;cc&apos;&#125; 总结总结： list使用的是方括号，类似与数组结构，tuple元组使用的是圆括号，跟list类似但是数据不能进行修改，所以应用的场景基本上用在需要数据存储，或者是需要保证数据安全无法修改的情况，字典用的是大括号，是key-value结构的, 操作数据的时候，是操作key，而不是索引。]]></content>
+    <title><![CDATA[python中字符串的一些方法回顾(切片回顾)]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E5%88%87%E7%89%87%E5%9B%9E%E9%A1%BE)%2F</url>
+    <content type="text"><![CDATA[python中字符串的一些方法回顾(切片回顾)代码123456789101112131415161718192021222324# 字符串的切片 字符串[开始索引:结束索引:步长]# 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2# 切片方法适用于字符串、列表、元组num_str = "0123456789"# 截取2-5的字符串print(num_str[2:6])# 截取2-末尾的字符串print(num_str[2:])# 从起始位置截取到5位置的字符串 num_str[0:6]等价print(num_str[:6])# 生成切片的副本print(num_str[:])# 从开始位置开始，每隔一个字符截取字符串print(num_str[::2])# 从索引1开始，每隔一个取一个print(num_str[1::2])# 截取从2到(末尾-1)的字符串print(num_str[2:-1])# 截取字符串末尾两个字符print(num_str[-2:])# 字符串的逆序 num_str[::-1]等价print(num_str[-1::-1]) 运行结果123456789&gt;&gt;&gt;2345&gt;&gt;&gt;23456789&gt;&gt;&gt;012345&gt;&gt;&gt;0123456789&gt;&gt;&gt;02468&gt;&gt;&gt;13579&gt;&gt;&gt;2345678&gt;&gt;&gt;89&gt;&gt;&gt;9876543210]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -474,20 +463,20 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F28%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[python中字典（key-value）]]></title>
+    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E5%85%B8%EF%BC%88key-value%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码123456789101112131415161718192021222324252627# 字典# "ab"是地址（Address）薄(Book)的缩写ab = &#123; 'Swaroop': 'swaroop@swaroopch.com', 'Larry': 'larry@wall.org', 'Matsumoto': 'matz@ruby-lang.org', 'Spammer': 'spammer@hptmail.com'&#125;print("Swaroop's address is", ab['Swaroop'])# 删除一对键值-值配对del ab['Spammer']print('\nThere are &#123;&#125; contacts in the address-book\n'.format(len(ab)))#我们通过使用字典的 item 方法来访问字典中的每一对键值—值配对信息，这一操作将返回一份包含元组的列表for name, address in ab.items(): print('Contact &#123;&#125; at &#123;&#125;'.format(name, address))# 添加一对键值-值配对ab['Guido'] = 'guido@python.org'if 'Guido' in ab: print("\nGuido's address is", ab['Guido'])]]></content>
       <categories>
         <category>Python</category>
       </categories>
       <tags>
-        <tag>python异常处理</tag>
+        <tag>基本教程</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[python中字典（key-value）]]></title>
-    <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E5%AD%97%E5%85%B8%EF%BC%88key-value%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码123456789101112131415161718192021222324252627# 字典# "ab"是地址（Address）薄(Book)的缩写ab = &#123; 'Swaroop': 'swaroop@swaroopch.com', 'Larry': 'larry@wall.org', 'Matsumoto': 'matz@ruby-lang.org', 'Spammer': 'spammer@hptmail.com'&#125;print("Swaroop's address is", ab['Swaroop'])# 删除一对键值-值配对del ab['Spammer']print('\nThere are &#123;&#125; contacts in the address-book\n'.format(len(ab)))#我们通过使用字典的 item 方法来访问字典中的每一对键值—值配对信息，这一操作将返回一份包含元组的列表for name, address in ab.items(): print('Contact &#123;&#125; at &#123;&#125;'.format(name, address))# 添加一对键值-值配对ab['Guido'] = 'guido@python.org'if 'Guido' in ab: print("\nGuido's address is", ab['Guido'])]]></content>
+    <title><![CDATA[list(列表)、tuple（元组）、dict（字典）的回顾]]></title>
+    <url>%2F2018%2F07%2F28%2Flist(%E5%88%97%E8%A1%A8)%E3%80%81tuple%EF%BC%88%E5%85%83%E7%BB%84%EF%BC%89%E3%80%81dict%EF%BC%88%E5%AD%97%E5%85%B8%EF%BC%89%E7%9A%84%E5%9B%9E%E9%A1%BE%2F</url>
+    <content type="text"><![CDATA[list(列表)、tuple（元组）、dict（字典）的回顾代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263list1 = [5, 6, 87, 671, 3, 54, 67, 0, 1, -6, -7]# 升序排序list1.sort()print(list1)# 降序排序list1.sort(reverse=True)print(list1)# 列表和元组之间相互转换print(type(list1))# 1、列表转换成元组num_tuple = tuple(list1)print(type(num_tuple))# 2 、元组转换成列表num2_list = list(num_tuple)print(type(num2_list))# 字典的使用# 1、取值dict_test = &#123;"name": "xxx"&#125;print(dict_test["name"])# 2、增加/修改dict_test["age"] = 18 # 增加dict_test["name"] = "yyy" # 修改print(dict_test)# 3、删除dict_test.pop("name")print(dict_test)# 4、统计键值对的数量print(len(dict_test))# 5、合并字典# 如果被合并的字典中包含已经存在的键值对，会覆盖原有的键值对temp_dict = &#123;"height": 123, "age": 20&#125;dict_test.update(temp_dict)print(dict_test)# 6、清空字典dict_test.clear()print(dict_test)# 7、迭代遍历字典# 变量k是每次循环中，获取到的键值对的值new_dict = &#123;"name": "xxx", "age": 20, "height": 200&#125;for k in new_dict: print("&#123;&#125; - &#123;&#125;".format(k, new_dict[k]))# 8、列表中保存多个字典,并用for循环迭代输出list2 = [ &#123;"name": "qqq", "email": "163", "phone": 119&#125;, &#123;"name": "sss", "email": "cc", "phone": 110&#125;]for i in list2: print(i) 运行结果12345678910111213141516[-7, -6, 0, 1, 3, 5, 6, 54, 67, 87, 671][671, 87, 67, 54, 6, 5, 3, 1, 0, -6, -7]&lt;class &apos;list&apos;&gt;&lt;class &apos;tuple&apos;&gt;&lt;class &apos;list&apos;&gt;xxx&#123;&apos;age&apos;: 18, &apos;name&apos;: &apos;yyy&apos;&#125;&#123;&apos;age&apos;: 18&#125;1&#123;&apos;age&apos;: 20, &apos;height&apos;: 123&#125;&#123;&#125;age - 20name - xxxheight - 200&#123;&apos;phone&apos;: 119, &apos;name&apos;: &apos;qqq&apos;, &apos;email&apos;: &apos;163&apos;&#125;&#123;&apos;phone&apos;: 110, &apos;name&apos;: &apos;sss&apos;, &apos;email&apos;: &apos;cc&apos;&#125; 总结总结： list使用的是方括号，类似与数组结构，tuple元组使用的是圆括号，跟list类似但是数据不能进行修改，所以应用的场景基本上用在需要数据存储，或者是需要保证数据安全无法修改的情况，字典用的是大括号，是key-value结构的, 操作数据的时候，是操作key，而不是索引。]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -504,6 +493,17 @@
       </categories>
       <tags>
         <tag>测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F28%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python异常处理</tag>
       </tags>
   </entry>
   <entry>
