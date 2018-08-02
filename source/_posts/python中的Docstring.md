@@ -1,6 +1,6 @@
 ---
 title: python中的Docstring
-date: 2018年6月27日 17:14:51
+date: 2018/6/27 17:14:51
 categories: 
 - Python
 tags: 

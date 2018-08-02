@@ -1,6 +1,6 @@
 ---
 title: python日志模块
-date: 2018年7月23日 20:03:18
+date: 2018/7/23 20:03:18
 categories: 
 - Python
 tags: 

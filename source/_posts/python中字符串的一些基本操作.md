@@ -1,6 +1,6 @@
 ---
 title: python中字符串的一些基本操作
-date: 2018年7月7日 17:04:05
+date: 2018/7/7 17:04:05
 categories: 
 - Python
 tags: 

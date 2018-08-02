@@ -1,6 +1,6 @@
 ---
 title: python中的序列以及切片的解释
-date: 2018年7月7日 17:07:39
+date: 2018/7/7 17:07:39
 categories: 
 - Python
 tags: 

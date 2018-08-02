@@ -1,6 +1,7 @@
 ---
 title: python中对列表和元组的切片操作
 date: 2018年7月26日 20:04:26
+sticky: true
 categories:
 - Python
 tags:

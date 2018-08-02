@@ -1,6 +1,6 @@
 ---
 title: python中的lambda函数
-date: 2018年7月24日 18:27:03
+date: 2018/7/24 18:27:03
 categories: 
 - Python
 tags: 

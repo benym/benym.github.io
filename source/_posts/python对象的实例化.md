@@ -1,6 +1,6 @@
 ---
 title: python对象的实例化
-date: 2018年7月23日 19:03:33
+date: 2018/7/23 19:03:33
 categories: 
 - Python
 tags: 

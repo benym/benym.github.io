@@ -1,6 +1,6 @@
 ---
 title: python中字符串的一些方法回顾(文本对齐、去除空白)
-date: 2018年7月26日 19:39:41
+date: 2018/7/26 19:39:41
 categories:
 - Python
 tags:

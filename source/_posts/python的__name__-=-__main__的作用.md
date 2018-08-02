@@ -1,6 +1,6 @@
 ---
 title: python的__name__ = '__main__' 的作用
-date: 2018年7月24日 11:05:44
+date: 2018/7/24 11:05:44
 categories: 
 - Python
 tags: 

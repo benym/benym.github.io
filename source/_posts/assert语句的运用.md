@@ -1,6 +1,6 @@
 ---
 title: assert语句的运用
-date: 2018年7月24日 18:41:28
+date: 2018/7/24 18:41:28
 categories: 
 - Python
 tags: 

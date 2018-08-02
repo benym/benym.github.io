@@ -1,6 +1,6 @@
 ---
 title: list(列表)、tuple（元组）、dict（字典）的回顾
-date: 2018年7月25日 20:57:55
+date: 2018/7/25 20:57:55
 categories:
 - Python
 tags:

@@ -1,6 +1,6 @@
 ---
 title: 利用python进行文件的自动备份(第三版和第四版)
-date: 2018年7月23日 18:54:24
+date: 2018/7/23 18:54:24
 categories: 
 - Python
 tags: 

@@ -1,6 +1,6 @@
 ---
 title: python中的引用和切片
-date: 2018年7月7日 16:04:03
+date: 2018/7/7 16:04:03
 categories: 
 - Python
 tags: 

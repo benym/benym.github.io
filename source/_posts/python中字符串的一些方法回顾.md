@@ -1,6 +1,6 @@
 ---
 title: python中字符串的一些方法回顾
-date: 2018年7月25日 21:29:40
+date: 2018/7/25 21:29:40
 categories:
 - Python
 tags:

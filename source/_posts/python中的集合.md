@@ -1,6 +1,6 @@
 ---
 title: python中的集合
-date: 2018年7月7日 17:34:06
+date: 2018/7/7 17:34:06
 categories: 
 - Python
 tags: 

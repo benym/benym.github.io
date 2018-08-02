@@ -1,6 +1,6 @@
 ---
 title: python中字符串的一些方法回顾(切片回顾)
-date: 2018年7月26日 19:40:48
+date: 2018/7/26 19:40:48
 categories:
 - Python
 tags:

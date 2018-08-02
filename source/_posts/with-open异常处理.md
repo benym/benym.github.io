@@ -1,6 +1,6 @@
 ---
 title: with open异常处理
-date: 2018年7月23日 19:55:48
+date: 2018/7/23 19:55:48
 categories: 
 - Python
 tags: 

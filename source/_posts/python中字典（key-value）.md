@@ -1,6 +1,6 @@
 ---
 title: python中字典（key-value）
-date: 2018年7月7日 17:25:27
+date: 2018/7/7 17:25:27
 categories: 
 - Python
 tags: 

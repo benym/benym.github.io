@@ -1,6 +1,6 @@
 ---
 title: python中的列表
-date: 2018年7月7日 17:19:37
+date: 2018/7/7 17:19:37
 categories: 
 - Python
 tags: 

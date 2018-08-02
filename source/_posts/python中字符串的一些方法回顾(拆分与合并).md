@@ -1,6 +1,6 @@
 ---
 title: python中字符串的一些方法回顾(拆分与合并)
-date: 2018年7月26日 19:40:01
+date: 2018/7/26 19:40:01
 categories:
 - Python
 tags:
