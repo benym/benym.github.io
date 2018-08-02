@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://www.benym.cn/2018/07/28/python%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84/</loc>
+    <lastmod>2018-08-02T12:46:33.168Z</lastmod>
+    <data>
+        <display>
+        <title>python中的元组</title>
+        <pubTime>2018-07-28T12:27:37.339Z</pubTime>
+        
+        <tag>基本教程</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://www.benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.benym.cn/2018/04/08/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2018-08-02T04:08:16.174Z</lastmod>
     <data>
@@ -891,26 +911,6 @@
         <display>
         <title>assert语句的运用</title>
         <pubTime>2018-07-24T10:41:28.000Z</pubTime>
-        
-        <tag>基本教程</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://www.benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://www.benym.cn/2018/07/28/python%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84/</loc>
-    <lastmod>2018-08-02T02:02:05.104Z</lastmod>
-    <data>
-        <display>
-        <title>python中的元组</title>
-        <pubTime>2018-07-28T12:27:37.339Z</pubTime>
         
         <tag>基本教程</tag>
          

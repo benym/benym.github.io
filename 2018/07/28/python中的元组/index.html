@@ -144,7 +144,7 @@
 <meta property="og:site_name" content="Ben.Y">
 <meta property="og:description" content="元组元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。 代码12">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T02:02:05.104Z">
+<meta property="og:updated_time" content="2018-08-02T12:46:33.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python中的元组">
 <meta name="twitter:description" content="元组元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。 代码12">
@@ -417,7 +417,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:02:05+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T20:46:33+08:00">
                 2018-08-02
               </time>
             
@@ -525,7 +525,7 @@
       
 
       
-        <h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提<br>供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也<br>就是说，你不能编辑或更改元组。<br>元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部<br>用逗号进行分隔。<br>元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的<br>数值不会改变。</p>
+        <h3 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h3><p>元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 元组</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">推荐使用括号来指明元组的开始和结束</span></span><br><span class="line"><span class="string">尽管括号是一个可选选项</span></span><br><span class="line"><span class="string">明了胜过晦涩，显式优于隐式</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">zoo = (<span class="string">'python'</span>, <span class="string">'elephant'</span>, <span class="string">'penguin'</span>)</span><br><span class="line">print(<span class="string">'Number of animals in the zoo is'</span>, len(zoo))</span><br><span class="line">new_zoo = <span class="string">'monkey'</span>, <span class="string">'camel'</span>, zoo</span><br><span class="line">print(<span class="string">'Number of animals in the zoo is'</span>, len(new_zoo))</span><br><span class="line">print(<span class="string">'All animals in new zoo are'</span>, new_zoo)</span><br><span class="line">print(<span class="string">'Animals brought from old zoo are'</span>, new_zoo[<span class="number">2</span>])</span><br><span class="line">print(<span class="string">'Last animal brought from old zoo is'</span>, new_zoo[<span class="number">2</span>][<span class="number">2</span>])</span><br><span class="line">print(<span class="string">'Number of animals in the new zoo is'</span>,</span><br><span class="line">      len(new_zoo) - <span class="number">1</span> + len(new_zoo[<span class="number">2</span>]))</span><br></pre></td></tr></table></figure>
 
       
