@@ -140,7 +140,7 @@
 <meta property="og:site_name" content="Ben.Y">
 <meta property="og:description" content="博客文章阅读量排行榜">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T02:24:46.040Z">
+<meta property="og:updated_time" content="2018-08-02T02:59:00.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="热门文章">
 <meta name="twitter:description" content="博客文章阅读量排行榜">
@@ -373,9 +373,9 @@
   var query = new AV.Query('Counter');
   query.notEqualTo('id',0);
   query.descending('time');
-  query.limit(8);
+  query.limit(10);
   query.find().then(function (todo) {
-    for (var i=0;i<8;i++){
+    for (var i=0;i<10;i++){
       var result=todo[i].attributes;
       time=result.time;
       title=result.title;
