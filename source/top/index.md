@@ -14,9 +14,9 @@ description: 博客文章阅读量排行榜
   var query = new AV.Query('Counter');
   query.notEqualTo('id',0);
   query.descending('time');
-  query.limit(8);
+  query.limit(10);
   query.find().then(function (todo) {
-    for (var i=0;i<8;i++){
+    for (var i=0;i<10;i++){
       var result=todo[i].attributes;
       time=result.time;
       title=result.title;
