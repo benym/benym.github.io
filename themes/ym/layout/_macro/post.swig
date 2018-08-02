@@ -210,6 +210,7 @@
                  <span class="post-meta-item-text">{{__('post.visitors')}}&#58;</span>
                {% endif %}
                  <span class="leancloud-visitors-count"></span>
+				 <span>℃</span>
              </span>
           {% endif %}
 
