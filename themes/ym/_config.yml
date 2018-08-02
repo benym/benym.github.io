@@ -358,7 +358,7 @@ font:
 
 # MathJax Support
 mathjax:
-  enable: true
+  enable: false
   per_page: false
   cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
@@ -434,7 +434,7 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-baidushare: true
+baidushare: false
 ##  type: button
 
 # Share
