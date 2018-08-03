@@ -436,7 +436,7 @@ gitment:
 # Warning: Baidu Share does not support https.
 baidushare:
   type: slide
-  baidushare: true
+  baidushare: false
 
 # Share
 # This plugin is more useful in China, make sure you known how to use it.
