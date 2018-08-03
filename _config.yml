@@ -120,3 +120,10 @@ baidu_url_submit:
   token: D2aWtYo3nKfPaQ2F 
   ## 文本文档的地址， 新链接会保存在此文本文档里
   path: baidu_urls.txt 
+  
+githubEmojis:
+  enable: true
+  idName: github-emoji
+  unicode: false
+  styles:
+  localEmojis:
