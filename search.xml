@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[欢迎来到我的博客]]></title>
+    <url>%2F2018%2F08%2F03%2F%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2%2F</url>
+    <content type="text"><![CDATA[机器学习持续烧脑中， 💥😩😤 继续为明天奋斗!]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+      <tags>
+        <tag>Face</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python中的元组]]></title>
     <url>%2F2018%2F07%2F28%2Fpython%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84%2F</url>
     <content type="text"><![CDATA[元组元组（Tuple）用于将多个对象保存到一起。你可以将它们近似地看作列表，但是元组不能提供列表类能够提供给你的广泛的功能。元组的一大特征类似于字符串，它们是不可变的，也就是说，你不能编辑或更改元组。元组是通过特别指定项目来定义的，在指定项目时，你可以给它们加上括号，并在括号内部用逗号进行分隔。元组通常用于保证某一语句或某一用户定义的函数可以安全地采用一组数值，意即元组内的数值不会改变。 代码123456789101112131415# 元组'''推荐使用括号来指明元组的开始和结束尽管括号是一个可选选项明了胜过晦涩，显式优于隐式'''zoo = ('python', 'elephant', 'penguin')print('Number of animals in the zoo is', len(zoo))new_zoo = 'monkey', 'camel', zooprint('Number of animals in the zoo is', len(new_zoo))print('All animals in new zoo are', new_zoo)print('Animals brought from old zoo are', new_zoo[2])print('Last animal brought from old zoo is', new_zoo[2][2])print('Number of animals in the new zoo is', len(new_zoo) - 1 + len(new_zoo[2]))]]></content>
