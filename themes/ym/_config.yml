@@ -135,8 +135,8 @@ scheme: Gemini
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/benym || github
-  微博: http://weibo.com/u/5177359899
-  bilibili: https://space.bilibili.com/7692324/
+  微博: http://weibo.com/u/5177359899 || weibo
+  bilibili: https://space.bilibili.com/7692324/ || heartbeat
   知乎: https://www.zhihu.com/people/xu-ge-yuan-ba-68/activities
   #E-Mail: mailto:yourname@gmail.com || envelope
   #Google: https://plus.google.com/yourname || google
@@ -155,7 +155,7 @@ social_icons:
   # Icon Mappings
   GitHub: github
   微博: weibo
-  bilibili: bilibili
+  bilibili: heartbeat
   知乎: zhihu
 
 # Blog rolls
