@@ -1981,7 +1981,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #e44786;
+  background: #6a75ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3572,6 +3572,7 @@ img:hover {
 }
 .posts-collapse::after {
   margin-left: -2px;
+  z-index: 1;
   background-image: linear-gradient(180deg, #f79533 0, #f37055 15%, #ef4e7b 30%, #a166ab 44%, #5073b8 58%, #1098ad 72%, #07b39b 86%, #6dba82 100%);
 }
 .posts-collapse .collection-title::before {
@@ -3582,7 +3583,7 @@ img:hover {
 }
 .posts-collapse .collection-title h1,
 .posts-collapse .collection-title h2 {
-  color: #fff;
+  color: #333;
 }
 .posts-collapse .post-title a {
   color: #5073b8;
