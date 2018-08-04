@@ -13,7 +13,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://www.benym.cn
+url: http://benym.cn
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -113,11 +113,11 @@ baidusitemap:
   
 baidu_url_submit:
   ## 提交最新的10个链接
-  count: 1
+  count: 50
   ## 在百度站长平台中注册的域名
-  host: www.benym.cn
+  host: benym.cn
   ## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里!
-  token: D2aWtYo3nKfPaQ2F 
+  token: D2aWtYo3nKfPaQ2F
   ## 文本文档的地址， 新链接会保存在此文本文档里
   path: baidu_urls.txt 
   
