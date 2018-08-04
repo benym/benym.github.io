@@ -434,7 +434,7 @@ gitment:
 # Available value:
 #    button | slide
 # Warning: Baidu Share does not support https.
-#baidushare:
+baidushare: false
 #  type: slide
 #  baidushare: true
 
