@@ -90,5 +90,9 @@
   {% include '_third-party/mathjax.swig' %}
   {% include '_third-party/scroll-cookie.swig' %}
   {% include '_third-party/exturl.swig' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>;
+<script>
+$("body").backstretch("http://pd10tty87.bkt.clouddn.com/01.jpg");
+</script>  
 </body>
 </html>
