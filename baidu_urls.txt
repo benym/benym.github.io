@@ -23,8 +23,8 @@ http://benym.cn/2018/07/23/简单的异常处理/
 http://benym.cn/2018/07/23/finally异常处理/
 http://benym.cn/2018/07/23/在打开文件的同时规定编码/
 http://benym.cn/2018/07/23/python的pickle模块/
-http://benym.cn/2018/07/23/输入输出——回文字串的判断（加强版）/
 http://benym.cn/2018/07/23/文件操作/
+http://benym.cn/2018/07/23/输入输出——回文字串的判断（加强版）/
 http://benym.cn/2018/07/23/输入输出——简单的回文判断/
 http://benym.cn/2018/07/23/继承的运用/
 http://benym.cn/2018/07/23/类变量与对象变量/
