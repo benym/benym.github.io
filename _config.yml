@@ -113,7 +113,7 @@ baidusitemap:
   
 baidu_url_submit:
   ## 提交最新的10个链接
-  count: 50
+  count: 1
   ## 在百度站长平台中注册的域名
   host: benym.cn
   ## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里!
@@ -127,3 +127,12 @@ githubEmojis:
   unicode: false
   styles:
   localEmojis:
+  
+#缓存加速hexo  
+# offline config passed to sw-precache.
+service_worker:
+  maximumFileSizeToCacheInBytes: 5242880
+  staticFileGlobs:
+  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+  stripPrefix: public
+  verbose: true
