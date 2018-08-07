@@ -165,12 +165,12 @@ links_layout: block
 #links_layout: inline
 links:
   felablog: http://felamin.xyz
-  baoshiblog: https://unclegem.github.io
+  baoshiblog: https://unclegem.cn
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-avatar: https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523182993615&di=a2b34aa67ee9072df2a330b9fd340c6e&imgtype=0&src=http%3A%2F%2Fimg3.duitang.com%2Fuploads%2Fitem%2F201506%2F04%2F20150604064017_mLfFt.thumb.700_0.jpeg
+avatar: http://pd10tty87.bkt.clouddn.com/sitelogo.jpg
 
 # Table Of Contents in the Sidebar
 toc:
