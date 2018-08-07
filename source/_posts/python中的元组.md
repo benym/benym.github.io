@@ -1,6 +1,6 @@
 ---
 title: python中的元组
-date: 2018年7月7日 17:15:01
+date: 2018/7/7 17:15:01
 categories: 
 - Python
 tags: 
