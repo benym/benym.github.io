@@ -1,3 +1,4 @@
+http://benym.cn/2018/08/08/turtle绘图库/
 http://benym.cn/2018/08/07/正则表达式中的compile函数(二)/
 http://benym.cn/2018/08/07/正则表达式中的compile函数/
 http://benym.cn/2018/08/07/正则表达式检索与替换/
@@ -7,4 +8,3 @@ http://benym.cn/2018/08/06/Python中面向对象比较简单的内部函数/
 http://benym.cn/2018/08/03/欢迎来到我的博客/
 http://benym.cn/2018/07/28/python中对列表和元组的切片操作/
 http://benym.cn/2018/07/26/python中字符串的一些方法回顾(切片回顾)/
-http://benym.cn/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/
