@@ -1,3 +1,4 @@
+http://benym.cn/2018/08/08/python中的静态方法、实例方法、类方法的区别/
 http://benym.cn/2018/08/08/python中的多态/
 http://benym.cn/2018/08/08/turtle绘图库/
 http://benym.cn/2018/08/07/正则表达式中的compile函数(二)/
@@ -7,4 +8,3 @@ http://benym.cn/2018/08/07/Python中的正则表达式match和search/
 http://benym.cn/2018/08/07/Python中的正则表达式/
 http://benym.cn/2018/08/06/Python中面向对象比较简单的内部函数/
 http://benym.cn/2018/08/03/欢迎来到我的博客/
-http://benym.cn/2018/07/28/python中对列表和元组的切片操作/

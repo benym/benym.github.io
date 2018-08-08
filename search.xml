@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python中的静态方法、实例方法、类方法的区别]]></title>
+    <url>%2F2018%2F08%2F08%2Fpython%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E3%80%81%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[实例方法 ​ 定义：第一个参数必须是实例对象，该参数名一般约定为“self”，通过它来传递实例的属性和方法（也可以传类的属性和方法）； ​ 调用：只能由实例对象调用。 类方法 ​ 定义：使用装饰器@classmethod。第一个参数必须是当前类对象，该参数名一般约定为“cls”，通过它来传递类的属性和方法（不能传实例的属性和方法）； ​ 调用：实例对象和类对象都可以调用。 静态方法 ​ 定义：使用装饰器@staticmethod。参数随意，没有“self”和“cls”参数，但是方法体中不能使用类或实例的任何属性和方法； ​ 调用：实例对象和类对象都可以调用。 代码12345678910111213141516171819202122232425262728293031323334353637import timeclass Tool(object): count = 0 def __init__(self, name): self.name = name Tool.count += 1 # 定义一个实例方法，有self参数 def action(self): print("挥动&#123;&#125;".format(self.name)) # 定义一个类方法，有cls参数 @classmethod def shou_tool_count(cls): print("工具对象的数量&#123;&#125;".format(cls.count)) # 定义一个静态方法，初始没有任何参数 @staticmethod def showTime(): print(time.strftime("%H:%M:%S", time.localtime()))# 创建工具对象tool = Tool("斧头")too2 = Tool("榔头")# 调用类方法,逻辑上类方法一般由类自身调用，其实实例对象和类对象都可以调用Tool.shou_tool_count()# 调用实例方法,只能由实例对象调用tool.action()# 调用静态方法,实例对象和类对象均可调用too2.showTime()Tool.showTime() 运行结果1234工具对象的数量2挥动斧头20:30:4620:30:46]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>python面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[python中的多态]]></title>
     <url>%2F2018%2F08%2F08%2Fpython%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%2F</url>
     <content type="text"><![CDATA[当子类和父类都存在相同的 game()方法时，子类的 game() 覆盖了父类的 game()，在代码运行时，会调用子类的 game()。 这样，我们就获得了继承的另一个好处：多态。 多态的好处就是，当我们需要传入更多的子类，例如新增 XX Dog、YY Dog 等时，我们只需要继承 Dog 类型就可以了，而game()方法既可以直不重写（即使用Dog的），也可以重写一个特有的。这就是多态的意思。调用方只管调用，不管细节，而当我们新增一种Dog的子类时，只要确保新方法编写正确，而不用管原来的代码。这就是著名的“开闭”原则： 对扩展开放（Open for extension）：允许子类重写方法函数 对修改封闭（Closed for modification）：不重写，直接继承父类方法函数 代码1234567891011121314151617181920212223242526272829303132333435class Dog(object): def __init__(self, name): self.name = name def game(self): print("&#123;&#125;跳".format(self.name))class XiaoTianDog(Dog): # 方法重写 def game(self): print("&#123;&#125;飞".format(self.name))class Person(object): def __init__(self, name): self.name = name def game_with_dog(self, dog): print("&#123;&#125;和&#123;&#125;玩耍".format(self.name, dog.name))# 创建Dog对象Peter = Dog("皮特")# 创建XiaoTianDog对象wangcai = XiaoTianDog("旺财")# 调用Dog里面的game方法Peter.game()# 调用XiaoTianDog里面的game方法wangcai.game()xiaoming = Person("小明")xiaoming.game_with_dog(wangcai) 运行结果123皮特跳旺财飞小明和旺财玩耍]]></content>
@@ -353,9 +364,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -364,9 +375,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
