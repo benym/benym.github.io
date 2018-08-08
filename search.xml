@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[python中的多态]]></title>
+    <url>%2F2018%2F08%2F08%2Fpython%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81%2F</url>
+    <content type="text"><![CDATA[当子类和父类都存在相同的 game()方法时，子类的 game() 覆盖了父类的 game()，在代码运行时，会调用子类的 game()。 这样，我们就获得了继承的另一个好处：多态。 多态的好处就是，当我们需要传入更多的子类，例如新增 XX Dog、YY Dog 等时，我们只需要继承 Dog 类型就可以了，而game()方法既可以直不重写（即使用Dog的），也可以重写一个特有的。这就是多态的意思。调用方只管调用，不管细节，而当我们新增一种Dog的子类时，只要确保新方法编写正确，而不用管原来的代码。这就是著名的“开闭”原则： 对扩展开放（Open for extension）：允许子类重写方法函数 对修改封闭（Closed for modification）：不重写，直接继承父类方法函数 代码1234567891011121314151617181920212223242526272829303132333435class Dog(object): def __init__(self, name): self.name = name def game(self): print("&#123;&#125;跳".format(self.name))class XiaoTianDog(Dog): # 方法重写 def game(self): print("&#123;&#125;飞".format(self.name))class Person(object): def __init__(self, name): self.name = name def game_with_dog(self, dog): print("&#123;&#125;和&#123;&#125;玩耍".format(self.name, dog.name))# 创建Dog对象Peter = Dog("皮特")# 创建XiaoTianDog对象wangcai = XiaoTianDog("旺财")# 调用Dog里面的game方法Peter.game()# 调用XiaoTianDog里面的game方法wangcai.game()xiaoming = Person("小明")xiaoming.game_with_dog(wangcai) 运行结果123皮特跳旺财飞小明和旺财玩耍]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>多态</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[turtle绘图库]]></title>
     <url>%2F2018%2F08%2F08%2Fturtle%E7%BB%98%E5%9B%BE%E5%BA%93%2F</url>
     <content type="text"><![CDATA[大概学习了下turtle库的一个绘图实例= =，估计以后也用不上这个库…. 代码实例1： 绘制一条小蛇 123456789101112131415161718192021222324252627import turtle # 绘图库# 绘制一条小蛇# 设置窗体大小及位置，但并不是必须的，依次长,宽，如果后两项不设置，则默认正中心turtle.setup(650, 350, 200, 200)# 抬起画笔turtle.penup()# turtle.fd表示向海龟的右边走，turtle.bk表示向海龟的左边走turtle.fd(-250)# 下笔turtle.pendown()# 设置画笔宽度turtle.pensize(25)# 设置画笔颜色turtle.pencolor("purple")# 改变当前行径的方向，原地转向的意思，参数为绝对角度# turtle.left和turtle.right表示向左边或右边改变角度turtle.seth(-40)for i in range(4): # circle表示以某一个点为圆心，向左侧运行 turtle.circle(40, 80) turtle.circle(-40, 80)turtle.circle(40, 80 / 2)turtle.fd(40)turtle.circle(16, 100)turtle.fd(40 * 2 / 3)turtle.done() 运行结果 实例2：绘制一个Z 代码123456789import turtleturtle.left(45) # 转角度turtle.fd(150) # 前进turtle.right(135)turtle.fd(300)turtle.left(135)turtle.fd(150)turtle.done() 运行结果]]></content>
@@ -342,9 +353,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -353,9 +364,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
