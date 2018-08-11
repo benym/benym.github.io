@@ -1981,7 +1981,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #0b08ff;
+  background: #ff7d7e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3330,6 +3330,7 @@ pre .javascript .function {
   padding: 0px;
 }
 .site-title {
+  font-family: Roboto Slab;
   font-size: 75px;
   font-weight: bold;
   color: #fff;
@@ -3337,6 +3338,7 @@ pre .javascript .function {
   letter-spacing: 3px;
 }
 .site-subtitle {
+  font-family: Roboto Slab;
   margin: 0px;
   font-size: 16px;
   letter-spacing: 1px;
@@ -3595,16 +3597,16 @@ img:hover {
   border-bottom-color: #a166ab;
 }
 .page-archive .archive-page-counter {
-  color: #fff;
+  color: #333;
 }
 .page-archive .posts-collapse .archive-move-on {
   top: 10px;
   opacity: 1;
-  background-color: #fff;
+  background-color: #f2f2f2;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
 }
 .post-block.page {
-  margin-top: 40px;
+  margin-top: 0px;
 }
 .category-all-page {
   margin: -80px 50px 40px 50px;
@@ -3849,10 +3851,12 @@ code.description {
 }
 @media (max-width: 767px) {
   .site-title {
+    font-family: Roboto Slab;
     font-size: 70px !important;
     letter-spacing: 0px !important;
   }
   .site-subtitle {
+    font-family: Roboto Slab;
     letter-spacing: 0px !important;
     padding-bottom: 0px !important;
   }
