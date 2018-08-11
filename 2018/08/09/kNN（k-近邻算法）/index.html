@@ -147,7 +147,7 @@
 <meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/KNN-01.png">
 <meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/KNN-02.png">
 <meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/KNN-03.png">
-<meta property="og:updated_time" content="2018-08-10T06:46:37.269Z">
+<meta property="og:updated_time" content="2018-08-11T03:46:17.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kNN（k-近邻算法）">
 <meta name="twitter:description" content="用k-近邻算法实现简单的分类">
@@ -421,8 +421,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-10T14:46:37+08:00">
-                2018-08-10
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-11T11:46:17+08:00">
+                2018-08-11
               </time>
             
           </span>
@@ -541,9 +541,9 @@
 <li>收集数据：可以使用任何方法。</li>
 <li>准备数据：距离计算所需要的数值，最好是结构化的数据格式。</li>
 <li>分析数据：可以使用任何方法。</li>
-<li>训练算法：此步驟不适用于 1 近邻算法。</li>
+<li>训练算法：此步驟不适用于k-近邻算法。</li>
 <li>测试算法：计算错误率。</li>
-<li><p>使用算法：首先需要输入样本数据和结构化的输出结果，然后运行女-近邻算法判定输入数据分别属于哪个分类，最后应用对计算出的分类执行后续的处理。</p>
+<li><p>使用算法：首先需要输入样本数据和结构化的输出结果，然后运行k-近邻算法判定输入数据分别属于哪个分类，最后应用对计算出的分类执行后续的处理。</p>
 <p><strong>使用欧氏距离公式，计算两个向量点xA和xB之间的距离：</strong></p>
 </li>
 </ol>
@@ -554,7 +554,7 @@
 <p><img src="http://pd10tty87.bkt.clouddn.com/KNN-03.png" alt="KNN-03"></p>
 <p>计算完所有点之间的距离后，可以对数据按照从小到大的次序排序。然后，确定前 k 个距离最小元素所在的主要分类 , 输人k总是正整数；最后，将classCount字典分解为元组列表，然后使用程序第二行导入运算符模块的itemgetter方法 ,按照第二个元素的次序对元组进行排序。此处的排序为逆序，即按照从最大到最小次序排序，最后返回发生频率最高的元素标签。</p>
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDateSet</span><span class="params">()</span>:</span></span><br><span class="line">    group = array([[<span class="number">1.0</span>, <span class="number">1.1</span>], [<span class="number">1.0</span>, <span class="number">1.0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.1</span>]])</span><br><span class="line">    labels = [<span class="string">'A'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'B'</span>]</span><br><span class="line">    <span class="keyword">return</span> group, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string"> 用于分类的输人向量是inX，</span></span><br><span class="line"><span class="string"> 输入的训练样本集为dataSet,</span></span><br><span class="line"><span class="string"> 标签向量为labels</span></span><br><span class="line"><span class="string"> 最后的参数k表示用于选择最近邻居的数目，</span></span><br><span class="line"><span class="string"> 其中标签向量的元素数目和矩阵dataSet的行数相同</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX, dataSet, labels, k)</span>:</span></span><br><span class="line">    dataSetSize = dataSet.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 距离计算</span></span><br><span class="line">    diffMat = tile(inX, (dataSetSize, <span class="number">1</span>)) - dataSet</span><br><span class="line">    sqDiffMat = diffMat ** <span class="number">2</span></span><br><span class="line">    sqDistances = sqDiffMat.sum(axis=<span class="number">1</span>)</span><br><span class="line">    distances = sqDistances ** <span class="number">0.5</span></span><br><span class="line">    sortedDistIndicies = distances.argsort()</span><br><span class="line">    classCount = &#123;&#125;</span><br><span class="line">    <span class="comment"># 选择距离最小的k个点</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        votellabel = labels[sortedDistIndicies[i]]</span><br><span class="line">        classCount[votellabel] = classCount.get(votellabel, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    <span class="comment"># 排序</span></span><br><span class="line">    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">group, labels = createDateSet()</span><br><span class="line">print(classify0([<span class="number">1.0</span>, <span class="number">1.1</span>], group, labels, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -562,6 +562,8 @@
     
     
 
+
+	
     
 
     
@@ -622,6 +624,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" rel="prev" title="使用k-近邻算法改进约会网站的配对效果">
+                使用k-近邻算法改进约会网站的配对效果 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -707,7 +713,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">61</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -729,7 +735,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -843,7 +849,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">18.8k</span>
+    <span title="Site words total count">19.5k</span>
   
 </div>
 

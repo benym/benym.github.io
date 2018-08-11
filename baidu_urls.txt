@@ -1,3 +1,4 @@
+http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/
 http://benym.cn/2018/08/09/kNN（k-近邻算法）/
 http://benym.cn/2018/08/09/Numpy库的首次使用/
 http://benym.cn/2018/08/08/单例设计模式/
@@ -7,4 +8,3 @@ http://benym.cn/2018/08/08/python中的多态/
 http://benym.cn/2018/08/08/turtle绘图库/
 http://benym.cn/2018/08/07/正则表达式中的compile函数(二)/
 http://benym.cn/2018/08/07/正则表达式中的compile函数/
-http://benym.cn/2018/08/07/正则表达式检索与替换/

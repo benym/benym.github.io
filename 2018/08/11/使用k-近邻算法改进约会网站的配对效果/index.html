@@ -125,7 +125,7 @@
 
 
 
-  <meta name="keywords" content="Python,Hexo,博客,算法,机器学习" />
+  <meta name="keywords" content="机器学习,python,k-近邻算法" />
 
 
 
@@ -136,16 +136,20 @@
 
 
 
-<meta name="description" content="“准备开启研究生之旅”">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Ben.Y">
-<meta property="og:url" content="http://benym.cn/tags/Face/index.html">
+<meta name="description" content="在约会网站上使用k-近邻算法">
+<meta name="keywords" content="机器学习,python,k-近邻算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用k-近邻算法改进约会网站的配对效果">
+<meta property="og:url" content="http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/index.html">
 <meta property="og:site_name" content="Ben.Y">
-<meta property="og:description" content="“准备开启研究生之旅”">
+<meta property="og:description" content="在约会网站上使用k-近邻算法">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png">
+<meta property="og:updated_time" content="2018-08-11T05:12:26.808Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ben.Y">
-<meta name="twitter:description" content="“准备开启研究生之旅”">
+<meta name="twitter:title" content="使用k-近邻算法改进约会网站的配对效果">
+<meta name="twitter:description" content="在约会网站上使用k-近邻算法">
+<meta name="twitter:image" content="http://pd10tty87.bkt.clouddn.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png">
 
 
 
@@ -175,7 +179,7 @@
 
 
 
-  <link rel="canonical" href="http://benym.cn/tags/Face/"/>
+  <link rel="canonical" href="http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/"/>
 
 
 
@@ -194,7 +198,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-  <title>标签: Face | Ben.Y</title>
+  <title>使用k-近邻算法改进约会网站的配对效果 | Ben.Y</title>
   
 
 
@@ -213,7 +217,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
 	<a href="https://benym.github.io" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -356,67 +360,278 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
-
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>Face<small>标签</small>
-        </h1>
-      </div>
-
-      
-	  	  
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-        </div>
-      
-      
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/08/03/欢迎来到我的博客/" itemprop="url">
-              
-                <span itemprop="name">欢迎来到我的博客</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">使用k-近邻算法改进约会网站的配对效果</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-08-03T19:39:54+08:00"
-              content="2018-08-03" >
-          08-03
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T11:47:52+08:00">
+                2018-08-11
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-11T13:12:26+08:00">
+                2018-08-11
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" class="leancloud_visitors" data-flag-title="使用k-近邻算法改进约会网站的配对效果">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  624
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  在约会网站上使用k-近邻算法
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center><strong><em>实例：在约会网站上使用k-近邻算法</em></strong></center>
+
+<p>(1) 收集数据：提供文本文件。<br>(2) 准备数据 :  使用python解析文本文件。<br>(3) 分析数据    使用 Matplotlib画二维扩散图 。<br>(4) 训练算法：此步驟不适用于k-近邻算法。<br>(5) 测试算法：使用海伦提供的部分数据作为测试样本。<br>测试样本和非测试样本的区别在于：测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。<br>(6) 使用算法：产生简单的命令行程序，然后可以输入一些特征数据以判断对方是否为自己喜欢的类型。</p>
+<a id="more"></a>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将文本记录转换到Numpy的解析程序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file2matrix</span><span class="params">(filename)</span>:</span></span><br><span class="line">    fr = open(filename)</span><br><span class="line">    arrayOLines = fr.readlines()</span><br><span class="line">    <span class="comment"># 得到文件行数</span></span><br><span class="line">    numberOfLines = len(arrayOLines)</span><br><span class="line">    <span class="comment"># 创建返回的Numpy矩阵，将该矩阵的另一维度设置为3</span></span><br><span class="line">    returnMat = zeros((numberOfLines, <span class="number">3</span>))</span><br><span class="line">    classLabelVector = []</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 解析文件数据到列表，循环处理每行数据</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> arrayOLines:</span><br><span class="line">        <span class="comment"># 截取掉所有的回车字符</span></span><br><span class="line">        line = line.strip()</span><br><span class="line">        <span class="comment"># 使用tab字符\t将上一步得到的整行数据分割成一个元素列表</span></span><br><span class="line">        listFromLine = line.split(<span class="string">'\t'</span>)</span><br><span class="line">        <span class="comment"># 选取前3个元素，将他们存储到特征矩阵中</span></span><br><span class="line">        returnMat[index, :] = listFromLine[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line">        <span class="comment"># -1表示列表中的最后一列元素，将最后一列元素存储到向量classLabelVector中</span></span><br><span class="line">        classLabelVector.append(int(listFromLine[<span class="number">-1</span>]))</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> returnMat, classLabelVector</span><br><span class="line"></span><br><span class="line">datingDataMat, datingLabels = file2matrix(<span class="string">'datingTestSet2.txt'</span>)</span><br><span class="line">print(<span class="string">"array:\n"</span>, datingDataMat)</span><br><span class="line">print(<span class="string">"datingLabels[0:20]\n"</span>, datingLabels[<span class="number">0</span>:<span class="number">20</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制散点图</span></span><br><span class="line"><span class="comment"># 定义figure</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line"><span class="comment">#add_subplot()返回一个axes对象，里面的参数abc表示在一个figure窗口中，有a行b列个小窗口，然后本次plot在第c个窗口中。</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line"><span class="comment"># 设置颜色和散点图数据</span></span><br><span class="line">ax.scatter(datingDataMat[:, <span class="number">1</span>], datingDataMat[:, <span class="number">2</span>], <span class="number">15.0</span> * array(datingLabels), <span class="number">15.0</span> * array(datingLabels))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<div class="note info"><p><a href="http://pd10tty87.bkt.clouddn.com/datingTestSet.txt" target="_blank" rel="noopener">数据集</a></p></div>
+
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">array:</span><br><span class="line"> [[  <span class="number">4.09200000e+04</span>   <span class="number">8.32697600e+00</span>   <span class="number">9.53952000e-01</span>]</span><br><span class="line"> [  <span class="number">1.44880000e+04</span>   <span class="number">7.15346900e+00</span>   <span class="number">1.67390400e+00</span>]</span><br><span class="line"> [  <span class="number">2.60520000e+04</span>   <span class="number">1.44187100e+00</span>   <span class="number">8.05124000e-01</span>]</span><br><span class="line"> ..., </span><br><span class="line"> [  <span class="number">2.65750000e+04</span>   <span class="number">1.06501020e+01</span>   <span class="number">8.66627000e-01</span>]</span><br><span class="line"> [  <span class="number">4.81110000e+04</span>   <span class="number">9.13452800e+00</span>   <span class="number">7.28045000e-01</span>]</span><br><span class="line"> [  <span class="number">4.37570000e+04</span>   <span class="number">7.88260100e+00</span>   <span class="number">1.33244600e+00</span>]]</span><br><span class="line">datingLabels[<span class="number">0</span>:<span class="number">20</span>]</span><br><span class="line"> [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
+<p>散点图结果：</p>
+<p><img src="http://pd10tty87.bkt.clouddn.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png" alt="散点图"></p>
 
       
     </div>
+    
+    
+    
 
+
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>打赏了解一下？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/ali.jpg" alt="一个据说只有20的青年 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/机器学习/" rel="tag"><i class="fa fa-tag"></i> 机器学习</a>
+          
+            <a href="/tags/k-近邻算法/" rel="tag"><i class="fa fa-tag"></i> k-近邻算法</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+            <a href="/tags/matplotlib/" rel="tag"><i class="fa fa-tag"></i> matplotlib</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/09/kNN（k-近邻算法）/" rel="next" title="kNN（k-近邻算法）">
+                <i class="fa fa-chevron-left"></i> kNN（k-近邻算法）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -424,6 +639,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -446,8 +668,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -557,6 +788,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行结果"><span class="nav-number">2.</span> <span class="nav-text">运行结果</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -757,7 +1004,9 @@ show_date_time();
 
 
   
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
 
 
   
