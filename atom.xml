@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ben.Y</title>
+  
+  <subtitle>chances are for people who are prepared</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://benym.cn/"/>
+  <updated>2018-08-11T05:12:26.808Z</updated>
+  <id>http://benym.cn/</id>
+  
+  <author>
+    <name>一个据说只有20的青年</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>使用k-近邻算法改进约会网站的配对效果</title>
+    <link href="http://benym.cn/2018/08/11/%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/"/>
+    <id>http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/</id>
+    <published>2018-08-11T03:47:52.000Z</published>
+    <updated>2018-08-11T05:12:26.808Z</updated>
+    
+    <content type="html"><![CDATA[<center><strong><em>实例：在约会网站上使用k-近邻算法</em></strong></center><p>(1) 收集数据：提供文本文件。<br>(2) 准备数据 :  使用python解析文本文件。<br>(3) 分析数据    使用 Matplotlib画二维扩散图 。<br>(4) 训练算法：此步驟不适用于k-近邻算法。<br>(5) 测试算法：使用海伦提供的部分数据作为测试样本。<br>测试样本和非测试样本的区别在于：测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。<br>(6) 使用算法：产生简单的命令行程序，然后可以输入一些特征数据以判断对方是否为自己喜欢的类型。</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"><span class="keyword">import</span> matplotlib</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将文本记录转换到Numpy的解析程序</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">file2matrix</span><span class="params">(filename)</span>:</span></span><br><span class="line">    fr = open(filename)</span><br><span class="line">    arrayOLines = fr.readlines()</span><br><span class="line">    <span class="comment"># 得到文件行数</span></span><br><span class="line">    numberOfLines = len(arrayOLines)</span><br><span class="line">    <span class="comment"># 创建返回的Numpy矩阵，将该矩阵的另一维度设置为3</span></span><br><span class="line">    returnMat = zeros((numberOfLines, <span class="number">3</span>))</span><br><span class="line">    classLabelVector = []</span><br><span class="line">    index = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 解析文件数据到列表，循环处理每行数据</span></span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> arrayOLines:</span><br><span class="line">        <span class="comment"># 截取掉所有的回车字符</span></span><br><span class="line">        line = line.strip()</span><br><span class="line">        <span class="comment"># 使用tab字符\t将上一步得到的整行数据分割成一个元素列表</span></span><br><span class="line">        listFromLine = line.split(<span class="string">'\t'</span>)</span><br><span class="line">        <span class="comment"># 选取前3个元素，将他们存储到特征矩阵中</span></span><br><span class="line">        returnMat[index, :] = listFromLine[<span class="number">0</span>:<span class="number">3</span>]</span><br><span class="line">        <span class="comment"># -1表示列表中的最后一列元素，将最后一列元素存储到向量classLabelVector中</span></span><br><span class="line">        classLabelVector.append(int(listFromLine[<span class="number">-1</span>]))</span><br><span class="line">        index += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> returnMat, classLabelVector</span><br><span class="line"></span><br><span class="line">datingDataMat, datingLabels = file2matrix(<span class="string">'datingTestSet2.txt'</span>)</span><br><span class="line">print(<span class="string">"array:\n"</span>, datingDataMat)</span><br><span class="line">print(<span class="string">"datingLabels[0:20]\n"</span>, datingLabels[<span class="number">0</span>:<span class="number">20</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制散点图</span></span><br><span class="line"><span class="comment"># 定义figure</span></span><br><span class="line">fig = plt.figure()</span><br><span class="line"><span class="comment">#add_subplot()返回一个axes对象，里面的参数abc表示在一个figure窗口中，有a行b列个小窗口，然后本次plot在第c个窗口中。</span></span><br><span class="line">ax = fig.add_subplot(<span class="number">111</span>)</span><br><span class="line"><span class="comment"># 设置颜色和散点图数据</span></span><br><span class="line">ax.scatter(datingDataMat[:, <span class="number">1</span>], datingDataMat[:, <span class="number">2</span>], <span class="number">15.0</span> * array(datingLabels), <span class="number">15.0</span> * array(datingLabels))</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure><div class="note info"><p><a href="http://pd10tty87.bkt.clouddn.com/datingTestSet.txt" target="_blank" rel="noopener">数据集</a></p></div><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">array:</span><br><span class="line"> [[  <span class="number">4.09200000e+04</span>   <span class="number">8.32697600e+00</span>   <span class="number">9.53952000e-01</span>]</span><br><span class="line"> [  <span class="number">1.44880000e+04</span>   <span class="number">7.15346900e+00</span>   <span class="number">1.67390400e+00</span>]</span><br><span class="line"> [  <span class="number">2.60520000e+04</span>   <span class="number">1.44187100e+00</span>   <span class="number">8.05124000e-01</span>]</span><br><span class="line"> ..., </span><br><span class="line"> [  <span class="number">2.65750000e+04</span>   <span class="number">1.06501020e+01</span>   <span class="number">8.66627000e-01</span>]</span><br><span class="line"> [  <span class="number">4.81110000e+04</span>   <span class="number">9.13452800e+00</span>   <span class="number">7.28045000e-01</span>]</span><br><span class="line"> [  <span class="number">4.37570000e+04</span>   <span class="number">7.88260100e+00</span>   <span class="number">1.33244600e+00</span>]]</span><br><span class="line">datingLabels[<span class="number">0</span>:<span class="number">20</span>]</span><br><span class="line"> [<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure><p>散点图结果：</p><p><img src="http://pd10tty87.bkt.clouddn.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png" alt="散点图"></p>]]></content>
+    
+    <summary type="html">
+    
+      在约会网站上使用k-近邻算法
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+      <category term="matplotlib" scheme="http://benym.cn/tags/matplotlib/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>kNN（k-近邻算法）</title>
+    <link href="http://benym.cn/2018/08/09/kNN%EF%BC%88k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%EF%BC%89/"/>
+    <id>http://benym.cn/2018/08/09/kNN（k-近邻算法）/</id>
+    <published>2018-08-09T13:43:52.000Z</published>
+    <updated>2018-08-11T03:46:17.640Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>k-近邻算法（kNN），</strong>它的工作原理是：存在一个样本数据集合，也称作训练样本集，并且样本集中每个数据都存在标签，即我们知道样本集中每一数据与所属分类的对应关系。输人没有标签的新数据后，将新数据的每个特征与样本集中数据对应的特征进行比较，然后算法提取样本集中特征最相似数据（最近邻）的分类标签。一般来说，我们只选择样本数据集中前 k个最相似的数据，这就是 k- 近邻算法中k的出处 , 通常k是不大于 20 的整数。<br>最后，选择k个最相似数据中出现次数最多的分类，作为新数据的分类。</p><a id="more"></a><center><strong><em>k-近邻算法的一般流程</em></strong></center><ol><li>收集数据：可以使用任何方法。</li><li>准备数据：距离计算所需要的数值，最好是结构化的数据格式。</li><li>分析数据：可以使用任何方法。</li><li>训练算法：此步驟不适用于k-近邻算法。</li><li>测试算法：计算错误率。</li><li><p>使用算法：首先需要输入样本数据和结构化的输出结果，然后运行k-近邻算法判定输入数据分别属于哪个分类，最后应用对计算出的分类执行后续的处理。</p><p><strong>使用欧氏距离公式，计算两个向量点xA和xB之间的距离：</strong></p></li></ol><p><img src="http://pd10tty87.bkt.clouddn.com/KNN-01.png" alt="KNN-01"></p><p>例如，点 (0 ,0) 与 (1, 2) 之间的距离计算为：</p><p><img src="http://pd10tty87.bkt.clouddn.com/KNN-02.png" alt="KNN-02"></p><p>如果数据集存在 4 个特征值，则点 (1 ,0, 0 ,1) 与 (7, 6, 9 ,4) 之间的距离计算为:</p><p><img src="http://pd10tty87.bkt.clouddn.com/KNN-03.png" alt="KNN-03"></p><p>计算完所有点之间的距离后，可以对数据按照从小到大的次序排序。然后，确定前 k 个距离最小元素所在的主要分类 , 输人k总是正整数；最后，将classCount字典分解为元组列表，然后使用程序第二行导入运算符模块的itemgetter方法 ,按照第二个元素的次序对元组进行排序。此处的排序为逆序，即按照从最大到最小次序排序，最后返回发生频率最高的元素标签。</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">createDateSet</span><span class="params">()</span>:</span></span><br><span class="line">    group = array([[<span class="number">1.0</span>, <span class="number">1.1</span>], [<span class="number">1.0</span>, <span class="number">1.0</span>], [<span class="number">0</span>, <span class="number">0</span>], [<span class="number">0</span>, <span class="number">0.1</span>]])</span><br><span class="line">    labels = [<span class="string">'A'</span>, <span class="string">'A'</span>, <span class="string">'B'</span>, <span class="string">'B'</span>]</span><br><span class="line">    <span class="keyword">return</span> group, labels</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string"> 用于分类的输人向量是inX，</span></span><br><span class="line"><span class="string"> 输入的训练样本集为dataSet,</span></span><br><span class="line"><span class="string"> 标签向量为labels</span></span><br><span class="line"><span class="string"> 最后的参数k表示用于选择最近邻居的数目，</span></span><br><span class="line"><span class="string"> 其中标签向量的元素数目和矩阵dataSet的行数相同</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX, dataSet, labels, k)</span>:</span></span><br><span class="line">    dataSetSize = dataSet.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 距离计算</span></span><br><span class="line">    diffMat = tile(inX, (dataSetSize, <span class="number">1</span>)) - dataSet</span><br><span class="line">    sqDiffMat = diffMat ** <span class="number">2</span></span><br><span class="line">    sqDistances = sqDiffMat.sum(axis=<span class="number">1</span>)</span><br><span class="line">    distances = sqDistances ** <span class="number">0.5</span></span><br><span class="line">    sortedDistIndicies = distances.argsort()</span><br><span class="line">    classCount = &#123;&#125;</span><br><span class="line">    <span class="comment"># 选择距离最小的k个点</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        votellabel = labels[sortedDistIndicies[i]]</span><br><span class="line">        classCount[votellabel] = classCount.get(votellabel, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    <span class="comment"># 排序</span></span><br><span class="line">    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">group, labels = createDateSet()</span><br><span class="line">print(classify0([<span class="number">1.0</span>, <span class="number">1.1</span>], group, labels, <span class="number">3</span>))</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      用k-近邻算法实现简单的分类
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Numpy库的首次使用</title>
+    <link href="http://benym.cn/2018/08/09/Numpy%E5%BA%93%E7%9A%84%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8/"/>
+    <id>http://benym.cn/2018/08/09/Numpy库的首次使用/</id>
+    <published>2018-08-09T12:53:08.000Z</published>
+    <updated>2018-08-10T06:46:21.270Z</updated>
+    
+    <content type="html"><![CDATA[<p>在pycharm中的setting安装numpy，或者在cmd里面通过pip install方法安装均可</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># 构造一个4x4的随机数组</span></span><br><span class="line">print(<span class="string">"数组:\n"</span>,random.rand(<span class="number">4</span>, <span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用mat()函数将数组转化为矩阵</span></span><br><span class="line">randMat = mat(random.rand(<span class="number">4</span>, <span class="number">4</span>))</span><br><span class="line"><span class="comment"># .I操作符实现了矩阵求逆的运算</span></span><br><span class="line">print(<span class="string">"矩阵求逆:\n"</span>,randMat.I)</span><br><span class="line"><span class="comment"># 矩阵乘以逆矩阵</span></span><br><span class="line">invRandMat = randMat.I</span><br><span class="line">print(<span class="string">"矩阵乘以逆矩阵:\n"</span>,randMat*invRandMat)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数eye(4)创建一个4x4的单位矩阵，下面是算误差</span></span><br><span class="line">myEye = randMat*invRandMat</span><br><span class="line">print(<span class="string">"计算误差:\n"</span>,myEye-eye(<span class="number">4</span>))</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">数组:</span><br><span class="line"> [[ <span class="number">0.46089523</span>  <span class="number">0.94167701</span>  <span class="number">0.76910005</span>  <span class="number">0.96892095</span>]</span><br><span class="line"> [ <span class="number">0.38894192</span>  <span class="number">0.88828275</span>  <span class="number">0.28144475</span>  <span class="number">0.91774255</span>]</span><br><span class="line"> [ <span class="number">0.13997437</span>  <span class="number">0.7435124</span>   <span class="number">0.89709322</span>  <span class="number">0.68924161</span>]</span><br><span class="line"> [ <span class="number">0.41461243</span>  <span class="number">0.19911356</span>  <span class="number">0.64856312</span>  <span class="number">0.49160523</span>]]</span><br><span class="line">矩阵求逆:</span><br><span class="line"> [[<span class="number">-0.45014095</span>  <span class="number">1.92871242</span>  <span class="number">0.28217777</span> <span class="number">-0.76959459</span>]</span><br><span class="line"> [ <span class="number">1.09829851</span> <span class="number">-0.9829715</span>  <span class="number">-1.78955478</span>  <span class="number">2.70643663</span>]</span><br><span class="line"> [ <span class="number">0.95057662</span> <span class="number">-1.40675696</span>  <span class="number">0.67345673</span> <span class="number">-0.70029109</span>]</span><br><span class="line"> [<span class="number">-1.11436955</span> <span class="number">-0.35496085</span>  <span class="number">1.88297962</span> <span class="number">-0.76459429</span>]]</span><br><span class="line">矩阵乘以逆矩阵:</span><br><span class="line"> [[  <span class="number">1.00000000e+00</span>   <span class="number">7.20736257e-17</span>  <span class="number">-3.04329603e-17</span>  <span class="number">-1.66886258e-17</span>]</span><br><span class="line"> [ <span class="number">-2.27212878e-16</span>   <span class="number">1.00000000e+00</span>   <span class="number">2.93001892e-17</span>  <span class="number">-1.63043911e-16</span>]</span><br><span class="line"> [  <span class="number">8.73583235e-18</span>  <span class="number">-3.06881469e-17</span>   <span class="number">1.00000000e+00</span>  <span class="number">-3.50839733e-17</span>]</span><br><span class="line"> [ <span class="number">-4.04804848e-17</span>   <span class="number">1.45085950e-16</span>  <span class="number">-1.23671214e-16</span>   <span class="number">1.00000000e+00</span>]]</span><br><span class="line">计算误差:</span><br><span class="line"> [[ <span class="number">-1.11022302e-16</span>   <span class="number">7.20736257e-17</span>  <span class="number">-3.04329603e-17</span>  <span class="number">-1.66886258e-17</span>]</span><br><span class="line"> [ <span class="number">-2.27212878e-16</span>   <span class="number">2.22044605e-16</span>   <span class="number">2.93001892e-17</span>  <span class="number">-1.63043911e-16</span>]</span><br><span class="line"> [  <span class="number">8.73583235e-18</span>  <span class="number">-3.06881469e-17</span>  <span class="number">-2.22044605e-16</span>  <span class="number">-3.50839733e-17</span>]</span><br><span class="line"> [ <span class="number">-4.04804848e-17</span>   <span class="number">1.45085950e-16</span>  <span class="number">-1.23671214e-16</span>   <span class="number">2.22044605e-16</span>]]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      第一次使用Numpy库
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>单例设计模式</title>
+    <link href="http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://benym.cn/2018/08/08/单例设计模式/</id>
+    <published>2018-08-08T13:15:36.000Z</published>
+    <updated>2018-08-08T13:23:58.090Z</updated>
+    
+    <content type="html"><![CDATA[<p>需要全局的对象唯一的时候，使用单例设计模式，几乎是最简单的设计模式……<img class="github-emoji" alt="sleepy" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f62a.png?v8" height="20" width="20">，以下是代码部分</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object写不写都可以，在python3.X中已经默认继承了，以前区别旧式类和新式类</span></span><br><span class="line"><span class="comment"># 单例设计模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicPlayer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment"># 记录第一个被创建对象的引用</span></span><br><span class="line">    instance = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 记录是否执行过初始化方法</span></span><br><span class="line">    init_flag = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 1. 判断类属性是否是空对象</span></span><br><span class="line">        <span class="keyword">if</span> cls.instance <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="comment"># 2. 调用父类的方法，为第一个对象分配空间</span></span><br><span class="line">            cls.instance = super().__new__(cls)</span><br><span class="line">        <span class="comment"># 3. 返回类属性保存的对象引用</span></span><br><span class="line">        <span class="keyword">return</span> cls.instance</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 让初始化方法只执行一次</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1. 判断是否执行过初始化动作</span></span><br><span class="line">        <span class="keyword">if</span> MusicPlayer.init_flag:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># 2. 如果没有执行过，执行初始化动作</span></span><br><span class="line">        print(<span class="string">"111111111"</span>)</span><br><span class="line">        <span class="comment"># 3. 修改类属性的标记</span></span><br><span class="line">        MusicPlayer.init_flag = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建多个对象</span></span><br><span class="line">player1 = MusicPlayer()</span><br><span class="line">print(player1)</span><br><span class="line">player2 = MusicPlayer()</span><br><span class="line">print(player2)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">111111111</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br></pre></td></tr></table></figure><p>可以看出2次对象的创建在内存上实际是一个地址</p>]]></content>
+    
+    <summary type="html">
+    
+      单例模式
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python面向对象" scheme="http://benym.cn/tags/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中的__new__方法的重写</title>
+    <link href="http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84__new__%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99/"/>
+    <id>http://benym.cn/2018/08/08/python中的__new__方法的重写/</id>
+    <published>2018-08-08T12:56:28.000Z</published>
+    <updated>2018-08-08T12:58:20.326Z</updated>
+    
+    <content type="html"><![CDATA[<p>new方法重写的步骤比较固定，直接上代码吧</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class MusicPlayer(object):</span><br><span class="line"></span><br><span class="line">    # new方法的重写，是一个静态方法，必须主动传递cls参数</span><br><span class="line">    def __new__(cls, *args, **kwargs):</span><br><span class="line">        # 1.创建对象时，new方法会被自动调用</span><br><span class="line">        print(&quot;创建对象，分配空间&quot;)</span><br><span class="line"></span><br><span class="line">        # 2.为对象分配空间</span><br><span class="line">        instance = super().__new__(cls)</span><br><span class="line">        # 3.返回对象的引用</span><br><span class="line">        return instance</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        print(&quot;111&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">player = MusicPlayer()</span><br><span class="line">print(player)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">创建对象，分配空间</span><br><span class="line">111</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x0000000003A0D128&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      __new__方法的重写，单例模式前置？
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python面向对象" scheme="http://benym.cn/tags/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中的静态方法、实例方法、类方法的区别</title>
+    <link href="http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E3%80%81%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>http://benym.cn/2018/08/08/python中的静态方法、实例方法、类方法的区别/</id>
+    <published>2018-08-08T12:34:25.000Z</published>
+    <updated>2018-08-08T12:37:50.901Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>实例方法</strong></p><p>​    定义：第一个参数必须是实例对象，该参数名一般约定为“self”，通过它来传递实例的属性和方法（也可以传类的属性和方法）；</p><p>​    调用：只能由实例对象调用。</p><p><strong>类方法</strong></p><p>​    定义：使用装饰器@classmethod。第一个参数必须是当前类对象，该参数名一般约定为“cls”，通过它来传递类的属性和方法（不能传实例的属性和方法）；</p><p>​    调用：实例对象和类对象都可以调用。</p><p><strong>静态方法</strong></p><p>​    定义：使用装饰器@staticmethod。参数随意，没有“self”和“cls”参数，但是方法体中不能使用类或实例的任何属性和方法；</p><p>​    调用：实例对象和类对象都可以调用。</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tool</span><span class="params">(object)</span>:</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        Tool.count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个实例方法，有self参数</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">action</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"挥动&#123;&#125;"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个类方法，有cls参数</span></span><br><span class="line"><span class="meta">    @classmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shou_tool_count</span><span class="params">(cls)</span>:</span></span><br><span class="line">        print(<span class="string">"工具对象的数量&#123;&#125;"</span>.format(cls.count))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 定义一个静态方法，初始没有任何参数</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">showTime</span><span class="params">()</span>:</span></span><br><span class="line">        print(time.strftime(<span class="string">"%H:%M:%S"</span>, time.localtime()))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建工具对象</span></span><br><span class="line">tool = Tool(<span class="string">"斧头"</span>)</span><br><span class="line">too2 = Tool(<span class="string">"榔头"</span>)</span><br><span class="line"><span class="comment"># 调用类方法,逻辑上类方法一般由类自身调用，其实实例对象和类对象都可以调用</span></span><br><span class="line">Tool.shou_tool_count()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用实例方法,只能由实例对象调用</span></span><br><span class="line">tool.action()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用静态方法,实例对象和类对象均可调用</span></span><br><span class="line">too2.showTime()</span><br><span class="line">Tool.showTime()</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">工具对象的数量2</span><br><span class="line">挥动斧头</span><br><span class="line">20:30:46</span><br><span class="line">20:30:46</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      静态方法，实例方法，类方法的区别
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python面向对象" scheme="http://benym.cn/tags/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中的多态</title>
+    <link href="http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81/"/>
+    <id>http://benym.cn/2018/08/08/python中的多态/</id>
+    <published>2018-08-08T11:41:53.000Z</published>
+    <updated>2018-08-08T11:49:18.932Z</updated>
+    
+    <content type="html"><![CDATA[<p>当子类和父类都存在相同的 game()方法时，子类的 game() 覆盖了父类的 game()，在代码运行时，会调用子类的 game()。</p><p>这样，我们就获得了继承的另一个好处：<strong>多态</strong>。 </p><p>　　　　多态的好处就是，当我们需要传入更多的子类，例如新增 XX Dog、YY Dog 等时，我们只需要继承 Dog 类型就可以了，而game()方法既可以直不重写（即使用Dog的），也可以重写一个特有的。这就是多态的意思。调用方只管调用，不管细节，而当我们新增一种Dog的子类时，只要确保新方法编写正确，而不用管原来的代码。这就是著名的“开闭”原则：</p><ul><li>对扩展开放（Open for extension）：允许子类重写方法函数</li><li>对修改封闭（Closed for modification）：不重写，直接继承父类方法函数</li></ul><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">game</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;跳"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">XiaoTianDog</span><span class="params">(Dog)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 方法重写</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">game</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;飞"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span><span class="params">(object)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">game_with_dog</span><span class="params">(self, dog)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;和&#123;&#125;玩耍"</span>.format(self.name, dog.name))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建Dog对象</span></span><br><span class="line">Peter = Dog(<span class="string">"皮特"</span>)</span><br><span class="line"><span class="comment"># 创建XiaoTianDog对象</span></span><br><span class="line">wangcai = XiaoTianDog(<span class="string">"旺财"</span>)</span><br><span class="line"><span class="comment"># 调用Dog里面的game方法</span></span><br><span class="line">Peter.game()</span><br><span class="line"><span class="comment"># 调用XiaoTianDog里面的game方法</span></span><br><span class="line">wangcai.game()</span><br><span class="line">xiaoming = Person(<span class="string">"小明"</span>)</span><br><span class="line">xiaoming.game_with_dog(wangcai)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">皮特跳</span><br><span class="line">旺财飞</span><br><span class="line">小明和旺财玩耍</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      多态的一个基本实例
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="多态" scheme="http://benym.cn/tags/%E5%A4%9A%E6%80%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>turtle绘图库</title>
+    <link href="http://benym.cn/2018/08/08/turtle%E7%BB%98%E5%9B%BE%E5%BA%93/"/>
+    <id>http://benym.cn/2018/08/08/turtle绘图库/</id>
+    <published>2018-08-08T09:11:18.000Z</published>
+    <updated>2018-08-08T09:21:31.719Z</updated>
+    
+    <content type="html"><![CDATA[<p>大概学习了下turtle库的一个绘图实例= =，估计以后也用不上这个库….</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>实例1：</p><p>绘制一条小蛇</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle  <span class="comment"># 绘图库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制一条小蛇</span></span><br><span class="line"><span class="comment"># 设置窗体大小及位置，但并不是必须的，依次长,宽，如果后两项不设置，则默认正中心</span></span><br><span class="line">turtle.setup(<span class="number">650</span>, <span class="number">350</span>, <span class="number">200</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># 抬起画笔</span></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="comment"># turtle.fd表示向海龟的右边走，turtle.bk表示向海龟的左边走</span></span><br><span class="line">turtle.fd(<span class="number">-250</span>)</span><br><span class="line"><span class="comment"># 下笔</span></span><br><span class="line">turtle.pendown()</span><br><span class="line"><span class="comment"># 设置画笔宽度</span></span><br><span class="line">turtle.pensize(<span class="number">25</span>)</span><br><span class="line"><span class="comment"># 设置画笔颜色</span></span><br><span class="line">turtle.pencolor(<span class="string">"purple"</span>)</span><br><span class="line"><span class="comment"># 改变当前行径的方向，原地转向的意思，参数为绝对角度</span></span><br><span class="line"><span class="comment"># turtle.left和turtle.right表示向左边或右边改变角度</span></span><br><span class="line">turtle.seth(<span class="number">-40</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    <span class="comment"># circle表示以某一个点为圆心，向左侧运行</span></span><br><span class="line">    turtle.circle(<span class="number">40</span>, <span class="number">80</span>)</span><br><span class="line">    turtle.circle(<span class="number">-40</span>, <span class="number">80</span>)</span><br><span class="line">turtle.circle(<span class="number">40</span>, <span class="number">80</span> / <span class="number">2</span>)</span><br><span class="line">turtle.fd(<span class="number">40</span>)</span><br><span class="line">turtle.circle(<span class="number">16</span>, <span class="number">100</span>)</span><br><span class="line">turtle.fd(<span class="number">40</span> * <span class="number">2</span> / <span class="number">3</span>)</span><br><span class="line">turtle.done()</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://pd10tty87.bkt.clouddn.com/turtlesnake.png" alt="snake"></p><p>实例2：绘制一个Z</p><h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.left(<span class="number">45</span>)  <span class="comment"># 转角度</span></span><br><span class="line">turtle.fd(<span class="number">150</span>)  <span class="comment"># 前进</span></span><br><span class="line">turtle.right(<span class="number">135</span>)</span><br><span class="line">turtle.fd(<span class="number">300</span>)</span><br><span class="line">turtle.left(<span class="number">135</span>)</span><br><span class="line">turtle.fd(<span class="number">150</span>)</span><br><span class="line">turtle.done()</span><br></pre></td></tr></table></figure><h2 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://pd10tty87.bkt.clouddn.com/turtleZ.png" alt="Z"></p>]]></content>
+    
+    <summary type="html">
+    
+      使用绘图库绘制图形
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python库" scheme="http://benym.cn/tags/python%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式中的compile函数(二)</title>
+    <link href="http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0(%E4%BA%8C)/"/>
+    <id>http://benym.cn/2018/08/07/正则表达式中的compile函数(二)/</id>
+    <published>2018-08-07T13:16:21.000Z</published>
+    <updated>2018-08-07T13:20:04.738Z</updated>
+    
+    <content type="html"><![CDATA[<p>接着上一篇文章的compile函数实例</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">pattern = re.compile(<span class="string">r'([a-z]+) ([a-z]+)'</span>, re.I)  <span class="comment"># re.I 表示忽略大小写</span></span><br><span class="line">m = pattern.match(<span class="string">'Hello World Wide Web'</span>)</span><br><span class="line">print(m)  <span class="comment"># 匹配成功，返回一个Match 对象</span></span><br><span class="line">print(m.group(<span class="number">0</span>))  <span class="comment"># 返回匹配成功的整个子串</span></span><br><span class="line">print(m.span(<span class="number">0</span>))  <span class="comment"># 返回匹配成功整个子串的索引</span></span><br><span class="line">print(m.group(<span class="number">1</span>))  <span class="comment"># 返回第一个分组匹配成功的子串</span></span><br><span class="line">print(m.span(<span class="number">1</span>))  <span class="comment"># 返回第一个分组匹配成功的子串的索引</span></span><br><span class="line">print(m.group(<span class="number">2</span>))  <span class="comment"># 返回第二个分组匹配成功的子串</span></span><br><span class="line">print(m.span(<span class="number">2</span>))  <span class="comment"># 返回第二个分组匹配成功的子串的索引</span></span><br><span class="line">print(m.groups())  <span class="comment"># 等价于(m.group(1),m.group(2), ...)</span></span><br><span class="line">print(m.group(<span class="number">3</span>))  <span class="comment"># 不存在第三个分组</span></span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">&lt;_sre.SRE_Match object; span=(<span class="number">0</span>, <span class="number">11</span>), match=<span class="string">'Hello World'</span>&gt;</span><br><span class="line">  File <span class="string">"E:/PythonProject/more/test.py"</span>, line <span class="number">13</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">Hello World</span><br><span class="line">    print(m.group(<span class="number">3</span>))  <span class="comment"># 不存在第三个分组</span></span><br><span class="line">(<span class="number">0</span>, <span class="number">11</span>)</span><br><span class="line">IndexError: no such group</span><br><span class="line">Hello</span><br><span class="line">(<span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">World</span><br><span class="line">(<span class="number">6</span>, <span class="number">11</span>)</span><br><span class="line">(<span class="string">'Hello'</span>, <span class="string">'World'</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      compile函数(二)
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python正则表达式" scheme="http://benym.cn/tags/python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式中的compile函数</title>
+    <link href="http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0/"/>
+    <id>http://benym.cn/2018/08/07/正则表达式中的compile函数/</id>
+    <published>2018-08-07T12:47:00.000Z</published>
+    <updated>2018-08-07T13:06:07.898Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong><em>compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</em></strong></p><p><strong><em>语法格式为：</em></strong></p><blockquote><p>re.compile(pattern[, flags])</p></blockquote><p>参数：</p><ul><li>pattern : 一个字符串形式的正则表达式</li><li>flags 可选，表示匹配模式，比如忽略大小写，多行模式等，具体参数为：</li><li>re.I 忽略大小写<ul><li>re.L 表示特殊字符集 \w, \W, \b, \B, \s, \S 依赖于当前环境</li><li>re.M 多行模式</li><li>re.S 即为’ . ‘并且包括换行符在内的任意字符（’ . ‘不包括换行符）</li><li>re.U 表示特殊字符集 \w, \W, \b, \B, \d, \D, \s, \S 依赖于 Unicode 字符属性数据库</li><li>re.X 为了增加可读性，忽略空格和’ # ‘后面的注释</li></ul></li></ul><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列子1</span></span><br><span class="line">pattern = re.compile(<span class="string">r'\d+'</span>)  <span class="comment"># 用于匹配至少一个数字</span></span><br><span class="line">m = pattern.match(<span class="string">'one12twothree34four'</span>)  <span class="comment"># 查找头部，没有匹配</span></span><br><span class="line">print(m)</span><br><span class="line">m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">2</span>, <span class="number">10</span>)  <span class="comment"># 从'e'的位置开始匹配，没有匹配</span></span><br><span class="line">print(m)</span><br><span class="line">m = pattern.match(<span class="string">'one12twothree34four'</span>, <span class="number">3</span>, <span class="number">10</span>)  <span class="comment"># 从'1'的位置开始匹配，正好匹配</span></span><br><span class="line">print(m)  <span class="comment"># 返回一个Match对象</span></span><br><span class="line">print(m.group(<span class="number">0</span>))  <span class="comment"># 可省略0</span></span><br><span class="line">print(m.start(<span class="number">0</span>))  <span class="comment"># 可省略0</span></span><br><span class="line">print(m.end(<span class="number">0</span>))  <span class="comment"># 可省略0</span></span><br><span class="line">print(m.span(<span class="number">0</span>))  <span class="comment"># 可省略0</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">在上面，当匹配成功时返回一个 Match 对象，其中：</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">group([group1, …]) 方法用于获得一个或多个分组匹配的字符串，当要获得整个匹配的子串时，可直接使用 group() 或 group(0)；</span></span><br><span class="line"><span class="string">start([group]) 方法用于获取分组匹配的子串在整个字符串中的起始位置（子串第一个字符的索引），参数默认值为 0；</span></span><br><span class="line"><span class="string">end([group]) 方法用于获取分组匹配的子串在整个字符串中的结束位置（子串最后一个字符的索引+1），参数默认值为 0；</span></span><br><span class="line"><span class="string">span([group]) 方法返回 (start(group), end(group))。</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">None</span><br><span class="line">None</span><br><span class="line">&lt;_sre.SRE_Match object; span=(3, 5), match=&apos;12&apos;&gt;</span><br><span class="line">12</span><br><span class="line">3</span><br><span class="line">5</span><br><span class="line">(3, 5)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      compile函数
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python正则表达式" scheme="http://benym.cn/tags/python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>正则表达式检索与替换</title>
+    <link href="http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A3%80%E7%B4%A2%E4%B8%8E%E6%9B%BF%E6%8D%A2/"/>
+    <id>http://benym.cn/2018/08/07/正则表达式检索与替换/</id>
+    <published>2018-08-07T12:43:26.000Z</published>
+    <updated>2018-08-07T12:46:31.749Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong><em>re.sub用于替换字符串中的匹配项</em></strong></p><blockquote><p>re.sub(pattern, repl, string,  count=0)</p></blockquote><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">phone = <span class="string">"2004-959-559 # 这是一个电话号码"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除注释</span></span><br><span class="line">num = re.sub(<span class="string">r'#.*$'</span>, <span class="string">""</span>, phone)</span><br><span class="line">print(<span class="string">"电话号码:"</span>, num)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除非数字的内容</span></span><br><span class="line">num = re.sub(<span class="string">r'\D'</span>, <span class="string">""</span>, phone)</span><br><span class="line">print(<span class="string">"电话号码:"</span>, num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将匹配的数字乘以2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(matched)</span>:</span></span><br><span class="line">    value = int(matched.group(<span class="string">'value'</span>))</span><br><span class="line">    <span class="keyword">return</span> str(value * <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = <span class="string">'A23G4HFD567'</span></span><br><span class="line">print(re.sub(<span class="string">'(?P&lt;value&gt;\d+)'</span>, double, s))</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">电话号码: 2004-959-559 </span><br><span class="line">电话号码: 2004959559</span><br><span class="line">A46G8HFD1134</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      sub方法的使用
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python正则表达式" scheme="http://benym.cn/tags/python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python中的正则表达式match和search</title>
+    <link href="http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Fmatch%E5%92%8Csearch/"/>
+    <id>http://benym.cn/2018/08/07/Python中的正则表达式match和search/</id>
+    <published>2018-08-07T12:16:00.000Z</published>
+    <updated>2018-08-07T12:18:10.374Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong><em>re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配</em></strong> </p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，</span></span><br><span class="line"><span class="string">则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">matchObj = re.match(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br><span class="line"></span><br><span class="line">matchObj = re.search(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">No match!!</span><br><span class="line">search --&gt; matchObj.group() :  dogs</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      re.match和re.search方法的区别
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python正则表达式" scheme="http://benym.cn/tags/python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python中的正则表达式</title>
+    <link href="http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://benym.cn/2018/08/07/Python中的正则表达式/</id>
+    <published>2018-08-07T12:00:45.000Z</published>
+    <updated>2018-08-07T12:08:56.209Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要是一些正则表达式的基本语法和部分实例</p><p><strong><em>re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none</em></strong></p><blockquote><p>re.match(pattern,  string,  flag=0)</p></blockquote><table><thead><tr><th style="text-align:left">参数</th><th>描述</th></tr></thead><tbody><tr><td style="text-align:left">pattern</td><td>匹配的正则表达式</td></tr><tr><td style="text-align:left">string</td><td>要匹配的字符串</td></tr><tr><td style="text-align:left">flags</td><td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等</td></tr></tbody></table><p><strong><em>re.search 扫描整个字符串并返回第一个成功的匹配</em></strong></p><blockquote><p>re.search(pattern,  string,  flag=0)</p></blockquote><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">group() 返回被 RE 匹配的字符串</span></span><br><span class="line"><span class="string">start() 返回匹配开始的位置</span></span><br><span class="line"><span class="string">end() 返回匹配结束的位置</span></span><br><span class="line"><span class="string">span() 返回一个元组包含匹配 (开始,结束) 的位置</span></span><br><span class="line"><span class="string">group() 返回re整体匹配的字符串，可以一次输入多个组号，对应组号匹配的字符串</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">print(re.match(<span class="string">'www'</span>, <span class="string">'www.runoob.com'</span>).span())  <span class="comment"># 在起始位置匹配</span></span><br><span class="line">print(re.match(<span class="string">'com'</span>, <span class="string">'www.runoob.com'</span>))  <span class="comment"># 不在起始位置匹配</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># group(num=0)  匹配的整个表达式的字符串，group() 可以一次输入多个组号，在这种情况下它将返回一个包含那些组所对应值的元组。</span></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># match部分</span></span><br><span class="line">matchObj = re.match(<span class="string">r'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"matchObj.group():"</span>, matchObj.group())</span><br><span class="line">    print(<span class="string">"matchObj.group(1):"</span>, matchObj.group(<span class="number">1</span>))</span><br><span class="line">    print(<span class="string">"matchObj.group(2):"</span>, matchObj.group(<span class="number">2</span>))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># search部分</span></span><br><span class="line">searchObj = re.search(<span class="string">r'(.*) are (.*?) .*'</span>, line, re.M | re.I)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> searchObj:</span><br><span class="line">    print(<span class="string">"searchObj.group() : "</span>, searchObj.group())</span><br><span class="line">    print(<span class="string">"searchObj.group(1) : "</span>, searchObj.group(<span class="number">1</span>))</span><br><span class="line">    print(<span class="string">"searchObj.group(2) : "</span>, searchObj.group(<span class="number">2</span>))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"Nothing found!!"</span>)</span><br><span class="line"><span class="comment"># re.search 扫描整个字符串并返回第一个成功的匹配。</span></span><br><span class="line">print(re.search(<span class="string">'www'</span>, <span class="string">'www.runoob.com'</span>).span())  <span class="comment"># 在起始位置匹配</span></span><br><span class="line">print(re.search(<span class="string">'com'</span>, <span class="string">'www.runoob.com'</span>).span())  <span class="comment"># 不在起始位置匹配</span></span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(0, 3)</span><br><span class="line">None</span><br><span class="line">matchObj.group(): Cats are smarter than dogs</span><br><span class="line">matchObj.group(1): Cats</span><br><span class="line">matchObj.group(2): smarter</span><br><span class="line">searchObj.group() :  Cats are smarter than dogs</span><br><span class="line">searchObj.group(1) :  Cats</span><br><span class="line">searchObj.group(2) :  smarter</span><br><span class="line">(0, 3)</span><br><span class="line">(11, 14)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      match和search方法
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python正则表达式" scheme="http://benym.cn/tags/python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python中面向对象比较简单的内部函数</title>
+    <link href="http://benym.cn/2018/08/06/Python%E4%B8%AD%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%AF%94%E8%BE%83%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0/"/>
+    <id>http://benym.cn/2018/08/06/Python中面向对象比较简单的内部函数/</id>
+    <published>2018-08-06T13:40:11.000Z</published>
+    <updated>2018-08-07T09:24:09.316Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="比较简单的内部函数"><a href="#比较简单的内部函数" class="headerlink" title="比较简单的内部函数"></a>比较简单的内部函数</h3><h2 id="代码部分"><a href="#代码部分" class="headerlink" title="代码部分"></a>代码部分</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, new_name)</span>:</span></span><br><span class="line">        self.name = new_name</span><br><span class="line">        <span class="comment"># 定义一个私有属性</span></span><br><span class="line">        self.__age = <span class="number">18</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;来了"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__del__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"%s 我去了"</span> % self.name)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 必须返回一个字符串</span></span><br><span class="line">        <span class="comment"># str方法定制变量输出信息，一般用来自定义内容</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是小猫&#123;&#125;"</span>.format(self.name)</span><br><span class="line">    <span class="comment"># 如果定义为__secret则为私有方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">secret</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;的年龄是&#123;&#125;"</span>.format(self.name,self.__age))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">tom = Cat(<span class="string">"Tom"</span>)</span><br><span class="line">tom.secret()</span><br><span class="line">print(tom)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Tom来了</span><br><span class="line">Tom的年龄是18</span><br><span class="line">我是小猫Tom</span><br><span class="line">Tom 我去了</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      __init__,__del__,__str__内部方法的使用,私有属性和私有方法的定义
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="python面向对象" scheme="http://benym.cn/tags/python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>欢迎来到我的博客</title>
+    <link href="http://benym.cn/2018/08/03/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://benym.cn/2018/08/03/欢迎来到我的博客/</id>
+    <published>2018-08-03T11:39:54.000Z</published>
+    <updated>2018-08-06T06:36:46.806Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>机器学习持续烧脑中，</p><p>💥😩😤</p><p>继续为明天奋斗!</p></blockquote> <p><img src="http://pd10tty87.bkt.clouddn.com/QQ%E5%9B%BE%E7%89%8720180806143022.jpg" alt="封面图"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;blockquote class=&quot;blockquote-center&quot;&gt;&lt;p&gt;机器学习持续烧脑中，&lt;/p&gt;
+&lt;p&gt;💥😩😤&lt;/p&gt;
+&lt;p&gt;继续为明天奋斗!&lt;/p&gt;
+&lt;/blockquote&gt; 
+&lt;p&gt;&lt;img src=&quot;http://pd10tty87.bkt.cloud
+      
+    
+    </summary>
+    
+      <category term="随笔" scheme="http://benym.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+    
+    
+      <category term="Face" scheme="http://benym.cn/tags/Face/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中对列表和元组的切片操作</title>
+    <link href="http://benym.cn/2018/07/28/python%E4%B8%AD%E5%AF%B9%E5%88%97%E8%A1%A8%E5%92%8C%E5%85%83%E7%BB%84%E7%9A%84%E5%88%87%E7%89%87%E6%93%8D%E4%BD%9C/"/>
+    <id>http://benym.cn/2018/07/28/python中对列表和元组的切片操作/</id>
+    <published>2018-07-28T12:27:37.338Z</published>
+    <updated>2018-08-03T11:41:52.329Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="python中对列表和元组的切片操作"><a href="#python中对列表和元组的切片操作" class="headerlink" title="python中对列表和元组的切片操作"></a>python中对列表和元组的切片操作</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切片方法用于列表、元组,切片方法不能用于字典</span></span><br><span class="line">list_tmp = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">tuple_tmp = (<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment"># 列表输出</span></span><br><span class="line">print([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>][<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(list_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line"><span class="comment"># 元组输出</span></span><br><span class="line">print((<span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>)[<span class="number">1</span>:<span class="number">3</span>])</span><br><span class="line">print(tuple_tmp[<span class="number">1</span>:<span class="number">3</span>])</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1, 2]</span><br><span class="line">[1, 2]</span><br><span class="line">(3, 2)</span><br><span class="line">(3, 2)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;python中对列表和元组的切片操作&quot;&gt;&lt;a href=&quot;#python中对列表和元组的切片操作&quot; class=&quot;headerlink&quot; title=&quot;python中对列表和元组的切片操作&quot;&gt;&lt;/a&gt;python中对列表和元组的切片操作&lt;/h3&gt;&lt;h2 id=&quot;代
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中字符串的一些方法回顾(切片回顾)</title>
+    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E5%88%87%E7%89%87%E5%9B%9E%E9%A1%BE)/"/>
+    <id>http://benym.cn/2018/07/26/python中字符串的一些方法回顾(切片回顾)/</id>
+    <published>2018-07-26T11:40:48.000Z</published>
+    <updated>2018-08-02T02:09:23.644Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="python中字符串的一些方法回顾-切片回顾"><a href="#python中字符串的一些方法回顾-切片回顾" class="headerlink" title="python中字符串的一些方法回顾(切片回顾)"></a>python中字符串的一些方法回顾(切片回顾)</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串的切片   字符串[开始索引:结束索引:步长]</span></span><br><span class="line"><span class="comment"># 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2</span></span><br><span class="line"><span class="comment"># 切片方法适用于字符串、列表、元组</span></span><br><span class="line"></span><br><span class="line">num_str = <span class="string">"0123456789"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 截取2-5的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 截取2-末尾的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:])</span><br><span class="line"><span class="comment"># 从起始位置截取到5位置的字符串   num_str[0:6]等价</span></span><br><span class="line">print(num_str[:<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 生成切片的副本</span></span><br><span class="line">print(num_str[:])</span><br><span class="line"><span class="comment"># 从开始位置开始，每隔一个字符截取字符串</span></span><br><span class="line">print(num_str[::<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 从索引1开始，每隔一个取一个</span></span><br><span class="line">print(num_str[<span class="number">1</span>::<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 截取从2到(末尾-1)的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 截取字符串末尾两个字符</span></span><br><span class="line">print(num_str[<span class="number">-2</span>:])</span><br><span class="line"><span class="comment"># 字符串的逆序   num_str[::-1]等价</span></span><br><span class="line">print(num_str[<span class="number">-1</span>::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;2345</span><br><span class="line">&gt;&gt;&gt;23456789</span><br><span class="line">&gt;&gt;&gt;012345</span><br><span class="line">&gt;&gt;&gt;0123456789</span><br><span class="line">&gt;&gt;&gt;02468</span><br><span class="line">&gt;&gt;&gt;13579</span><br><span class="line">&gt;&gt;&gt;2345678</span><br><span class="line">&gt;&gt;&gt;89</span><br><span class="line">&gt;&gt;&gt;9876543210</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;python中字符串的一些方法回顾-切片回顾&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-切片回顾&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(切片回顾)&quot;&gt;&lt;/a&gt;python中字符串的一些方法回顾(切
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中字符串的一些方法回顾(拆分与合并)</title>
+    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)/"/>
+    <id>http://benym.cn/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/</id>
+    <published>2018-07-26T11:40:01.000Z</published>
+    <updated>2018-08-02T02:09:13.391Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="python中字符串的一些方法回顾-拆分与合并"><a href="#python中字符串的一些方法回顾-拆分与合并" class="headerlink" title="python中字符串的一些方法回顾(拆分与合并)"></a>python中字符串的一些方法回顾(拆分与合并)</h3><p>字符串中split函数和join函数的使用</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取的</span></span><br><span class="line"><span class="comment"># 要求：</span></span><br><span class="line"><span class="comment"># 1、将字符串中的空白字符全部去掉</span></span><br><span class="line"><span class="comment"># 2、再使用"  "作为分隔符，拼接成一个整齐的字符串</span></span><br><span class="line">poem_str = <span class="string">"登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"</span></span><br><span class="line"></span><br><span class="line">print(poem_str)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、拆分字符串  split方法会返回列表</span></span><br><span class="line">poem_list = poem_str.split()</span><br><span class="line">print(poem_list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、合并字符串</span></span><br><span class="line">result = <span class="string">" "</span>.join(poem_list)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原始字符串：</span><br><span class="line"> 登鹤鹊楼 王之涣  白日依山尽 </span><br><span class="line"> 黄河入海流  欲穷千里目更上一层楼</span><br><span class="line">拆分字符串后：</span><br><span class="line"> [<span class="string">'登鹤鹊楼'</span>, <span class="string">'王之涣'</span>, <span class="string">'白日依山尽'</span>, <span class="string">'黄河入海流'</span>, <span class="string">'欲穷千里目'</span>, <span class="string">'更上一层楼'</span>]</span><br><span class="line">合并字符串后: </span><br><span class="line"> 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;python中字符串的一些方法回顾-拆分与合并&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-拆分与合并&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(拆分与合并)&quot;&gt;&lt;/a&gt;python中字符串的一些方法回
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中字符串的一些方法回顾(文本对齐、去除空白)</title>
+    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90%E3%80%81%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD)/"/>
+    <id>http://benym.cn/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/</id>
+    <published>2018-07-26T11:39:41.000Z</published>
+    <updated>2018-08-02T02:09:32.879Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="python中字符串的一些方法回顾-文本对齐、去除空白"><a href="#python中字符串的一些方法回顾-文本对齐、去除空白" class="headerlink" title="python中字符串的一些方法回顾(文本对齐、去除空白)"></a>python中字符串的一些方法回顾(文本对齐、去除空白)</h3><p>文本对齐的方法，以及用strip函数去除字符串的中空白字符</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取下来的</span></span><br><span class="line"><span class="comment"># 要求：顺序并且居中对齐输出一下内容</span></span><br><span class="line">poem = [<span class="string">"\t\n登鹤鹊楼"</span>,</span><br><span class="line">        <span class="string">"王之涣"</span>,</span><br><span class="line">        <span class="string">"白日依山尽\t\n"</span>,</span><br><span class="line">        <span class="string">"黄河入海流"</span>,</span><br><span class="line">        <span class="string">"欲穷千里目"</span>,</span><br><span class="line">        <span class="string">"更上一层楼"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> poem_str <span class="keyword">in</span> poem:</span><br><span class="line">    <span class="comment"># 先使用strip方法去除字符串中的空白字符</span></span><br><span class="line">    <span class="comment"># 居中对齐  </span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">      Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    print(<span class="string">"|%s|"</span> % poem_str.strip().center(<span class="number">10</span>, <span class="string">"　"</span>))</span><br><span class="line">    <span class="comment"># 向左对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.ljust(10, "　"))</span></span><br><span class="line">    <span class="comment"># 向右对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.rjust(10, "　"))</span></span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|　　　登鹤鹊楼　　　|</span><br><span class="line">|　　　王之涣　　　　|</span><br><span class="line">|　　白日依山尽　　　|</span><br><span class="line">|　　黄河入海流　　　|</span><br><span class="line">|　　欲穷千里目　　　|</span><br><span class="line">|　　更上一层楼　　　|</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;python中字符串的一些方法回顾-文本对齐、去除空白&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-文本对齐、去除空白&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(文本对齐、去除空白)&quot;&gt;&lt;/a&gt;pyth
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>python中完整for循环的实际运用</title>
+    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AE%8C%E6%95%B4for%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%AE%9E%E9%99%85%E8%BF%90%E7%94%A8/"/>
+    <id>http://benym.cn/2018/07/26/python中完整for循环的实际运用/</id>
+    <published>2018-07-26T01:56:03.000Z</published>
+    <updated>2018-08-02T02:17:30.714Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="python中完整for循环的实际运用"><a href="#python中完整for循环的实际运用" class="headerlink" title="python中完整for循环的实际运用"></a>python中完整for循环的实际运用</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整的for循环的实际应用  for...else结构</span></span><br><span class="line"></span><br><span class="line">students = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"xx"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"yy"</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="comment"># 在学院列表中搜索指定的姓名</span></span><br><span class="line">find_name = <span class="string">"SS"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> students:</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i[<span class="string">"name"</span>] == find_name:</span><br><span class="line">        print(<span class="string">"找到了 &#123;&#125;"</span>.format(find_name))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果已经找到，应该直接退出循环，而不再遍历后续的元素</span></span><br><span class="line">    <span class="comment"># 如果把这个else写在if语句之后的话，每次没有找到就要输出一次，这是不对的！</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"没有找到&#123;&#125;"</span>.format(find_name))</span><br><span class="line">print(<span class="string">"循环结束"</span>)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;name&apos;: &apos;xx&apos;&#125;</span><br><span class="line">&#123;&apos;name&apos;: &apos;yy&apos;&#125;</span><br><span class="line">没有找到SS</span><br><span class="line">循环结束</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;python中完整for循环的实际运用&quot;&gt;&lt;a href=&quot;#python中完整for循环的实际运用&quot; class=&quot;headerlink&quot; title=&quot;python中完整for循环的实际运用&quot;&gt;&lt;/a&gt;python中完整for循环的实际运用&lt;/h3&gt;&lt;h2 i
+      
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
+    
+  </entry>
+  
+</feed>
