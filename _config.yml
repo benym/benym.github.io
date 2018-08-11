@@ -4,7 +4,7 @@
 
 # Site
 title: Ben.Y
-subtitle: chances are for people who are prepared
+subtitle: Chances are for people who are prepared
 description: “准备开启研究生之旅”
 keywords:
 author: 一个据说只有20的青年
@@ -136,3 +136,12 @@ service_worker:
   - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
   stripPrefix: public
   verbose: true
+  
+# Extensions
+Plugins: 
+- hexo-generator-feed
+#Feed Atom
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
