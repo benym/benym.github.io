@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2018-08-11T09:12:46.429Z</updated>
+  <updated>2018-08-16T13:03:19.946Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>kNN识别手写图像</title>
+    <link href="http://benym.cn/2018/08/16/kNN%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F/"/>
+    <id>http://benym.cn/2018/08/16/kNN识别手写图像/</id>
+    <published>2018-08-16T13:03:00.000Z</published>
+    <updated>2018-08-16T13:03:19.946Z</updated>
+    
+    <content type="html"><![CDATA[<p><center>示例 ：使用k-近邻算法的手写识别系统</center><br>(1) 收集数据：提供文本文件。<br>(2) 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式。<br>(3) 分析数据：检查数据，确保它符合要求。<br>(4) 训练算法：此步驟不适用于k-近邻算法。<br>(5) 测试算法：编写函数使用提供的部分数据集作为测试样本，测试样本与非测试样本的区别在于测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。<br>(6) 使用算法：本例没有完成此步骤，若你感兴趣可以构建完整的应用程序，从图像中提取数字，并完成数字识别，美国的邮件分拣系统就是一个实际运行的类似系统。</p><div class="note info"><p>注：由于原本数据集已经在0和1之间，所以不需要转化数字特征值。<a href="http://pd10tty87.bkt.clouddn.com/knn%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F.zip" target="_blank" rel="noopener">数据集</a></p></div><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> listdir</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">classify0</span><span class="params">(inX, dataSet, labels, k)</span>:</span></span><br><span class="line">    dataSetSize = dataSet.shape[<span class="number">0</span>]</span><br><span class="line">    <span class="comment"># 距离计算</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">     tile(A，rep) </span></span><br><span class="line"><span class="string">        功能：重复A的各个维度 </span></span><br><span class="line"><span class="string">        参数类型： </span></span><br><span class="line"><span class="string">        A: Array类的都可以 </span></span><br><span class="line"><span class="string">        rep：A沿着各个维度重复的次数</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    diffMat = tile(inX, (dataSetSize, <span class="number">1</span>)) - dataSet</span><br><span class="line">    sqDiffMat = diffMat ** <span class="number">2</span></span><br><span class="line">    <span class="comment"># numpy中的 axis=0表示列,向下，axis=1表示行，向右</span></span><br><span class="line">    <span class="comment"># 在平时使用的sun默认的是axis=0就是普通的相加，当加入axis=1以后就是将一个矩阵的每一行向量相加</span></span><br><span class="line">    sqDistances = sqDiffMat.sum(axis=<span class="number">1</span>)</span><br><span class="line">    distances = sqDistances ** <span class="number">0.5</span></span><br><span class="line">    <span class="comment"># argsort函数返回的是数组值从小到大的索引值</span></span><br><span class="line">    sortedDistIndicies = distances.argsort()</span><br><span class="line">    classCount = &#123;&#125;</span><br><span class="line">    <span class="comment"># 选择距离最小的k个点</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(k):</span><br><span class="line">        votellabel = labels[sortedDistIndicies[i]]</span><br><span class="line">        classCount[votellabel] = classCount.get(votellabel, <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line">    <span class="comment"># 排序</span></span><br><span class="line">    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(<span class="number">1</span>), reverse=<span class="keyword">True</span>)</span><br><span class="line">    <span class="keyword">return</span> sortedClassCount[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">img2vector</span><span class="params">(filename)</span>:</span></span><br><span class="line">    <span class="comment"># 将图像矩阵转化为1x1024的向量</span></span><br><span class="line">    returnVect = zeros((<span class="number">1</span>, <span class="number">1024</span>))</span><br><span class="line">    fr = open(filename)</span><br><span class="line">    <span class="comment"># 循环读出文件的前32行</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">        lineStr = fr.readline()</span><br><span class="line">        <span class="comment"># 将每行的头32个字符值存储在Numpy数组中</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            returnVect[<span class="number">0</span>, <span class="number">32</span> * i + j] = int(lineStr[j])</span><br><span class="line">        <span class="comment"># 返回数组</span></span><br><span class="line">    <span class="keyword">return</span> returnVect</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handwritingClassTest</span><span class="params">()</span>:</span></span><br><span class="line">    hwLabels = []</span><br><span class="line">    <span class="comment"># 获取训练数据集下目录的所有文件名的列表</span></span><br><span class="line">    trainingFileList = listdir(<span class="string">'trainingDigits'</span>)</span><br><span class="line">    <span class="comment"># 得到文件数量</span></span><br><span class="line">    m = len(trainingFileList)</span><br><span class="line">    <span class="comment"># 创建m行1024列的训练矩阵</span></span><br><span class="line">    trainingMat = zeros((m, <span class="number">1024</span>))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(m):</span><br><span class="line">        <span class="comment"># 从文件名解析分类数字</span></span><br><span class="line">        <span class="comment"># 解析出0_10.txt</span></span><br><span class="line">        fileNameStr = trainingFileList[i]</span><br><span class="line">        <span class="comment"># 获得0_10</span></span><br><span class="line">        fileStr = fileNameStr.split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="comment"># 获得0</span></span><br><span class="line">        classNumStr = int(fileStr.split(<span class="string">'_'</span>)[<span class="number">0</span>])</span><br><span class="line">        hwLabels.append(classNumStr)</span><br><span class="line">        trainingMat[i, :] = img2vector(<span class="string">'trainingDigits/%s'</span> % fileNameStr)</span><br><span class="line">    <span class="comment"># 获得测试数据集下目录的所有文件名的列表</span></span><br><span class="line">    testFileList = listdir(<span class="string">'testDigits'</span>)</span><br><span class="line">    errorCount = <span class="number">0.0</span></span><br><span class="line">    mTest = len(testFileList)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(mTest):</span><br><span class="line">        fileNameStr = testFileList[i]</span><br><span class="line">        fileStr = fileNameStr.split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">        classNumStr = int(fileStr.split(<span class="string">'_'</span>)[<span class="number">0</span>])</span><br><span class="line">        vectorUnderTest = img2vector(<span class="string">'testDigits/%s'</span> % fileNameStr)</span><br><span class="line">        classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, <span class="number">3</span>)</span><br><span class="line">        print(<span class="string">"the classifier came back with:%d,the real answer is:%d"</span> % (classifierResult, classNumStr))</span><br><span class="line">        <span class="keyword">if</span> (classifierResult != classNumStr):</span><br><span class="line">            errorCount += <span class="number">1.0</span></span><br><span class="line">    print(<span class="string">"\nthe total number of errors is:%d"</span> % errorCount)</span><br><span class="line">    print(<span class="string">"\nthe total error rate is :%f"</span> % (errorCount / float(mTest)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">testVector = img2vector(<span class="string">'testDigits/0_13.txt'</span>)</span><br><span class="line"><span class="comment"># X[:,  m:n]，即取二维数组中的第m到n-1列的所有数据</span></span><br><span class="line">print(<span class="string">"测试输出:\n"</span>, testVector[<span class="number">0</span>, <span class="number">0</span>:<span class="number">31</span>])</span><br><span class="line">handwritingClassTest()</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">1</span>,the real answer <span class="keyword">is</span>:<span class="number">1</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">1</span>,the real answer <span class="keyword">is</span>:<span class="number">1</span></span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line"></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">5</span>,the real answer <span class="keyword">is</span>:<span class="number">5</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">5</span>,the real answer <span class="keyword">is</span>:<span class="number">5</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">6</span>,the real answer <span class="keyword">is</span>:<span class="number">6</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">6</span>,the real answer <span class="keyword">is</span>:<span class="number">6</span></span><br><span class="line"></span><br><span class="line">....</span><br><span class="line"></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">9</span>,the real answer <span class="keyword">is</span>:<span class="number">9</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">9</span>,the real answer <span class="keyword">is</span>:<span class="number">9</span></span><br><span class="line">the classifier came back <span class="keyword">with</span>:<span class="number">9</span>,the real answer <span class="keyword">is</span>:<span class="number">9</span></span><br><span class="line"></span><br><span class="line">the total number of errors <span class="keyword">is</span>:<span class="number">11</span></span><br><span class="line"><span class="comment"># 错误率为1.2%</span></span><br><span class="line">the total error rate <span class="keyword">is</span> :<span class="number">0.011628</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      机器学习实战——knn识别手写图像
+    
+    </summary>
+    
+      <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
+    
+  </entry>
   
   <entry>
     <title>使用k-近邻算法改进约会网站的配对效果</title>
@@ -34,11 +62,11 @@
       <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
     
       <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="matplotlib" scheme="http://benym.cn/tags/matplotlib/"/>
     
@@ -62,11 +90,11 @@
       <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
       <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
     
       <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -88,9 +116,9 @@
       <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
-    
       <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
     
       <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
     
@@ -456,31 +484,6 @@
       
       
         &lt;h3 id=&quot;python中字符串的一些方法回顾-文本对齐、去除空白&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-文本对齐、去除空白&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(文本对齐、去除空白)&quot;&gt;&lt;/a&gt;pyth
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
-    
-    
-      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python中完整for循环的实际运用</title>
-    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AE%8C%E6%95%B4for%E5%BE%AA%E7%8E%AF%E7%9A%84%E5%AE%9E%E9%99%85%E8%BF%90%E7%94%A8/"/>
-    <id>http://benym.cn/2018/07/26/python中完整for循环的实际运用/</id>
-    <published>2018-07-26T01:56:03.000Z</published>
-    <updated>2018-08-02T02:17:30.714Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="python中完整for循环的实际运用"><a href="#python中完整for循环的实际运用" class="headerlink" title="python中完整for循环的实际运用"></a>python中完整for循环的实际运用</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整的for循环的实际应用  for...else结构</span></span><br><span class="line"></span><br><span class="line">students = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"xx"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"yy"</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="comment"># 在学院列表中搜索指定的姓名</span></span><br><span class="line">find_name = <span class="string">"SS"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> students:</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i[<span class="string">"name"</span>] == find_name:</span><br><span class="line">        print(<span class="string">"找到了 &#123;&#125;"</span>.format(find_name))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果已经找到，应该直接退出循环，而不再遍历后续的元素</span></span><br><span class="line">    <span class="comment"># 如果把这个else写在if语句之后的话，每次没有找到就要输出一次，这是不对的！</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"没有找到&#123;&#125;"</span>.format(find_name))</span><br><span class="line">print(<span class="string">"循环结束"</span>)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;name&apos;: &apos;xx&apos;&#125;</span><br><span class="line">&#123;&apos;name&apos;: &apos;yy&apos;&#125;</span><br><span class="line">没有找到SS</span><br><span class="line">循环结束</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;python中完整for循环的实际运用&quot;&gt;&lt;a href=&quot;#python中完整for循环的实际运用&quot; class=&quot;headerlink&quot; title=&quot;python中完整for循环的实际运用&quot;&gt;&lt;/a&gt;python中完整for循环的实际运用&lt;/h3&gt;&lt;h2 i
       
     
     </summary>
