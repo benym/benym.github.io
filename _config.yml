@@ -95,7 +95,9 @@ theme: ym
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
 - type: git
-  repository: git@github.com:benym/benym.github.io.git
+  repository:
+    github: git@github.com:benym/benym.github.io.git
+    coding: git@git.coding.net:benym/benym.git
   branch: master
 - type: baidu_url_submitter   
 
