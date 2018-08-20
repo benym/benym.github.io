@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2018-08-16T13:03:19.946Z</updated>
+  <updated>2018-08-20T08:43:32.361Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Numpy中花式索引和shape用法</title>
+    <link href="http://benym.cn/2018/08/20/Numpy%E4%B8%AD%E8%8A%B1%E5%BC%8F%E7%B4%A2%E5%BC%95%E5%92%8Cshape%E7%94%A8%E6%B3%95/"/>
+    <id>http://benym.cn/2018/08/20/Numpy中花式索引和shape用法/</id>
+    <published>2018-08-20T08:33:09.000Z</published>
+    <updated>2018-08-20T08:43:32.361Z</updated>
+    
+    <content type="html"><![CDATA[<p>总结一下最近学习中容易出现问题的地方❗️ ❗️ ❗️ </p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">randMat = random.randint(<span class="number">0</span>, <span class="number">10</span>, (<span class="number">4</span>, <span class="number">3</span>))</span><br><span class="line">print(<span class="string">"原矩阵:\n"</span>, randMat)</span><br><span class="line"><span class="comment"># 索引从0开始计数</span></span><br><span class="line">print(<span class="string">"输出第一行的所有数据:\n"</span>, randMat[<span class="number">0</span>, :])</span><br><span class="line">print(<span class="string">"输出第二列的所有数据:\n"</span>, randMat[:, <span class="number">1</span>])</span><br><span class="line">print(<span class="string">"输出矩阵第1和第3行的所有数据:\n"</span>, randMat[[<span class="number">0</span>, <span class="number">2</span>], :])</span><br><span class="line">print(<span class="string">"行数:\n"</span>,randMat.shape[<span class="number">0</span>])</span><br><span class="line">print(<span class="string">"列数:\n"</span>,randMat.shape[<span class="number">1</span>])</span><br><span class="line">print(<span class="string">"维数:\n"</span>,randMat.shape)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">原矩阵:</span><br><span class="line"> [[<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">1</span> <span class="number">3</span> <span class="number">0</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">9</span>]]</span><br><span class="line">输出第一行的所有数据:</span><br><span class="line"> [<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line">输出第二列的所有数据:</span><br><span class="line"> [<span class="number">5</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>]</span><br><span class="line">输出矩阵第<span class="number">1</span>和第<span class="number">3</span>行的所有数据:</span><br><span class="line"> [[<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">1</span>]]</span><br><span class="line">行数:</span><br><span class="line"> <span class="number">4</span></span><br><span class="line">列数:</span><br><span class="line"> <span class="number">3</span></span><br><span class="line">维数:</span><br><span class="line"> (<span class="number">4</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      对矩阵或者数组的花式索引，以及shape的用法
+    
+    </summary>
+    
+      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
+    
+    
+      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
+    
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>kNN识别手写图像</title>
@@ -36,11 +60,11 @@
     
       <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
     
-      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
     
       <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
     
-      <category term="python" scheme="http://benym.cn/tags/python/"/>
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -62,11 +86,11 @@
       <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
     
       <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
     
-      <category term="python" scheme="http://benym.cn/tags/python/"/>
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
       <category term="matplotlib" scheme="http://benym.cn/tags/matplotlib/"/>
     
@@ -90,11 +114,11 @@
       <category term="机器学习" scheme="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
     
       <category term="k-近邻算法" scheme="http://benym.cn/tags/k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95/"/>
     
-      <category term="python" scheme="http://benym.cn/tags/python/"/>
+      <category term="机器学习" scheme="http://benym.cn/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   
@@ -129,9 +153,9 @@
     <link href="http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     <id>http://benym.cn/2018/08/08/单例设计模式/</id>
     <published>2018-08-08T13:15:36.000Z</published>
-    <updated>2018-08-08T13:23:58.090Z</updated>
+    <updated>2018-08-20T08:40:41.795Z</updated>
     
-    <content type="html"><![CDATA[<p>需要全局的对象唯一的时候，使用单例设计模式，几乎是最简单的设计模式……<img class="github-emoji" alt="sleepy" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f62a.png?v8" height="20" width="20">，以下是代码部分</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object写不写都可以，在python3.X中已经默认继承了，以前区别旧式类和新式类</span></span><br><span class="line"><span class="comment"># 单例设计模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicPlayer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment"># 记录第一个被创建对象的引用</span></span><br><span class="line">    instance = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 记录是否执行过初始化方法</span></span><br><span class="line">    init_flag = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 1. 判断类属性是否是空对象</span></span><br><span class="line">        <span class="keyword">if</span> cls.instance <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="comment"># 2. 调用父类的方法，为第一个对象分配空间</span></span><br><span class="line">            cls.instance = super().__new__(cls)</span><br><span class="line">        <span class="comment"># 3. 返回类属性保存的对象引用</span></span><br><span class="line">        <span class="keyword">return</span> cls.instance</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 让初始化方法只执行一次</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1. 判断是否执行过初始化动作</span></span><br><span class="line">        <span class="keyword">if</span> MusicPlayer.init_flag:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># 2. 如果没有执行过，执行初始化动作</span></span><br><span class="line">        print(<span class="string">"111111111"</span>)</span><br><span class="line">        <span class="comment"># 3. 修改类属性的标记</span></span><br><span class="line">        MusicPlayer.init_flag = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建多个对象</span></span><br><span class="line">player1 = MusicPlayer()</span><br><span class="line">print(player1)</span><br><span class="line">player2 = MusicPlayer()</span><br><span class="line">print(player2)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">111111111</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br></pre></td></tr></table></figure><p>可以看出2次对象的创建在内存上实际是一个地址</p>]]></content>
+    <content type="html"><![CDATA[<p>需要全局的对象唯一的时候，使用单例设计模式，几乎是最简单的设计模式……​ ​ <img class="github-emoji" alt="sleepy" src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f62a.png?v8" height="20" width="20">，以下是代码部分</p><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># object写不写都可以，在python3.X中已经默认继承了，以前区别旧式类和新式类</span></span><br><span class="line"><span class="comment"># 单例设计模式</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MusicPlayer</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="comment"># 记录第一个被创建对象的引用</span></span><br><span class="line">    instance = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 记录是否执行过初始化方法</span></span><br><span class="line">    init_flag = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span><span class="params">(cls, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="comment"># 1. 判断类属性是否是空对象</span></span><br><span class="line">        <span class="keyword">if</span> cls.instance <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            <span class="comment"># 2. 调用父类的方法，为第一个对象分配空间</span></span><br><span class="line">            cls.instance = super().__new__(cls)</span><br><span class="line">        <span class="comment"># 3. 返回类属性保存的对象引用</span></span><br><span class="line">        <span class="keyword">return</span> cls.instance</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 让初始化方法只执行一次</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 1. 判断是否执行过初始化动作</span></span><br><span class="line">        <span class="keyword">if</span> MusicPlayer.init_flag:</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="comment"># 2. 如果没有执行过，执行初始化动作</span></span><br><span class="line">        print(<span class="string">"111111111"</span>)</span><br><span class="line">        <span class="comment"># 3. 修改类属性的标记</span></span><br><span class="line">        MusicPlayer.init_flag = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建多个对象</span></span><br><span class="line">player1 = MusicPlayer()</span><br><span class="line">print(player1)</span><br><span class="line">player2 = MusicPlayer()</span><br><span class="line">print(player2)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">111111111</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br><span class="line">&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;</span><br></pre></td></tr></table></figure><p>可以看出2次对象的创建在内存上实际是一个地址</p>]]></content>
     
     <summary type="html">
     
@@ -459,31 +483,6 @@
       
       
         &lt;h3 id=&quot;python中字符串的一些方法回顾-拆分与合并&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-拆分与合并&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(拆分与合并)&quot;&gt;&lt;/a&gt;python中字符串的一些方法回
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
-    
-    
-      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python中字符串的一些方法回顾(文本对齐、去除空白)</title>
-    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%96%87%E6%9C%AC%E5%AF%B9%E9%BD%90%E3%80%81%E5%8E%BB%E9%99%A4%E7%A9%BA%E7%99%BD)/"/>
-    <id>http://benym.cn/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/</id>
-    <published>2018-07-26T11:39:41.000Z</published>
-    <updated>2018-08-02T02:09:32.879Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="python中字符串的一些方法回顾-文本对齐、去除空白"><a href="#python中字符串的一些方法回顾-文本对齐、去除空白" class="headerlink" title="python中字符串的一些方法回顾(文本对齐、去除空白)"></a>python中字符串的一些方法回顾(文本对齐、去除空白)</h3><p>文本对齐的方法，以及用strip函数去除字符串的中空白字符</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取下来的</span></span><br><span class="line"><span class="comment"># 要求：顺序并且居中对齐输出一下内容</span></span><br><span class="line">poem = [<span class="string">"\t\n登鹤鹊楼"</span>,</span><br><span class="line">        <span class="string">"王之涣"</span>,</span><br><span class="line">        <span class="string">"白日依山尽\t\n"</span>,</span><br><span class="line">        <span class="string">"黄河入海流"</span>,</span><br><span class="line">        <span class="string">"欲穷千里目"</span>,</span><br><span class="line">        <span class="string">"更上一层楼"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> poem_str <span class="keyword">in</span> poem:</span><br><span class="line">    <span class="comment"># 先使用strip方法去除字符串中的空白字符</span></span><br><span class="line">    <span class="comment"># 居中对齐  </span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">      Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    print(<span class="string">"|%s|"</span> % poem_str.strip().center(<span class="number">10</span>, <span class="string">"　"</span>))</span><br><span class="line">    <span class="comment"># 向左对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.ljust(10, "　"))</span></span><br><span class="line">    <span class="comment"># 向右对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.rjust(10, "　"))</span></span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|　　　登鹤鹊楼　　　|</span><br><span class="line">|　　　王之涣　　　　|</span><br><span class="line">|　　白日依山尽　　　|</span><br><span class="line">|　　黄河入海流　　　|</span><br><span class="line">|　　欲穷千里目　　　|</span><br><span class="line">|　　更上一层楼　　　|</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;python中字符串的一些方法回顾-文本对齐、去除空白&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-文本对齐、去除空白&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(文本对齐、去除空白)&quot;&gt;&lt;/a&gt;pyth
       
     
     </summary>

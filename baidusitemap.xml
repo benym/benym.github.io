@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>http://benym.cn/2018/08/20/Numpy%E4%B8%AD%E8%8A%B1%E5%BC%8F%E7%B4%A2%E5%BC%95%E5%92%8Cshape%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2018-08-20T08:43:32.361Z</lastmod>
+    <data>
+        <display>
+        <title>Numpy中花式索引和shape用法</title>
+        <pubTime>2018-08-20T08:33:09.000Z</pubTime>
+        
+        <tag>Numpy</tag>
+         
+        <tag>python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-08-20T08:40:41.795Z</lastmod>
+    <data>
+        <display>
+        <title>单例设计模式</title>
+        <pubTime>2018-08-08T13:15:36.000Z</pubTime>
+        
+        <tag>python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://benym.cn/2018/08/16/kNN%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F/</loc>
     <lastmod>2018-08-16T13:03:19.946Z</lastmod>
     <data>
@@ -13,11 +55,11 @@
         
         <tag>Numpy</tag>
          
-        <tag>机器学习</tag>
+        <tag>python</tag>
          
         <tag>k-近邻算法</tag>
          
-        <tag>python</tag>
+        <tag>机器学习</tag>
          
          
            
@@ -37,11 +79,11 @@
         <title>使用k-近邻算法改进约会网站的配对效果</title>
         <pubTime>2018-08-11T03:47:52.000Z</pubTime>
         
-        <tag>机器学习</tag>
+        <tag>python</tag>
          
         <tag>k-近邻算法</tag>
          
-        <tag>python</tag>
+        <tag>机器学习</tag>
          
         <tag>matplotlib</tag>
          
@@ -63,11 +105,11 @@
         <title>kNN（k-近邻算法）</title>
         <pubTime>2018-08-09T13:43:52.000Z</pubTime>
         
-        <tag>机器学习</tag>
+        <tag>python</tag>
          
         <tag>k-近邻算法</tag>
          
-        <tag>python</tag>
+        <tag>机器学习</tag>
          
          
            
@@ -97,26 +139,6 @@
            
              
               <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-08-08T13:23:58.090Z</lastmod>
-    <data>
-        <display>
-        <title>单例设计模式</title>
-        <pubTime>2018-08-08T13:15:36.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
           
         </display>
     </data>

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Numpy中花式索引和shape用法]]></title>
+    <url>%2F2018%2F08%2F20%2FNumpy%E4%B8%AD%E8%8A%B1%E5%BC%8F%E7%B4%A2%E5%BC%95%E5%92%8Cshape%E7%94%A8%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[总结一下最近学习中容易出现问题的地方❗️ ❗️ ❗️ 代码1234567891011from numpy import *randMat = random.randint(0, 10, (4, 3))print("原矩阵:\n", randMat)# 索引从0开始计数print("输出第一行的所有数据:\n", randMat[0, :])print("输出第二列的所有数据:\n", randMat[:, 1])print("输出矩阵第1和第3行的所有数据:\n", randMat[[0, 2], :])print("行数:\n",randMat.shape[0])print("列数:\n",randMat.shape[1])print("维数:\n",randMat.shape) 运行结果123456789101112131415161718原矩阵: [[3 5 1] [1 3 0] [0 2 1] [0 2 9]]输出第一行的所有数据: [3 5 1]输出第二列的所有数据: [5 3 2 2]输出矩阵第1和第3行的所有数据: [[3 5 1] [0 2 1]]行数: 4列数: 3维数: (4, 3)]]></content>
+      <categories>
+        <category>Python</category>
+      </categories>
+      <tags>
+        <tag>Numpy</tag>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[kNN识别手写图像]]></title>
     <url>%2F2018%2F08%2F16%2FkNN%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F%2F</url>
     <content type="text"><![CDATA[示例 ：使用k-近邻算法的手写识别系统(1) 收集数据：提供文本文件。(2) 准备数据：编写函数classify0(), 将图像格式转换为分类器使用的list格式。(3) 分析数据：检查数据，确保它符合要求。(4) 训练算法：此步驟不适用于k-近邻算法。(5) 测试算法：编写函数使用提供的部分数据集作为测试样本，测试样本与非测试样本的区别在于测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。(6) 使用算法：本例没有完成此步骤，若你感兴趣可以构建完整的应用程序，从图像中提取数字，并完成数字识别，美国的邮件分拣系统就是一个实际运行的类似系统。 注：由于原本数据集已经在0和1之间，所以不需要转化数字特征值。数据集 代码1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848586from numpy import *from os import listdirimport operatordef classify0(inX, dataSet, labels, k): dataSetSize = dataSet.shape[0] # 距离计算 ''' tile(A，rep) 功能：重复A的各个维度 参数类型： A: Array类的都可以 rep：A沿着各个维度重复的次数 ''' diffMat = tile(inX, (dataSetSize, 1)) - dataSet sqDiffMat = diffMat ** 2 # numpy中的 axis=0表示列,向下，axis=1表示行，向右 # 在平时使用的sun默认的是axis=0就是普通的相加，当加入axis=1以后就是将一个矩阵的每一行向量相加 sqDistances = sqDiffMat.sum(axis=1) distances = sqDistances ** 0.5 # argsort函数返回的是数组值从小到大的索引值 sortedDistIndicies = distances.argsort() classCount = &#123;&#125; # 选择距离最小的k个点 for i in range(k): votellabel = labels[sortedDistIndicies[i]] classCount[votellabel] = classCount.get(votellabel, 0) + 1 # 排序 sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True) return sortedClassCount[0][0]def img2vector(filename): # 将图像矩阵转化为1x1024的向量 returnVect = zeros((1, 1024)) fr = open(filename) # 循环读出文件的前32行 for i in range(32): lineStr = fr.readline() # 将每行的头32个字符值存储在Numpy数组中 for j in range(32): returnVect[0, 32 * i + j] = int(lineStr[j]) # 返回数组 return returnVectdef handwritingClassTest(): hwLabels = [] # 获取训练数据集下目录的所有文件名的列表 trainingFileList = listdir('trainingDigits') # 得到文件数量 m = len(trainingFileList) # 创建m行1024列的训练矩阵 trainingMat = zeros((m, 1024)) for i in range(m): # 从文件名解析分类数字 # 解析出0_10.txt fileNameStr = trainingFileList[i] # 获得0_10 fileStr = fileNameStr.split('.')[0] # 获得0 classNumStr = int(fileStr.split('_')[0]) hwLabels.append(classNumStr) trainingMat[i, :] = img2vector('trainingDigits/%s' % fileNameStr) # 获得测试数据集下目录的所有文件名的列表 testFileList = listdir('testDigits') errorCount = 0.0 mTest = len(testFileList) for i in range(mTest): fileNameStr = testFileList[i] fileStr = fileNameStr.split('.')[0] classNumStr = int(fileStr.split('_')[0]) vectorUnderTest = img2vector('testDigits/%s' % fileNameStr) classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3) print("the classifier came back with:%d,the real answer is:%d" % (classifierResult, classNumStr)) if (classifierResult != classNumStr): errorCount += 1.0 print("\nthe total number of errors is:%d" % errorCount) print("\nthe total error rate is :%f" % (errorCount / float(mTest)))testVector = img2vector('testDigits/0_13.txt')# X[:, m:n]，即取二维数组中的第m到n-1列的所有数据print("测试输出:\n", testVector[0, 0:31])handwritingClassTest() 运行结果12345678910111213141516171819the classifier came back with:1,the real answer is:1the classifier came back with:1,the real answer is:1.....the classifier came back with:5,the real answer is:5the classifier came back with:5,the real answer is:5the classifier came back with:6,the real answer is:6the classifier came back with:6,the real answer is:6....the classifier came back with:9,the real answer is:9the classifier came back with:9,the real answer is:9the classifier came back with:9,the real answer is:9the total number of errors is:11# 错误率为1.2%the total error rate is :0.011628]]></content>
@@ -9,9 +21,9 @@
       </categories>
       <tags>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
-        <tag>k-近邻算法</tag>
         <tag>python</tag>
+        <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -22,9 +34,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
-        <tag>k-近邻算法</tag>
         <tag>python</tag>
+        <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
         <tag>matplotlib</tag>
       </tags>
   </entry>
@@ -36,9 +48,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
-        <tag>k-近邻算法</tag>
         <tag>python</tag>
+        <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -57,7 +69,7 @@
   <entry>
     <title><![CDATA[单例设计模式]]></title>
     <url>%2F2018%2F08%2F08%2F%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%2F</url>
-    <content type="text"><![CDATA[需要全局的对象唯一的时候，使用单例设计模式，几乎是最简单的设计模式……，以下是代码部分 代码12345678910111213141516171819202122232425262728293031323334# object写不写都可以，在python3.X中已经默认继承了，以前区别旧式类和新式类# 单例设计模式class MusicPlayer(object): # 记录第一个被创建对象的引用 instance = None # 记录是否执行过初始化方法 init_flag = False def __new__(cls, *args, **kwargs): # 1. 判断类属性是否是空对象 if cls.instance is None: # 2. 调用父类的方法，为第一个对象分配空间 cls.instance = super().__new__(cls) # 3. 返回类属性保存的对象引用 return cls.instance # 让初始化方法只执行一次 def __init__(self): # 1. 判断是否执行过初始化动作 if MusicPlayer.init_flag: return # 2. 如果没有执行过，执行初始化动作 print("111111111") # 3. 修改类属性的标记 MusicPlayer.init_flag = True# 创建多个对象player1 = MusicPlayer()print(player1)player2 = MusicPlayer()print(player2) 运行结果123111111111&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt; 可以看出2次对象的创建在内存上实际是一个地址]]></content>
+    <content type="text"><![CDATA[需要全局的对象唯一的时候，使用单例设计模式，几乎是最简单的设计模式……​ ​ ，以下是代码部分 代码12345678910111213141516171819202122232425262728293031323334# object写不写都可以，在python3.X中已经默认继承了，以前区别旧式类和新式类# 单例设计模式class MusicPlayer(object): # 记录第一个被创建对象的引用 instance = None # 记录是否执行过初始化方法 init_flag = False def __new__(cls, *args, **kwargs): # 1. 判断类属性是否是空对象 if cls.instance is None: # 2. 调用父类的方法，为第一个对象分配空间 cls.instance = super().__new__(cls) # 3. 返回类属性保存的对象引用 return cls.instance # 让初始化方法只执行一次 def __init__(self): # 1. 判断是否执行过初始化动作 if MusicPlayer.init_flag: return # 2. 如果没有执行过，执行初始化动作 print("111111111") # 3. 修改类属性的标记 MusicPlayer.init_flag = True# 创建多个对象player1 = MusicPlayer()print(player1)player2 = MusicPlayer()print(player2) 运行结果123111111111&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt;&lt;__main__.MusicPlayer object at 0x000000000342D0B8&gt; 可以看出2次对象的创建在内存上实际是一个地址]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -440,9 +452,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -451,9 +463,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>

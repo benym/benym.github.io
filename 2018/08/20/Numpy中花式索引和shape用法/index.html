@@ -125,7 +125,7 @@
 
 
 
-  <meta name="keywords" content="基本教程," />
+  <meta name="keywords" content="python,Numpy" />
 
 
 
@@ -138,18 +138,18 @@
 
 
 
-<meta name="description" content="字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码12345678910111213141516171819202122232">
-<meta name="keywords" content="基本教程">
+<meta name="description" content="对矩阵或者数组的花式索引，以及shape的用法">
+<meta name="keywords" content="python,Numpy">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python中字典（key-value）">
-<meta property="og:url" content="http://benym.cn/2018/07/07/python中字典（key-value）/index.html">
+<meta property="og:title" content="Numpy中花式索引和shape用法">
+<meta property="og:url" content="http://benym.cn/2018/08/20/Numpy中花式索引和shape用法/index.html">
 <meta property="og:site_name" content="Ben.Y">
-<meta property="og:description" content="字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码12345678910111213141516171819202122232">
+<meta property="og:description" content="对矩阵或者数组的花式索引，以及shape的用法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T02:09:04.565Z">
+<meta property="og:updated_time" content="2018-08-20T08:43:32.361Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python中字典（key-value）">
-<meta name="twitter:description" content="字典（key-value）字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完全同名的人你没办法找出有关他们的正确信息。 代码12345678910111213141516171819202122232">
+<meta name="twitter:title" content="Numpy中花式索引和shape用法">
+<meta name="twitter:description" content="对矩阵或者数组的花式索引，以及shape的用法">
 
 
 
@@ -179,7 +179,7 @@
 
 
 
-  <link rel="canonical" href="http://benym.cn/2018/07/07/python中字典（key-value）/"/>
+  <link rel="canonical" href="http://benym.cn/2018/08/20/Numpy中花式索引和shape用法/"/>
 
 
 
@@ -198,7 +198,7 @@
     s.parentNode.insertBefore(bp, s);
 })();
 </script>
-  <title>python中字典（key-value） | Ben.Y</title>
+  <title>Numpy中花式索引和shape用法 | Ben.Y</title>
   
 
 
@@ -374,7 +374,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中字典（key-value）/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/20/Numpy中花式索引和shape用法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
@@ -391,7 +391,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">python中字典（key-value）</h1>
+          <h1 class="post-title" itemprop="name headline">Numpy中花式索引和shape用法</h1>
         
 
         <div class="post-meta">
@@ -403,8 +403,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:25:27+08:00">
-                2018-07-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T16:33:09+08:00">
+                2018-08-20
               </time>
             
 
@@ -419,8 +419,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:04+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-20T16:43:32+08:00">
+                2018-08-20
               </time>
             
           </span>
@@ -456,8 +456,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/07/python中字典（key-value）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中字典（key-value）/" itemprop="commentCount"></span>
+                <a href="/2018/08/20/Numpy中花式索引和shape用法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/20/Numpy中花式索引和shape用法/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -465,7 +465,7 @@
 
           
           
-             <span id="/2018/07/07/python中字典（key-value）/" class="leancloud_visitors" data-flag-title="python中字典（key-value）">
+             <span id="/2018/08/20/Numpy中花式索引和shape用法/" class="leancloud_visitors" data-flag-title="Numpy中花式索引和shape用法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -490,7 +490,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  299
+                  216
                 </span>
               
 
@@ -513,6 +513,10 @@
           
 
           
+              <div class="post-description">
+                  对矩阵或者数组的花式索引，以及shape的用法
+              </div>
+          
 
         </div>
       </header>
@@ -527,8 +531,9 @@
       
 
       
-        <h3 id="字典（key-value）"><a href="#字典（key-value）" class="headerlink" title="字典（key-value）"></a>字典（key-value）</h3><p>字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联<br>系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地<br>址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完<br>全同名的人你没办法找出有关他们的正确信息。</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典</span></span><br><span class="line"><span class="comment"># "ab"是地址（Address）薄(Book)的缩写</span></span><br><span class="line"></span><br><span class="line">ab = &#123;</span><br><span class="line">    <span class="string">'Swaroop'</span>: <span class="string">'swaroop@swaroopch.com'</span>,</span><br><span class="line">    <span class="string">'Larry'</span>: <span class="string">'larry@wall.org'</span>,</span><br><span class="line">    <span class="string">'Matsumoto'</span>: <span class="string">'matz@ruby-lang.org'</span>,</span><br><span class="line">    <span class="string">'Spammer'</span>: <span class="string">'spammer@hptmail.com'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Swaroop's address is"</span>, ab[<span class="string">'Swaroop'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一对键值-值配对</span></span><br><span class="line"><span class="keyword">del</span> ab[<span class="string">'Spammer'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\nThere are &#123;&#125; contacts in the address-book\n'</span>.format(len(ab)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#我们通过使用字典的  item  方法来访问字典中的每一对键值—值配对信息，这一操作将返回一份包含元组的列表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, address <span class="keyword">in</span> ab.items():</span><br><span class="line">    print(<span class="string">'Contact &#123;&#125; at &#123;&#125;'</span>.format(name, address))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一对键值-值配对</span></span><br><span class="line">ab[<span class="string">'Guido'</span>] = <span class="string">'guido@python.org'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">'Guido'</span> <span class="keyword">in</span> ab:</span><br><span class="line">    print(<span class="string">"\nGuido's address is"</span>, ab[<span class="string">'Guido'</span>])</span><br></pre></td></tr></table></figure>
+        <p>总结一下最近学习中容易出现问题的地方❗️ ❗️ ❗️ </p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">randMat = random.randint(<span class="number">0</span>, <span class="number">10</span>, (<span class="number">4</span>, <span class="number">3</span>))</span><br><span class="line">print(<span class="string">"原矩阵:\n"</span>, randMat)</span><br><span class="line"><span class="comment"># 索引从0开始计数</span></span><br><span class="line">print(<span class="string">"输出第一行的所有数据:\n"</span>, randMat[<span class="number">0</span>, :])</span><br><span class="line">print(<span class="string">"输出第二列的所有数据:\n"</span>, randMat[:, <span class="number">1</span>])</span><br><span class="line">print(<span class="string">"输出矩阵第1和第3行的所有数据:\n"</span>, randMat[[<span class="number">0</span>, <span class="number">2</span>], :])</span><br><span class="line">print(<span class="string">"行数:\n"</span>,randMat.shape[<span class="number">0</span>])</span><br><span class="line">print(<span class="string">"列数:\n"</span>,randMat.shape[<span class="number">1</span>])</span><br><span class="line">print(<span class="string">"维数:\n"</span>,randMat.shape)</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">原矩阵:</span><br><span class="line"> [[<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">1</span> <span class="number">3</span> <span class="number">0</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">9</span>]]</span><br><span class="line">输出第一行的所有数据:</span><br><span class="line"> [<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line">输出第二列的所有数据:</span><br><span class="line"> [<span class="number">5</span> <span class="number">3</span> <span class="number">2</span> <span class="number">2</span>]</span><br><span class="line">输出矩阵第<span class="number">1</span>和第<span class="number">3</span>行的所有数据:</span><br><span class="line"> [[<span class="number">3</span> <span class="number">5</span> <span class="number">1</span>]</span><br><span class="line"> [<span class="number">0</span> <span class="number">2</span> <span class="number">1</span>]]</span><br><span class="line">行数:</span><br><span class="line"> <span class="number">4</span></span><br><span class="line">列数:</span><br><span class="line"> <span class="number">3</span></span><br><span class="line">维数:</span><br><span class="line"> (<span class="number">4</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -572,7 +577,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/基本教程/" rel="tag"><i class="fa fa-tag"></i> 基本教程</a>
+            <a href="/tags/Numpy/" rel="tag"><i class="fa fa-tag"></i> Numpy</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -585,8 +592,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/07/python中的列表/" rel="next" title="python中的列表">
-                <i class="fa fa-chevron-left"></i> python中的列表
+              <a href="/2018/08/16/kNN识别手写图像/" rel="next" title="kNN识别手写图像">
+                <i class="fa fa-chevron-left"></i> kNN识别手写图像
               </a>
             
           </div>
@@ -594,10 +601,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/07/python中的集合/" rel="prev" title="python中的集合">
-                python中的集合 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -803,7 +806,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#字典（key-value）"><span class="nav-number">1.</span> <span class="nav-text">字典（key-value）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number"></span> <span class="nav-text">代码</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行结果"><span class="nav-number">2.</span> <span class="nav-text">运行结果</span></a></li></ol></div>
             
 
           </div>
