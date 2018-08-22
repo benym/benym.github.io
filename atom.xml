@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2018-08-20T08:43:32.361Z</updated>
+  <updated>2018-08-22T13:07:48.715Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据类型和arange方法、astype方法的使用</title>
+    <link href="http://benym.cn/2018/08/22/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://benym.cn/2018/08/22/数据类型和arange方法的使用/</id>
+    <published>2018-08-22T12:55:17.000Z</published>
+    <updated>2018-08-22T13:07:48.715Z</updated>
+    
+    <content type="html"><![CDATA[<p>Numpy支持比Python更多的数字类型</p><table><thead><tr><th>数据类型</th><th>描述</th></tr></thead><tbody><tr><td><code>bool_</code></td><td>布尔（True或False），存储为一个字节</td></tr><tr><td><code>int_</code></td><td>默认整数类型（与C<code>long</code>相同；通常是<code>int64</code>或<code>int32</code>）</td></tr><tr><td>INTC</td><td>与C<code>int</code>（通常为<code>int32</code>或<code>int64</code>）相同</td></tr><tr><td>INTP</td><td>用于索引的整数（与C<code>ssize_t</code>相同；通常是<code>int32</code>或<code>int64</code>）</td></tr><tr><td>INT8</td><td>字节（-128至127）</td></tr><tr><td>INT16</td><td>整数（-32768至32767）</td></tr><tr><td>INT32</td><td>整数（-2147483648至2147483647）</td></tr><tr><td>Int64的</td><td>整数（-9223372036854775808至9223372036854775807）</td></tr><tr><td>UINT8</td><td>无符号整数（0到255）</td></tr><tr><td>UINT16</td><td>无符号整数（0到65535）</td></tr><tr><td>UINT32</td><td>无符号整数（0到4294967295）</td></tr><tr><td>UINT64</td><td>无符号整数（0到18446744073709551615）</td></tr><tr><td>float_</td><td><code>float64</code>的简写。</td></tr><tr><td>float16</td><td>半精度浮点：符号位，5位指数，10位尾数</td></tr><tr><td>FLOAT32</td><td>单精度浮点数：符号位，8位指数，23位尾数</td></tr><tr><td>float64</td><td>双精度浮点：符号位，11位指数，52位尾数</td></tr><tr><td>complex_</td><td><code>complex128</code>的简写。</td></tr><tr><td>complex64</td><td>复数，由两个32位浮点数（实部和虚部）</td></tr><tr><td>complex128</td><td>复数，由两个64位浮点数（实部和虚部）</td></tr></tbody></table><p>除了<code>intc</code>之外，还定义了平台相关的C整数类型<code>short</code>，<code>long</code>，<code>longlong</code>。</p><div class="note info"><p>arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数</p></div><a id="more"></a><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">z = np.arange(<span class="number">5</span>)</span><br><span class="line">print(z)</span><br><span class="line">print(z.dtype)</span><br><span class="line">print(<span class="number">50</span>*<span class="string">'*'</span>)</span><br><span class="line"><span class="comment"># 转化数据类型为float64</span></span><br><span class="line">floar_arr = z.astype(np.float64)</span><br><span class="line">print(floar_arr)</span><br><span class="line">print(floar_arr.dtype)</span><br><span class="line">print(<span class="number">50</span>*<span class="string">'*'</span>)</span><br><span class="line"><span class="comment"># 如果将浮点数转换为整数，则小数部分会被截断</span></span><br><span class="line">z2 = np.array([<span class="number">5.1</span>,<span class="number">9.2</span>,<span class="number">8.3</span>,<span class="number">7.4</span>,<span class="number">3.3214</span>])</span><br><span class="line">print(z2)</span><br><span class="line">print(z2.astype(np.int32))</span><br><span class="line">print(<span class="number">50</span>*<span class="string">'*'</span>)</span><br><span class="line"><span class="comment"># arange的用法</span></span><br><span class="line">print(np.arange(<span class="number">1</span>, <span class="number">5</span>))</span><br><span class="line">print(np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</span><br><span class="line">int32</span><br><span class="line">**************************************************</span><br><span class="line">[<span class="number">0.</span> <span class="number">1.</span> <span class="number">2.</span> <span class="number">3.</span> <span class="number">4.</span>]</span><br><span class="line">float64</span><br><span class="line">**************************************************</span><br><span class="line">[<span class="number">5.1</span>    <span class="number">9.2</span>    <span class="number">8.3</span>    <span class="number">7.4</span>    <span class="number">3.3214</span>]</span><br><span class="line">[<span class="number">5</span> <span class="number">9</span> <span class="number">8</span> <span class="number">7</span> <span class="number">3</span>]</span><br><span class="line">**************************************************</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</span><br><span class="line">[<span class="number">0</span> <span class="number">2</span> <span class="number">4</span> <span class="number">6</span> <span class="number">8</span>]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      Numpy中的数据类型
+    
+    </summary>
+    
+      <category term="Numpy" scheme="http://benym.cn/categories/Numpy/"/>
+    
+    
+      <category term="Numpy" scheme="http://benym.cn/tags/Numpy/"/>
+    
+      <category term="python" scheme="http://benym.cn/tags/python/"/>
+    
+  </entry>
   
   <entry>
     <title>Numpy中花式索引和shape用法</title>
@@ -458,31 +482,6 @@
       
       
         &lt;h3 id=&quot;python中字符串的一些方法回顾-切片回顾&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-切片回顾&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(切片回顾)&quot;&gt;&lt;/a&gt;python中字符串的一些方法回顾(切
-      
-    
-    </summary>
-    
-      <category term="Python" scheme="http://benym.cn/categories/Python/"/>
-    
-    
-      <category term="基本教程" scheme="http://benym.cn/tags/%E5%9F%BA%E6%9C%AC%E6%95%99%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python中字符串的一些方法回顾(拆分与合并)</title>
-    <link href="http://benym.cn/2018/07/26/python%E4%B8%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E5%9B%9E%E9%A1%BE(%E6%8B%86%E5%88%86%E4%B8%8E%E5%90%88%E5%B9%B6)/"/>
-    <id>http://benym.cn/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/</id>
-    <published>2018-07-26T11:40:01.000Z</published>
-    <updated>2018-08-02T02:09:13.391Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="python中字符串的一些方法回顾-拆分与合并"><a href="#python中字符串的一些方法回顾-拆分与合并" class="headerlink" title="python中字符串的一些方法回顾(拆分与合并)"></a>python中字符串的一些方法回顾(拆分与合并)</h3><p>字符串中split函数和join函数的使用</p><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取的</span></span><br><span class="line"><span class="comment"># 要求：</span></span><br><span class="line"><span class="comment"># 1、将字符串中的空白字符全部去掉</span></span><br><span class="line"><span class="comment"># 2、再使用"  "作为分隔符，拼接成一个整齐的字符串</span></span><br><span class="line">poem_str = <span class="string">"登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"</span></span><br><span class="line"></span><br><span class="line">print(poem_str)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、拆分字符串  split方法会返回列表</span></span><br><span class="line">poem_list = poem_str.split()</span><br><span class="line">print(poem_list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、合并字符串</span></span><br><span class="line">result = <span class="string">" "</span>.join(poem_list)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure><h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原始字符串：</span><br><span class="line"> 登鹤鹊楼 王之涣  白日依山尽 </span><br><span class="line"> 黄河入海流  欲穷千里目更上一层楼</span><br><span class="line">拆分字符串后：</span><br><span class="line"> [<span class="string">'登鹤鹊楼'</span>, <span class="string">'王之涣'</span>, <span class="string">'白日依山尽'</span>, <span class="string">'黄河入海流'</span>, <span class="string">'欲穷千里目'</span>, <span class="string">'更上一层楼'</span>]</span><br><span class="line">合并字符串后: </span><br><span class="line"> 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;python中字符串的一些方法回顾-拆分与合并&quot;&gt;&lt;a href=&quot;#python中字符串的一些方法回顾-拆分与合并&quot; class=&quot;headerlink&quot; title=&quot;python中字符串的一些方法回顾(拆分与合并)&quot;&gt;&lt;/a&gt;python中字符串的一些方法回
       
     
     </summary>
