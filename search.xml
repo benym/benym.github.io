@@ -721,6 +721,7 @@
     <content type="text"><![CDATA[使用的辗转相除法辗转相除法：辗转相除法是求两个自然数的最大公约数的一种方法，也叫欧几里德算法。 例如，求（319，377）： ∵ 319÷377=0（余319） ∴（319，377）=（377，319）； ∵ 377÷319=1（余58） ∴（377，319）=（319，58）； ∵ 319÷58=5（余29） ∴ （319，58）=（58，29）； ∵ 58÷29=2（余0） ∴ （58，29）= 29； ∴ （319，377）=29。 可以写成右边的格式。 用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。 代码 12345678910111213141516171819202122232425262728293031#include&lt;stdio.h&gt;int main() &#123; int maxgongyue(int x,int y); int mingongbei(int num,int finax); int x,y,num; printf("请输入俩个数:\n"); scanf("%d %d",&amp;x,&amp;y); num=x*y; printf("最大公约数是:%d\n",maxgongyue(x,y)); printf("最小公倍数是:%d\n",mingongbei(num,maxgongyue(x,y))); return 0;&#125;int maxgongyue(int x,int y)&#123; int temp,yushu; if(x&lt;y) &#123; //交换成大的在前，小的在后 temp=x; x=y; y=temp; &#125; while(y!=0) &#123; //辗转相除法，如果余数不为0，则循环 yushu=x%y; //求余数 x=y; //将小的赋值给大的 y=yushu; //将余数赋值给小的 &#125;//一直除到余数为0时，这时候的x就是最大公约数 return(x);&#125;int mingongbei(int num,int finax)&#123; return(num/finax);&#125;]]></content>
       <categories>
         <category>C语言</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>算法</tag>
@@ -732,6 +733,7 @@
     <content type="text"><![CDATA[折半查找定义二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列 查找过程首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。 比较次数 当顺序表有n个关键字时： 查找失败时，至少比较a次关键字；查找成功时，最多比较关键字次数是b。 注意：a,b,n均为正整数。 算法复杂度折半查找法也称为二分查找法，它充分利用了元素间的次序关系，采用分治策略，可在最坏的情况下用O(log n)完成搜索任务。 代码 1234567891011121314151617181920212223242526272829303132333435363738394041#include&lt;stdio.h&gt;#define N 5//折半查找算法int main() &#123; int a[N],i,j,low=0,high=N-1,mid,flag,num; printf("请输入5个数:\n"); scanf("%d",&amp;a[0]); i=1; //升序输入 while(i&lt;N) &#123; scanf("%d",&amp;a[i]); if(a[i]&gt;=a[i-1]) &#123; i++; &#125; else &#123; printf("重新输入数据:\n"); &#125; &#125; printf("\n"); for(i=0; i&lt;N; i++) &#123; printf("%5d",a[i]); &#125; printf("\n请输入你要查询的数字:\n"); scanf("%d",&amp;num); if((num&lt;a[0])||(num&gt;a[N-1])) &#123; printf("该数不在区间范围内\n"); &#125; while(low&lt;=high) &#123; mid = (low + high)/2; if(num==a[mid])&#123; flag=mid; //记录这个数的位置 printf("找到了%d,这个数在第%d号位置",num,flag+1); break; &#125; else if (num &gt; a[mid]) &#123; low = mid+1; &#125; else if (num &lt; a[mid]) &#123; high = mid - 1; &#125; &#125; return 0;&#125;]]></content>
       <categories>
         <category>C语言</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>算法</tag>
@@ -743,6 +745,7 @@
     <content type="text"><![CDATA[杨辉三角形金字塔型和直角三角形 代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main() &#123; int i,j,num; int **a; printf("请输入你想打印的杨辉三角形行数:\n"); scanf("%d",&amp;num); a=(int **)malloc(num*sizeof(int *)); for (i = 0; i &lt; num; ++i) &#123; //为每列分配num个大小空间 a[i] = (int*)malloc(sizeof(int)*num); &#125; //书上分开打印// for(i=0; i&lt;num; i++) &#123;// a[i][i]=1;// a[i][0]=1;// &#125;// for(i=2; i&lt;num; i++) &#123;// for(j=1; j&lt;=i-1; j++) &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125;// &#125;// for(i=0;i&lt;num;i++)&#123;// for(j=0;j&lt;=i;j++)&#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125;// printf("\n"); //优化 for(i=0; i&lt;num; i++) &#123; for(j=0; j&lt;=i; j++) &#123;// if(i==0||j==0||j==i) &#123;// a[i][j]=1;// &#125; else &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125; printf("%4d",(a[i][j])=(i==0||j==0||j==i)?1:a[i-1][j-1]+a[i-1][j]); &#125; printf("\n"); &#125;// for(i=0; i&lt;num; i++) &#123;// for(j=0; j&lt;=i; j++) &#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125; for (i = 0; i &lt; num; i++) &#123; free(a[i]); &#125; free(a); printf("\n"); return 0;&#125;]]></content>
       <categories>
         <category>C语言</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>算法</tag>
@@ -754,6 +757,7 @@
     <content type="text"><![CDATA[冒泡排序概念冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。 它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。 这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。 算法原理冒泡排序算法的运作如下：（从后往前） 比较相邻的元素。如果第一个比第二个大，就交换他们两个。 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。 针对所有的元素重复以上的步骤，除了最后一个。 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。 时间复杂度冒泡排序总的平均时间复杂度为 代码 12345678910111213141516171819202122232425262728293031323334353637383940414243#include&lt;stdio.h&gt;int main()&#123; void sort(int *x,int n); int i,*p,a[10]; p=a; printf("请输入10个整数:\n"); for(i=0;i&lt;10;i++)&#123; scanf("%d",p++); &#125; p=a; sort(p,10); for(p=a,i=0;i&lt;10;i++)&#123; printf("%d ",*p++); &#125; printf("\n"); return 0;&#125;//数组形式 void sort(int x[],int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(x[j]&lt;x[j+1])&#123; temp=x[j]; x[j]=x[j+1]; x[j+1]=temp; &#125; &#125;&#125;//指针形式 void sort(int *x,int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(*(x+j)&lt;*(x+j+1))&#123; //*(x+j)就是x[j] temp=*(x+j); *(x+j)=*(x+j+1); *(x+j+1)=temp; &#125; &#125;&#125; ​]]></content>
       <categories>
         <category>C语言</category>
+        <category>算法</category>
       </categories>
       <tags>
         <tag>排序算法</tag>
