@@ -252,7 +252,7 @@ post_wordcount:
   item_text: true
   wordcount: true
   min2read: true
-  totalcount: true
+  totalcount: false
   separated_meta: true
 
 # Wechat Subscriber
@@ -362,7 +362,7 @@ font:
 
 # MathJax Support
 mathjax:
-  enable: true
+  enable: false
   per_page: false
   cdn: //cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
 
@@ -373,7 +373,7 @@ han: false
 #swiftype_key:
 
 # Baidu Analytics ID
-#baidu_analytics:
+baidu_analytics: 67971ae2a90df2a30667e59ea312aab3
 
 # Duoshuo ShortName
 #duoshuo_shortname:
@@ -586,7 +586,7 @@ busuanzi_count:
 
 
 # Tencent analytics ID
-tencent_analytics: 65638919
+tencent_analytics: #65638919
 
 # Tencent MTA ID
 # tencent_mta:
