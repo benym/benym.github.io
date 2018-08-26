@@ -601,6 +601,229 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" itemprop="url">动态规划问题——最长上升子序列(LIS)(三)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T14:23:08+08:00">
+                2018-08-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-26T14:55:53+08:00">
+                2018-08-26
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" class="leancloud_visitors" data-flag-title="动态规划问题——最长上升子序列(LIS)(三)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,170
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  样本代码时间复杂度为〇(nlogn),笔试题
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>推荐链接：</p>
+<a href="/2018/08/25/动态规划问题——最长上升子序列(LIS)(一)/" title="动态规划问题——最长上升子序列(LIS)(一)">动态规划问题——最长上升子序列(LIS)(一)</a>
+<a href="/2018/08/25/动态规划问题——最长上升子序列(LIS)(二)/" title="动态规划问题——最长上升子序列(LIS)(二)">动态规划问题——最长上升子序列(LIS)(二)</a>
+<p><strong>大佬给的思路，<a href="https://unclegem.cn/" target="_blank" rel="noopener">宝石叔叔</a>博客里面有更多精彩！</strong></p>
+<div class="note primary"><p>上一个版本用二分法优化了时间复杂度，但其实根据数据的样本观察可知，后面的数据都是重复的，我们只需要当列表遍历到一小时数据的最后时将后面数据的最大数加入到列表即可，这样可以快速跳出循环，避免后面不必要的查找</p></div>
+
+<p>以下代码略有区别，一种是计算数目，一种是使用新列表存储，但大致思路类似。</p>
+<p>写完之后发现可以考虑的情况还是有的，还可以继续优化，不过优化到这里应该也差不多了，列表的append方法性能上是非常好的。两个版本Java耗时0.000196s，Python耗时0.000050s</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/25/动态规划问题——最长上升子序列(LIS)(二)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -648,7 +871,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-26T11:05:19+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-26T14:25:18+08:00">
                 2018-08-26
               </time>
             
@@ -719,7 +942,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,126
+                  1,141
                 </span>
               
 
@@ -763,6 +986,7 @@
         
           <p>推荐链接：</p>
 <a href="/2018/08/25/动态规划问题——最长上升子序列(LIS)(一)/" title="动态规划问题——最长上升子序列(LIS)(一)">动态规划问题——最长上升子序列(LIS)(一)</a>
+<a href="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" title="动态规划问题——最长上升子序列(LIS)(三)">动态规划问题——最长上升子序列(LIS)(三)</a>
 <h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>一天，小凯同学震惊的发现，自己无内的PM2.5指标是有规律的！小凯采样了PM2.5数值，发现PM2.5数值以小时为周期循环，即任意时刻的PM2.5总是和一小时前相等！他的室友小文同学提出了这样一个问题，在t小时内的所有采样点中，选取若干采样点的数值，能否找到一个PM2.5不曾下降过的序列？这个序列最长是多少？</p>
 <h2 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述"></a>输入描述</h2><div class="note primary"><p>第一行有两个整数n和t，表示每小时的采样点个数，和询问多少个小时的结果。第二行有n个整数，以空格分割，表示一小时内，每个采样点观测到的PM2.5数值</p></div>
 
@@ -877,8 +1101,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T17:15:46+08:00">
-                2018-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-26T14:25:36+08:00">
+                2018-08-26
               </time>
             
           </span>
@@ -948,7 +1172,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  826
+                  860
                 </span>
               
 
@@ -990,7 +1214,10 @@
 
       
         
-          <p>如：求 2 7 1 5 6 4 3 8 9 的最长上升子序列。我们定义d(i) (i∈[1,n])来表示前i个数以A[i]结尾的最长上升子序列长度。 </p>
+          <p>推荐链接：</p>
+<a href="/2018/08/25/动态规划问题——最长上升子序列(LIS)(二)/" title="动态规划问题——最长上升子序列(LIS)(二)">动态规划问题——最长上升子序列(LIS)(二)</a>
+<a href="/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/" title="动态规划问题——最长上升子序列(LIS)(三)">动态规划问题——最长上升子序列(LIS)(三)</a>
+<p>如：求 2 7 1 5 6 4 3 8 9 的最长上升子序列。我们定义d(i) (i∈[1,n])来表示前i个数以A[i]结尾的最长上升子序列长度。 </p>
 <ul>
 <li>　    前1个数 d(1)=1 子序列为2；</li>
 <li>　　前2个数 7前面有2小于7 d(2)=d(1)+1=2 子序列为2 7</li>
@@ -1492,6 +1719,259 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/Ndarray对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/Ndarray对象/" itemprop="url">Ndarray对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T20:55:17+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-22T21:37:18+08:00">
+                2018-08-22
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Numpy/" itemprop="url" rel="index">
+                    <span itemprop="name">Numpy</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/22/Ndarray对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/22/Ndarray对象/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/22/Ndarray对象/" class="leancloud_visitors" data-flag-title="Ndarray对象">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  447
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Numpy中的array
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>NumPy 中定义的最重要的对象是称为  ndarray  的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray  中的每个元素在内存中使用相同大小的块。基本<br>的 ndarray  是使用 NumPy 中的数组函数创建的，如：<code>numpy.array</code></p>
+<p>它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。</p>
+<p><code>numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0</code></p>
+<p>上面的构造器接受以下参数：</p>
+<table>
+<thead>
+<tr>
+<th>序号</th>
+<th>参数及描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.</td>
+<td><code>object</code> 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。</td>
+</tr>
+<tr>
+<td>2.</td>
+<td><code>dtype</code> 数组的所需数据类型，可选。</td>
+</tr>
+<tr>
+<td>3.</td>
+<td><code>copy</code> 可选，默认为<code>true</code>，对象是否被复制。</td>
+</tr>
+<tr>
+<td>4.</td>
+<td><code>order</code> <code>C</code>（按行）、<code>F</code>（按列）或<code>A</code>（任意，默认）。</td>
+</tr>
+<tr>
+<td>5.</td>
+<td><code>subok</code> 默认情况下，返回的数组被强制为基类数组。 如果为<code>true</code>，则返回子类。</td>
+</tr>
+<tr>
+<td>6.</td>
+<td><code>ndimin</code> 指定返回数组的最小维数。</td>
+</tr>
+</tbody>
+</table>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/22/Ndarray对象/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/数据类型和arange方法_astype方法的使用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1744,259 +2224,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/08/22/数据类型和arange方法_astype方法的使用/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/Ndarray对象/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/22/Ndarray对象/" itemprop="url">Ndarray对象</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T20:55:17+08:00">
-                2018-08-22
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-22T21:37:18+08:00">
-                2018-08-22
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Numpy/" itemprop="url" rel="index">
-                    <span itemprop="name">Numpy</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/22/Ndarray对象/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/22/Ndarray对象/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/08/22/Ndarray对象/" class="leancloud_visitors" data-flag-title="Ndarray对象">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  447
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2
-                </span>
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  Numpy中的array
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>NumPy 中定义的最重要的对象是称为  ndarray  的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray  中的每个元素在内存中使用相同大小的块。基本<br>的 ndarray  是使用 NumPy 中的数组函数创建的，如：<code>numpy.array</code></p>
-<p>它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。</p>
-<p><code>numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0</code></p>
-<p>上面的构造器接受以下参数：</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>参数及描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.</td>
-<td><code>object</code> 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。</td>
-</tr>
-<tr>
-<td>2.</td>
-<td><code>dtype</code> 数组的所需数据类型，可选。</td>
-</tr>
-<tr>
-<td>3.</td>
-<td><code>copy</code> 可选，默认为<code>true</code>，对象是否被复制。</td>
-</tr>
-<tr>
-<td>4.</td>
-<td><code>order</code> <code>C</code>（按行）、<code>F</code>（按列）或<code>A</code>（任意，默认）。</td>
-</tr>
-<tr>
-<td>5.</td>
-<td><code>subok</code> 默认情况下，返回的数组被强制为基类数组。 如果为<code>true</code>，则返回子类。</td>
-</tr>
-<tr>
-<td>6.</td>
-<td><code>ndimin</code> 指定返回数组的最小维数。</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/Ndarray对象/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2471,229 +2698,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" itemprop="url">使用k-近邻算法改进约会网站的配对效果</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T11:47:52+08:00">
-                2018-08-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-11T17:12:46+08:00">
-                2018-08-11
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" class="leancloud_visitors" data-flag-title="使用k-近邻算法改进约会网站的配对效果">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,801
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  8
-                </span>
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  在约会网站上使用k-近邻算法
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <center><strong><em>实例：在约会网站上使用k-近邻算法</em></strong></center>
-
-<p>(1) 收集数据：提供文本文件。<br>(2) 准备数据 :  使用python解析文本文件。<br>(3) 分析数据    使用 Matplotlib画二维扩散图 。<br>(4) 训练算法：此步驟不适用于k-近邻算法。<br>(5) 测试算法：使用海伦提供的部分数据作为测试样本。<br>测试样本和非测试样本的区别在于：测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。<br>(6) 使用算法：产生简单的命令行程序，然后可以输入一些特征数据以判断对方是否为自己喜欢的类型。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2745,7 +2754,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-count">71</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2756,7 +2765,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2767,7 +2776,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -3565,4 +3574,5 @@ show_date_time();
 <script>
 $("body").backstretch("http://pd10tty87.bkt.clouddn.com/01.jpg");
 </script>  
-<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</body>
+</html>
