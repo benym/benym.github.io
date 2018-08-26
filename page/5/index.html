@@ -383,6 +383,443 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/python的__name__-=-__main__的作用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/24/python的__name__-=-__main__的作用/" itemprop="url">python的__name__ = '__main__' 的作用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T11:05:44+08:00">
+                2018-07-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:07:07+08:00">
+                2018-08-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/24/python的__name__-=-__main__的作用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/python的__name__-=-__main__的作用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/24/python的__name__-=-__main__的作用/" class="leancloud_visitors" data-flag-title="python的__name__ = '__main__' 的作用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  427
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="python的name-‘main‘-的作用"><a href="#python的name-‘main‘-的作用" class="headerlink" title="python的name = ‘main‘ 的作用"></a>python的<strong>name</strong> = ‘<strong>main</strong>‘ 的作用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__name__ = <span class="string">'__main__'</span> 的作用</span><br><span class="line">先写一个模块：</span><br><span class="line"></span><br><span class="line"><span class="comment">#module.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">print</span> <span class="string">"we are in %s"</span>%__name__</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">  main()</span><br></pre></td></tr></table></figure>
+<p>我们经常看到想上面代码底下的代码，其主要的意义在于：</p>
+<h4 id="让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行"><a href="#让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行" class="headerlink" title="让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行"></a><strong>让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行</strong></h4><p>这个函数定义了一个main函数，我们执行一下该py文件发现结果是打印出”we are in <strong>main</strong>“,说明我们的if语句中的内容被执行了，调用了main()：</p>
+<p>但是如果我们从另我一个模块导入该模块，并调用一次main()函数会是怎样的结果呢？</p>
+<p>其执行的结果是：we are in module</p>
+<p>但是没有显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">”we are in __main__“</span><br></pre></td></tr></table></figure>
+<p>,也就是说模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__name__ = &apos;__main__&apos;</span><br></pre></td></tr></table></figure>
+<p>下面的函数没有执行。</p>
+<p>这样既可以让“模块”文件运行，也可以被其他模块引入，而且不会执行函数2次。这才是关键。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/24/python的__name__-=-__main__的作用/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/多种方法快速交换两个变量的值/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="一个据说只有20的青年">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ben.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/24/多种方法快速交换两个变量的值/" itemprop="url">多种方法快速交换两个变量的值</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T09:33:48+08:00">
+                2018-07-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:10:37+08:00">
+                2018-08-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/24/多种方法快速交换两个变量的值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/多种方法快速交换两个变量的值/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/24/多种方法快速交换两个变量的值/" class="leancloud_visitors" data-flag-title="多种方法快速交换两个变量的值">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  210
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="使用多种方法快速交换两个变量的值"><a href="#使用多种方法快速交换两个变量的值" class="headerlink" title="使用多种方法快速交换两个变量的值"></a>使用多种方法快速交换两个变量的值</h3><blockquote>
+<p>1、利用元组的快速交换变量值</p>
+<p>2、引入新的变量来交换</p>
+<p>3、使用加减法交换变量值</p>
+<p>4、利用元组从一个函数中返回两个不同的值</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 利用元组的快速交换变量值</span></span><br><span class="line">a = <span class="number">5</span></span><br><span class="line">b = <span class="number">8</span></span><br><span class="line">a, b = b, a</span><br><span class="line">print(a, b)</span><br><span class="line"><span class="comment"># 2. 引入新的变量来交换</span></span><br><span class="line">c = b</span><br><span class="line">b = a</span><br><span class="line">a = c</span><br><span class="line">print(a, b)</span><br><span class="line"><span class="comment"># 3. 使用加减法交换变量值</span></span><br><span class="line">a = a + b</span><br><span class="line">b = a - b</span><br><span class="line">a = a - b</span><br><span class="line">print(a, b)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 利用元组从一个函数中返回两个不同的值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_error_details</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (<span class="number">2</span>, <span class="string">'details'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">errnum, errstr = get_error_details()</span><br><span class="line">print(errnum)</span><br><span class="line">print(errstr)</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">8 5</span><br><span class="line">5 8</span><br><span class="line">8 5</span><br><span class="line">2</span><br><span class="line">details</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/python日志模块/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2055,431 +2492,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/输入输出——回文字串的判断（加强版）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/23/输入输出——回文字串的判断（加强版）/" itemprop="url">输入输出——回文字串的判断（加强版）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:36:35+08:00">
-                2018-07-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:12:19+08:00">
-                2018-08-02
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/23/输入输出——回文字串的判断（加强版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/输入输出——回文字串的判断（加强版）/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/23/输入输出——回文字串的判断（加强版）/" class="leancloud_visitors" data-flag-title="输入输出——回文字串的判断（加强版）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  205
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="输入输出——回文字串的判断（加强版）"><a href="#输入输出——回文字串的判断（加强版）" class="headerlink" title="输入输出——回文字串的判断（加强版）"></a>输入输出——回文字串的判断（加强版）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">forbindden_word = (<span class="string">' '</span>, <span class="string">','</span>, <span class="string">';'</span>, <span class="string">'.'</span>, <span class="string">'!'</span>, <span class="string">'//'</span>, <span class="string">'?'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 样例字符串Rise to vote,sir.   共17长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ignore_word</span><span class="params">(text)</span>:</span>  <span class="comment"># 去除忽略的特殊字符</span></span><br><span class="line">    strdemo = list(text.lower())</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    print(<span class="string">'长度为:'</span>, len(strdemo))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> list(range(len(strdemo))):   <span class="comment"># 遍历从0-16，共17长度 ，debug一下就懂了</span></span><br><span class="line">        <span class="keyword">if</span> strdemo[i - count] <span class="keyword">in</span> forbindden_word:</span><br><span class="line">            <span class="keyword">del</span> strdemo[i - count]  <span class="comment"># 删除特殊字符</span></span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> strdemo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text[::<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_reverse</span><span class="params">(text)</span>:</span>  <span class="comment"># 判断是否为回文</span></span><br><span class="line">    <span class="keyword">return</span> text == reverse(text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">something = input(<span class="string">'随便输入点什么:'</span>)</span><br><span class="line"><span class="keyword">if</span> is_reverse(ignore_word(something)):</span><br><span class="line">    print(<span class="string">'恭喜！他是回文文本'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'这好像不是回文文本哦'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">随便输入点什么:Rise to vote,sir.</span><br><span class="line">长度为: 17</span><br><span class="line">恭喜！他是回文文本</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/输入输出——简单的回文判断/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="一个据说只有20的青年">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ben.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/23/输入输出——简单的回文判断/" itemprop="url">输入输出——简单的回文判断</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:30:11+08:00">
-                2018-07-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:12:30+08:00">
-                2018-08-02
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/23/输入输出——简单的回文判断/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/输入输出——简单的回文判断/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/23/输入输出——简单的回文判断/" class="leancloud_visitors" data-flag-title="输入输出——简单的回文判断">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  227
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="输入输出——简单的回文判断"><a href="#输入输出——简单的回文判断" class="headerlink" title="输入输出——简单的回文判断"></a>输入输出——简单的回文判断</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">可以通过使用 seq[a:b] 来从位置 a 开</span></span><br><span class="line"><span class="string">始到位置 b 结束来对序列进行切片 。我们同样可以提供第三个参数来确定切片的步长</span></span><br><span class="line"><span class="string">（Step）。默认的步长为 1 ，它会返回一份连续的文本。如果给定一个负数步长，如 -1 ，</span></span><br><span class="line"><span class="string">将返回翻转过的文本。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text[::<span class="number">-1</span>]  <span class="comment"># 使用切片功能返回倒序</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_palindrome</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text == reverse(text)  <span class="comment"># 如果正序和倒序相等的话，就是回文</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">something = input(<span class="string">"Enter text: "</span>)</span><br><span class="line"><span class="keyword">if</span> is_palindrome(something):</span><br><span class="line">    print(<span class="string">"Yes,it is a palidrome"</span>)  <span class="comment"># 是回文</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No, it is not a palindrome"</span>)  <span class="comment"># 不是回文</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><blockquote>
-<p>如果是回文字串</p>
-<p>Enter text: 1221<br>Yes,it is a palidrome</p>
-</blockquote>
-<blockquote>
-<p>如果不是回文字串</p>
-<p>Enter text: 11111555<br>No, it is not a palindrome</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2536,7 +2548,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">73</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -3356,4 +3368,5 @@ show_date_time();
 <script>
 $("body").backstretch("http://pd10tty87.bkt.clouddn.com/01.jpg");
 </script>  
-<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+</body>
+</html>
