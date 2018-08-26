@@ -1,3 +1,4 @@
+http://benym.cn/2018/08/26/将下载下来的MNIST手写数字数据集转化成为图片/
 http://benym.cn/2018/08/26/一些TensorFlow的基本操作/
 http://benym.cn/2018/08/26/交互式使用/
 http://benym.cn/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/
@@ -7,4 +8,3 @@ http://benym.cn/2018/08/24/第一个使用Tensorflow的程序/
 http://benym.cn/2018/08/22/Numpy中的数组维度/
 http://benym.cn/2018/08/22/Ndarray对象/
 http://benym.cn/2018/08/22/数据类型和arange方法_astype方法的使用/
-http://benym.cn/2018/08/20/Numpy中花式索引和shape用法/

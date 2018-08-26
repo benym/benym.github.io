@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2018-08-26T12:37:29.246Z</lastmod>
+    <data>
+        <display>
+        <title>将下载下来的MNIST手写数字数据集转化成为图片</title>
+        <pubTime>2018-08-26T12:32:57.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>MNIST</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://benym.cn/2018/08/26/%E4%B8%80%E4%BA%9BTensorFlow%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2018-08-26T09:02:00.202Z</lastmod>
     <data>
