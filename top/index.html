@@ -146,7 +146,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="博客文章阅读量排行榜">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-02T02:59:00.099Z">
+<meta property="og:updated_time" content="2018-08-27T10:58:30.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="热门文章">
 <meta name="twitter:description" content="博客文章阅读量排行榜">
@@ -407,7 +407,7 @@
       time=result.time;
       title=result.title;
       url=result.url;
-      var content="<a href='"+"https://benym.github.io"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"<br /><br />";
+      var content="<div id='top_inside'>"+"<a href='"+"https://benym.github.io"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"</div>"+"<br /><br />";
       document.getElementById("top").innerHTML+=content
     }
   }, function (error) {

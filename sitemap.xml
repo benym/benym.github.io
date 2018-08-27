@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://benym.cn/top/index.html</loc>
+    
+    <lastmod>2018-08-27T10:58:30.980Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
     
     <lastmod>2018-08-26T12:37:29.246Z</lastmod>
@@ -250,13 +257,6 @@
     <loc>http://benym.cn/2018/04/08/%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/</loc>
     
     <lastmod>2018-08-02T04:08:16.174Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://benym.cn/top/index.html</loc>
-    
-    <lastmod>2018-08-02T02:59:00.099Z</lastmod>
     
   </url>
   
