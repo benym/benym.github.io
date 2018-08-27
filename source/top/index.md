@@ -21,7 +21,7 @@ description: 博客文章阅读量排行榜
       time=result.time;
       title=result.title;
       url=result.url;
-      var content="<a href='"+"https://benym.github.io"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"<br /><br />";
+      var content="<div id='top_inside'>"+"<a href='"+"https://benym.github.io"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"</div>"+"<br /><br />";
       document.getElementById("top").innerHTML+=content
     }
   }, function (error) {
