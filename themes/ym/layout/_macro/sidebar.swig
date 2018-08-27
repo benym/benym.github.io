@@ -134,7 +134,6 @@
               </ul>
             </div>
           {% endif %}
-
           {% include '../_custom/sidebar.swig' %}
         </div>
       </section>
@@ -172,5 +171,4 @@
 
     </div>
   </aside>
-  
 {% endmacro %}

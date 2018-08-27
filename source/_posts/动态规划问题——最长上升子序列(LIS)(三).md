@@ -29,7 +29,7 @@ keywords: 算法,Java,动态规划,python
 
 ### Java代码
 
-```python
+```java
 import java.util.*;
 
 public class Main {
