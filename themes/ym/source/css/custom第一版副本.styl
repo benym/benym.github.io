@@ -4,6 +4,25 @@
     height: 1.5px;
     background-image: linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%);
 }
+// 页面留白更改
+.header-inner {
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.posts-expand {
+    padding-top: 5px;
+}
+.posts-expand .post-meta {
+    margin: 5px 0px 0px 0px;
+}
+.post-button {
+    margin-top: 0px;
+}
+
+// 渐变菜带，CSS代码copy自https://githubuniverse.com
+.site-meta {
+    background-image: linear-gradient(90deg, #F79533 0%, #F37055 15%, #EF4E7B 30%, #A166AB 44%, #5073B8 58%, #1098AD 72%, #07B39B 86%, #6DBA82 100%);
+}
 // 站点名背景
 .brand{
     background-color: rgba(255, 255, 255, 0);
@@ -12,29 +31,32 @@
 }
 // 站点名字体
 .site-title {
-  font-size: 42px;
-  font-weight: bold;
-  color: #000;
-  line-height: 80px;
-  letter-spacing: 3px;
+    font-family: Roboto Slab;
+    font-size: 63px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    line-height: 80px;
+    letter-spacing: 3px;
 }
-.site-subtitle {
-  margin: 0px;
-  font-size: 16px;
-  letter-spacing: 1px;
-  padding-bottom: 3px;
-  font-weight: bold;
-  color: #00000087;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  border-bottom-color: #ff5b00ad;
+// 站点子标题
+.site-subtitle{
+    font-family: Roboto Slab;
+    margin: 0px;
+    font-size: 16px;
+    letter-spacing: 1px;
+    padding-bottom: 3px;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(161, 102, 171);
 }
 // 文章
 .post {
     margin-bottom: 50px;
     padding: 45px 36px 36px 36px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    background-color: #ffffff7d;
+    background-color: rgb(255, 255, 255);
 }
 // 文章标题字体
 .posts-expand .post-title {
@@ -103,9 +125,9 @@
     line-height: 1.5;
     background-color: rgba(255, 255, 255, 0.75);
     color: #333;
-    border-top-width: 2px;
+    border-top-width: 3px;
     border-top-style: solid;
-    border-top-color: #1E90FF;
+    border-top-color: rgb(161, 102, 171);
     box-shadow: 0px -10px 10px 0px rgba(0, 0, 0, 0.15);
 }
 // 文章底部的tags
@@ -150,7 +172,7 @@ a {
     border-bottom-color: rgb(80, 115, 184);
 }
 a:hover {
-    color: #FF4500;
+    color: rgb(161, 102, 171);
     border-bottom-color: rgb(161, 102, 171);
 }
 // 分割线样式
@@ -245,17 +267,17 @@ img:hover {
     border-bottom: 1px solid rgb(96, 125, 139);
 }
 .post-toc ol a:hover {
-    color: #54FF9F;
-    border-bottom-color: #54FF9F;
+    color: rgb(161, 102, 171);
+    border-bottom-color: rgb(161, 102, 171);
 }
 // 侧栏目录链接样式之当前目录
 .post-toc .nav .active > a {
-    color: #54FF9F;
-    border-bottom-color: #54FF9F;
+    color: rgb(161, 102, 171);
+    border-bottom-color: rgb(161, 102, 171);
 }
 .post-toc .nav .active > a:hover {
-    color: #54FF9F;
-    border-bottom-color: #54FF9F;
+    color: rgb(161, 102, 171);
+    border-bottom-color: rgb(161, 102, 171);
 }
 // 时间轴样式
 .posts-collapse {
@@ -313,7 +335,7 @@ img:hover {
 .category-all-page {
     margin: -80px 50px 40px 50px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255,255,255,0.49);
+    background-color: rgb(255, 255, 255);
     padding: 86px 36px 36px 36px;
 }
 @media (max-width: 767px) {
@@ -328,7 +350,7 @@ img:hover {
 .tag-cloud {
     margin: -80px 50px 40px 50px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255,255,255,0.49);
+    background-color: rgb(255, 255, 255);
     padding: 86px 36px 36px 36px;
 }
 .tag-cloud-title {
@@ -489,7 +511,7 @@ code.description {
     text-align: center;
     margin: -100px 50px 40px 50px;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    background-color: rgba(255,255,255,0.49);
+    background-color: rgb(255, 255, 255);
     padding: 106px 36px 10px 36px;
 }
 #top_inside {
