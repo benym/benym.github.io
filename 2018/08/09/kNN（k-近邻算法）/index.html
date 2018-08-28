@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -161,7 +161,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Muse',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
     fancybox: true,
@@ -366,6 +366,57 @@
     </header>
 
     <main id="main" class="main">
+	<canvas width="1920" height="946" style="position: fixed; top: 0px; left: 0px; z-index: -1;"></canvas>
+    <script>
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault()
+    })
+    var c = document.getElementsByTagName('canvas')[0],
+        x = c.getContext('2d'),
+        pr = window.devicePixelRatio || 1,
+        w = window.innerWidth,
+        h = window.innerHeight,
+        f = 90,
+        q,
+        m = Math,
+        r = 0,
+        u = m.PI * 2,
+        v = m.cos,
+        z = m.random
+    c.width = w * pr
+    c.height = h * pr
+    x.scale(pr, pr)
+    x.globalAlpha = 0.6
+
+    function i() {
+        x.clearRect(0, 0, w, h)
+        q = [{ x: 0, y: h * .7 + f }, { x: 0, y: h * .7 - f }]
+        while (q[1].x < w + f) d(q[0], q[1])
+    }
+
+    function d(i, j) {
+        x.beginPath()
+        x.moveTo(i.x, i.y)
+        x.lineTo(j.x, j.y)
+        var k = j.x + (z() * 2 - 0.25) * f,
+            n = y(j.y)
+        x.lineTo(k, n)
+        x.closePath()
+        r -= u / -50
+        x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
+        x.fill()
+        q[0] = q[1]
+        q[1] = { x: k, y: n }
+    }
+
+    function y(p) {
+        var t = p + (z() * 2 - 1.1) * f
+        return (t > h || t < 0) ? y(p) : t
+    }
+    document.onclick = i
+    document.ontouchstart = i
+    i()
+    </script>
       <div class="main-inner">
         <div class="content-wrap">
           <div id="content" class="content">
@@ -1027,13 +1078,6 @@ show_date_time();
   
   
 
-
-  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
-
-
-
   
   <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
@@ -1561,10 +1605,5 @@ show_date_time();
   
 
   
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script>;
-<script>
-$("body").backstretch("http://pd10tty87.bkt.clouddn.com/01.jpg");
-</script>  
-</body>
-</html>
+ 
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
