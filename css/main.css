@@ -1980,7 +1980,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ffff75;
+  background: #588787;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2853,12 +2853,13 @@ embed {
 .brand {
   background-color: rgba(255,255,255,0);
   margin-top: 15px;
-  padding: 0px;
+  padding: 0 40px;
+  color: #fff;
+  background: rgba(255,45,45,0.8);
 }
 .site-title {
   font-size: 42px;
   font-weight: bold;
-  color: #000;
   line-height: 80px;
   letter-spacing: 3px;
 }
@@ -2871,7 +2872,7 @@ embed {
   color: rgba(0,0,0,0.529);
   border-bottom-width: 3px;
   border-bottom-style: solid;
-  border-bottom-color: rgba(255,91,0,0.678);
+  border-bottom-color: rgba(80,124,212,0.651);
 }
 .post {
   margin-bottom: 50px;
@@ -2968,7 +2969,7 @@ embed {
   font-weight: bold;
 }
 .post-nav-item a:hover {
-  color: #0f0;
+  color: #ff4c7d;
   font-weight: bold;
 }
 .comments {
@@ -2977,12 +2978,12 @@ embed {
   margin: 80px 0px 40px 0px;
 }
 a {
-  color: #5073b8;
+  color: #000;
   border-bottom-color: #5073b8;
 }
 a:hover {
   color: #ff4500;
-  border-bottom-color: #a166ab;
+  border-bottom-color: #4682b4;
 }
 hr {
   margin: 10px 0px 30px 0px;
@@ -3204,7 +3205,7 @@ img#github-emoji {
   text-decoration: none;
 }
 .tag-cloud a:hover {
-  border-bottom: 1px solid #a166ab;
+  border-bottom: 1px solid #ff8c69;
   text-decoration: none;
 }
 a.categories {
