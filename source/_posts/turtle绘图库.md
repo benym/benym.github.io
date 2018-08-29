@@ -50,7 +50,7 @@ turtle.done()
 
 ## 运行结果
 
-![snake](http://pd10tty87.bkt.clouddn.com/turtlesnake.png)
+![snake](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtlesnake.png)
 
 实例2：绘制一个Z
 
@@ -70,4 +70,4 @@ turtle.done()
 
 ## 运行结果
 
-![Z](http://pd10tty87.bkt.clouddn.com/turtleZ.png)
+![Z](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtleZ.png)

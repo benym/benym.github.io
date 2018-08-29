@@ -12,8 +12,8 @@ keywords: 机器学习,python,MNIST
 
 解析源文件下载（总共包含60000个训练数据和10000个测试数据）
 
-1. [训练集解析](http://pd10tty87.bkt.clouddn.com/train_release.py)
-2. [测试集解析](http://pd10tty87.bkt.clouddn.com/test_release.py)
+1. [训练集解析](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/train_release.py)
+2. [测试集解析](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/test_release.py)
 
 <!--more-->
 

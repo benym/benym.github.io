@@ -174,7 +174,7 @@ links:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-avatar: http://pd10tty87.bkt.clouddn.com/sitelogo.jpg
+avatar: https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo.jpg
 
 # Table Of Contents in the Sidebar
 toc:

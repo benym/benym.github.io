@@ -100,7 +100,7 @@ ax.scatter(datingDataMat[:, 1], datingDataMat[:, 2], 15.0 * array(datingLabels),
 plt.show()
 ```
 
-<div class="note info"><p>[数据集](http://pd10tty87.bkt.clouddn.com/datingTestSet.txt)</p></div>
+<div class="note info"><p>[数据集](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/datingTestSet.txt)</p></div>
 
 ## 运行结果
 
@@ -119,7 +119,7 @@ datingLabels[0:20]
 
 散点图结果：
 
-![散点图](http://pd10tty87.bkt.clouddn.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png)
+![散点图](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/2.2%E6%95%A3%E7%82%B9%E5%9B%BE.png)
 
 <div class="note primary"><p>2018年8月11日 16:49:36    新增：归一化特征值，测试代码，预测代码</p></div>
 

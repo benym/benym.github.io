@@ -26,15 +26,15 @@ keywords: 机器学习,python,k-近邻算法
 
  **使用欧氏距离公式，计算两个向量点xA和xB之间的距离：**
 
-![KNN-01](http://pd10tty87.bkt.clouddn.com/KNN-01.png)
+![KNN-01](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/KNN-01.png)
 
 例如，点 (0 ,0) 与 (1, 2) 之间的距离计算为：
 
-![KNN-02](http://pd10tty87.bkt.clouddn.com/KNN-02.png)
+![KNN-02](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/KNN-02.png)
 
 如果数据集存在 4 个特征值，则点 (1 ,0, 0 ,1) 与 (7, 6, 9 ,4) 之间的距离计算为:
 
-![KNN-03](http://pd10tty87.bkt.clouddn.com/KNN-03.png)
+![KNN-03](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/KNN-03.png)
 
 计算完所有点之间的距离后，可以对数据按照从小到大的次序排序。然后，确定前 k 个距离最小元素所在的主要分类 , 输人k总是正整数；最后，将classCount字典分解为元组列表，然后使用程序第二行导入运算符模块的itemgetter方法 ,按照第二个元素的次序对元组进行排序。此处的排序为逆序，即按照从最大到最小次序排序，最后返回发生频率最高的元素标签。
 
