@@ -2,16 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://benym.cn/top/index.html</loc>
+    <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
     
-    <lastmod>2018-08-27T10:58:30.980Z</lastmod>
+    <lastmod>2018-08-29T06:02:14.545Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
+    <loc>http://benym.cn/2018/08/03/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/</loc>
     
-    <lastmod>2018-08-26T12:37:29.246Z</lastmod>
+    <lastmod>2018-08-29T06:01:26.349Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://benym.cn/2018/08/08/turtle%E7%BB%98%E5%9B%BE%E5%BA%93/</loc>
+    
+    <lastmod>2018-08-29T06:00:44.231Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://benym.cn/2018/08/11/%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/</loc>
+    
+    <lastmod>2018-08-29T05:59:52.520Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://benym.cn/2018/08/09/kNN%EF%BC%88k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%EF%BC%89/</loc>
+    
+    <lastmod>2018-08-29T05:58:34.780Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://benym.cn/top/index.html</loc>
+    
+    <lastmod>2018-08-27T10:58:30.980Z</lastmod>
     
   </url>
   
@@ -135,20 +163,6 @@
   </url>
   
   <url>
-    <loc>http://benym.cn/2018/08/11/%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/</loc>
-    
-    <lastmod>2018-08-11T09:12:46.429Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://benym.cn/2018/08/09/kNN%EF%BC%88k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%EF%BC%89/</loc>
-    
-    <lastmod>2018-08-11T03:46:17.640Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://benym.cn/2018/08/09/Numpy%E5%BA%93%E7%9A%84%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2018-08-10T06:46:21.270Z</lastmod>
@@ -173,13 +187,6 @@
     <loc>http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84%E5%A4%9A%E6%80%81/</loc>
     
     <lastmod>2018-08-08T11:49:18.932Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://benym.cn/2018/08/08/turtle%E7%BB%98%E5%9B%BE%E5%BA%93/</loc>
-    
-    <lastmod>2018-08-08T09:21:31.719Z</lastmod>
     
   </url>
   
@@ -236,13 +243,6 @@
     <loc>http://benym.cn/2018/07/07/python%E4%B8%AD%E7%9A%84%E5%85%83%E7%BB%84/</loc>
     
     <lastmod>2018-08-06T12:49:09.614Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://benym.cn/2018/08/03/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/</loc>
-    
-    <lastmod>2018-08-06T06:36:46.806Z</lastmod>
     
   </url>
   

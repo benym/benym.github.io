@@ -146,13 +146,13 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="使用绘图库绘制图形">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/turtlesnake.png">
-<meta property="og:image" content="http://pd10tty87.bkt.clouddn.com/turtleZ.png">
-<meta property="og:updated_time" content="2018-08-08T09:21:31.719Z">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtlesnake.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtleZ.png">
+<meta property="og:updated_time" content="2018-08-29T06:00:44.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="turtle绘图库">
 <meta name="twitter:description" content="使用绘图库绘制图形">
-<meta name="twitter:image" content="http://pd10tty87.bkt.clouddn.com/turtlesnake.png">
+<meta name="twitter:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtlesnake.png">
 
 
 
@@ -440,7 +440,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -480,8 +480,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-08T17:21:31+08:00">
-                2018-08-08
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-29T14:00:44+08:00">
+                2018-08-29
               </time>
             
           </span>
@@ -597,10 +597,10 @@
 <h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>实例1：</p>
 <p>绘制一条小蛇</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle  <span class="comment"># 绘图库</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 绘制一条小蛇</span></span><br><span class="line"><span class="comment"># 设置窗体大小及位置，但并不是必须的，依次长,宽，如果后两项不设置，则默认正中心</span></span><br><span class="line">turtle.setup(<span class="number">650</span>, <span class="number">350</span>, <span class="number">200</span>, <span class="number">200</span>)</span><br><span class="line"><span class="comment"># 抬起画笔</span></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="comment"># turtle.fd表示向海龟的右边走，turtle.bk表示向海龟的左边走</span></span><br><span class="line">turtle.fd(<span class="number">-250</span>)</span><br><span class="line"><span class="comment"># 下笔</span></span><br><span class="line">turtle.pendown()</span><br><span class="line"><span class="comment"># 设置画笔宽度</span></span><br><span class="line">turtle.pensize(<span class="number">25</span>)</span><br><span class="line"><span class="comment"># 设置画笔颜色</span></span><br><span class="line">turtle.pencolor(<span class="string">"purple"</span>)</span><br><span class="line"><span class="comment"># 改变当前行径的方向，原地转向的意思，参数为绝对角度</span></span><br><span class="line"><span class="comment"># turtle.left和turtle.right表示向左边或右边改变角度</span></span><br><span class="line">turtle.seth(<span class="number">-40</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">    <span class="comment"># circle表示以某一个点为圆心，向左侧运行</span></span><br><span class="line">    turtle.circle(<span class="number">40</span>, <span class="number">80</span>)</span><br><span class="line">    turtle.circle(<span class="number">-40</span>, <span class="number">80</span>)</span><br><span class="line">turtle.circle(<span class="number">40</span>, <span class="number">80</span> / <span class="number">2</span>)</span><br><span class="line">turtle.fd(<span class="number">40</span>)</span><br><span class="line">turtle.circle(<span class="number">16</span>, <span class="number">100</span>)</span><br><span class="line">turtle.fd(<span class="number">40</span> * <span class="number">2</span> / <span class="number">3</span>)</span><br><span class="line">turtle.done()</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://pd10tty87.bkt.clouddn.com/turtlesnake.png" alt="snake"></p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtlesnake.png" alt="snake"></p>
 <p>实例2：绘制一个Z</p>
 <h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.left(<span class="number">45</span>)  <span class="comment"># 转角度</span></span><br><span class="line">turtle.fd(<span class="number">150</span>)  <span class="comment"># 前进</span></span><br><span class="line">turtle.right(<span class="number">135</span>)</span><br><span class="line">turtle.fd(<span class="number">300</span>)</span><br><span class="line">turtle.left(<span class="number">135</span>)</span><br><span class="line">turtle.fd(<span class="number">150</span>)</span><br><span class="line">turtle.done()</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="http://pd10tty87.bkt.clouddn.com/turtleZ.png" alt="Z"></p>
+<h2 id="运行结果-1"><a href="#运行结果-1" class="headerlink" title="运行结果"></a>运行结果</h2><p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/turtleZ.png" alt="Z"></p>
 
       
     </div>
@@ -741,7 +741,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg"
+                src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo.jpg"
                 alt="一个据说只有20的青年" />
             
               <p class="site-author-name" itemprop="name">一个据说只有20的青年</p>

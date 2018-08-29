@@ -146,7 +146,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="MNIST数据集">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-26T12:37:29.246Z">
+<meta property="og:updated_time" content="2018-08-29T06:02:14.545Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="将下载下来的MNIST手写数字数据集转化成为图片">
 <meta name="twitter:description" content="MNIST数据集">
@@ -437,7 +437,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="一个据说只有20的青年">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -477,8 +477,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-26T20:37:29+08:00">
-                2018-08-26
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-29T14:02:14+08:00">
+                2018-08-29
               </time>
             
           </span>
@@ -591,8 +591,8 @@
       
         <p>解析源文件下载（总共包含60000个训练数据和10000个测试数据）</p>
 <ol>
-<li><a href="http://pd10tty87.bkt.clouddn.com/train_release.py" target="_blank" rel="noopener">训练集解析</a></li>
-<li><a href="http://pd10tty87.bkt.clouddn.com/test_release.py" target="_blank" rel="noopener">测试集解析</a></li>
+<li><a href="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/train_release.py" target="_blank" rel="noopener">训练集解析</a></li>
+<li><a href="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/test_release.py" target="_blank" rel="noopener">测试集解析</a></li>
 </ol>
 <a id="more"></a>
 <h2 id="对于训练集的代码"><a href="#对于训练集的代码" class="headerlink" title="对于训练集的代码"></a>对于训练集的代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> struct</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line">data_file = <span class="string">'MNIST_data\\train-images.idx3-ubyte'</span>  <span class="comment"># 需要修改的路径</span></span><br><span class="line"><span class="comment"># It's 47040016B, but we should set to 47040000B</span></span><br><span class="line">data_file_size = <span class="number">47040016</span></span><br><span class="line">data_file_size = str(data_file_size - <span class="number">16</span>) + <span class="string">'B'</span></span><br><span class="line"></span><br><span class="line">data_buf = open(data_file, <span class="string">'rb'</span>).read()</span><br><span class="line"></span><br><span class="line">magic, numImages, numRows, numColumns = struct.unpack_from(</span><br><span class="line">    <span class="string">'&gt;IIII'</span>, data_buf, <span class="number">0</span>)</span><br><span class="line">datas = struct.unpack_from(</span><br><span class="line">    <span class="string">'&gt;'</span> + data_file_size, data_buf, struct.calcsize(<span class="string">'&gt;IIII'</span>))</span><br><span class="line">datas = np.array(datas).astype(np.uint8).reshape(</span><br><span class="line">    numImages, <span class="number">1</span>, numRows, numColumns)</span><br><span class="line"></span><br><span class="line">label_file = <span class="string">'MNIST_data\\train-labels.idx1-ubyte'</span>  <span class="comment"># 需要修改的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># It's 60008B, but we should set to 60000B</span></span><br><span class="line">label_file_size = <span class="number">60008</span></span><br><span class="line">label_file_size = str(label_file_size - <span class="number">8</span>) + <span class="string">'B'</span></span><br><span class="line"></span><br><span class="line">label_buf = open(label_file, <span class="string">'rb'</span>).read()</span><br><span class="line"></span><br><span class="line">magic, numLabels = struct.unpack_from(<span class="string">'&gt;II'</span>, label_buf, <span class="number">0</span>)</span><br><span class="line">labels = struct.unpack_from(</span><br><span class="line">    <span class="string">'&gt;'</span> + label_file_size, label_buf, struct.calcsize(<span class="string">'&gt;II'</span>))</span><br><span class="line">labels = np.array(labels).astype(np.int64)</span><br><span class="line"></span><br><span class="line">datas_root = <span class="string">'MNIST_data\\'</span>  <span class="comment"># 需要修改的路径</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(datas_root):</span><br><span class="line">    os.mkdir(datas_root)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    file_name = datas_root + os.sep + str(i)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(file_name):</span><br><span class="line">        os.mkdir(file_name)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ii <span class="keyword">in</span> range(numLabels):</span><br><span class="line">    img = Image.fromarray(datas[ii, <span class="number">0</span>, <span class="number">0</span>:<span class="number">28</span>, <span class="number">0</span>:<span class="number">28</span>])</span><br><span class="line">    label = labels[ii]</span><br><span class="line">    file_name = datas_root + os.sep + str(label) + os.sep + \</span><br><span class="line">                <span class="string">'mnist_train_'</span> + str(ii) + <span class="string">'.png'</span></span><br><span class="line">    img.save(file_name)</span><br></pre></td></tr></table></figure>
@@ -737,7 +737,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="http://pd10tty87.bkt.clouddn.com/sitelogo.jpg"
+                src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo.jpg"
                 alt="一个据说只有20的青年" />
             
               <p class="site-author-name" itemprop="name">一个据说只有20的青年</p>
