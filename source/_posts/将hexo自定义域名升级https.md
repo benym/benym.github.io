@@ -3,6 +3,7 @@ title: 将hexo自定义域名升级https
 date: 2018/8/29 16:02:44
 description: 使用腾讯云作为存储，开起强制HTTPS，保证全站资源HTTPS链接
 categories: HTTPS
+sticky: 8
 tags: 
 - Hexo
 keywords: Hexo,https,升级
@@ -18,7 +19,7 @@ keywords: Hexo,https,升级
 
 <!--more-->
 
-<div class="note intfo"><p>对于github解析的用户</p></div>
+<div class="note info"><p>对于github解析的用户</p></div>
 
 ## 打开Github Pages页面的强制HTTPS
 
@@ -28,7 +29,7 @@ keywords: Hexo,https,升级
 
 **然后再勾选Enforce HTTPS即可**
 
-<div class="note intfo"><p>对于coding解析的用户</p></div>
+<div class="note info"><p>对于coding解析的用户</p></div>
 
 ## 打开Coding Pages服务的强制HTTPS访问
 
