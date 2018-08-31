@@ -1980,7 +1980,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #113e13;
+  background: #fbf1ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3403,6 +3403,16 @@ code.description {
   .menu .menu-item {
     margin: 0px 10px !important;
   }
+}
+.links-of-author a:before {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 3px;
+  content: " ";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #00ff70;
 }
 @-moz-keyframes heartAnimate {
   0%, 100% {
