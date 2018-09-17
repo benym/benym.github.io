@@ -46,7 +46,12 @@
   #}{{ theme.footer.custom_text }}{#
 #}</div>
 {% endif %}
-<div id="days"></div>
+<span id="days"></span> &
+<span class=BbeiAn-info">
+  {{ __('渝ICP备') }} -
+  <a href="http://www.miitbeian.gov.cn">18012574号</a>
+  </a>
+</span>
 <script>
 function show_date_time(){
 window.setTimeout("show_date_time()", 1000);

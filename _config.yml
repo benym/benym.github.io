@@ -98,6 +98,7 @@ deploy:
   repository:
     github: git@github.com:benym/benym.github.io.git
     coding: git@git.coding.net:benym/benym.git
+    tencentcloud: git@118.24.24.247:/home/git/blog.git
   branch: master
 - type: baidu_url_submitter   
 
