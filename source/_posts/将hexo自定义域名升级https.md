@@ -3,7 +3,6 @@ title: 将hexo自定义域名升级https
 date: 2018/8/29 16:02:44
 description: 使用腾讯云作为存储，开起强制HTTPS，保证全站资源HTTPS链接
 categories: HTTPS
-sticky: 8
 tags: 
 - Hexo
 keywords: Hexo,https,升级

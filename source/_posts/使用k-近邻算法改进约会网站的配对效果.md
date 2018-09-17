@@ -3,7 +3,6 @@ title: 使用k-近邻算法改进约会网站的配对效果
 date: 2018/8/11 11:47:52
 description: 在约会网站上使用k-近邻算法
 categories: 机器学习
-sticky: 7
 tags: 
 - k-近邻算法
 - python
