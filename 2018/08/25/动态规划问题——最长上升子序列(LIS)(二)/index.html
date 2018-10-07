@@ -603,7 +603,17 @@
 
 <h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">4 3</span><br><span class="line">10 3 7 5</span><br></pre></td></tr></table></figure>
 <h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4</span><br></pre></td></tr></table></figure>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><div class="note info"><p>3小时内的所有采样点为<br><br>10 3 7 5 10 3 7 5 10 3 7 5<br><br>选取第2，3，5，9个采样点，可以得到一个不曾下降过的序列<br><br>3 7 10 10<br><br>使用其他的方法也可以得到长为4的满足条件的序列，但无法得到长度超过4的结果。<br><br></p></div>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><div class="note info"><p>3小时内的所有采样点为
+
+10 3 7 5 10 3 7 5 10 3 7 5
+
+选取第2，3，5，9个采样点，可以得到一个不曾下降过的序列
+
+3 7 10 10
+
+使用其他的方法也可以得到长为4的满足条件的序列，但无法得到长度超过4的结果。
+
+</p></div>
 
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">对于20%的数据，t=1</span><br><span class="line">对于50%的数据，t&lt;=1000</span><br><span class="line">对于80%的数据，PM2.5数值不超过200</span><br><span class="line">对于100%的数据，1&lt;=n&lt;=1000,</span><br><span class="line">1&lt;=t&lt;=1000000，PM2.5数值为正整数，且不超过1000000000</span><br></pre></td></tr></table></figure>
 <p>优化时间复杂度(外层为n，内层为logn)</p>
