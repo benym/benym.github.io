@@ -15,27 +15,50 @@ keywords: 机器学习,matlab,Coursera
 
 ## 线性回归基础（ *Linear regression* ）
 
-- Hypothesis:        $$h_{\theta }(x)=\theta _{0}+\theta _{1}x$$
-- Parameters:       $$\theta _{0},\theta _{1}$$
-- cost Funcition:      $$J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}$$
-- goal:          $$minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})$$
+- ***Hypothesis:***        
+
+
+$$h_{\theta }(x)=\theta _{0}+\theta _{1}x$$
+
+- ***Parameters:***       
+
+
+$$\theta _{0},\theta _{1}$$
+
+- ***cost Funcition:***      
+
+
+$$J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}​$$
+
+- ***goal:***          
+
+
+$$minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})$$
 
 在最小化损失函数的过程中需要用到梯度下降算法（Gradient descent）
 
 ## 梯度下降算法（*Gradient descent*  ）
 
-Have some function:	 	$$J(\theta _{0},\theta _{1})$$
+- ***Have some function:***	 	
 
-Want: 				$$minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})$$
 
-Outline: 
+$$J(\theta _{0},\theta _{1})$$
+
+- ***Want:*** 				
+
+
+$$minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})$$
+
+***Outline:*** 
 
 - start with some $\theta _{0},\theta _{1}$,(一般都取0)
 - keep changing $\theta _{0},\theta _{1}$ to reduce $J(\theta _{0},\theta _{1})$，直到我们找到J的最小值或是局部最小值
 
-repeat until convergence｛
+***repeat until convergence***｛
 
-​					$$\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}$$(***simultaneously update θj for all j***)
+$$\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}$$
+
+​							(***simultaneously update θj for all j***)
 
 ｝
 
