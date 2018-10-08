@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Coursera课后作业——ex1]]></title>
     <url>%2F2018%2F10%2F07%2FCoursera%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E2%80%94%E2%80%94ex1%2F</url>
-    <content type="text"><![CDATA[很久以前做的，还是提交一下 线性回归基础（ Linear regression ） Hypothesis: h_{\theta }(x)=\theta _{0}+\theta _{1}x Parameters: \theta _{0},\theta _{1} cost Funcition: J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2} goal: minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1}) 在最小化损失函数的过程中需要用到梯度下降算法（Gradient descent） 梯度下降算法（Gradient descent ）Have some function: J(\theta _{0},\theta _{1}) Want: minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1}) Outline: start with some $\theta _{0},\theta _{1}$,(一般都取0) keep changing $\theta _{0},\theta _{1}$ to reduce $J(\theta _{0},\theta _{1})$，直到我们找到J的最小值或是局部最小值 repeat until convergence｛ ​ \theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}(simultaneously update θj for all j) ｝ 代码主函数ex1.m 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122%% Machine Learning Online Class - Exercise 1: Linear Regression% Instructions% ------------% % This file contains code that helps you get started on the% linear exercise. You will need to complete the following functions % in this exericse:%% warmUpExercise.m% plotData.m% gradientDescent.m% computeCost.m% gradientDescentMulti.m% computeCostMulti.m% featureNormalize.m% normalEqn.m%% For this exercise, you will not need to change any code in this file,% or any other files other than those mentioned above.%% x refers to the population size in 10,000s% y refers to the profit in $10,000s%%% Initializationclear ; close all; clc%% ==================== Part 1: Basic Function ====================% Complete warmUpExercise.m fprintf('Running warmUpExercise ... \n');fprintf('5x5 Identity Matrix: \n');warmUpExercise()fprintf('Program paused. Press enter to continue.\n');pause;%% ======================= Part 2: Plotting =======================fprintf('Plotting Data ...\n')data = load('ex1data1.txt');X = data(:, 1); y = data(:, 2);%第一列数据给X，第二列数据给ym = length(y); % 训练样本的个数% Plot Data% Note: You have to complete the code in plotData.mplotData(X, y); %传入X和y进行画图fprintf('Program paused. Press enter to continue.\n');pause;%% =================== Part 3: Gradient descent ===================fprintf('Running Gradient Descent ...\n')X = [ones(m, 1), data(:,1)]; % Add a column of ones to x 考虑到截取项theta0，为X增加额外的一列theta = zeros(2, 1); % initialize fitting parameters 定义一个2行1列值为0的向量% Some gradient descent settingsiterations = 1500; %迭代次数alpha = 0.01; %学习率% compute and display initial costcomputeCost(X, y, theta) %计算代价函数J（theta）% run gradient descenttheta = gradientDescent(X, y, theta, alpha, iterations); %获得theta0和theta1% print theta to screenfprintf('Theta found by gradient descent: ');fprintf('%f %f \n', theta(1), theta(2));% Plot the linear fithold on; % keep previous plot visibleplot(X(:,2), X*theta, '-') %以X的第2列为横坐标，X*theta为纵坐标，横线为标记画图legend('Training data', 'Linear regression')hold off % don't overlay any more plots on this figure% Predict values for population sizes of 35,000 and 70,000predict1 = [1, 3.5] *theta; %预测人口为35000的时候的利润fprintf('For population = 35,000, we predict a profit of %f\n',... predict1*10000);predict2 = [1, 7] * theta; %预测人口为70000的时候的利润fprintf('For population = 70,000, we predict a profit of %f\n',... predict2*10000);fprintf('Program paused. Press enter to continue.\n');pause;%% ============= Part 4: Visualizing J(theta_0, theta_1) ============= 可视化J（theta）fprintf('Visualizing J(theta_0, theta_1) ...\n')% Grid over which we will calculate Jtheta0_vals = linspace(-10, 10, 100);% 生成-10到10之间，间距为（10-（-10)）/（100-1）的长度为100的数组（即间距为0.2020）theta1_vals = linspace(-1, 4, 100); % 生成-1到4，间距为0.051的长度为100的数组% initialize J_vals to a matrix of 0'sJ_vals = zeros(length(theta0_vals), length(theta1_vals));% Fill out J_valsfor i = 1:length(theta0_vals) for j = 1:length(theta1_vals) t = [theta0_vals(i); theta1_vals(j)]; J_vals(i,j) = computeCost(X, y, t); endend% Because of the way meshgrids work in the surf command, we need to % transpose J_vals before calling surf, or else the axes will be flippedJ_vals = J_vals';% Surface plotfigure;surf(theta0_vals, theta1_vals, J_vals) % 三维图xlabel('\theta_0'); ylabel('\theta_1');% Contour plotfigure;% Plot J_vals as 15 contours spaced logarithmically between 0.01 and 100contour(theta0_vals, theta1_vals, J_vals, logspace(-2, 3, 20)) % 等高线xlabel('\theta_0'); ylabel('\theta_1');hold on;plot(theta(1), theta(2), 'rx', 'MarkerSize', 10, 'LineWidth', 2); 计算损失函数部分computeCost.m 123456789101112131415161718192021222324function J = computeCost(X, y, theta)%COMPUTECOST Compute cost for linear regression% J = COMPUTECOST(X, y, theta) computes the cost of using theta as the% parameter for linear regression to fit the data points in X and y% Initialize some useful valuesm = length(y); % number of training examples% You need to return the following variables correctly J = 0;% ====================== YOUR CODE HERE ======================% Instructions: Compute the cost of a particular choice of theta% You should set J to the cost.predictions = X*theta; % h_theta(x)=thetaT*xsqerrors = (predictions - y).^2; J = 1/(2*m)* sum(sqerrors);% =========================================================================end 绘图部分plotData.m 12345678910111213141516171819202122232425262728function plotData(x, y)%PLOTDATA Plots the data points x and y into a new figure % PLOTDATA(x,y) plots the data points and gives the figure axes labels of% population and profit.% ====================== YOUR CODE HERE ======================% Instructions: Plot the training data into a figure using the % "figure" and "plot" commands. Set the axes labels using% the "xlabel" and "ylabel" commands. Assume the % population and revenue data have been passed in% as the x and y arguments of this function.%% Hint: You can use the 'rx' option with plot to have the markers% appear as red crosses. Furthermore, you can make the% markers larger by using plot(..., 'rx', 'MarkerSize', 10);figure; % open a new figure windowplot(x, y, 'rx', 'MarkerSize', 10); % Plot the data 用红色的大小为10的×来进行标记，横坐标是X，纵坐标是yylabel('Profit in $10,000s'); % Set the y axis labelxlabel('Population of City in 10,000s'); % Set the x axis label% ============================================================end 梯度下降gradientDescent.m 12345678910111213141516171819202122232425262728293031323334function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)%GRADIENTDESCENT Performs gradient descent to learn theta% theta = GRADIENTDESENT(X, y, theta, alpha, num_iters) updates theta by % taking num_iters gradient steps with learning rate alpha% Initialize some useful valuesm = length(y); % number of training examplesJ_history = zeros(num_iters, 1);for iter = 1:num_iters % ====================== YOUR CODE HERE ====================== % Instructions: Perform a single gradient step on the parameter vector % theta. % % Hint: While debugging, it can be useful to print out the values % of the cost function (computeCost) and gradient here. % predictions = X * theta; updates = X' * (predictions - y); theta = theta - alpha * (1/m) * updates; %theta = theta - alpha * (1/m) * sum(sqerrors) * X; %theta - (alpha/m) * (X' * (X * theta - y)); %theta = theta - (alpha/m) * (X' * (X * theta - y)); % ============================================================ % Save the cost J in every iteration J_history(iter) = computeCost(X, y, theta);endend 运行结果 线性回归拟合之后 绘制梯度下降等高线 判断梯度下降是否达到最低点 预测结果 上图得到$\theta _{1},\theta _{2}$的数值以及在人口为35000和70000时，分别可以获得的利润]]></content>
+    <content type="text"><![CDATA[很久以前做的，还是提交一下 线性回归基础（ Linear regression ）Hypothesis: h_{\theta }(x)=\theta _{0}+\theta _{1}xParameters: \theta _{0},\theta _{1}cost Funcition: J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}goal: minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})在最小化损失函数的过程中需要用到梯度下降算法（Gradient descent） 梯度下降算法（Gradient descent ）Have some function: J(\theta _{0},\theta _{1})Want: minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})Outline: start with some \theta _{0},\theta _{1},(一般都取0) keep changing \theta _{0},\theta _{1} to reduce J(\theta _{0},\theta _{1})，直到我们找到J的最小值或是局部最小值 repeat until convergence｛ ​\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}(simultaneously update θj for all j) ｝ 代码主函数ex1.m 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122%% Machine Learning Online Class - Exercise 1: Linear Regression% Instructions% ------------% % This file contains code that helps you get started on the% linear exercise. You will need to complete the following functions % in this exericse:%% warmUpExercise.m% plotData.m% gradientDescent.m% computeCost.m% gradientDescentMulti.m% computeCostMulti.m% featureNormalize.m% normalEqn.m%% For this exercise, you will not need to change any code in this file,% or any other files other than those mentioned above.%% x refers to the population size in 10,000s% y refers to the profit in $10,000s%%% Initializationclear ; close all; clc%% ==================== Part 1: Basic Function ====================% Complete warmUpExercise.m fprintf('Running warmUpExercise ... \n');fprintf('5x5 Identity Matrix: \n');warmUpExercise()fprintf('Program paused. Press enter to continue.\n');pause;%% ======================= Part 2: Plotting =======================fprintf('Plotting Data ...\n')data = load('ex1data1.txt');X = data(:, 1); y = data(:, 2);%第一列数据给X，第二列数据给ym = length(y); % 训练样本的个数% Plot Data% Note: You have to complete the code in plotData.mplotData(X, y); %传入X和y进行画图fprintf('Program paused. Press enter to continue.\n');pause;%% =================== Part 3: Gradient descent ===================fprintf('Running Gradient Descent ...\n')X = [ones(m, 1), data(:,1)]; % Add a column of ones to x 考虑到截取项theta0，为X增加额外的一列theta = zeros(2, 1); % initialize fitting parameters 定义一个2行1列值为0的向量% Some gradient descent settingsiterations = 1500; %迭代次数alpha = 0.01; %学习率% compute and display initial costcomputeCost(X, y, theta) %计算代价函数J（theta）% run gradient descenttheta = gradientDescent(X, y, theta, alpha, iterations); %获得theta0和theta1% print theta to screenfprintf('Theta found by gradient descent: ');fprintf('%f %f \n', theta(1), theta(2));% Plot the linear fithold on; % keep previous plot visibleplot(X(:,2), X*theta, '-') %以X的第2列为横坐标，X*theta为纵坐标，横线为标记画图legend('Training data', 'Linear regression')hold off % don't overlay any more plots on this figure% Predict values for population sizes of 35,000 and 70,000predict1 = [1, 3.5] *theta; %预测人口为35000的时候的利润fprintf('For population = 35,000, we predict a profit of %f\n',... predict1*10000);predict2 = [1, 7] * theta; %预测人口为70000的时候的利润fprintf('For population = 70,000, we predict a profit of %f\n',... predict2*10000);fprintf('Program paused. Press enter to continue.\n');pause;%% ============= Part 4: Visualizing J(theta_0, theta_1) ============= 可视化J（theta）fprintf('Visualizing J(theta_0, theta_1) ...\n')% Grid over which we will calculate Jtheta0_vals = linspace(-10, 10, 100);% 生成-10到10之间，间距为（10-（-10)）/（100-1）的长度为100的数组（即间距为0.2020）theta1_vals = linspace(-1, 4, 100); % 生成-1到4，间距为0.051的长度为100的数组% initialize J_vals to a matrix of 0'sJ_vals = zeros(length(theta0_vals), length(theta1_vals));% Fill out J_valsfor i = 1:length(theta0_vals) for j = 1:length(theta1_vals) t = [theta0_vals(i); theta1_vals(j)]; J_vals(i,j) = computeCost(X, y, t); endend% Because of the way meshgrids work in the surf command, we need to % transpose J_vals before calling surf, or else the axes will be flippedJ_vals = J_vals';% Surface plotfigure;surf(theta0_vals, theta1_vals, J_vals) % 三维图xlabel('\theta_0'); ylabel('\theta_1');% Contour plotfigure;% Plot J_vals as 15 contours spaced logarithmically between 0.01 and 100contour(theta0_vals, theta1_vals, J_vals, logspace(-2, 3, 20)) % 等高线xlabel('\theta_0'); ylabel('\theta_1');hold on;plot(theta(1), theta(2), 'rx', 'MarkerSize', 10, 'LineWidth', 2); 计算损失函数部分computeCost.m 123456789101112131415161718192021222324function J = computeCost(X, y, theta)%COMPUTECOST Compute cost for linear regression% J = COMPUTECOST(X, y, theta) computes the cost of using theta as the% parameter for linear regression to fit the data points in X and y% Initialize some useful valuesm = length(y); % number of training examples% You need to return the following variables correctly J = 0;% ====================== YOUR CODE HERE ======================% Instructions: Compute the cost of a particular choice of theta% You should set J to the cost.predictions = X*theta; % h_theta(x)=thetaT*xsqerrors = (predictions - y).^2; J = 1/(2*m)* sum(sqerrors);% =========================================================================end 绘图部分plotData.m 12345678910111213141516171819202122232425262728function plotData(x, y)%PLOTDATA Plots the data points x and y into a new figure % PLOTDATA(x,y) plots the data points and gives the figure axes labels of% population and profit.% ====================== YOUR CODE HERE ======================% Instructions: Plot the training data into a figure using the % "figure" and "plot" commands. Set the axes labels using% the "xlabel" and "ylabel" commands. Assume the % population and revenue data have been passed in% as the x and y arguments of this function.%% Hint: You can use the 'rx' option with plot to have the markers% appear as red crosses. Furthermore, you can make the% markers larger by using plot(..., 'rx', 'MarkerSize', 10);figure; % open a new figure windowplot(x, y, 'rx', 'MarkerSize', 10); % Plot the data 用红色的大小为10的×来进行标记，横坐标是X，纵坐标是yylabel('Profit in $10,000s'); % Set the y axis labelxlabel('Population of City in 10,000s'); % Set the x axis label% ============================================================end 梯度下降gradientDescent.m 12345678910111213141516171819202122232425262728293031323334function [theta, J_history] = gradientDescent(X, y, theta, alpha, num_iters)%GRADIENTDESCENT Performs gradient descent to learn theta% theta = GRADIENTDESENT(X, y, theta, alpha, num_iters) updates theta by % taking num_iters gradient steps with learning rate alpha% Initialize some useful valuesm = length(y); % number of training examplesJ_history = zeros(num_iters, 1);for iter = 1:num_iters % ====================== YOUR CODE HERE ====================== % Instructions: Perform a single gradient step on the parameter vector % theta. % % Hint: While debugging, it can be useful to print out the values % of the cost function (computeCost) and gradient here. % predictions = X * theta; updates = X' * (predictions - y); theta = theta - alpha * (1/m) * updates; %theta = theta - alpha * (1/m) * sum(sqerrors) * X; %theta - (alpha/m) * (X' * (X * theta - y)); %theta = theta - (alpha/m) * (X' * (X * theta - y)); % ============================================================ % Save the cost J in every iteration J_history(iter) = computeCost(X, y, theta);endend 运行结果 线性回归拟合之后 绘制梯度下降等高线 判断梯度下降是否达到最低点 预测结果 上图得到$\theta _{1},\theta _{2}$的数值以及在人口为35000和70000时，分别可以获得的利润]]></content>
       <categories>
         <category>机器学习</category>
       </categories>
@@ -43,8 +43,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>MNIST</tag>
       </tags>
   </entry>
@@ -56,8 +56,8 @@
         <category>Tensorflow</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>Tensorflow</tag>
       </tags>
   </entry>
@@ -69,8 +69,8 @@
         <category>Tensorflow</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>Tensorflow</tag>
       </tags>
   </entry>
@@ -124,8 +124,8 @@
         <category>Tensorflow</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>Tensorflow</tag>
       </tags>
   </entry>
@@ -142,9 +142,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -154,9 +154,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -186,8 +186,8 @@
       </categories>
       <tags>
         <tag>Numpy</tag>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -199,8 +199,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>k-近邻算法</tag>
         <tag>matplotlib</tag>
       </tags>
@@ -213,8 +213,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>python</tag>
         <tag>机器学习</tag>
+        <tag>python</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -573,9 +573,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -584,9 +584,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -617,9 +617,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -628,9 +628,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
