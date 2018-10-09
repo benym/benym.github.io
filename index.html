@@ -910,8 +910,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-10-08T21:47:43+08:00">
-                2018-10-08
+              <time title="更新于" itemprop="dateModified" datetime="2018-10-09T12:12:24+08:00">
+                2018-10-09
               </time>
             
           </span>
@@ -981,7 +981,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,463
+                  1,482
                 </span>
               
 
@@ -1024,20 +1024,33 @@
       
         
           <p>很久以前做的，还是提交一下</p>
-<h2 id="线性回归基础（-Linear-regression-）"><a href="#线性回归基础（-Linear-regression-）" class="headerlink" title="线性回归基础（ Linear regression ）"></a>线性回归基础（ <em>Linear regression</em> ）</h2><p>Hypothesis:        </p>
-<script type="math/tex; mode=display">h_{\theta }(x)=\theta _{0}+\theta _{1}x</script><p>Parameters:       </p>
-<script type="math/tex; mode=display">\theta _{0},\theta _{1}</script><p>cost Funcition:      </p>
-<script type="math/tex; mode=display">J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}</script><p>goal:          </p>
-<script type="math/tex; mode=display">minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})</script><p>在最小化损失函数的过程中需要用到梯度下降算法（Gradient descent）</p>
-<h2 id="梯度下降算法（Gradient-descent-）"><a href="#梯度下降算法（Gradient-descent-）" class="headerlink" title="梯度下降算法（Gradient descent  ）"></a>梯度下降算法（<em>Gradient descent</em>  ）</h2><p>Have some function:         </p>
-<script type="math/tex; mode=display">J(\theta _{0},\theta _{1})</script><p>Want:                 </p>
-<script type="math/tex; mode=display">minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})</script><p>Outline: </p>
-<ul>
-<li>start with some <script type="math/tex">\theta _{0},\theta _{1}</script>,(一般都取0)</li>
-<li>keep changing <script type="math/tex">\theta _{0},\theta _{1}</script> to reduce <script type="math/tex">J(\theta _{0},\theta _{1})</script>，直到我们找到J的最小值或是局部最小值</li>
+<h2 id="线性回归基础（-Linear-regression-）"><a href="#线性回归基础（-Linear-regression-）" class="headerlink" title="线性回归基础（ Linear regression ）"></a>线性回归基础（ <em>Linear regression</em> ）</h2><ul>
+<li><strong><em>Hypothesis:</em></strong>        </li>
 </ul>
-<p>repeat until convergence｛</p>
-<p>​<script type="math/tex">\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}</script>(<strong><em>simultaneously update θj for all j</em></strong>)</p>
+<script type="math/tex; mode=display">h_{\theta }(x)=\theta _{0}+\theta _{1}x</script><ul>
+<li><strong><em>Parameters:</em></strong>       </li>
+</ul>
+<script type="math/tex; mode=display">\theta _{0},\theta _{1}</script><ul>
+<li><strong><em>cost Funcition:</em></strong>      </li>
+</ul>
+<script type="math/tex; mode=display">J(\theta _{0},\theta _{1})=\frac{1}{2m}\sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})^{2}​</script><ul>
+<li><strong><em>goal:</em></strong>          </li>
+</ul>
+<script type="math/tex; mode=display">minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})</script><p>在最小化损失函数的过程中需要用到梯度下降算法（Gradient descent）</p>
+<h2 id="梯度下降算法（Gradient-descent-）"><a href="#梯度下降算法（Gradient-descent-）" class="headerlink" title="梯度下降算法（Gradient descent  ）"></a>梯度下降算法（<em>Gradient descent</em>  ）</h2><ul>
+<li><strong><em>Have some function:</em></strong>         </li>
+</ul>
+<script type="math/tex; mode=display">J(\theta _{0},\theta _{1})</script><ul>
+<li><strong><em>Want:</em></strong>                 </li>
+</ul>
+<script type="math/tex; mode=display">minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})</script><p><strong><em>Outline:</em></strong> </p>
+<ul>
+<li>start with some $\theta _{0},\theta _{1}$,(一般都取0)</li>
+<li>keep changing $\theta _{0},\theta _{1}$ to reduce $J(\theta _{0},\theta _{1})$，直到我们找到J的最小值或是局部最小值</li>
+</ul>
+<p><strong><em>repeat until convergence</em></strong>｛</p>
+<script type="math/tex; mode=display">\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}</script><center>(***simultaneously update θj for all j***)</center>
+
 <p>｝</p>
           <!--noindex-->
           <div class="post-button text-center">
