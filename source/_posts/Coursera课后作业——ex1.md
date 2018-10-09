@@ -58,7 +58,7 @@ $$minimize_{\theta _{0},\theta _{1}}J(\theta _{0},\theta _{1})$$
 
 $$\theta _{j}:=\theta _{j}-\frac{\alpha }{m}(h_{\theta^{(i)} }-y^{(i))})x_{j}^{(i)}$$
 
-​							(***simultaneously update θj for all j***)
+<center>(simultaneously update θj for all j)</center>
 
 ｝
 
