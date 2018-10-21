@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http://benym.cn/2018/10/21/LogisticRegression(%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92)/</loc>
+    <lastmod>2018-10-21T14:05:23.881Z</lastmod>
+    <data>
+        <display>
+        <title>LogisticRegression(逻辑回归)</title>
+        <pubTime>2018-10-21T08:27:14.000Z</pubTime>
+        
+        <tag>python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>逻辑回归</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/09/17/%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88%E6%88%90%E5%8A%9F/</loc>
+    <lastmod>2018-10-21T14:02:05.278Z</lastmod>
+    <data>
+        <display>
+        <title>域名备案成功</title>
+        <pubTime>2018-09-17T13:07:15.000Z</pubTime>
+        
+        <tag>Face</tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://benym.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://benym.cn/2018/10/07/Coursera%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E2%80%94%E2%80%94ex1/</loc>
     <lastmod>2018-10-09T04:14:17.156Z</lastmod>
     <data>
@@ -34,26 +78,6 @@
         <display>
         <title>欢迎来到我的博客</title>
         <pubTime>2018-08-03T11:39:54.000Z</pubTime>
-        
-        <tag>Face</tag>
-         
-         
-           
-             
-              <breadCrumb title="随笔" url="http://benym.cn/categories/%E9%9A%8F%E7%AC%94/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/09/17/%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88%E6%88%90%E5%8A%9F/</loc>
-    <lastmod>2018-09-17T13:10:58.193Z</lastmod>
-    <data>
-        <display>
-        <title>域名备案成功</title>
-        <pubTime>2018-09-17T13:07:15.000Z</pubTime>
         
         <tag>Face</tag>
          
