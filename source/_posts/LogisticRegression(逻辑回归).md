@@ -15,11 +15,13 @@ keywords: 机器学习,python,逻辑回归
 
 logistic回归，是一种广义的线性回归分析模型，常用于数据挖掘，疾病自动诊断，经济预测等领域。例如，探讨引发疾病的危险因素，并根据危险因素预测疾病发生的概率等。以胃癌病情分析为例，选择两组人群，一组是胃癌组，一组是非胃癌组，两组人群必定具有不同的体征与生活方式等。一般来说逻辑回归用来做分类任务，**本文列举的是以线性的2分类为例， 除此之外还可以拓展到多更多参数实现非线性分类，以及多分类问题等。在文章中主要写了其推导过程以及部分代码实现**
 
+<!--more-->
+
 ### 构造函数h(x)
 
-$$h_{\theta}(x)=g(\theta^{T}x)=g(\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+...\theta_{n}x_{n}) $$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/1.png)
 
-其中sigmoid函数形式为：$$g(z)=\frac{1}{1+e^{-z}}$$,所以$$h_{\theta}(x)=\frac{1}{1+e^{-\theta^{T}x}}$$
+其中sigmoid函数形式为：![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/2.png)
 
 对应的函数图像是一个取值在0和1之间的曲线：
 
@@ -27,47 +29,45 @@ $$h_{\theta}(x)=g(\theta^{T}x)=g(\theta_{0}+\theta_{1}x_{1}+\theta_{2}x_{2}+...\
 
 因为：
 
-$$P(y=1|x;\theta )=h_{\theta}(x)$$
-
-$$P(y=0|x;\theta )=1-h_{\theta}(x)$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/3.png)
 
 由上两式联立可得:
 
-$$P(y|x;\theta )=(h_{\theta}(x))^{y}(1-h_{\theta}(x))^{1-y}$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/4.png)
 
 ## 使用极大似然估计法
 
 取似然函数(离散型):
 
-$$L(\theta)=\prod_{i=1}^{m}P(y^{(i))}|x^{(i)};\theta)=\prod_{i=1}^{m}(h_{\theta}(x^{(i)}))^{y^{(i)}}(1-h_{\theta}(x^{(i)}))^{(1-y^{(i)})}$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/5.png)
 
 对似然函数取ln，转换为：
 
-$$l(\theta )=lnL(\theta)=\sum_{i=1}^{m}(y^{(i)}lnh_{\theta}(x^{(i)}))+(1-y^{(i)})ln(1-h_{\theta}(x^{(i)}))$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/6.png)
 
-极大似然估计就是要求得使$$l(\theta )$$取最大值时的$$\theta$$，所以如果是这样的话会对应这梯度上升算法，虽然和梯度下降效果一样但是为了便于理解，将$$J(\theta)$$定义为如下式子，以变化为梯度下降算法求解。
+极大似然估计就是要求得使l(θ)取最大值时的θ，所以如果是这样的话会对应这梯度上升算法，虽然和梯度下降效果一样但是为了便于理解，将J(θ)定义为如下式子，以变化为梯度下降算法求解。
 
-$$J(\theta )=-\frac{1}{m}l(\theta)$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/7.png)
 
-因为乘以了一个负的系数，所以$$J(\theta)$$取最小值时的$$\theta$$是最优参数
+因为乘以了一个负的系数，所以J(θ)取最小值时的θ是最优参数
 
-## 梯度下降算法求$$J(\theta)$$的最小值
+## 梯度下降算法求J(θ)的最小值
 
 根据梯度下降法可知，更新过程为：
 
-$$\theta _{j}:=\theta _{j}-\alpha (\frac{\partial }{\partial \theta}J(\theta)),(j=0,1,2,....n)$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/8.png)
 
-式中$$\alpha$$为学习率，求偏导数步骤：
+式中α为学习率，求偏导数步骤：
 
 ![偏导数](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E4%BC%BC%E7%84%B6%E5%87%BD%E6%95%B0%E6%8E%A8%E5%AF%BC.png)
 
 所以更新过程可以写成：
 
-$$\theta _{j}:=\theta _{j}-\frac{\alpha }{m} \sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)}$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/10.png)
 
-因为$$\alpha$$是常量，所以1/m可以省略，最后更新过程变为：
+因为α是常量，所以1/m可以省略，最后更新过程变为：
 
-$$\theta _{j}:=\theta _{j}-\alpha  \sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)},(j=0,1,2,....n)$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/11.png)
 
 ## 梯度下降的向量化(vectorization)
 
@@ -91,11 +91,7 @@ $$\theta _{j}:=\theta _{j}-\alpha  \sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_
 
 更新过程可以转化为：
 
-$$\theta _{j}:=\theta _{j}-\alpha  \sum_{i=1}^{m}(h_{\theta}(x^{(i)})-y^{(i)})x_{j}^{(i)}$$
-
-$$=\theta _{j}-\alpha\sum_{i=1}^{m}x_{j}^{(i)}E$$
-
-$$=\theta _{j}-\alpha(x_{j}^{(1)},x_{j}^{(2)},...x_{j}^{(m)})E$$
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/12.png)
 
 综合起来就是:
 
@@ -108,7 +104,8 @@ $$=\theta _{j}-\alpha(x_{j}^{(1)},x_{j}^{(2)},...x_{j}^{(m)})E$$
 3. 求**θ:=θ-α.x'.E,**x'表示矩阵x的转置 
 
 最后，向量化的参数更新公式为:
-$$\theta :=\theta -\alpha x^{T}(g(x\theta)-y)$$
+
+![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/%E5%85%AC%E5%BC%8F/13.png)
 
 ### 代码实现
 
