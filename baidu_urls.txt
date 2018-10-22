@@ -1,3 +1,4 @@
+http://benym.cn/2018/10/21/LogisticRegression(逻辑回归)/
 http://benym.cn/2018/10/07/Coursera课后作业——ex1/
 http://benym.cn/2018/09/17/域名备案成功/
 http://benym.cn/2018/08/29/将hexo自定义域名升级https/
@@ -7,4 +8,3 @@ http://benym.cn/2018/08/26/交互式使用/
 http://benym.cn/2018/08/26/动态规划问题——最长上升子序列(LIS)(三)/
 http://benym.cn/2018/08/25/动态规划问题——最长上升子序列(LIS)(二)/
 http://benym.cn/2018/08/25/动态规划问题——最长上升子序列(LIS)(一)/
-http://benym.cn/2018/08/24/第一个使用Tensorflow的程序/
