@@ -136,8 +136,8 @@ def loadDataSet():
 def sigmoid(Z):
     """
     构造sigmoid函数
-    :param Z:
-    :return:
+    :param Z: thetaT*x
+    :return: 分类精度
     """
     return 1.0 / (1 + np.exp(-Z))
 
@@ -220,10 +220,42 @@ def plotBestFIt(theta):
 if __name__ == '__main__':
     dataMat, labelMat = loadDataSet()
     theta = gradient_descent(dataMat, labelMat)
+    dataMat, labelMat = loadDataSet()
+    length = len(dataMat)
+    for i in range(length):
+        print("分类精度:{}".format(round(float(sigmoid(dataMat[i]*theta))*100,2))+"%")
     plotBestFIt(theta)
 ```
 
 ## 运行结果
 
+```python
+D:\Anaconda3\python.exe E:/PythonProject/MachineLeaning/logistic_regression/Logistic_regression.py
+分类精度:1.04%
+分类精度:64.06%
+分类精度:43.28%
+分类精度:28.44%
+分类精度:7.64%
+分类精度:49.0%
+分类精度:3.18%
+分类精度:21.54%
+分类精度:18.35%
+分类精度:8.94%
+分类精度:56.55%
+分类精度:3.37%
+分类精度:93.91%
+分类精度:8.76%
+分类精度:57.59%
+分类精度:97.32%
+.........
+Process finished with exit code 0
+```
+
+
+
 ![](https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/vector/%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C.png)
+
+
+
+
 
