@@ -3,7 +3,6 @@ title: LogisticRegression(逻辑回归)
 date: 2018/10/21 16:27:14
 description: 逻辑回归原理以及代码实现
 categories: 机器学习
-sticky: 9
 tags: 
 - 逻辑回归
 - python
