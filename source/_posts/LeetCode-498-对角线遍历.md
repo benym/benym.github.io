@@ -1,6 +1,6 @@
 ---
-title: LeetCode-498对角线遍历
-date: 2020年3/26 14:25:12
+title: LeetCode-498-对角线遍历
+date: 2020/3/26 14:25:12
 description: 对角线遍历
 categories: 二维数组
 tags: 
@@ -11,7 +11,7 @@ tags:
 keywords: 二维数组,Java,python,Medium
 ---
 
-## LeetCode-498对角线遍历
+## LeetCode-498-对角线遍历
 
 给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。
 

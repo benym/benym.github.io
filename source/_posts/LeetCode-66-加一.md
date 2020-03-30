@@ -1,5 +1,5 @@
 ---
-title: LeetCode-66加一
+title: LeetCode-66-加一
 date: 2020/3/23 19:34:39
 description: 加一
 categories: 数组
@@ -11,7 +11,7 @@ tags:
 keywords: 数组,Java,python,Easy
 ---
 
-## LeetCode-66加一
+## LeetCode-66-加一
 
 给定一个由**整数**组成的**非空**数组所表示的非负整数，在该数的基础上加一。
 

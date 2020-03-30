@@ -1,5 +1,5 @@
 ---
-title: LeetCode-747至少是其他数字两倍的最大数
+title: LeetCode-747-至少是其他数字两倍的最大数
 date: 2020/3/19 19:00:16
 description: 至少是其他数字两倍的最大数
 categories: 数组
@@ -11,7 +11,7 @@ tags:
 keywords: 数组,Java,python,Easy
 ---
 
-## LeetCode-747至少是其他数字两倍的最大数
+## LeetCode-747-至少是其他数字两倍的最大数
 
 在一个给定的数组`nums`中，总是存在一个最大元素 。
 

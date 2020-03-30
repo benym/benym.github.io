@@ -1,5 +1,5 @@
 ---
-title: LeetCode-724寻找数组的中心索引
+title: LeetCode-724-寻找数组的中心索引
 date: 2020/3/19 16:33:43
 description: 寻找数组的中心索引
 categories: 数组
@@ -10,7 +10,7 @@ tags:
 - Easy
 keywords: 数组,Java,python,Easy
 ---
-## LeetCode-724寻找数组的中心索引
+## LeetCode-724-寻找数组的中心索引
 日常学习任务实在是太多，所以很久没有更新博客了，今天开始刷题，从最简单的开始吧！
 给定一个整数类型的数组 `nums`，请编写一个能够返回数组**“中心索引”**的方法。
 
