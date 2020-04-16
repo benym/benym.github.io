@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 队列
 - Java
-- python
+- Python
 - Easy
 - 剑指Offer
-keywords: 队列,Java,python,Easy,剑指Offer
+keywords: 队列,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题09-用两个栈实现队列

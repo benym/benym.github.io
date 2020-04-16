@@ -5,10 +5,10 @@ description: 在约会网站上使用k-近邻算法
 categories: 机器学习
 tags: 
 - k-近邻算法
-- python
+- Python
 - 机器学习
 - matplotlib
-keywords: 机器学习,python,k-近邻算法
+keywords: 机器学习,Python,k-近邻算法
 ---
 
 <center>***实例：在约会网站上使用k-近邻算法***</center>

@@ -6,9 +6,9 @@ categories: 算法
 tags: 
 - 算法
 - Java
-- python
-- 动态规划
-keywords: 算法,Java,动态规划,python
+- Python
+- DP
+keywords: 算法,Java,DP,Python
 ---
 
 推荐链接：

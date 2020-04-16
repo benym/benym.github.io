@@ -5,10 +5,10 @@ description: 机器学习实战——knn识别手写图像
 categories: 机器学习
 tags: 
 - k-近邻算法
-- python
+- Python
 - 机器学习
 - Numpy
-keywords: 机器学习,python,k-近邻算法
+keywords: 机器学习,Python,k-近邻算法
 ---
 
 <center>示例 ：使用k-近邻算法的手写识别系统</center>

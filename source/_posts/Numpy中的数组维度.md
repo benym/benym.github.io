@@ -5,8 +5,8 @@ description: reshape方法定义维度
 categories: Numpy
 tags: 
 - Numpy
-- python
-keywords: Numpy,python,维度
+- Python
+keywords: Numpy,Python,维度
 ---
 
 在对 np.arange(24)(0, 1, 2, 3, ..., 23) 进行重新的排列时，在多维数组的多个轴的方向上，先分配最后一个轴（对于二维数组，即先分配行的方向，对于三维数组即先分配平面的方向） 

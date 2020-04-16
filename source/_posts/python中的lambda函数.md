@@ -4,7 +4,7 @@ date: 2018/7/24 18:27:03
 categories: 
 - Python
 tags: 
-- python函数
+- Python函数
 ---
 
 ### python中的lambda函数

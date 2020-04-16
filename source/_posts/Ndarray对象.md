@@ -5,8 +5,8 @@ description: Numpy中的array
 categories: Numpy
 tags: 
 - Numpy
-- python
-keywords: Numpy,python,array
+- Python
+keywords: Numpy,Python,array
 ---
 
 NumPy 中定义的最重要的对象是称为  ndarray  的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray  中的每个元素在内存中使用相同大小的块。基本

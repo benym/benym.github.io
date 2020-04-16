@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 数据结构
 - Java
-- python
+- Python
 - Easy
 - 剑指Offer
-keywords: 数据结构,Java,python,Easy,剑指Offer
+keywords: 数据结构,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题10-1-斐波那契数列

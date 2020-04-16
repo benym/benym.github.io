@@ -5,9 +5,9 @@ description: 简单的创建第一个TensorFlow程序
 categories: Tensorflow
 tags: 
 - Tensorflow
-- python
+- Python
 - 机器学习
-keywords: 机器学习,python,Tensorflow
+keywords: 机器学习,Python,Tensorflow
 ---
 
 ### 构建图

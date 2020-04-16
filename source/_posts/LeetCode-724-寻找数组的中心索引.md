@@ -6,9 +6,9 @@ categories: 数组
 tags: 
 - 数组
 - Java
-- python
+- Python
 - Easy
-keywords: 数组,Java,python,Easy
+keywords: 数组,Java,Python,Easy
 ---
 ## LeetCode-724-寻找数组的中心索引
 日常学习任务实在是太多，所以很久没有更新博客了，今天开始刷题，从最简单的开始吧！

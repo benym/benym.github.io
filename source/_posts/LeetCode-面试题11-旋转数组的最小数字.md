@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 数组
 - Java
-- python
+- Python
 - Easy
 - 剑指Offer
-keywords: 数组,Java,python,Easy,剑指Offer
+keywords: 数组,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题11-旋转数组的最小数字

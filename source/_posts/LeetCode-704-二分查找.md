@@ -6,9 +6,9 @@ categories: 算法
 tags: 
 - 查找
 - Java
-- python
+- Python
 - Easy
-keywords: 查找,Java,python,Easy
+keywords: 查找,Java,Python,Easy
 ---
 
 ## LeetCode-704-二分查找

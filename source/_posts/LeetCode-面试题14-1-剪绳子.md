@@ -7,10 +7,10 @@ tags:
 - DP
 - 贪心算法
 - Java
-- python
+- Python
 - Medium
 - 剑指Offer
-keywords: 动态规划,贪心算法,Java,python,Medium,剑指Offer
+keywords: 动态规划,贪心算法,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题14-1-剪绳子

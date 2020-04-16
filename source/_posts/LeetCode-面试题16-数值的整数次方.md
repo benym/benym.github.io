@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 位运算
 - Java
-- python
+- Python
 - Medium
 - 剑指Offer
-keywords: 位运算,Java,python,Medium,剑指Offer
+keywords: 位运算,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题16-数值的整数次方

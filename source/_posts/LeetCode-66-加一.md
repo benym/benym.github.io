@@ -6,9 +6,9 @@ categories: 数组
 tags: 
 - 数组
 - Java
-- python
+- Python
 - Easy
-keywords: 数组,Java,python,Easy
+keywords: 数组,Java,Python,Easy
 ---
 
 ## LeetCode-66-加一

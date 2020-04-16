@@ -5,7 +5,7 @@ description: compile函数
 categories:
 - Python
 tags:
-- python正则表达式
+- Python正则表达式
 ---
 
 ***compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。***

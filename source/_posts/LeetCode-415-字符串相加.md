@@ -7,9 +7,9 @@ tags:
 - 字符串
 - 大数问题
 - Java
-- python
+- Python
 - Easy
-keywords: 字符串,大数问题,Java,python,Easy
+keywords: 字符串,大数问题,Java,Python,Easy
 ---
 
 ## LeetCode-415-字符串相加

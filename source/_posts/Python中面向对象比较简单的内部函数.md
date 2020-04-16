@@ -5,7 +5,7 @@ description: __init__,__del__,__str__内部方法的使用,私有属性和私有
 categories:
 - Python
 tags:
-- python面向对象
+- Python面向对象
 ---
 
 ### 比较简单的内部函数

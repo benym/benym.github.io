@@ -3,8 +3,8 @@ title: python中的静态方法、实例方法、类方法的区别
 date: 2018/8/8 20:34:25
 description: 静态方法，实例方法，类方法的区别
 categories: Python
-tags: python面向对象
-keywords: python,静态方法,实例方法,类方法
+tags: Python面向对象
+keywords: Python,静态方法,实例方法,类方法
 ---
 
 **实例方法**

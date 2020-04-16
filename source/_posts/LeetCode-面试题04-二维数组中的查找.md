@@ -7,9 +7,9 @@ tags:
 - 数组
 - 剑指Offer
 - Java
-- python
+- Python
 - Easy
-keywords: 数组,Java,python,Easy,剑指Offer
+keywords: 数组,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题04-二维数组中的查找

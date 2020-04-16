@@ -3,8 +3,8 @@ title: python中的__new__方法的重写
 date: 2018/8/8 20:56:28
 description: __new__方法的重写，单例模式前置？
 categories: Python
-tags: python面向对象
-keywords: python
+tags: Python面向对象
+keywords: Python
 ---
 
 new方法重写的步骤比较固定，直接上代码吧

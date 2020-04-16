@@ -5,7 +5,7 @@ description: 使用绘图库绘制图形
 categories:
 - Python
 tags:
-- python库
+- Python库
 ---
 
 大概学习了下turtle库的一个绘图实例= =，估计以后也用不上这个库....

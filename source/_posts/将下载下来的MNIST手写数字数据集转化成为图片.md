@@ -5,9 +5,9 @@ description: MNIST数据集
 categories: 机器学习
 tags: 
 - MNIST
-- python
+- Python
 - 机器学习
-keywords: 机器学习,python,MNIST
+keywords: 机器学习,Python,MNIST
 ---
 
 解析源文件下载（总共包含60000个训练数据和10000个测试数据）

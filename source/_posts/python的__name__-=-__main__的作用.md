@@ -4,7 +4,7 @@ date: 2018/7/24 11:05:44
 categories: 
 - Python
 tags: 
-- python模块
+- Python模块
 ---
 
 ### python的__name__ = '__main__' 的作用

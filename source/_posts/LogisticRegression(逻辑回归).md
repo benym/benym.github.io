@@ -5,9 +5,9 @@ description: 逻辑回归原理以及代码实现
 categories: 机器学习
 tags: 
 - 逻辑回归
-- python
+- Python
 - 机器学习
-keywords: 机器学习,python,逻辑回归
+keywords: 机器学习,Python,逻辑回归
 ---
 
 ### LogisticRegression定义

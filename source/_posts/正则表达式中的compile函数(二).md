@@ -5,7 +5,7 @@ description: compile函数(二)
 categories:
 - Python
 tags:
-- python正则表达式
+- Python正则表达式
 ---
 
 接着上一篇文章的compile函数实例

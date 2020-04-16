@@ -4,7 +4,7 @@ date: 2018/7/23 19:03:33
 categories: 
 - Python
 tags: 
-- python面向对象
+- Python面向对象
 ---
 
 ### python对象的实例化

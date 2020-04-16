@@ -4,7 +4,7 @@ date: 2018/7/23 19:55:48
 categories: 
 - Python
 tags: 
-- python异常处理
+- Python异常处理
 ---
 
 ### with open异常处理

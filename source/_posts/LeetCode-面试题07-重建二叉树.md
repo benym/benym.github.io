@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 树
 - Java
-- python
+- Python
 - Medium
 - 剑指Offer
-keywords: 树,Java,python,Medium,剑指Offer
+keywords: 树,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题07-重建二叉树

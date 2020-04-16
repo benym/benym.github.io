@@ -6,9 +6,9 @@ categories: 二维数组
 tags: 
 - 二维数组
 - Java
-- python
+- Python
 - Medium
-keywords: 二维数组,Java,python,Medium
+keywords: 二维数组,Java,Python,Medium
 ---
 
 ## LeetCode-498-对角线遍历

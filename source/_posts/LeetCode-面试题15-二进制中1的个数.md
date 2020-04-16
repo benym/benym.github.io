@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 位运算
 - Java
-- python
+- Python
 - Easy
 - 剑指Offer
-keywords: 位运算,Java,python,Easy,剑指Offer
+keywords: 位运算,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题15-二进制中1的个数

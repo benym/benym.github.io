@@ -4,7 +4,7 @@ date: 2018/7/23 20:03:18
 categories: 
 - Python
 tags: 
-- python模块
+- Python模块
 ---
 
 ### 日志模块的应用

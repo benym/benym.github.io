@@ -6,10 +6,10 @@ categories: 剑指Offer
 tags: 
 - 链表
 - Java
-- python
+- Python
 - Easy
 - 剑指Offer
-keywords: 链表,Java,python,Easy,剑指Offer
+keywords: 链表,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题18-删除链表的节点

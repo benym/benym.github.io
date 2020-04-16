@@ -6,9 +6,9 @@ categories: 字符串
 tags: 
 - 字符串
 - Java
-- python
+- Python
 - Easy
-keywords: 二进制求和,Java,python,Easy
+keywords: 二进制求和,Java,Python,Easy
 ---
 
 ## LeetCode-67-二进制求和

@@ -6,9 +6,9 @@ categories: 数组
 tags: 
 - 数组
 - Java
-- python
+- Python
 - Easy
-keywords: 数组,Java,python,Easy
+keywords: 数组,Java,Python,Easy
 ---
 
 ## LeetCode-747-至少是其他数字两倍的最大数

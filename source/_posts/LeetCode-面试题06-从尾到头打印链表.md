@@ -7,9 +7,9 @@ tags:
 - 链表
 - 剑指Offer
 - Java
-- python
+- Python
 - Easy
-keywords: 链表,Java,python,Easy,剑指Offer
+keywords: 链表,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题06-从尾到头打印链表

@@ -7,9 +7,9 @@ tags:
 - 字符串
 - 剑指Offer
 - Java
-- python
+- Python
 - Easy
-keywords: 字符串,Java,python,Easy,剑指Offer
+keywords: 字符串,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题05-替换空格

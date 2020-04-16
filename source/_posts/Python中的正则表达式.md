@@ -5,7 +5,7 @@ description: match和search方法
 categories:
 - Python
 tags:
-- python正则表达式
+- Python正则表达式
 ---
 
 主要是一些正则表达式的基本语法和部分实例

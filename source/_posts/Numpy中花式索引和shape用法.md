@@ -5,8 +5,8 @@ description: 对矩阵或者数组的花式索引，以及shape的用法
 categories: Python
 tags: 
 - Numpy
-- python
-keywords: python,Numpy
+- Python
+keywords: Python,Numpy
 ---
 
 总结一下最近学习中容易出现问题的地方❗️ ❗️ ❗️ 

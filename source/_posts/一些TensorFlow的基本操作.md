@@ -5,9 +5,9 @@ description: Tensor,变量,Fetch,Feed的使用
 categories: Tensorflow
 tags: 
 - Tensorflow
-- python
+- Python
 - 机器学习
-keywords: 机器学习,python,Tensorflow
+keywords: 机器学习,Python,Tensorflow
 ---
 
 简单用代码说明Tensor,变量,Fetch,Feed的使用

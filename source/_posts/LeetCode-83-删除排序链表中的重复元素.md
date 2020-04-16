@@ -6,9 +6,9 @@ categories: 链表
 tags: 
 - 链表
 - Java
-- python
+- Python
 - Easy
-keywords: 链表,Java,python,Easy
+keywords: 链表,Java,Python,Easy
 ---
 
 ## LeetCode-83-删除排序链表中的重复元素

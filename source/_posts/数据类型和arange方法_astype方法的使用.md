@@ -5,8 +5,8 @@ description: Numpy中的数据类型
 categories: Numpy
 tags: 
 - Numpy
-- python
-keywords: Numpy,python,arange,astype
+- Python
+keywords: Numpy,Python,arange,astype
 ---
 
 Numpy支持比Python更多的数字类型

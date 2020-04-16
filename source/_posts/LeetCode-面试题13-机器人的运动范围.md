@@ -7,10 +7,10 @@ tags:
 - DFS
 - BFS
 - Java
-- python
+- Python
 - Medium
 - 剑指Offer
-keywords: 搜索,Java,python,Medium,剑指Offer
+keywords: 搜索,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题13-机器人的运动范围
