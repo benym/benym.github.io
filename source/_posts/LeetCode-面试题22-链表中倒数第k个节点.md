@@ -71,6 +71,25 @@ class Solution {
 ### Python代码
 
 ```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
+class Solution:
+    def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        if not head or k==0:
+            return head
+        phead , pafter = head,head
+        for _ in range(k-1):
+            if phead.next:
+                phead = phead.next
+            else:
+                return head
+        while phead.next:
+            phead = phead.next
+            pafter = pafter.next
+        return pafter
 ```
 

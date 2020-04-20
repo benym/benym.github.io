@@ -41,8 +41,6 @@ keywords: 数组,Java,Python,Easy,剑指Offer
 
 当前面是偶数后面是奇数时则满足交换条件，进行互换，这样遍历之后就将奇数全部放在了偶数之前
 
-拓展性解法：Todo....
-
 ### Java代码
 
 ```java
@@ -75,6 +73,20 @@ class Solution {
 ### Python代码
 
 ```python
-
+class Solution:
+    def exchange(self, nums: List[int]) -> List[int]:
+        if not nums or len(nums)==0:
+            return nums;
+        start ,end = 0, len(nums)-1
+        while start<end:
+            while start<end and (nums[start]&0x1)!=0:
+                start +=1
+            while start<end and (nums[end]&0x1)==0:
+                end -=1
+            if start<end:
+                temp = nums[start]
+                nums[start] = nums[end]
+                nums[end] = temp
+        return nums
 ```
 
