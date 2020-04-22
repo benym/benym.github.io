@@ -1,6 +1,6 @@
 ---
 title: LeetCode-面试题32-1-从上到下打印二叉树
-date: 2020/4/21 21:53:48
+date: 2020/4/22 10:47:48
 description: 从上到下打印二叉树
 categories: 剑指Offer
 tags: 
@@ -54,20 +54,30 @@ BFS就完事儿了.....
 ### Java代码
 
 ```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
 class Solution {
-    public boolean validateStackSequences(int[] pushed, int[] popped) {
-        if(pushed==null||popped==null||pushed.length!=popped.length)
-            return false;
-        Stack<Integer> stack = new Stack<>();
-        int index = 0;
-        for(Integer i : pushed){
-            stack.push(i);
-            while(!stack.isEmpty()&&index<popped.length&&stack.peek().equals(popped[index])){
-                stack.pop();
-                index++;
-            }
+    public int[] levelOrder(TreeNode root) {
+        if(root==null) return new int[0];
+        Queue<TreeNode> queue = new LinkedList<>();
+        ArrayList<Integer> alist = new ArrayList<>();
+        queue.add(root);
+        while(!queue.isEmpty()){
+            TreeNode temp = queue.poll();
+            alist.add(temp.val);
+            if(temp.left!=null)
+                queue.add(temp.left);
+            if(temp.right!=null)
+                queue.add(temp.right);
         }
-        return stack.isEmpty();
+        return alist.stream().mapToInt(Integer::intValue).toArray();
     }
 }
 ```
