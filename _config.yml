@@ -136,7 +136,12 @@ githubEmojis:
 service_worker:
   maximumFileSizeToCacheInBytes: 5242880
   staticFileGlobs:
-  - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+  #- public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+  - public/categories/*
+  - public/about/index.html
+  - public/top/*
+  - public/index.html
+  - public/tags/*
   stripPrefix: public
   verbose: true
 
