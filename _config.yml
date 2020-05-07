@@ -65,6 +65,8 @@ tag_map:
 archive: 1
 category: 1
 tag: 1
+archive_generator:
+  per_page: 5
 
 # Server 不修改
 ## Hexo uses Connect as a server

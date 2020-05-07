@@ -135,11 +135,11 @@ scheme: Muse
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 social:
   GitHub: https://github.com/benym || github
-  微博: http://weibo.com/u/5177359899 || weibo
-  bilibili: https://space.bilibili.com/7692324/ || heartbeat
+  #微博: http://weibo.com/u/5177359899 || weibo
+  #bilibili: https://space.bilibili.com/7692324/ || heartbeat
   知乎: https://www.zhihu.com/people/xu-ge-yuan-ba-68/activities || book
   CSDN: https://blog.csdn.net/qq_34438435 || contao
-  简书: https://www.jianshu.com/u/4235d6a189fd || bookmark
+  #简书: https://www.jianshu.com/u/4235d6a189fd || bookmark
   #E-Mail: mailto:yourname@gmail.com || envelope
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -153,14 +153,14 @@ social:
 social_icons:
   enable: true
   icons_only: true
-  transition: false
+  transition: true
   # Icon Mappings
   GitHub: github
-  微博: weibo
-  bilibili: heartbeat
+  #微博: weibo
+  #bilibili: heartbeat
   知乎: book
   CSDN: contao
-  简书: bookmark
+  #简书: bookmark
 
 # Blog rolls
 links_icon: link
@@ -174,7 +174,7 @@ links:
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-avatar: https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelog2.jpg
+avatar: https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg
 
 # Table Of Contents in the Sidebar
 toc:
