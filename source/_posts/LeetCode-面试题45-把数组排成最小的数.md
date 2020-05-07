@@ -1,6 +1,6 @@
 ---
 title: LeetCode-面试题45-把数组排成最小的数
-date: 2020年5月6日 18:51:48
+date: 2020/5/6 18:51:48
 description: 把数组排成最小的数
 categories: 剑指Offer
 tags:
