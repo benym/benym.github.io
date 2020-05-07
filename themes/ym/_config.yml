@@ -152,8 +152,8 @@ social:
 
 social_icons:
   enable: true
-  icons_only: true
-  transition: true
+  icons_only: false
+  transition: false
   # Icon Mappings
   GitHub: github
   #微博: weibo
