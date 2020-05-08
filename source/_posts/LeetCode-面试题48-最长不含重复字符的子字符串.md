@@ -1,7 +1,7 @@
 ---
 title: LeetCode-面试题48-最长不含重复字符的子字符串
 date: 2020/5/8 10:25:53
-description: 礼物的最大价值
+description: 最长不含重复字符的子字符串
 categories: 剑指Offer
 tags:
 - DP
