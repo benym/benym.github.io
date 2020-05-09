@@ -4,7 +4,7 @@ date: 2020/5/4 16:33:58
 description: 快速排序
 categories: 算法
 tags: 
-- 排序
+- 排序算法
 - Java
 - Easy
 keywords: 排序,JavaEasy
