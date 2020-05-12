@@ -117,17 +117,14 @@ class Solution:
             return None
         stack = []
         node = root
-        n = 0
         while stack or node:
-            if node:
+            while node:
                 stack.append(node)
                 node = node.right
-            else:
-                node = stack.pop()
-                n += 1
-                if n == k:
-                    return node.val
-                node = node.left
-        return None
+            k -= 1
+            node = stack.pop()
+            if k == 0:
+                return node.val
+            node = node.left
 ```
 
