@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-面试题56-2-数组中数字出现的次数2]]></title>
+    <url>%2F2020%2F05%2F18%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9856-2-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B02%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题56-2-数组中数字出现的次数2在一个数组 nums 中除一个数字只出现一次之外，其他数字都出现了三次。请找出那个只出现一次的数字。 示例1： 12输入：nums = [3,4,3,3]输出：4 示例 2: 12输入：nums = [9,1,7,9,7,9,7]输出：1 限制： 1 &lt;= nums.length &lt;= 10000 1 &lt;= nums[i] &lt; 2^31 解题思路方法1、异或运算(单1为1，其余0)： 先对所有数字的各个位求和，求和之后的数字，能够被3整除的，则该位为0，不能够被整除的，则该位为1，之后就能够通过2进制求出对应的数字 方法2、字典： 字典方法没啥好说的，遇到没在字典的加入，在字典就+1，最后取value为1的key就是了 方法3、数组： 先给数组排序，排序之后判断当前位和后面2位是否相等，如果相等则跳过这3位，i+3 如果不相等，则说明当前为就是要找的数字 如果前面都没有找到，则最后一位必定是要找的数字 Java代码112345678910111213141516171819202122232425class Solution &#123; public int singleNumber(int[] nums) &#123; if(nums==null||nums.length&lt;=0) return -1; int[] bitSum = new int[32]; // 最高2^31次方数字 for(int i =0;i&lt;nums.length;i++)&#123; int bitMask = 1; // 累加各个位置的二进制表示 // 这里从数组末尾开始，对应二进制最小位 for(int j = 31;j&gt;=0;j--)&#123; int bit = nums[i]&amp;bitMask; if(bit!=0) bitSum[j]+=1; bitMask&lt;&lt;=1; &#125; &#125; int result = 0; // for(int i =0;i&lt;32;i++)&#123; result = result&lt;&lt;1; result+=bitSum[i]%3; &#125; return result; &#125;&#125; Python代码12345678910111213class Solution: def singleNumber(self, nums: List[int]) -&gt; int: if not nums: return -1 dic = &#123;&#125; for i in nums: if i not in dic: dic[i] = 1 else: dic[i] +=1 for i in dic: if dic[i]==1: return i return -1 Java代码21234567891011121314class Solution &#123; public int singleNumber(int[] nums) &#123; if(nums==null||nums.length&lt;=0) return -1; Arrays.sort(nums); for(int i = 0;i&lt;nums.length-3;)&#123; if(nums[i]==nums[i+1]&amp;&amp;nums[i+1]==nums[i+2]) i+=3; else return nums[i]; &#125; return nums[nums.length-1]; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>Python</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题56-1-数组中数字出现的次数]]></title>
+    <url>%2F2020%2F05%2F18%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9856-1-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B01%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题56-1-数组中数字出现的次数一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。 示例1： 12输入：nums = [4,1,4,6]输出：[1,6] 或 [6,1] 示例 2: 12输入：nums = [1,2,10,4,1,4,3,3]输出：[2,10] 或 [10,2] 限制： 2 &lt;= nums.length &lt;= 10000 解题思路异或运算(单1为1，其余0)： 根据异或运算的特点，相同的数字会在异或的时候抵消了，不相同的数字，其不相同的位会被保留 如果数组中有2个数字是不相同的，所以对数组整体异或之后，剩下的数字肯定至少有一位为1 如果能够找到第一个为1的那一位，那么就能够通过判断这一位是否为1，而划分数组为2个子数组 这样问题就分解成了，分别寻找2个子数组中，只出现一次的数字 由于判断位的条件具有二分性，当判断出一个不相同的数字位为1时，另一个数字该位则不为1，于是划分的子数组中自然一个数组会包含一个不相同数字 Java代码12345678910111213141516171819202122232425class Solution &#123; public int[] singleNumbers(int[] nums) &#123; int temp=0; // 数组整体异或 for(int i:nums) temp^=i; // 初始化mask=1 int mask = 1; // 通过mask，判断第一次出现1的位数 while((temp&amp;mask)==0)&#123; mask&lt;&lt;=1; &#125; int num1 = 0; int num2 = 0; for(int j:nums)&#123; // 通过判断1出现的位置和数组元素与运算结果是否为0，来二分数组 if((j&amp;mask)==0)&#123; // 相同的数字会分在一起，但不同的数字会因此隔开 num1^=j; &#125;else&#123; num2^=j; &#125; &#125; return new int[]&#123;num1,num2&#125;; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-面试题55-2-平衡二叉树]]></title>
     <url>%2F2020%2F05%2F18%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9855-2-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
     <content type="text"><![CDATA[LeetCode-面试题55-2-平衡二叉树输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。 示例1： 给定二叉树 [3,9,20,null,null,15,7]， 12345 3 / \9 20 / \ 15 7 返回true 。 示例 2: 给定二叉树 [1,2,2,3,3,null,null,4,4] 1234567 1 / \ 2 2 / \ 3 3 / \4 4 返回 false 。 限制： 1 &lt;= 树的结点个数 &lt;= 10000 解题思路方法1、DFS分别求深度： 这种方法就是上一个题的延续了，但是由于需要对每一个节点求对应的左右子树的深度，会造成很多重复计算。这是一个简单的解法但是不是好的解法 方法2、后序遍历+剪枝： 这是一个从底至顶的解法，当节点的左右子树的深度差&lt;=1时，就返回当前子树的深度 当前子树的深度由max(left,right)+1计算得到，如果不满足深度差条件，则说明子树不平衡，直接返回-1 递归的终止条件是，当root为空，说明越过叶子节点，返回深度0 当左右子树的深度不平衡时，即left==-1||right==-1时，提前终止递归进行剪枝，返回-1 Java代码1234567891011121314151617181920212223242526/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public boolean isBalanced(TreeNode root) &#123; if(root==null) return true; int nleft = DFS(root.left); int nright = DFS(root.right); int n = Math.abs(nleft-nright); if(n&gt;1) return false; return isBalanced(root.left)&amp;&amp;isBalanced(root.right); &#125; public int DFS(TreeNode root)&#123; if(root==null) return 0; int nleft = DFS(root.left); int nright = DFS(root.right); return Math.max(nleft,nright)+1; &#125;&#125; Python代码123456789101112131415161718# Definition for a binary tree node.# class TreeNode:# def __init__(self, x):# self.val = x# self.left = None# self.right = Noneclass Solution: def isBalanced(self, root: TreeNode) -&gt; bool: return self.helper(root)!=-1 def helper(self,root:TreeNode)-&gt; int: if not root: return 0 left = self.helper(root.left) if left==-1: return -1 right = self.helper(root.right) if right==-1: return -1 return max(left,right)+1 if abs(left-right)&lt;=1 else -1]]></content>
@@ -1101,8 +1130,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>matlab</tag>
+        <tag>机器学习</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -1235,9 +1264,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1247,9 +1276,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1279,8 +1308,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -1319,9 +1348,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
