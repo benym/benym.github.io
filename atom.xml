@@ -304,9 +304,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
@@ -580,11 +580,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
       <category term="大数问题" scheme="http://benym.cn/tags/%E5%A4%A7%E6%95%B0%E9%97%AE%E9%A2%98/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
