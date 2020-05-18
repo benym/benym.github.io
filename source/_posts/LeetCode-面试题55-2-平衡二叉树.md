@@ -10,7 +10,7 @@ tags:
 - Python
 - Easy
 - 剑指Offer
-keywords: 树,DFS,Java,Easy,剑指Offer
+keywords: 树,DFS,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题55-2-平衡二叉树 
