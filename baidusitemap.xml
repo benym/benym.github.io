@@ -4,18 +4,315 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/10/21/LogisticRegression(%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92)/</loc>
-    <lastmod>2018-12-20T14:14:28.314Z</lastmod>
+    <loc>http://benym.cn/2020/05/18/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9855-2-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T06:04:50.827Z</lastmod>
     <data>
         <display>
-        <title>LogisticRegression(逻辑回归)</title>
-        <pubTime>2018-10-21T08:27:14.000Z</pubTime>
+        <title>LeetCode-面试题55-2-平衡二叉树</title>
+        <pubTime>2020-05-18T04:58:06.000Z</pubTime>
         
-        <tag>python</tag>
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/</loc>
+    <lastmod>2020-05-18T03:02:07.135Z</lastmod>
+    <data>
+        <display>
+        <title>输入输出——简单的回文判断</title>
+        <pubTime>2018-07-23T11:30:11.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89/</loc>
+    <lastmod>2020-05-18T03:02:07.134Z</lastmod>
+    <data>
+        <display>
+        <title>输入输出——回文字串的判断（加强版）</title>
+        <pubTime>2018-07-23T11:36:35.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E7%BB%A7%E6%89%BF%E7%9A%84%E8%BF%90%E7%94%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.133Z</lastmod>
+    <data>
+        <display>
+        <title>继承的运用</title>
+        <pubTime>2018-07-23T11:19:24.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%8F%98%E9%87%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.132Z</lastmod>
+    <data>
+        <display>
+        <title>类变量与对象变量</title>
+        <pubTime>2018-07-23T11:08:50.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-05-18T03:02:07.131Z</lastmod>
+    <data>
+        <display>
+        <title>简单的异常处理</title>
+        <pubTime>2018-07-23T11:51:46.000Z</pubTime>
+        
+        <tag>Python异常处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/24/%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8Tensorflow%E7%9A%84%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.130Z</lastmod>
+    <data>
+        <display>
+        <title>第一个使用Tensorflow的程序</title>
+        <pubTime>2018-08-24T13:41:52.000Z</pubTime>
+        
+        <tag>Python</tag>
          
         <tag>机器学习</tag>
          
-        <tag>逻辑回归</tag>
+        <tag>Tensorflow</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E7%94%A8%E6%88%B7%E8%87%AA%E5%B7%B1%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-05-18T03:02:07.129Z</lastmod>
+    <data>
+        <display>
+        <title>用户自己引发的异常处理</title>
+        <pubTime>2018-07-23T11:58:26.000Z</pubTime>
+        
+        <tag>Python异常处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A3%80%E7%B4%A2%E4%B8%8E%E6%9B%BF%E6%8D%A2/</loc>
+    <lastmod>2020-05-18T03:02:07.128Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式检索与替换</title>
+        <pubTime>2018-08-07T12:43:26.000Z</pubTime>
+        
+        <tag>Python正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.127Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式中的compile函数</title>
+        <pubTime>2018-08-07T12:47:00.000Z</pubTime>
+        
+        <tag>Python正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0(%E4%BA%8C)/</loc>
+    <lastmod>2020-05-18T03:02:07.126Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式中的compile函数(二)</title>
+        <pubTime>2018-08-07T13:16:21.000Z</pubTime>
+        
+        <tag>Python正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/03/01/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2020-05-18T03:02:07.125Z</lastmod>
+    <data>
+        <display>
+        <title>欢迎来到我的博客</title>
+        <pubTime>2018-03-01T07:13:14.000Z</pubTime>
+        
+        <tag>Face</tag>
+         
+         
+           
+             
+              <breadCrumb title="随笔" url="http://benym.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2020-05-18T03:02:07.124Z</lastmod>
+    <data>
+        <display>
+        <title>文件操作</title>
+        <pubTime>2018-07-23T11:36:35.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/22/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.123Z</lastmod>
+    <data>
+        <display>
+        <title>数据类型和arange方法、astype方法的使用</title>
+        <pubTime>2018-08-22T12:55:17.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Numpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2020-05-18T03:02:07.121Z</lastmod>
+    <data>
+        <display>
+        <title>将下载下来的MNIST手写数字数据集转化成为图片</title>
+        <pubTime>2018-08-26T12:32:57.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>MNIST</tag>
          
          
            
@@ -29,7 +326,7 @@
     
   <url>
     <loc>http://benym.cn/2018/09/17/%E5%9F%9F%E5%90%8D%E5%A4%87%E6%A1%88%E6%88%90%E5%8A%9F/</loc>
-    <lastmod>2018-10-23T01:39:09.303Z</lastmod>
+    <lastmod>2020-05-18T03:02:07.120Z</lastmod>
     <data>
         <display>
         <title>域名备案成功</title>
@@ -48,18 +345,138 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/10/07/Coursera%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E2%80%94%E2%80%94ex1/</loc>
-    <lastmod>2018-10-23T01:39:09.291Z</lastmod>
+    <loc>http://benym.cn/2018/07/23/%E5%9C%A8%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E7%9A%84%E5%90%8C%E6%97%B6%E8%A7%84%E5%AE%9A%E7%BC%96%E7%A0%81/</loc>
+    <lastmod>2020-05-18T03:02:07.119Z</lastmod>
     <data>
         <display>
-        <title>Coursera课后作业——ex1</title>
-        <pubTime>2018-10-07T12:10:56.000Z</pubTime>
+        <title>在打开文件的同时规定编码</title>
+        <pubTime>2018-07-23T11:49:27.000Z</pubTime>
         
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.119Z</lastmod>
+    <data>
+        <display>
+        <title>单例设计模式</title>
+        <pubTime>2018-08-08T13:15:36.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%BA%8C)/</loc>
+    <lastmod>2020-05-18T03:02:07.118Z</lastmod>
+    <data>
+        <display>
+        <title>动态规划问题——最长上升子序列(LIS)(二)</title>
+        <pubTime>2018-08-25T09:44:35.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/26/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%B8%89)/</loc>
+    <lastmod>2020-05-18T03:02:07.116Z</lastmod>
+    <data>
+        <display>
+        <title>动态规划问题——最长上升子序列(LIS)(三)</title>
+        <pubTime>2018-08-26T06:23:08.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%B8%80)/</loc>
+    <lastmod>2020-05-18T03:02:07.115Z</lastmod>
+    <data>
+        <display>
+        <title>动态规划问题——最长上升子序列(LIS)(一)</title>
+        <pubTime>2018-08-25T07:43:49.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/11/%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/</loc>
+    <lastmod>2020-05-18T03:02:07.114Z</lastmod>
+    <data>
+        <display>
+        <title>使用k-近邻算法改进约会网站的配对效果</title>
+        <pubTime>2018-08-11T03:47:52.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
         <tag>机器学习</tag>
          
-        <tag>matlab</tag>
+        <tag>k-近邻算法</tag>
          
-        <tag>Coursera</tag>
+        <tag>matplotlib</tag>
          
          
            
@@ -72,19 +489,2457 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/08/03/%E6%AC%A2%E8%BF%8E%E6%9D%A5%E5%88%B0%E6%88%91%E7%9A%84%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-09-29T11:30:53.323Z</lastmod>
+    <loc>http://benym.cn/2018/08/26/%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.113Z</lastmod>
     <data>
         <display>
-        <title>欢迎来到我的博客</title>
-        <pubTime>2018-08-03T11:39:54.000Z</pubTime>
+        <title>交互式使用</title>
+        <pubTime>2018-08-26T08:52:59.000Z</pubTime>
         
-        <tag>Face</tag>
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>Tensorflow</tag>
          
          
            
              
-              <breadCrumb title="随笔" url="http://benym.cn/categories/%E9%9A%8F%E7%AC%94/"/>
+              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/26/%E4%B8%80%E4%BA%9BTensorFlow%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2020-05-18T03:02:07.111Z</lastmod>
+    <data>
+        <display>
+        <title>一些TensorFlow的基本操作</title>
+        <pubTime>2018-08-26T08:55:33.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>Tensorflow</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/08/turtle%E7%BB%98%E5%9B%BE%E5%BA%93/</loc>
+    <lastmod>2020-05-18T03:02:07.109Z</lastmod>
+    <data>
+        <display>
+        <title>turtle绘图库</title>
+        <pubTime>2018-08-08T09:11:18.000Z</pubTime>
+        
+        <tag>Python库</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/with-open%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-05-18T03:02:07.109Z</lastmod>
+    <data>
+        <display>
+        <title>with open异常处理</title>
+        <pubTime>2018-07-23T11:55:48.000Z</pubTime>
+        
+        <tag>Python异常处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/python%E7%9A%84pickle%E6%A8%A1%E5%9D%97/</loc>
+    <lastmod>2020-05-18T03:02:07.108Z</lastmod>
+    <data>
+        <display>
+        <title>python的pickle模块</title>
+        <pubTime>2018-07-23T11:45:46.000Z</pubTime>
+        
+        <tag>Python模块</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/24/python%E7%9A%84__name__-=-__main__%E7%9A%84%E4%BD%9C%E7%94%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.107Z</lastmod>
+    <data>
+        <display>
+        <title>python的__name__ = '__main__' 的作用</title>
+        <pubTime>2018-07-24T03:05:44.000Z</pubTime>
+        
+        <tag>Python模块</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97/</loc>
+    <lastmod>2020-05-18T03:02:07.106Z</lastmod>
+    <data>
+        <display>
+        <title>python日志模块</title>
+        <pubTime>2018-07-23T12:03:18.000Z</pubTime>
+        
+        <tag>Python模块</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/python%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/</loc>
+    <lastmod>2020-05-18T03:02:07.103Z</lastmod>
+    <data>
+        <display>
+        <title>python对象的实例化</title>
+        <pubTime>2018-07-23T11:03:33.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E3%80%81%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
+    <lastmod>2020-05-18T03:02:07.102Z</lastmod>
+    <data>
+        <display>
+        <title>python中的静态方法、实例方法、类方法的区别</title>
+        <pubTime>2018-08-08T12:34:25.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/24/python%E4%B8%AD%E7%9A%84lambda%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.101Z</lastmod>
+    <data>
+        <display>
+        <title>python中的lambda函数</title>
+        <pubTime>2018-07-24T10:27:03.000Z</pubTime>
+        
+        <tag>Python函数</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84__new__%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99/</loc>
+    <lastmod>2020-05-18T03:02:07.099Z</lastmod>
+    <data>
+        <display>
+        <title>python中的__new__方法的重写</title>
+        <pubTime>2018-08-08T12:56:28.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/09/kNN%EF%BC%88k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%EF%BC%89/</loc>
+    <lastmod>2020-05-18T03:02:07.098Z</lastmod>
+    <data>
+        <display>
+        <title>kNN（k-近邻算法）</title>
+        <pubTime>2018-08-09T13:43:52.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>k-近邻算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/16/kNN%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.097Z</lastmod>
+    <data>
+        <display>
+        <title>kNN识别手写图像</title>
+        <pubTime>2018-08-16T13:03:00.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>Numpy</tag>
+         
+        <tag>k-近邻算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/07/23/finally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
+    <lastmod>2020-05-18T03:02:07.096Z</lastmod>
+    <data>
+        <display>
+        <title>finally异常处理</title>
+        <pubTime>2018-07-23T11:51:46.000Z</pubTime>
+        
+        <tag>Python异常处理</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/06/Python%E4%B8%AD%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%AF%94%E8%BE%83%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.095Z</lastmod>
+    <data>
+        <display>
+        <title>Python中面向对象比较简单的内部函数</title>
+        <pubTime>2018-08-06T13:40:11.000Z</pubTime>
+        
+        <tag>Python面向对象</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Fmatch%E5%92%8Csearch/</loc>
+    <lastmod>2020-05-18T03:02:07.094Z</lastmod>
+    <data>
+        <display>
+        <title>Python中的正则表达式match和search</title>
+        <pubTime>2018-08-07T12:16:00.000Z</pubTime>
+        
+        <tag>Python正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.093Z</lastmod>
+    <data>
+        <display>
+        <title>Python中的正则表达式</title>
+        <pubTime>2018-08-07T12:00:45.000Z</pubTime>
+        
+        <tag>Python正则表达式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/20/Numpy%E4%B8%AD%E8%8A%B1%E5%BC%8F%E7%B4%A2%E5%BC%95%E5%92%8Cshape%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2020-05-18T03:02:07.090Z</lastmod>
+    <data>
+        <display>
+        <title>Numpy中花式索引和shape用法</title>
+        <pubTime>2018-08-20T08:33:09.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Numpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/22/Numpy%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E7%BB%B4%E5%BA%A6/</loc>
+    <lastmod>2020-05-18T03:02:07.089Z</lastmod>
+    <data>
+        <display>
+        <title>Numpy中的数组维度</title>
+        <pubTime>2018-08-22T14:15:17.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Numpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/08/22/Ndarray%E5%AF%B9%E8%B1%A1/</loc>
+    <lastmod>2020-05-18T03:02:07.088Z</lastmod>
+    <data>
+        <display>
+        <title>Ndarray对象</title>
+        <pubTime>2018-08-22T12:55:17.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Numpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/10/21/LogisticRegression(%E9%80%BB%E8%BE%91%E5%9B%9E%E5%BD%92)/</loc>
+    <lastmod>2020-05-18T03:02:07.078Z</lastmod>
+    <data>
+        <display>
+        <title>LogisticRegression(逻辑回归)</title>
+        <pubTime>2018-10-21T08:27:14.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>逻辑回归</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/12/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9854-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E7%AC%ACk%E5%A4%A7%E8%8A%82%E7%82%B9/</loc>
+    <lastmod>2020-05-18T03:02:07.063Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题54-二叉搜索树的第k大节点</title>
+        <pubTime>2020-05-12T08:34:23.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/14/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9855-1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%B7%B1%E5%BA%A6/</loc>
+    <lastmod>2020-05-18T03:02:07.063Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题55-1-二叉树的深度</title>
+        <pubTime>2020-05-14T10:54:51.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/12/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9853-1-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E6%95%B0%E5%AD%97I/</loc>
+    <lastmod>2020-05-18T03:02:07.062Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题53-1-在排序数组中查找数字I</title>
+        <pubTime>2020-05-12T06:24:43.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/12/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9853-2-0%E5%88%B0n-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.062Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题53-2-0到n-1中缺失的数字</title>
+        <pubTime>2020-05-12T08:10:46.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/12/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9852-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9%20-%20%E5%89%AF%E6%9C%AC/</loc>
+    <lastmod>2020-05-18T03:02:07.061Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题52-两个链表的第一个公共节点</title>
+        <pubTime>2020-05-12T04:55:26.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/08/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9850-%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E5%AD%97%E7%AC%A6/</loc>
+    <lastmod>2020-05-18T03:02:07.060Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题50-第一次只出现一次的字符</title>
+        <pubTime>2020-05-08T11:23:20.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/09/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9851-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%80%86%E5%BA%8F%E5%AF%B9/</loc>
+    <lastmod>2020-05-18T03:02:07.060Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题51-数组中的逆序对</title>
+        <pubTime>2020-05-09T10:33:02.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>分治</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/08/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9848-%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <lastmod>2020-05-18T03:02:07.059Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题48-最长不含重复字符的子字符串</title>
+        <pubTime>2020-05-08T02:25:53.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>双指针</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/08/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9849-%E4%B8%91%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.059Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题49-丑数</title>
+        <pubTime>2020-05-08T09:10:42.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/06/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9845-%E6%8A%8A%E6%95%B0%E7%BB%84%E6%8E%92%E6%88%90%E6%9C%80%E5%B0%8F%E7%9A%84%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.058Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题45-把数组排成最小的数</title>
+        <pubTime>2020-05-06T10:51:48.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>大数问题</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/07/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9846-%E6%8A%8A%E6%95%B0%E5%AD%97%E7%BF%BB%E8%AF%91%E6%88%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <lastmod>2020-05-18T03:02:07.058Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题46-把数字翻译成字符串</title>
+        <pubTime>2020-05-07T07:56:27.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/07/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9847-%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/</loc>
+    <lastmod>2020-05-18T03:02:07.058Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题47-礼物的最大价值</title>
+        <pubTime>2020-05-07T13:12:39.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/06/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9844-%E6%95%B0%E5%AD%97%E5%BA%8F%E5%88%97%E4%B8%AD%E6%9F%90%E4%B8%80%E4%BD%8D%E7%9A%84%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.057Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题44-数字序列中某一位的数字</title>
+        <pubTime>2020-05-06T07:15:55.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>大数问题</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/05/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9843-1%E5%88%B0n%E6%95%B4%E6%95%B0%E4%B8%AD1%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.056Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题43-1到n整数中1出现的次数</title>
+        <pubTime>2020-05-05T13:26:10.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+        <tag>大数问题</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/05/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9842-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/</loc>
+    <lastmod>2020-05-18T03:02:07.056Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题42-连续子数组的最大和</title>
+        <pubTime>2020-05-05T10:08:46.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/04/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9841-%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%AD%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.056Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题41-数据流中的中位数</title>
+        <pubTime>2020-05-04T10:37:01.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/04/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9840-%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.055Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题40-最小的k个数</title>
+        <pubTime>2020-05-04T09:38:24.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/29/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9839-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.054Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题39-数组中出现次数超过一半的数字</title>
+        <pubTime>2020-04-29T12:14:13.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/27/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9838-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97/</loc>
+    <lastmod>2020-05-18T03:02:07.053Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题38-字符串的排列</title>
+        <pubTime>2020-04-27T10:01:14.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>全排列</tag>
+         
+        <tag>回溯</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/26/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9837-%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T03:02:07.053Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题37-序列化二叉树</title>
+        <pubTime>2020-04-26T09:30:44.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/24/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9836-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.052Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题36-二叉搜索树与双向链表</title>
+        <pubTime>2020-04-24T13:29:26.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/23/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9835-%E5%A4%8D%E6%9D%82%E9%93%BE%E8%A1%A8%E7%9A%84%E5%A4%8D%E5%88%B6/</loc>
+    <lastmod>2020-05-18T03:02:07.052Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题35-复杂链表的复制</title>
+        <pubTime>2020-04-23T13:13:47.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/22/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9834-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%92%8C%E4%B8%BA%E6%9F%90%E4%B8%80%E5%80%BC%E7%9A%84%E8%B7%AF%E5%BE%84/</loc>
+    <lastmod>2020-05-18T03:02:07.051Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题34-二叉树中和为某一值的路径</title>
+        <pubTime>2020-04-22T10:32:02.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/22/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9833-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97/</loc>
+    <lastmod>2020-05-18T03:02:07.051Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题33-二叉搜索树的后序遍历序列</title>
+        <pubTime>2020-04-22T08:37:05.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/22/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9832-3-%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T03:02:07.050Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题32-3-从上到下打印二叉树</title>
+        <pubTime>2020-04-22T08:08:35.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/22/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9832-2-%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91%20/</loc>
+    <lastmod>2020-05-18T03:02:07.050Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题32-2-从上到下打印二叉树</title>
+        <pubTime>2020-04-22T07:15:30.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/21/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9831-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/</loc>
+    <lastmod>2020-05-18T03:02:07.049Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题31-栈的压入弹出序列</title>
+        <pubTime>2020-04-21T07:50:42.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>栈</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/22/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9832-1-%E4%BB%8E%E4%B8%8A%E5%88%B0%E4%B8%8B%E6%89%93%E5%8D%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T03:02:07.049Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题32-1-从上到下打印二叉树</title>
+        <pubTime>2020-04-22T02:47:48.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/21/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9830-%E5%8C%85%E5%90%ABmin%E5%87%BD%E6%95%B0%E7%9A%84%E6%A0%88/</loc>
+    <lastmod>2020-05-18T03:02:07.048Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题30-包含min函数的栈</title>
+        <pubTime>2020-04-21T06:42:06.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>栈</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/21/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9829-%E9%A1%BA%E6%97%B6%E9%92%88%E6%89%93%E5%8D%B0%E7%9F%A9%E9%98%B5/</loc>
+    <lastmod>2020-05-18T03:02:07.048Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题29-顺时针打印矩阵</title>
+        <pubTime>2020-04-21T04:00:13.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>矩阵</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/20/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9828-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T03:02:07.047Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题28-对称的二叉树</title>
+        <pubTime>2020-04-20T09:21:41.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/20/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9827-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%95%9C%E5%83%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.047Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题27-二叉树的镜像</title>
+        <pubTime>2020-04-20T07:43:20.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/20/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9826-%E6%A0%91%E7%9A%84%E5%AD%90%E7%BB%93%E6%9E%84/</loc>
+    <lastmod>2020-05-18T03:02:07.046Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题26-树的子结构</title>
+        <pubTime>2020-04-20T05:33:50.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/19/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9825-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%8E%92%E5%BA%8F%E7%9A%84%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.045Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题25-合并两个排序的链表</title>
+        <pubTime>2020-04-19T10:18:16.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/19/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9824-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.045Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题24-反转链表</title>
+        <pubTime>2020-04-19T09:44:28.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/18/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9822-%E9%93%BE%E8%A1%A8%E4%B8%AD%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9/</loc>
+    <lastmod>2020-05-18T03:02:07.044Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题22-链表中倒数第k个节点</title>
+        <pubTime>2020-04-18T14:59:57.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/17/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9821-%E8%B0%83%E6%95%B4%E6%95%B0%E7%BB%84%E9%A1%BA%E5%BA%8F%E4%BD%BF%E5%A5%87%E6%95%B0%E4%BD%8D%E4%BA%8E%E5%81%B6%E6%95%B0%E5%89%8D%E9%9D%A2/</loc>
+    <lastmod>2020-05-18T03:02:07.044Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题21-调整数组顺序使奇数位于偶数前面</title>
+        <pubTime>2020-04-17T09:58:38.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/16/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9819-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/</loc>
+    <lastmod>2020-05-18T03:02:07.043Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题19-正则表达式匹配</title>
+        <pubTime>2020-04-16T06:56:55.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/17/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9820-%E8%A1%A8%E7%A4%BA%E6%95%B0%E5%80%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</loc>
+    <lastmod>2020-05-18T03:02:07.043Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题20-表示数值的字符串</title>
+        <pubTime>2020-04-17T04:21:56.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/14/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9817-%E6%89%93%E5%8D%B0%E4%BB%8E1%E5%88%B0%E6%9C%80%E5%A4%A7%E7%9A%84n%E4%BD%8D%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.042Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题17-打印从1到最大的n位数</title>
+        <pubTime>2020-04-14T10:45:52.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>大数问题</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/15/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9818-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E8%8A%82%E7%82%B9/</loc>
+    <lastmod>2020-05-18T03:02:07.042Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题18-删除链表的节点</title>
+        <pubTime>2020-04-15T10:07:21.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/14/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9816-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</loc>
+    <lastmod>2020-05-18T03:02:07.041Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题16-数值的整数次方</title>
+        <pubTime>2020-04-14T09:15:23.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>位运算</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/14/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9815-%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD1%E7%9A%84%E4%B8%AA%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.040Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题15-二进制中1的个数</title>
+        <pubTime>2020-04-14T02:59:53.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>位运算</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/13/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)/</loc>
+    <lastmod>2020-05-18T03:02:07.040Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题14-2-剪绳子(大数)</title>
+        <pubTime>2020-04-13T06:56:35.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>贪心算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/12/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9813-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/</loc>
+    <lastmod>2020-05-18T03:02:07.039Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题13-机器人的运动范围</title>
+        <pubTime>2020-04-12T13:04:54.000Z</pubTime>
+        
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>DFS</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/13/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90/</loc>
+    <lastmod>2020-05-18T03:02:07.039Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题14-1-剪绳子</title>
+        <pubTime>2020-04-13T06:56:35.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>DP</tag>
+         
+        <tag>贪心算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/10/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9812-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</loc>
+    <lastmod>2020-05-18T03:02:07.038Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题12-矩阵中的路径</title>
+        <pubTime>2020-04-10T13:57:56.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/08/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9810-2-%E9%9D%92%E8%9B%99%E8%B7%B3%E5%8F%B0%E9%98%B6/</loc>
+    <lastmod>2020-05-18T03:02:07.037Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题10-2-青蛙跳台阶</title>
+        <pubTime>2020-04-08T14:34:29.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>数据结构</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/10/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9811-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.037Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题11-旋转数组的最小数字</title>
+        <pubTime>2020-04-10T08:53:08.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/07/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9809-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/</loc>
+    <lastmod>2020-05-18T03:02:07.036Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题09-用两个栈实现队列</title>
+        <pubTime>2020-04-07T14:04:26.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>队列</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/08/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9810-1-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/</loc>
+    <lastmod>2020-05-18T03:02:07.036Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题10-1-斐波那契数列</title>
+        <pubTime>2020-04-08T13:51:39.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>数据结构</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/04/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9807-%E9%87%8D%E5%BB%BA%E4%BA%8C%E5%8F%89%E6%A0%91/</loc>
+    <lastmod>2020-05-18T03:02:07.035Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题07-重建二叉树</title>
+        <pubTime>2020-04-04T06:08:05.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/03/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9806-%E4%BB%8E%E5%B0%BE%E5%88%B0%E5%A4%B4%E6%89%93%E5%8D%B0%E9%93%BE%E8%A1%A8/</loc>
+    <lastmod>2020-05-18T03:02:07.035Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题06-从尾到头打印链表</title>
+        <pubTime>2020-04-03T09:54:23.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/03/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9805-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/</loc>
+    <lastmod>2020-05-18T03:02:07.034Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题05-替换空格</title>
+        <pubTime>2020-04-03T08:12:56.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/02/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9803-%E6%95%B0%E7%BB%84%E4%B8%AD%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.033Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题03-数组中重复的数字</title>
+        <pubTime>2020-04-02T14:08:11.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/03/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9804-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/</loc>
+    <lastmod>2020-05-18T03:02:07.033Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题04-二维数组中的查找</title>
+        <pubTime>2020-04-03T06:59:24.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/03/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9803-%E4%B8%8D%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E6%89%BE%E5%87%BA%E9%87%8D%E5%A4%8D%E7%9A%84%E6%95%B0%E5%AD%97/</loc>
+    <lastmod>2020-05-18T03:02:07.032Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-面试题03-不修改数组找出重复的数字</title>
+        <pubTime>2020-04-03T03:18:56.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+        <tag>剑指Offer</tag>
+         
+         
+           
+             
+              <breadCrumb title="剑指Offer" url="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/04/LeetCode-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.031Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-快速排序</title>
+        <pubTime>2020-05-04T08:33:58.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>排序算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/09/LeetCode-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-05-18T03:02:07.030Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-归并排序</title>
+        <pubTime>2020-05-09T10:16:01.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>排序算法</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/13/LeetCode-94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</loc>
+    <lastmod>2020-05-18T03:02:07.030Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-94-二叉树的中序遍历</title>
+        <pubTime>2020-05-13T03:01:06.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>DFS</tag>
+         
+         
+           
+             
+              <breadCrumb title="树" url="http://benym.cn/categories/%E6%A0%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/15/LeetCode-83-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0/</loc>
+    <lastmod>2020-05-18T03:02:07.029Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-83-删除排序链表中的重复元素</title>
+        <pubTime>2020-04-15T10:22:08.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>链表</tag>
+         
+         
+           
+             
+              <breadCrumb title="链表" url="http://benym.cn/categories/%E9%93%BE%E8%A1%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/03/19/LeetCode-747-%E8%87%B3%E5%B0%91%E6%98%AF%E5%85%B6%E4%BB%96%E6%95%B0%E5%AD%97%E4%B8%A4%E5%80%8D%E7%9A%84%E6%9C%80%E5%A4%A7%E6%95%B0/</loc>
+    <lastmod>2020-05-18T03:02:07.029Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-747-至少是其他数字两倍的最大数</title>
+        <pubTime>2020-03-19T11:00:16.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="数组" url="http://benym.cn/categories/%E6%95%B0%E7%BB%84/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/03/19/LeetCode-724-%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2020-05-18T03:02:07.028Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-724-寻找数组的中心索引</title>
+        <pubTime>2020-03-19T08:33:43.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="数组" url="http://benym.cn/categories/%E6%95%B0%E7%BB%84/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/10/LeetCode-704-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/</loc>
+    <lastmod>2020-05-18T03:02:07.027Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-704-二分查找</title>
+        <pubTime>2020-04-10T07:44:53.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>查找</tag>
+         
+         
+           
+             
+              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/14/LeetCode-67-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8C/</loc>
+    <lastmod>2020-05-18T03:02:07.026Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-67-二进制求和</title>
+        <pubTime>2020-04-14T06:25:51.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+         
+           
+             
+              <breadCrumb title="字符串" url="http://benym.cn/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/03/23/LeetCode-66-%E5%8A%A0%E4%B8%80/</loc>
+    <lastmod>2020-05-18T03:02:07.025Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-66-加一</title>
+        <pubTime>2020-03-23T11:34:39.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+        <tag>数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="数组" url="http://benym.cn/categories/%E6%95%B0%E7%BB%84/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/03/30/LeetCode-54-%E8%9E%BA%E6%97%8B%E7%9F%A9%E9%98%B5/</loc>
+    <lastmod>2020-05-18T03:02:07.025Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-54-螺旋矩阵</title>
+        <pubTime>2020-03-30T11:21:08.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>二维数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="二维数组" url="http://benym.cn/categories/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/03/26/LeetCode-498-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/</loc>
+    <lastmod>2020-05-18T03:02:07.024Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-498-对角线遍历</title>
+        <pubTime>2020-03-26T06:25:12.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>二维数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="二维数组" url="http://benym.cn/categories/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/04/15/LeetCode-415-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%8A%A0/</loc>
+    <lastmod>2020-05-18T03:02:07.023Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-415-字符串相加</title>
+        <pubTime>2020-04-15T07:44:22.000Z</pubTime>
+        
+        <tag>Java</tag>
+         
+        <tag>字符串</tag>
+         
+        <tag>大数问题</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>Easy</tag>
+         
+         
+           
+             
+              <breadCrumb title="字符串" url="http://benym.cn/categories/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/13/LeetCode-144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/</loc>
+    <lastmod>2020-05-18T03:02:07.022Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-144-二叉树的前序遍历</title>
+        <pubTime>2020-05-13T05:01:06.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Medium</tag>
+         
+         
+           
+             
+              <breadCrumb title="树" url="http://benym.cn/categories/%E6%A0%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2020/05/13/LeetCode-145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</loc>
+    <lastmod>2020-05-18T03:02:07.022Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode-145-二叉树的后序遍历</title>
+        <pubTime>2020-05-13T07:05:04.000Z</pubTime>
+        
+        <tag>树</tag>
+         
+        <tag>BFS</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>Hard</tag>
+         
+         
+           
+             
+              <breadCrumb title="树" url="http://benym.cn/categories/%E6%A0%91/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://benym.cn/2018/10/07/Coursera%E8%AF%BE%E5%90%8E%E4%BD%9C%E4%B8%9A%E2%80%94%E2%80%94ex1/</loc>
+    <lastmod>2018-10-23T01:39:09.291Z</lastmod>
+    <data>
+        <display>
+        <title>Coursera课后作业——ex1</title>
+        <pubTime>2018-10-07T12:10:56.000Z</pubTime>
+        
+        <tag>matlab</tag>
+         
+        <tag>机器学习</tag>
+         
+        <tag>Coursera</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
           
         </display>
     </data>
@@ -111,226 +2966,6 @@
     </url>
 
     
-  <url>
-    <loc>http://benym.cn/2018/08/11/%E4%BD%BF%E7%94%A8k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%E6%94%B9%E8%BF%9B%E7%BA%A6%E4%BC%9A%E7%BD%91%E7%AB%99%E7%9A%84%E9%85%8D%E5%AF%B9%E6%95%88%E6%9E%9C/</loc>
-    <lastmod>2018-09-17T13:09:15.805Z</lastmod>
-    <data>
-        <display>
-        <title>使用k-近邻算法改进约会网站的配对效果</title>
-        <pubTime>2018-08-11T03:47:52.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>k-近邻算法</tag>
-         
-        <tag>matplotlib</tag>
-         
-         
-           
-             
-              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/26/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%B8%89)/</loc>
-    <lastmod>2018-08-30T04:39:47.488Z</lastmod>
-    <data>
-        <display>
-        <title>动态规划问题——最长上升子序列(LIS)(三)</title>
-        <pubTime>2018-08-26T06:23:08.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>算法</tag>
-         
-        <tag>Java</tag>
-         
-        <tag>动态规划</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/26/%E5%B0%86%E4%B8%8B%E8%BD%BD%E4%B8%8B%E6%9D%A5%E7%9A%84MNIST%E6%89%8B%E5%86%99%E6%95%B0%E5%AD%97%E6%95%B0%E6%8D%AE%E9%9B%86%E8%BD%AC%E5%8C%96%E6%88%90%E4%B8%BA%E5%9B%BE%E7%89%87/</loc>
-    <lastmod>2018-08-29T06:02:14.545Z</lastmod>
-    <data>
-        <display>
-        <title>将下载下来的MNIST手写数字数据集转化成为图片</title>
-        <pubTime>2018-08-26T12:32:57.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>MNIST</tag>
-         
-         
-           
-             
-              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/08/turtle%E7%BB%98%E5%9B%BE%E5%BA%93/</loc>
-    <lastmod>2018-08-29T06:00:44.231Z</lastmod>
-    <data>
-        <display>
-        <title>turtle绘图库</title>
-        <pubTime>2018-08-08T09:11:18.000Z</pubTime>
-        
-        <tag>python库</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/09/kNN%EF%BC%88k-%E8%BF%91%E9%82%BB%E7%AE%97%E6%B3%95%EF%BC%89/</loc>
-    <lastmod>2018-08-29T05:58:34.780Z</lastmod>
-    <data>
-        <display>
-        <title>kNN（k-近邻算法）</title>
-        <pubTime>2018-08-09T13:43:52.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>k-近邻算法</tag>
-         
-         
-           
-             
-              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://benym.cn/2018/08/26/%E4%B8%80%E4%BA%9BTensorFlow%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2018-08-26T09:02:00.202Z</lastmod>
-    <data>
-        <display>
-        <title>一些TensorFlow的基本操作</title>
-        <pubTime>2018-08-26T08:55:33.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>Tensorflow</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/26/%E4%BA%A4%E4%BA%92%E5%BC%8F%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2018-08-26T08:54:50.750Z</lastmod>
-    <data>
-        <display>
-        <title>交互式使用</title>
-        <pubTime>2018-08-26T08:52:59.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>Tensorflow</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%BA%8C)/</loc>
-    <lastmod>2018-08-26T07:26:20.620Z</lastmod>
-    <data>
-        <display>
-        <title>动态规划问题——最长上升子序列(LIS)(二)</title>
-        <pubTime>2018-08-25T09:44:35.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>算法</tag>
-         
-        <tag>Java</tag>
-         
-        <tag>动态规划</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/25/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E2%80%94%E2%80%94%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97(LIS)(%E4%B8%80)/</loc>
-    <lastmod>2018-08-26T07:03:21.107Z</lastmod>
-    <data>
-        <display>
-        <title>动态规划问题——最长上升子序列(LIS)(一)</title>
-        <pubTime>2018-08-25T07:43:49.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>算法</tag>
-         
-        <tag>Java</tag>
-         
-        <tag>动态规划</tag>
-         
-         
-           
-             
-              <breadCrumb title="算法" url="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://benym.cn/2018/04/10/%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</loc>
@@ -433,164 +3068,6 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/08/24/%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8Tensorflow%E7%9A%84%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2018-08-24T13:46:58.501Z</lastmod>
-    <data>
-        <display>
-        <title>第一个使用Tensorflow的程序</title>
-        <pubTime>2018-08-24T13:41:52.000Z</pubTime>
-        
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>Tensorflow</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tensorflow" url="http://benym.cn/categories/Tensorflow/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/22/Numpy%E4%B8%AD%E7%9A%84%E6%95%B0%E7%BB%84%E7%BB%B4%E5%BA%A6/</loc>
-    <lastmod>2018-08-22T14:15:40.494Z</lastmod>
-    <data>
-        <display>
-        <title>Numpy中的数组维度</title>
-        <pubTime>2018-08-22T14:15:17.000Z</pubTime>
-        
-        <tag>Numpy</tag>
-         
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/20/Numpy%E4%B8%AD%E8%8A%B1%E5%BC%8F%E7%B4%A2%E5%BC%95%E5%92%8Cshape%E7%94%A8%E6%B3%95/</loc>
-    <lastmod>2018-08-22T13:43:44.006Z</lastmod>
-    <data>
-        <display>
-        <title>Numpy中花式索引和shape用法</title>
-        <pubTime>2018-08-20T08:33:09.000Z</pubTime>
-        
-        <tag>Numpy</tag>
-         
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/22/Ndarray%E5%AF%B9%E8%B1%A1/</loc>
-    <lastmod>2018-08-22T13:37:18.490Z</lastmod>
-    <data>
-        <display>
-        <title>Ndarray对象</title>
-        <pubTime>2018-08-22T12:55:17.000Z</pubTime>
-        
-        <tag>Numpy</tag>
-         
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/22/%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2018-08-22T13:07:48.715Z</lastmod>
-    <data>
-        <display>
-        <title>数据类型和arange方法、astype方法的使用</title>
-        <pubTime>2018-08-22T12:55:17.000Z</pubTime>
-        
-        <tag>Numpy</tag>
-         
-        <tag>python</tag>
-         
-         
-           
-             
-              <breadCrumb title="Numpy" url="http://benym.cn/categories/Numpy/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/08/%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-08-20T08:40:41.795Z</lastmod>
-    <data>
-        <display>
-        <title>单例设计模式</title>
-        <pubTime>2018-08-08T13:15:36.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/16/kNN%E8%AF%86%E5%88%AB%E6%89%8B%E5%86%99%E5%9B%BE%E5%83%8F/</loc>
-    <lastmod>2018-08-16T13:03:19.946Z</lastmod>
-    <data>
-        <display>
-        <title>kNN识别手写图像</title>
-        <pubTime>2018-08-16T13:03:00.000Z</pubTime>
-        
-        <tag>Numpy</tag>
-         
-        <tag>python</tag>
-         
-        <tag>机器学习</tag>
-         
-        <tag>k-近邻算法</tag>
-         
-         
-           
-             
-              <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://benym.cn/2018/08/09/Numpy%E5%BA%93%E7%9A%84%E9%A6%96%E6%AC%A1%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2018-08-10T06:46:21.270Z</lastmod>
     <data>
@@ -598,56 +3075,16 @@
         <title>Numpy库的首次使用</title>
         <pubTime>2018-08-09T12:53:08.000Z</pubTime>
         
-        <tag>Numpy</tag>
-         
         <tag>机器学习</tag>
          
         <tag>矩阵</tag>
+         
+        <tag>Numpy</tag>
          
          
            
              
               <breadCrumb title="机器学习" url="http://benym.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84__new__%E6%96%B9%E6%B3%95%E7%9A%84%E9%87%8D%E5%86%99/</loc>
-    <lastmod>2018-08-08T12:58:20.326Z</lastmod>
-    <data>
-        <display>
-        <title>python中的__new__方法的重写</title>
-        <pubTime>2018-08-08T12:56:28.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/08/python%E4%B8%AD%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E3%80%81%E5%AE%9E%E4%BE%8B%E6%96%B9%E6%B3%95%E3%80%81%E7%B1%BB%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB/</loc>
-    <lastmod>2018-08-08T12:37:50.901Z</lastmod>
-    <data>
-        <display>
-        <title>python中的静态方法、实例方法、类方法的区别</title>
-        <pubTime>2018-08-08T12:34:25.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
           
         </display>
     </data>
@@ -663,146 +3100,6 @@
         <pubTime>2018-08-08T11:41:53.000Z</pubTime>
         
         <tag>多态</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0(%E4%BA%8C)/</loc>
-    <lastmod>2018-08-07T13:20:04.738Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式中的compile函数(二)</title>
-        <pubTime>2018-08-07T13:16:21.000Z</pubTime>
-        
-        <tag>python正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%AD%E7%9A%84compile%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2018-08-07T13:06:07.898Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式中的compile函数</title>
-        <pubTime>2018-08-07T12:47:00.000Z</pubTime>
-        
-        <tag>python正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/07/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A3%80%E7%B4%A2%E4%B8%8E%E6%9B%BF%E6%8D%A2/</loc>
-    <lastmod>2018-08-07T12:46:31.749Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式检索与替换</title>
-        <pubTime>2018-08-07T12:43:26.000Z</pubTime>
-        
-        <tag>python正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8Fmatch%E5%92%8Csearch/</loc>
-    <lastmod>2018-08-07T12:18:10.374Z</lastmod>
-    <data>
-        <display>
-        <title>Python中的正则表达式match和search</title>
-        <pubTime>2018-08-07T12:16:00.000Z</pubTime>
-        
-        <tag>python正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/07/Python%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
-    <lastmod>2018-08-07T12:08:56.209Z</lastmod>
-    <data>
-        <display>
-        <title>Python中的正则表达式</title>
-        <pubTime>2018-08-07T12:00:45.000Z</pubTime>
-        
-        <tag>python正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/08/06/Python%E4%B8%AD%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%AF%94%E8%BE%83%E7%AE%80%E5%8D%95%E7%9A%84%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2018-08-07T09:24:09.316Z</lastmod>
-    <data>
-        <display>
-        <title>Python中面向对象比较简单的内部函数</title>
-        <pubTime>2018-08-06T13:40:11.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E7%B1%BB%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AF%B9%E8%B1%A1%E5%8F%98%E9%87%8F/</loc>
-    <lastmod>2018-08-07T01:34:05.881Z</lastmod>
-    <data>
-        <display>
-        <title>类变量与对象变量</title>
-        <pubTime>2018-07-23T11:08:50.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
          
          
            
@@ -955,106 +3252,6 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/07/23/%E5%9C%A8%E6%89%93%E5%BC%80%E6%96%87%E4%BB%B6%E7%9A%84%E5%90%8C%E6%97%B6%E8%A7%84%E5%AE%9A%E7%BC%96%E7%A0%81/</loc>
-    <lastmod>2018-08-02T02:13:12.929Z</lastmod>
-    <data>
-        <display>
-        <title>在打开文件的同时规定编码</title>
-        <pubTime>2018-07-23T11:49:27.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E7%94%A8%E6%88%B7%E8%87%AA%E5%B7%B1%E5%BC%95%E5%8F%91%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-08-02T02:13:02.449Z</lastmod>
-    <data>
-        <display>
-        <title>用户自己引发的异常处理</title>
-        <pubTime>2018-07-23T11:58:26.000Z</pubTime>
-        
-        <tag>python异常处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2018-08-02T02:12:41.725Z</lastmod>
-    <data>
-        <display>
-        <title>文件操作</title>
-        <pubTime>2018-07-23T11:36:35.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E7%AE%80%E5%8D%95%E7%9A%84%E5%9B%9E%E6%96%87%E5%88%A4%E6%96%AD/</loc>
-    <lastmod>2018-08-02T02:12:30.169Z</lastmod>
-    <data>
-        <display>
-        <title>输入输出——简单的回文判断</title>
-        <pubTime>2018-07-23T11:30:11.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89/</loc>
-    <lastmod>2018-08-02T02:12:19.243Z</lastmod>
-    <data>
-        <display>
-        <title>输入输出——回文字串的判断（加强版）</title>
-        <pubTime>2018-07-23T11:36:35.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://benym.cn/2018/07/24/%E5%88%97%E8%A1%A8%E6%8E%A8%E5%AF%BC/</loc>
     <lastmod>2018-08-02T02:11:47.424Z</lastmod>
     <data>
@@ -1135,46 +3332,6 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/07/23/%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-08-02T02:10:56.093Z</lastmod>
-    <data>
-        <display>
-        <title>简单的异常处理</title>
-        <pubTime>2018-07-23T11:51:46.000Z</pubTime>
-        
-        <tag>python异常处理</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/%E7%BB%A7%E6%89%BF%E7%9A%84%E8%BF%90%E7%94%A8/</loc>
-    <lastmod>2018-08-02T02:10:46.544Z</lastmod>
-    <data>
-        <display>
-        <title>继承的运用</title>
-        <pubTime>2018-07-23T11:19:24.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://benym.cn/2018/07/24/%E5%A4%9A%E7%A7%8D%E6%96%B9%E6%B3%95%E5%BF%AB%E9%80%9F%E4%BA%A4%E6%8D%A2%E4%B8%A4%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E5%80%BC/</loc>
     <lastmod>2018-08-02T02:10:37.471Z</lastmod>
     <data>
@@ -1223,26 +3380,6 @@
         <pubTime>2018-07-24T12:30:50.000Z</pubTime>
         
         <tag>基本教程</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/with-open%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-08-02T02:10:04.218Z</lastmod>
-    <data>
-        <display>
-        <title>with open异常处理</title>
-        <pubTime>2018-07-23T11:55:48.000Z</pubTime>
-        
-        <tag>python异常处理</tag>
          
          
            
@@ -1455,26 +3592,6 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/07/24/python%E4%B8%AD%E7%9A%84lambda%E5%87%BD%E6%95%B0/</loc>
-    <lastmod>2018-08-02T02:08:15.767Z</lastmod>
-    <data>
-        <display>
-        <title>python中的lambda函数</title>
-        <pubTime>2018-07-24T10:27:03.000Z</pubTime>
-        
-        <tag>python函数</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://benym.cn/2018/06/27/python%E4%B8%AD%E7%9A%84Docstring/</loc>
     <lastmod>2018-08-02T02:08:06.139Z</lastmod>
     <data>
@@ -1495,86 +3612,6 @@
 
     
   <url>
-    <loc>http://benym.cn/2018/07/23/python%E6%97%A5%E5%BF%97%E6%A8%A1%E5%9D%97/</loc>
-    <lastmod>2018-08-02T02:07:55.731Z</lastmod>
-    <data>
-        <display>
-        <title>python日志模块</title>
-        <pubTime>2018-07-23T12:03:18.000Z</pubTime>
-        
-        <tag>python模块</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/python%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%AE%9E%E4%BE%8B%E5%8C%96/</loc>
-    <lastmod>2018-08-02T02:07:43.397Z</lastmod>
-    <data>
-        <display>
-        <title>python对象的实例化</title>
-        <pubTime>2018-07-23T11:03:33.000Z</pubTime>
-        
-        <tag>python面向对象</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/python%E7%9A%84pickle%E6%A8%A1%E5%9D%97/</loc>
-    <lastmod>2018-08-02T02:07:17.683Z</lastmod>
-    <data>
-        <display>
-        <title>python的pickle模块</title>
-        <pubTime>2018-07-23T11:45:46.000Z</pubTime>
-        
-        <tag>python模块</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/24/python%E7%9A%84__name__-=-__main__%E7%9A%84%E4%BD%9C%E7%94%A8/</loc>
-    <lastmod>2018-08-02T02:07:07.602Z</lastmod>
-    <data>
-        <display>
-        <title>python的__name__ = '__main__' 的作用</title>
-        <pubTime>2018-07-24T03:05:44.000Z</pubTime>
-        
-        <tag>python模块</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://benym.cn/2018/07/25/list(%E5%88%97%E8%A1%A8)%E3%80%81tuple%EF%BC%88%E5%85%83%E7%BB%84%EF%BC%89%E3%80%81dict%EF%BC%88%E5%AD%97%E5%85%B8%EF%BC%89%E7%9A%84%E5%9B%9E%E9%A1%BE/</loc>
     <lastmod>2018-08-02T02:06:52.594Z</lastmod>
     <data>
@@ -1583,26 +3620,6 @@
         <pubTime>2018-07-25T12:57:55.000Z</pubTime>
         
         <tag>基本教程</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="http://benym.cn/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://benym.cn/2018/07/23/finally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/</loc>
-    <lastmod>2018-08-02T02:06:25.520Z</lastmod>
-    <data>
-        <display>
-        <title>finally异常处理</title>
-        <pubTime>2018-07-23T11:51:46.000Z</pubTime>
-        
-        <tag>python异常处理</tag>
          
          
            
