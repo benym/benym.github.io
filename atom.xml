@@ -278,9 +278,9 @@
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
-      <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
-    
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
+    
+      <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
   </entry>
   
