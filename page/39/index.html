@@ -100,16 +100,16 @@
 
 
 
-<meta name="description" content="愿祖国更加伟大">
+<meta name="description" content="愿祖国更加强大">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ming.Y">
 <meta property="og:url" content="http://benym.cn/page/39/index.html">
 <meta property="og:site_name" content="Ming.Y">
-<meta property="og:description" content="愿祖国更加伟大">
+<meta property="og:description" content="愿祖国更加强大">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ming.Y">
-<meta name="twitter:description" content="愿祖国更加伟大">
+<meta name="twitter:description" content="愿祖国更加强大">
 
 
 
@@ -402,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/装饰器/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/10/折半查找/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -421,7 +421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/24/装饰器/" itemprop="url">装饰器</a></h1>
+                <a class="post-title-link" href="/2018/04/10/折半查找/" itemprop="url">折半查找</a></h1>
         
 
         <div class="post-meta">
@@ -433,8 +433,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:45:48+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:36:53+08:00">
+                2018-04-10
               </time>
             
 
@@ -449,8 +449,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:13:56+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:52:57+08:00">
+                2018-08-25
               </time>
             
           </span>
@@ -468,8 +468,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
                   </a>
                 </span>
 
@@ -486,8 +486,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/装饰器/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/装饰器/" itemprop="commentCount"></span>
+                <a href="/2018/04/10/折半查找/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/10/折半查找/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -495,7 +495,7 @@
 
           
           
-             <span id="/2018/07/24/装饰器/" class="leancloud_visitors" data-flag-title="装饰器">
+             <span id="/2018/04/10/折半查找/" class="leancloud_visitors" data-flag-title="折半查找">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -520,7 +520,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  474
+                  540
                 </span>
               
 
@@ -558,11 +558,17 @@
 
       
         
-          <h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><p>装饰器（Decorators）是应用包装函数的快捷方式。这有助于将某一功能与一些代码一遍又一<br>遍地“包装”。举个例子，我为自己创建了一个 retry 装饰器，这样我可以将其运用到任何函<br>数之中，如果在一次运行中抛出了任何错误，它就会尝试重新运行，直到最大次数 5 次，并<br>且每次运行期间都会有一定的延迟。这对于你在对一台远程计算机进行网络调用的情况十分<br>有用：</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 从time模块引入sleep函数</span></span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> sleep</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line">logging.basicConfig()</span><br><span class="line">log = logging.getLogger(<span class="string">"retry"</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">retry</span><span class="params">(f)</span>:</span></span><br><span class="line"><span class="meta">    @wraps(f)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapped_f</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        MAX_ATTEMPTS = <span class="number">5</span></span><br><span class="line">        <span class="keyword">for</span> attempt <span class="keyword">in</span> range(<span class="number">1</span>, MAX_ATTEMPTS + <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="keyword">return</span> f(*args, **kwargs)</span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                log.exception(<span class="string">"Attempt %s %s failed : %s"</span>,</span><br><span class="line">                              attempt, MAX_ATTEMPTS, (args, kwargs))</span><br><span class="line">                sleep(<span class="number">10</span> * attempt)</span><br><span class="line">        log.critical(<span class="string">"All %s attempts failed : %s"</span>,</span><br><span class="line">                     MAX_ATTEMPTS,</span><br><span class="line">                     (args, kwargs))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wrapped_f</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">counter = <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@retry</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">save_to_database</span><span class="params">(arg)</span>:</span></span><br><span class="line">    print(<span class="string">"Write to a database or make a network call or etc."</span>)</span><br><span class="line">    print(<span class="string">"This will be automatically retried if exception is thrown."</span>)</span><br><span class="line">    <span class="keyword">global</span> counter</span><br><span class="line">    counter += <span class="number">1</span></span><br><span class="line">    <span class="comment"># 这将在第一次调用时抛出异常</span></span><br><span class="line">    <span class="comment"># 在第二次运行时正常工作（也就是重试）</span></span><br><span class="line">    <span class="keyword">if</span> counter &lt; <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">raise</span> ValueError(arg)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 让你写的脚本模块既可以导入到别的模块中用，另外该模块自己也可执行。</span></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    save_to_database(<span class="string">"Some bad value"</span>)</span><br></pre></td></tr></table></figure>
+          <h3 id="折半查找定义"><a href="#折半查找定义" class="headerlink" title="折半查找定义"></a>折半查找定义</h3><p>二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列</p>
+<h3 id="查找过程"><a href="#查找过程" class="headerlink" title="查找过程"></a>查找过程</h3><p>首先，假设表中元素是按升序排列，将表中间位置记录的<a href="https://baike.baidu.com/item/%E5%85%B3%E9%94%AE%E5%AD%97" target="_blank" rel="noopener">关键字</a>与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置<a href="https://baike.baidu.com/item/%E8%AE%B0%E5%BD%95/1837758" target="_blank" rel="noopener">记录</a>将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的<a href="https://baike.baidu.com/item/%E8%AE%B0%E5%BD%95/1837758" target="_blank" rel="noopener">记录</a>，使查找成功，或直到子表不存在为止，此时查找不成功。</p>
+<h3 id="比较次数"><a href="#比较次数" class="headerlink" title="比较次数"></a>比较次数</h3><p> <img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D182/sign=e04907e14190f60300b0984f0b10b370/09fa513d269759ee57a6eb1bb9fb43166c22df68.jpg" alt="img"></p>
+<p>当顺序表有n个关键字时：</p>
+<p>查找失败时，至少比较a次关键字；查找成功时，最多比较关键字次数是b。</p>
+<p>注意：a,b,n均为正整数。</p>
+<h3 id="算法复杂度"><a href="#算法复杂度" class="headerlink" title="算法复杂度"></a>算法复杂度</h3><p>折半查找法也称为二分查找法，它充分利用了元素间的次序关系，采用分治策略，可在最坏的情况下用O(log n)完成搜索任务。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/24/装饰器/" rel="contents">
+            <a class="btn" href="/2018/04/10/折半查找/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -615,7 +621,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/assert语句的运用/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/10/任意行数的杨辉三角形（动态分配）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -634,7 +640,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/24/assert语句的运用/" itemprop="url">assert语句的运用</a></h1>
+                <a class="post-title-link" href="/2018/04/10/任意行数的杨辉三角形（动态分配）/" itemprop="url">任意行数的杨辉三角形（动态分配）</a></h1>
         
 
         <div class="post-meta">
@@ -646,8 +652,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:41:28+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:23:08+08:00">
+                2018-04-10
               </time>
             
 
@@ -662,8 +668,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:06:14+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:52:47+08:00">
+                2018-08-25
               </time>
             
           </span>
@@ -681,8 +687,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
                   </a>
                 </span>
 
@@ -699,8 +705,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/assert语句的运用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/assert语句的运用/" itemprop="commentCount"></span>
+                <a href="/2018/04/10/任意行数的杨辉三角形（动态分配）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/10/任意行数的杨辉三角形（动态分配）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -708,7 +714,7 @@
 
           
           
-             <span id="/2018/07/24/assert语句的运用/" class="leancloud_visitors" data-flag-title="assert语句的运用">
+             <span id="/2018/04/10/任意行数的杨辉三角形（动态分配）/" class="leancloud_visitors" data-flag-title="任意行数的杨辉三角形（动态分配）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -733,7 +739,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  92
+                  296
                 </span>
               
 
@@ -749,7 +755,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -771,11 +777,16 @@
 
       
         
-          
-            <h3 id="assert语句的运用"><a href="#assert语句的运用" class="headerlink" title="assert语句的运用"></a>assert语句的运用</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># assert语句</span></span><br><span class="line"><span class="comment"># pop() 函数用于移除列表中的一个元素（默认最后一个元素），并且返回该元素的值。</span></span><br><span class="line">mylist = [<span class="string">'item'</span>]</span><br><span class="line"><span class="keyword">assert</span> len(mylist) &gt;= <span class="number">1</span></span><br><span class="line">print(mylist.pop())</span><br><span class="line"><span class="keyword">assert</span> len(mylist) &gt;= <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">item</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"E:/PythonProject/more/more_assert.py"</span>, line <span class="number">6</span>, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    <span class="keyword">assert</span> len(mylist) &gt;= <span class="number">1</span></span><br><span class="line">AssertionError</span><br></pre></td></tr></table></figure>
-
-          
+          <h3 id="杨辉三角形"><a href="#杨辉三角形" class="headerlink" title="杨辉三角形"></a>杨辉三角形</h3><h2 id="金字塔型和直角三角形"><a href="#金字塔型和直角三角形" class="headerlink" title="金字塔型和直角三角形"></a>金字塔型和直角三角形</h2><p><img src="https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D250/sign=30b20a2868d9f2d3241123ea99ed8a53/d52a2834349b033b10f3c9131fce36d3d439bdfb.jpg" alt="img"></p>
+<p><img src="https://gss3.bdstatic.com/7Po3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D220/sign=877e1b34ae4bd11300cdb0306aaea488/29381f30e924b899e6ea867f6d061d950b7bf6a7.jpg" alt="默认状态下不启用金字塔和菱形的输出"></p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/10/任意行数的杨辉三角形（动态分配）/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -824,7 +835,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/在函数中接受元组与字典/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/10/冒泡排序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -843,7 +854,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/24/在函数中接受元组与字典/" itemprop="url">在函数中接受元组与字典</a></h1>
+                <a class="post-title-link" href="/2018/04/10/冒泡排序/" itemprop="url">冒泡排序</a></h1>
         
 
         <div class="post-meta">
@@ -855,8 +866,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:36:49+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:17:46+08:00">
+                2018-04-10
               </time>
             
 
@@ -871,8 +882,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:13:24+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:53:11+08:00">
+                2018-08-25
               </time>
             
           </span>
@@ -890,8 +901,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
                   </a>
                 </span>
 
@@ -908,8 +919,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/在函数中接受元组与字典/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/在函数中接受元组与字典/" itemprop="commentCount"></span>
+                <a href="/2018/04/10/冒泡排序/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/10/冒泡排序/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -917,7 +928,7 @@
 
           
           
-             <span id="/2018/07/24/在函数中接受元组与字典/" class="leancloud_visitors" data-flag-title="在函数中接受元组与字典">
+             <span id="/2018/04/10/冒泡排序/" class="leancloud_visitors" data-flag-title="冒泡排序">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -942,7 +953,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  258
+                  506
                 </span>
               
 
@@ -958,7 +969,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -980,13 +991,238 @@
 
       
         
-          <h3 id="在函数中接受元组与字典"><a href="#在函数中接受元组与字典" class="headerlink" title="在函数中接受元组与字典"></a>在函数中接受元组与字典</h3><blockquote>
-<p>有一种特殊方法，即分别使用 <em> 或 *</em> 作为元组或字典的前缀，来使它们作为一个参数为<br>函数所接收。当函数需要一个可变数量的实参时，这将非常有用。</p>
-</blockquote>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当args变量前面添加了一个*时，函数的所有其他的参数都将传递到args中，并作为一个元组储存</span></span><br><span class="line"><span class="comment"># 如果采用的是 ** 前缀，则额外的参数将被视为字典的键值—值配对。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></span><br><span class="line">    <span class="string">'''Return the sum of each argument raised to the specified power.'''</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 在for循环中，i每次获取的是args的值，也就是说初值由args而定</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> args:</span><br><span class="line">        total += pow(i, power)</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里可以debug一下看下i的变化，在这里一开始的时候power=2，*args=（3，4）</span></span><br><span class="line"><span class="comment"># i在初始时为3</span></span><br><span class="line">print(powersum(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="comment"># 这里i初始时为10</span></span><br><span class="line">print(powersum(<span class="number">2</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+          <h3 id="冒泡排序概念"><a href="#冒泡排序概念" class="headerlink" title="冒泡排序概念"></a>冒泡排序概念</h3><p>冒泡排序（Bubble Sort），是一种<a href="https://baike.baidu.com/item/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6" target="_blank" rel="noopener">计算机科学</a>领域的较简单的<a href="https://baike.baidu.com/item/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">排序算法</a>。</p>
+<p>它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。</p>
+<p>这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。</p>
+<h3 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a>算法原理</h3><p>冒泡排序算法的运作如下：（从后往前）</p>
+<ol>
+<li><p>比较相邻的元素。如果第一个比第二个大，就交换他们两个。</p>
+</li>
+<li><p>对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。</p>
+</li>
+<li><p>针对所有的元素重复以上的步骤，除了最后一个。</p>
+</li>
+<li><p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>冒泡排序总的平均时间复杂度为</p>
+<p> <img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D40/sign=17b28fa860d0f703e2b294dc09fa9d5c/e4dde71190ef76c63a4e22949f16fdfaae5167f5.jpg" alt="img"> </p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/24/在函数中接受元组与字典/" rel="contents">
+            <a class="btn" href="/2018/04/10/冒泡排序/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/08/整合建立输出增删改查的链表/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/08/整合建立输出增删改查的链表/" itemprop="url">整合建立输出增删改查的链表</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T19:00:18+08:00">
+                2018-04-08
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T17:12:17+08:00">
+                2018-08-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/08/整合建立输出增删改查的链表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/08/整合建立输出增删改查的链表/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/04/08/整合建立输出增删改查的链表/" class="leancloud_visitors" data-flag-title="整合建立输出增删改查的链表">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,143
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>简单贴一下链表的建立等常用操作</p>
+<h3 id="链表定义"><a href="#链表定义" class="headerlink" title="链表定义"></a>链表定义</h3><p>链表是一种物理存储单元上非连续、非顺序的存储结构，数据元素的逻辑顺序是通过链表中的指针链接次序实现的。链表由一系列结点（链表中每一个元素称为结点）组成，结点可以在运行时动态生成。每个结点包括两个部分：一个是存储数据元素的数据域，另一个是存储下一个结点地址的指针域。 相比于线性表顺序结构，操作复杂。由于不必须按顺序存储，链表在插入的时候可以达到O(1)的复杂度，比另一种线性表顺序表快得多，但是查找一个节点或者访问特定编号的节点则需要O(n)的时间，而线性表和顺序表相应的时间复杂度分别是O(logn)和O(1)。</p>
+<h3 id="源代码"><a href="#源代码" class="headerlink" title="源代码"></a>源代码</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/08/整合建立输出增删改查的链表/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1030,7 +1266,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/38/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/38/">38</a><span class="page-number current">39</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/40/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1072,7 +1308,7 @@
                 alt="BenY" />
             
               <p class="site-author-name" itemprop="name">BenY</p>
-              <p class="site-description motion-element" itemprop="description">愿祖国更加伟大</p>
+              <p class="site-description motion-element" itemprop="description">愿祖国更加强大</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -1082,7 +1318,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-count">158</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

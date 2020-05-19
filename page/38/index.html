@@ -100,16 +100,16 @@
 
 
 
-<meta name="description" content="愿祖国更加伟大">
+<meta name="description" content="愿祖国更加强大">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ming.Y">
 <meta property="og:url" content="http://benym.cn/page/38/index.html">
 <meta property="og:site_name" content="Ming.Y">
-<meta property="og:description" content="愿祖国更加伟大">
+<meta property="og:description" content="愿祖国更加强大">
 <meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ming.Y">
-<meta name="twitter:description" content="愿祖国更加伟大">
+<meta name="twitter:description" content="愿祖国更加强大">
 
 
 
@@ -402,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中字符串的一些基本操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -421,7 +421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="url">list(列表)、tuple（元组）、dict（字典）的回顾</a></h1>
+                <a class="post-title-link" href="/2018/07/07/python中字符串的一些基本操作/" itemprop="url">python中字符串的一些基本操作</a></h1>
         
 
         <div class="post-meta">
@@ -433,8 +433,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-25T20:57:55+08:00">
-                2018-07-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:04:05+08:00">
+                2018-07-07
               </time>
             
 
@@ -449,7 +449,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:06:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:52+08:00">
                 2018-08-02
               </time>
             
@@ -486,8 +486,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/" itemprop="commentCount"></span>
+                <a href="/2018/07/07/python中字符串的一些基本操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中字符串的一些基本操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -495,7 +495,7 @@
 
           
           
-             <span id="/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/" class="leancloud_visitors" data-flag-title="list(列表)、tuple（元组）、dict（字典）的回顾">
+             <span id="/2018/07/07/python中字符串的一些基本操作/" class="leancloud_visitors" data-flag-title="python中字符串的一些基本操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -520,7 +520,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  518
+                  255
                 </span>
               
 
@@ -536,7 +536,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -558,10 +558,10 @@
 
       
         
-          <h3 id="list-列表-、tuple（元组）、dict（字典）的回顾"><a href="#list-列表-、tuple（元组）、dict（字典）的回顾" class="headerlink" title="list(列表)、tuple（元组）、dict（字典）的回顾"></a>list(列表)、tuple（元组）、dict（字典）的回顾</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">list1 = [<span class="number">5</span>, <span class="number">6</span>, <span class="number">87</span>, <span class="number">671</span>, <span class="number">3</span>, <span class="number">54</span>, <span class="number">67</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">-6</span>, <span class="number">-7</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 升序排序</span></span><br><span class="line"></span><br><span class="line">list1.sort()</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 降序排序</span></span><br><span class="line">list1.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line">print(list1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 列表和元组之间相互转换</span></span><br><span class="line">print(type(list1))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、列表转换成元组</span></span><br><span class="line">num_tuple = tuple(list1)</span><br><span class="line">print(type(num_tuple))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 、元组转换成列表</span></span><br><span class="line">num2_list = list(num_tuple)</span><br><span class="line">print(type(num2_list))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字典的使用</span></span><br><span class="line"><span class="comment"># 1、取值</span></span><br><span class="line">dict_test = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>&#125;</span><br><span class="line">print(dict_test[<span class="string">"name"</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、增加/修改</span></span><br><span class="line">dict_test[<span class="string">"age"</span>] = <span class="number">18</span>  <span class="comment"># 增加</span></span><br><span class="line">dict_test[<span class="string">"name"</span>] = <span class="string">"yyy"</span>  <span class="comment"># 修改</span></span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 3、删除</span></span><br><span class="line">dict_test.pop(<span class="string">"name"</span>)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 4、统计键值对的数量</span></span><br><span class="line">print(len(dict_test))</span><br><span class="line"><span class="comment"># 5、合并字典</span></span><br><span class="line"><span class="comment"># 如果被合并的字典中包含已经存在的键值对，会覆盖原有的键值对</span></span><br><span class="line">temp_dict = &#123;<span class="string">"height"</span>: <span class="number">123</span>,</span><br><span class="line">             <span class="string">"age"</span>: <span class="number">20</span>&#125;</span><br><span class="line">dict_test.update(temp_dict)</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 6、清空字典</span></span><br><span class="line">dict_test.clear()</span><br><span class="line">print(dict_test)</span><br><span class="line"><span class="comment"># 7、迭代遍历字典</span></span><br><span class="line"><span class="comment"># 变量k是每次循环中，获取到的键值对的值</span></span><br><span class="line">new_dict = &#123;<span class="string">"name"</span>: <span class="string">"xxx"</span>,</span><br><span class="line">            <span class="string">"age"</span>: <span class="number">20</span>,</span><br><span class="line">            <span class="string">"height"</span>: <span class="number">200</span>&#125;</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> new_dict:</span><br><span class="line">    print(<span class="string">"&#123;&#125; - &#123;&#125;"</span>.format(k, new_dict[k]))</span><br><span class="line"><span class="comment"># 8、列表中保存多个字典,并用for循环迭代输出</span></span><br><span class="line">list2 = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"qqq"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"163"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">119</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"sss"</span>,</span><br><span class="line">     <span class="string">"email"</span>: <span class="string">"cc"</span>,</span><br><span class="line">     <span class="string">"phone"</span>: <span class="number">110</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list2:</span><br><span class="line">    print(i)</span><br></pre></td></tr></table></figure>
+          <h3 id="python字符串的一些基本操作"><a href="#python字符串的一些基本操作" class="headerlink" title="python字符串的一些基本操作"></a>python字符串的一些基本操作</h3><p>在这里，我们会看见一此操作中包含了好多字符串方法。 startwith  方法用于查找字符串是<br>否以给定的字符串内容开头。 in  运算符用以检查给定的字符串是否是查询的字符串中的一<br>部分。<br>find  方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find<br>会返回 -1。 str  类同样还拥有一个简洁的方法用以  联结（Join）  序列中的项目，其中字符串<br>将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/25/list(列表)、tuple（元组）、dict（字典）的回顾/" rel="contents">
+            <a class="btn" href="/2018/07/07/python中字符串的一些基本操作/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -614,7 +614,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/打印九九乘法表/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中的引用和切片/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -633,7 +633,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/24/打印九九乘法表/" itemprop="url">打印九九乘法表</a></h1>
+                <a class="post-title-link" href="/2018/07/07/python中的引用和切片/" itemprop="url">python中的引用和切片</a></h1>
         
 
         <div class="post-meta">
@@ -645,8 +645,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T20:30:50+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T16:04:03+08:00">
+                2018-07-07
               </time>
             
 
@@ -661,7 +661,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:10:14+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:54+08:00">
                 2018-08-02
               </time>
             
@@ -698,8 +698,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/打印九九乘法表/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/打印九九乘法表/" itemprop="commentCount"></span>
+                <a href="/2018/07/07/python中的引用和切片/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中的引用和切片/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -707,7 +707,7 @@
 
           
           
-             <span id="/2018/07/24/打印九九乘法表/" class="leancloud_visitors" data-flag-title="打印九九乘法表">
+             <span id="/2018/07/07/python中的引用和切片/" class="leancloud_visitors" data-flag-title="python中的引用和切片">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -732,7 +732,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  461
+                  378
                 </span>
               
 
@@ -748,7 +748,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -770,11 +770,10 @@
 
       
         
-          <h3 id="打印九九乘法表"><a href="#打印九九乘法表" class="headerlink" title="打印九九乘法表"></a>打印九九乘法表</h3><p>主要是练习python下的不同输出方式</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用for循环打印九九乘法表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">10</span>):</span><br><span class="line">        <span class="comment"># 这里例举四种不同方式的打印方法</span></span><br><span class="line">        <span class="comment"># 1、</span></span><br><span class="line">        <span class="comment"># print("&#123;0&#125;*&#123;1&#125;=&#123;2&#125;".format(i, j, i * j), end='\t')</span></span><br><span class="line">        <span class="comment"># 2 、</span></span><br><span class="line">        <span class="comment"># print("%d*%d=%2d" % (i, j, i * j), end='\t')</span></span><br><span class="line">        <span class="comment"># 3、</span></span><br><span class="line">        <span class="comment"># print(i, "x", j, "=", i * j, "\t", end="")</span></span><br><span class="line">        <span class="comment"># 4、</span></span><br><span class="line">        print(<span class="string">"&#123;&#125;*&#123;&#125;=&#123;&#125;"</span>.format(i, j, i * j), end=<span class="string">'\t'</span>)</span><br><span class="line">        <span class="keyword">if</span> i == j:</span><br><span class="line">            print(<span class="string">""</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用while循环打印九九乘法表</span></span><br><span class="line">row = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> row &lt;= <span class="number">9</span>:</span><br><span class="line">    col = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> col &lt;= row:</span><br><span class="line">        print(<span class="string">"%d*%d=%2d"</span> % (row, col, row * col), end=<span class="string">'\t'</span>)</span><br><span class="line">        col += <span class="number">1</span></span><br><span class="line">    print(<span class="string">""</span>)</span><br><span class="line">    row += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+          <h3 id="引用和切片造成的不同影响"><a href="#引用和切片造成的不同影响" class="headerlink" title="引用和切片造成的不同影响"></a>引用和切片造成的不同影响</h3><p>当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也<br>不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部<br>分。这叫作将名称绑定（Binding）给那一个对象。<br>一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是<br>需要你注意的：</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/24/打印九九乘法表/" rel="contents">
+            <a class="btn" href="/2018/07/07/python中的引用和切片/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -827,7 +826,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/打印直角三角形/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/06/27/python中的Docstring/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -846,7 +845,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/24/打印直角三角形/" itemprop="url">打印直角三角形</a></h1>
+                <a class="post-title-link" href="/2018/06/27/python中的Docstring/" itemprop="url">python中的Docstring</a></h1>
         
 
         <div class="post-meta">
@@ -858,8 +857,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T19:54:48+08:00">
-                2018-07-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T17:14:51+08:00">
+                2018-06-27
               </time>
             
 
@@ -874,7 +873,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:10:27+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:06+08:00">
                 2018-08-02
               </time>
             
@@ -911,8 +910,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/24/打印直角三角形/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/打印直角三角形/" itemprop="commentCount"></span>
+                <a href="/2018/06/27/python中的Docstring/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/27/python中的Docstring/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -920,7 +919,7 @@
 
           
           
-             <span id="/2018/07/24/打印直角三角形/" class="leancloud_visitors" data-flag-title="打印直角三角形">
+             <span id="/2018/06/27/python中的Docstring/" class="leancloud_visitors" data-flag-title="python中的Docstring">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -945,7 +944,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  86
+                  204
                 </span>
               
 
@@ -984,12 +983,234 @@
       
         
           
-            <h3 id="打印直角三角形"><a href="#打印直角三角形" class="headerlink" title="打印直角三角形"></a>打印直角三角形</h3><p>做个对比</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 嵌套循环版本打印直角三角形</span></span><br><span class="line">row = <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> row &lt;= <span class="number">5</span>:</span><br><span class="line">    col = <span class="number">1</span></span><br><span class="line">    <span class="keyword">while</span> col &lt;= row:</span><br><span class="line">        print(<span class="string">"*"</span>, end=<span class="string">' '</span>)</span><br><span class="line">        col += <span class="number">1</span></span><br><span class="line">    print()</span><br><span class="line">    row += <span class="number">1</span></span><br><span class="line"><span class="comment"># python版本打印直角三角形</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">    print(<span class="string">'* '</span> * i)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>两者均为</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">* </span><br><span class="line">* * </span><br><span class="line">* * * </span><br><span class="line">* * * * </span><br><span class="line">* * * * *</span><br></pre></td></tr></table></figure>
+            <h3 id="基本教程"><a href="#基本教程" class="headerlink" title="基本教程"></a>基本教程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">文档字符串的应用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。</span></span><br><span class="line"><span class="string">第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非</span></span><br><span class="line"><span class="string">凡功能的文档字符串中都遵循这一约定。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def print_max(x, y):</span><br><span class="line">    <span class="string">''</span><span class="string">'Prints the maximum of two numbers.打印两个数值中的最大数。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The two values must be integers.这两个数都应该是整数</span></span><br><span class="line"><span class="string">    '</span><span class="string">''</span></span><br><span class="line">    <span class="comment"># 如果可能，将其转换至整数类型</span></span><br><span class="line">    x = int(x)</span><br><span class="line">    y = int(y)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> x &gt; y:</span><br><span class="line">        <span class="built_in">print</span>(x, <span class="string">'is maximum'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(y, <span class="string">'is maximum'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print_max(3, 5)</span><br><span class="line"><span class="built_in">print</span>(print_max.__doc__)</span><br></pre></td></tr></table></figure>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/10/最大公约数和最小公倍数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/10/最大公约数和最小公倍数/" itemprop="url">最大公约数和最小公倍数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:43:28+08:00">
+                2018-04-10
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:53:02+08:00">
+                2018-08-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C语言/" itemprop="url" rel="index">
+                    <span itemprop="name">C语言</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/10/最大公约数和最小公倍数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/10/最大公约数和最小公倍数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/04/10/最大公约数和最小公倍数/" class="leancloud_visitors" data-flag-title="最大公约数和最小公倍数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  392
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="使用的辗转相除法"><a href="#使用的辗转相除法" class="headerlink" title="使用的辗转相除法"></a>使用的辗转相除法</h3><p><a href="https://baike.baidu.com/item/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95" target="_blank" rel="noopener">辗转相除法</a>：辗转相除法是求两个自然数的最大公约数的一种方法，也叫<a href="https://baike.baidu.com/item/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">欧几里德算法</a>。</p>
+<p>例如，求（319，377）：</p>
+<p>∵ 319÷377=0（余319）</p>
+<p>∴（319，377）=（377，319）；</p>
+<p>∵ 377÷319=1（余58）</p>
+<p>∴（377，319）=（319，58）；</p>
+<p>∵ 319÷58=5（余29）</p>
+<p>∴ （319，58）=（58，29）；</p>
+<p>∵ 58÷29=2（余0）</p>
+<p>∴ （58，29）= 29；</p>
+<p>∴ （319，377）=29。</p>
+<p>可以写成右边的格式。</p>
+<p>用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/10/最大公约数和最小公倍数/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1029,7 +1250,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/51/">51</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1071,7 +1292,7 @@
                 alt="BenY" />
             
               <p class="site-author-name" itemprop="name">BenY</p>
-              <p class="site-description motion-element" itemprop="description">愿祖国更加伟大</p>
+              <p class="site-description motion-element" itemprop="description">愿祖国更加强大</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -1081,7 +1302,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">152</span>
+                  <span class="site-state-item-count">158</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
