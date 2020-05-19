@@ -45,7 +45,7 @@ keywords: 数组,Java,Python,Medium,剑指Offer
 
 方法2、字典：
 
-字典方法没啥好说的，遇到没在字典的加入，在字典就+1，最后取value为1的key就是了
+遇到没在字典的加入，在字典就+1，最后取value为1的key即可
 
 方法3、数组：
 

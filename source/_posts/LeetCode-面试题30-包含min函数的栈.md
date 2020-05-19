@@ -8,7 +8,7 @@ tags:
 - Java
 - Easy
 - 剑指Offer
-keywords: 矩阵,Java,Easy,剑指Offer
+keywords: 栈,Java,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题30-包含min函数的栈

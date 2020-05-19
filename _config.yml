@@ -5,7 +5,7 @@
 # Site
 title: Ming.Y
 subtitle: Chances are for people who are prepared
-description: 愿祖国更加伟大
+description: 愿祖国更加强大
 keywords:
 author: BenY
 language: zh-Hans
@@ -50,7 +50,7 @@ highlight:
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
   path: ''
-  per_page: 3
+  per_page: 4
   order_by: -date
 
 # Category & Tag
@@ -85,7 +85,7 @@ time_format: HH:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 3
+per_page: 4
 pagination_dir: page
 
 # Extensions
@@ -118,7 +118,7 @@ baidusitemap:
   
 baidu_url_submit:
   ## 提交最新的10个链接
-  count: 6
+  count: 10
   ## 在百度站长平台中注册的域名
   host: benym.cn
   ## 请注意这是您的秘钥， 所以请不要把博客源代码发布在公众仓库里!
