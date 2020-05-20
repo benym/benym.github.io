@@ -1,6 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-面试题65-不用加减乘除做加法]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9865-%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题65-不用加减乘除做加法写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。 示例1： 12输入: a = 1, b = 1输出: 2 限制： a, b 均可能是负数或 0 结果不会溢出 32 位整数 解题思路不能使用加减乘除，就只能用位运算了 按照3步走： 不算进位相加 计算进位 两数相加 其中最后一步可以整合到第一步，不算进位相加符合异或逻辑，进位需要两个位置都为1，其余为0，符合与运算。之后左移一位就是进位位置。当进位不为0时，一直计算直到进位为0得到最后数值 Java代码12345678910111213class Solution &#123; public int add(int a, int b) &#123; int sum = 0; int carry = 0; do&#123; sum = a^b; // 两数相加,且不考虑进位 carry = (a&amp;b)&lt;&lt;1; //得到进位 a = sum; b = carry; &#125;while(b!=0); return a; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>剑指Offer</tag>
+        <tag>位运算</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题64-求1+2+...+n]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9864-%E6%B1%821%2B2%2B...%2Bn%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题64-求1+2+…+n求 1+2+...+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。 示例1： 12输入: n = 3输出: 6 示例2: 12输入: n = 9输出: 45 限制： 1 &lt;= n &lt;= 10000 解题思路很多运算不能够使用，这道题主要是考察的，能不能多角度的解决问题 不难想到for循环的方式可以有递归的实现，从n走到1就可以了 然而Python不受本题限制….一行搞定 Java代码123456class Solution &#123; public int sumNums(int n) &#123; if(n==1) return 1; return n+sumNums(n-1); &#125;&#125; Python代码123class Solution: def sumNums(self, n: int) -&gt; int: return sum(range(1,n+1));]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>Python</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题63-股票的最大利润]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9863-%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题63-股票的最大利润假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？ 示例1： 1234输入: [7,1,5,3,6,4]输出: 5解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。 注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。 示例2: 123输入: [7,6,4,3,1]输出: 0解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。 限制： 0 &lt;= 数组长度 &lt;= 10^5 解题思路始终记录当前位置前的最小数字，遇到更小的就更新min，之后看当前的最大利润和存储的最大利润谁更大 Java代码12345678910111213141516class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices==null||prices.length&lt;2) return 0; int min = prices[0]; int maxPrice = 0; for(int i=1;i&lt;prices.length;i++)&#123; if(prices[i]&lt;min)&#123; min = prices[i]; &#125;else&#123; maxPrice = Math.max(maxPrice,prices[i]-min); &#125; &#125; return maxPrice; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题62-圆圈中最后剩下的数字]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9862-%E5%9C%86%E5%9C%88%E4%B8%AD%E6%9C%80%E5%90%8E%E5%89%A9%E4%B8%8B%E7%9A%84%E6%95%B0%E5%AD%97%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题62-圆圈中最后剩下的数字0,1,,n-1这n个数字排成一个圆圈，从数字0开始，每次从这个圆圈里删除第m个数字。求出这个圆圈里剩下的最后一个数字。 例如，0、1、2、3、4这5个数字组成一个圆圈，从数字0开始每次删除第3个数字，则删除的前4个数字依次是2、0、4、1，因此最后剩下的数字是3。 示例1： 12输入: n = 5, m = 3输出: 3 示例2: 12输入: n = 10, m = 17输出: 2 限制： 1 &lt;= n &lt;= 10^5 1 &lt;= m &lt;= 10^6 解题思路著名的约瑟夫环问题 第一轮[0,1,2,3,4]，删去2 第二轮[3,4,0,1]，删去0 第三轮[1,3,4]，删去4 第四轮[1,3]，删去1 最后一轮得到3，实际上每次删去的都是加粗部分位置，第四轮由于只有2个数，补全成环之后，实际上也是加粗部分位置，如[1,3,1,3] 原始数组是有序递增的，所以下标就是数组值 最后一轮3的下标是0，如果我们能够从最后的数字下标反推回到原始数组，就能找到最终答案 反推的方程，(curIndex+m)%上一轮剩余数字的个数 Java代码12345678910class Solution &#123; public int lastRemaining(int n, int m) &#123; if(n&lt;1||m&lt;1) return -1; int curindex = 0; for(int i=2;i&lt;=n;i++)&#123; curindex = (curindex+m)%i; &#125; return curindex; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题61-扑克牌中的顺子]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9861-%E6%89%91%E5%85%8B%E7%89%8C%E4%B8%AD%E7%9A%84%E9%A1%BA%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题61-扑克牌中的顺子从扑克牌中随机抽5张牌，判断是不是一个顺子，即这5张牌是不是连续的。2～10为数字本身，A为1，J为11，Q为12，K为13，而大、小王为 0 ，可以看成任意数字。A 不能视为 14。 示例1： 12输入: [1,2,3,4,5]输出: True 示例2: 12输入: [0,0,1,2,5]输出: True 限制： 数组长度为 5 数组的数取值为 [0, 13] 解题思路先给数组排序，统计0的个数，如果数组欠缺的几个数字个数正好等于0的个数，则数组可以变成连续的 如果从越过0开始的地方，出现两个数值相等，则说明数组不可能连续 Java代码1234567891011121314151617181920212223class Solution &#123; public boolean isStraight(int[] nums) &#123; if(nums==null||nums.length&lt;=0) return false; Arrays.sort(nums); int zeroCount = 0; int gapCount = 0; for(int i=0;i&lt;nums.length;i++)&#123; if(nums[i]==0) zeroCount++; &#125; int start = zeroCount; int end = start+1; while(end&lt;nums.length)&#123; if(nums[start]==nums[end]) return false; gapCount+=nums[end]-nums[start]-1; start=end; end++; &#125; return (gapCount&gt;zeroCount)?false:true; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题60-n个骰子的点数]]></title>
+    <url>%2F2020%2F05%2F20%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9860-n%E4%B8%AA%E9%AA%B0%E5%AD%90%E7%9A%84%E7%82%B9%E6%95%B0%20-%20%E5%89%AF%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题60-n个骰子的点数把n个骰子扔在地上，所有骰子朝上一面的点数之和为s。输入n，打印出s的所有可能的值出现的概率。 你需要用一个浮点数数组返回答案，其中第 i 个元素代表这 n 个骰子所能掷出的点数集合中第 i 小的那个的概率。 示例1： 12输入: 1输出: [0.16667,0.16667,0.16667,0.16667,0.16667,0.16667] 示例2: 12输入: 2输出: [0.02778,0.05556,0.08333,0.11111,0.13889,0.16667,0.13889,0.11111,0.08333,0.05556,0.02778] 限制： 1 &lt;= n &lt;= 11 解题思路动态规划： 问题分析 单个骰子可能的数字和是1,2,3,4,5,6 假设有n个骰子，第n个骰子数字和值域为[n,6n] n个骰子的所有排列组合次数为6^n 输出的概率就是各个数字和次数/6^n 使用一个二维数组来记录，第i个骰子的，数字和j出现的次数 第1维表示第几个骰子，第2维表示各个点数出现的次数 第1个骰子，其可能的数字和为1,2,3,4,5,6；数组中第2维存储出现的次数即1,1,1,1,1,1 第2个骰子，其可能的数字和为2-12，而2-12的数值由2组1-6分别累加而成，对于数字和7其出现的次数是6种，数字和8出现5种……数字和12出现1种 第2个骰子的数字和可以由第1个骰子数字和组合得到，相应的j次数，就是组合位置次数相加 可以得出投掷第i个骰子后，数字和j出现的次数，可以通过第n-1个骰子，对应点数j-1,j-2,j-3,…,j-6出现的次数之和转化得到，即第2个骰子的7,8,9,10,11,12可以由第1个骰子的1,2,3,4,5,6出现的次数转化得到 由于求解第2个骰子数字和次数基于第1个骰子和次数，所以可以使用动态规划，每多一个骰子就会多出6个数字和 状态转移方程 123for(int i=1;i&lt;=6;i++)&#123; dp[i][j]+=dp[i-1][j-i]&#125; Java代码123456789101112131415161718192021222324252627282930class Solution &#123; public double[] twoSum(int n) &#123; if(n&lt;1) return new double[]&#123;0.0&#125;; // 第一维表示n个骰子，第二维表示可能的数字和出现的次数 int[][] dp = new int[n+1][6*n+1]; // 初始化第1个骰子，1-6 for(int i=1;i&lt;=6;i++) dp[1][i] = 1; for(int i=2;i&lt;=n;i++)&#123; // 第n个骰子 for(int j=i;j&lt;=6*i;j++)&#123; // 骰子和[n,6n] for(int k=1;k&lt;=6;k++)&#123; // 单个骰子可能的点数 if(j-k&lt;0) break; // 越界跳出 // 第n个骰子的和为j的值出现的次数，可以由n-1个骰子的j-1,j-2,j-3....j-6和当前数值相加得到 // 比如第1个骰子可能的和是1,2,3,4,5,6 // 第2个骰子依然是1,2,3,4,5,6，可能的数字和从2-12 // 出现7的次数是6种,出现8的次数是5种,出现9的次数是4种,出现10的次数是3种 // 出现11的次数是2种,出现12的次数是1种 // 每一个位置j都可以由当前位置前6个出现的次数相加得到 dp[i][j]+=dp[i-1][j-k]; &#125; &#125; &#125; double[] res = new double[6*n-n+1]; double total = Math.pow(6,n); for(int i=n;i&lt;=6*n;i++)&#123; res[i-n] = dp[n][i]/total; &#125; return res; &#125;&#125;]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>剑指Offer</tag>
+        <tag>DP</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-面试题59-2-队列的最大值]]></title>
     <url>%2F2020%2F05%2F19%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9859-2-%E9%98%9F%E5%88%97%E7%9A%84%E6%9C%80%E5%A4%A7%E5%80%BC%2F</url>
     <content type="text"><![CDATA[LeetCode-面试题59-2-队列的最大值请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的均摊时间复杂度都是O(1)。 若队列为空，pop_front 和 max_value 需要返回 -1 示例1： 1234输入: [&quot;MaxQueue&quot;,&quot;push_back&quot;,&quot;push_back&quot;,&quot;max_value&quot;,&quot;pop_front&quot;,&quot;max_value&quot;][[],[1],[2],[],[],[]]输出: [null,null,null,2,1,2] 示例2: 1234输入: [&quot;MaxQueue&quot;,&quot;pop_front&quot;,&quot;max_value&quot;][[],[],[]]输出: [null,-1,-1] 限制： 1 &lt;= push_back,pop_front,max_value的总操作数 &lt;= 10000 1 &lt;= value &lt;= 10^5 解题思路双队列： 利用一个队列Queue存储原本的数据，一个双端队列Deque存储最大值 两个队列联合实现一个MaxQueue 当新的值大于deque的尾部的值时，小的值都应该从deque尾部删去，添加大的值到尾部；同时queue实现常规的数值添加。这样保证了deque首位始终存储的是当前队列最大值 当需要取得队列中的最大值时，如果deque为空，根据题意返回-1，如果不为空则取得最大值(不从双端队列中删除) 当需要弹出队列首位时，需要判断原本的队列是否为空，为空则返回-1，不为空则需要判断出队的元素是否是当前最大值，如果是最大值，则原本的队列最大值出队了，deque中的最大值自然也不存在了，需要弹出首位。此时返回原本队列的首位即可 Java代码12345678910111213141516171819202122232425262728293031323334353637383940class MaxQueue &#123; Deque&lt;Integer&gt; deque; Queue&lt;Integer&gt; queue; public MaxQueue() &#123; deque = new LinkedList&lt;&gt;(); queue = new LinkedList&lt;&gt;(); &#125; public int max_value() &#123; if(deque.isEmpty()) return -1; return deque.getFirst(); &#125; public void push_back(int value) &#123; // 保证deque里面放的是最大值 while(!deque.isEmpty() &amp;&amp; deque.getLast()&lt;value) deque.removeLast(); deque.addLast(value); queue.offer(value); &#125; public int pop_front() &#123; if(queue.isEmpty()) return -1; // 如果出队的元素是当前最大值，则deque也要出队 int temp = queue.poll(); if(deque.getFirst()==temp) deque.removeFirst(); return temp; &#125;&#125;/** * Your MaxQueue object will be instantiated and called as such: * MaxQueue obj = new MaxQueue(); * int param_1 = obj.max_value(); * obj.push_back(value); * int param_3 = obj.pop_front(); */]]></content>
@@ -260,8 +345,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>数组</tag>
         <tag>剑指Offer</tag>
         <tag>分治</tag>
@@ -398,9 +483,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Hard</tag>
         <tag>大数问题</tag>
         <tag>Python</tag>
-        <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -505,8 +590,8 @@
       <tags>
         <tag>树</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -791,9 +876,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Hard</tag>
         <tag>字符串</tag>
         <tag>Python</tag>
-        <tag>Hard</tag>
         <tag>剑指Offer</tag>
         <tag>DP</tag>
       </tags>
@@ -901,9 +986,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -917,9 +1002,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1218,8 +1303,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>matlab</tag>
+        <tag>机器学习</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -1352,9 +1437,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1364,9 +1449,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1396,8 +1481,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -1436,9 +1521,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>

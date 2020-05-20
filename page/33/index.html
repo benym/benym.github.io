@@ -402,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/用户自己引发的异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/在函数中接受元组与字典/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -421,7 +421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/用户自己引发的异常处理/" itemprop="url">用户自己引发的异常处理</a></h1>
+                <a class="post-title-link" href="/2018/07/24/在函数中接受元组与字典/" itemprop="url">在函数中接受元组与字典</a></h1>
         
 
         <div class="post-meta">
@@ -433,8 +433,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:58:26+08:00">
-                2018-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:36:49+08:00">
+                2018-07-24
               </time>
             
 
@@ -449,8 +449,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
-                2020-05-18
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:13:24+08:00">
+                2018-08-02
               </time>
             
           </span>
@@ -486,8 +486,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/用户自己引发的异常处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/用户自己引发的异常处理/" itemprop="commentCount"></span>
+                <a href="/2018/07/24/在函数中接受元组与字典/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/在函数中接受元组与字典/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -495,7 +495,7 @@
 
           
           
-             <span id="/2018/07/23/用户自己引发的异常处理/" class="leancloud_visitors" data-flag-title="用户自己引发的异常处理">
+             <span id="/2018/07/24/在函数中接受元组与字典/" class="leancloud_visitors" data-flag-title="在函数中接受元组与字典">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -520,7 +520,222 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  198
+                  258
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="在函数中接受元组与字典"><a href="#在函数中接受元组与字典" class="headerlink" title="在函数中接受元组与字典"></a>在函数中接受元组与字典</h3><blockquote>
+<p>有一种特殊方法，即分别使用 <em> 或 *</em> 作为元组或字典的前缀，来使它们作为一个参数为<br>函数所接收。当函数需要一个可变数量的实参时，这将非常有用。</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当args变量前面添加了一个*时，函数的所有其他的参数都将传递到args中，并作为一个元组储存</span></span><br><span class="line"><span class="comment"># 如果采用的是 ** 前缀，则额外的参数将被视为字典的键值—值配对。</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">powersum</span><span class="params">(power, *args)</span>:</span></span><br><span class="line">    <span class="string">'''Return the sum of each argument raised to the specified power.'''</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="comment"># 在for循环中，i每次获取的是args的值，也就是说初值由args而定</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> args:</span><br><span class="line">        total += pow(i, power)</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这里可以debug一下看下i的变化，在这里一开始的时候power=2，*args=（3，4）</span></span><br><span class="line"><span class="comment"># i在初始时为3</span></span><br><span class="line">print(powersum(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>))</span><br><span class="line"><span class="comment"># 这里i初始时为10</span></span><br><span class="line">print(powersum(<span class="number">2</span>, <span class="number">10</span>))</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/24/在函数中接受元组与字典/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/列表推导/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/24/列表推导/" itemprop="url">列表推导</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:33:13+08:00">
+                2018-07-24
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:11:47+08:00">
+                2018-08-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/24/列表推导/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/列表推导/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/24/列表推导/" class="leancloud_visitors" data-flag-title="列表推导">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  232
                 </span>
               
 
@@ -559,15 +774,11 @@
       
         
           
-            <h3 id="由用户自行定义的异常类处理"><a href="#由用户自行定义的异常类处理" class="headerlink" title="由用户自行定义的异常类处理"></a>由用户自行定义的异常类处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># encoding = UTF-8</span></span><br><span class="line"><span class="comment"># 用户自己引发异常</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShortInputException</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="string">'''一个由用户定义的异常类'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, length, atleast)</span>:</span></span><br><span class="line">        Exception.__init__(self)</span><br><span class="line">        self.length = length</span><br><span class="line">        self.atleast = atleast</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    text = input(<span class="string">'Enter someting --&gt;'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(text) &lt; <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">raise</span> ShortInputException(len(text), <span class="number">3</span>)</span><br><span class="line">    <span class="comment"># 其他工作能够在此处正常运行</span></span><br><span class="line"><span class="keyword">except</span> EOFError:</span><br><span class="line">    print(<span class="string">'Why did you do an EOF on me?'</span>)</span><br><span class="line"><span class="keyword">except</span> ShortInputException <span class="keyword">as</span> ex:</span><br><span class="line">    print((<span class="string">'ShortInputException: The input was '</span> +</span><br><span class="line">           <span class="string">'&#123;0&#125; long,expected at least &#123;1&#125;'</span>)</span><br><span class="line">          .format(ex.length, ex.atleast))</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'No exception was raised.'</span>)</span><br></pre></td></tr></table></figure>
+            <h3 id="列表推导"><a href="#列表推导" class="headerlink" title="列表推导"></a>列表推导</h3><p>列表推导（List Comprehension）用于从一份现有的列表中得到一份新列表。想象一下，现在<br>你已经有了一份数字列表，你想得到一个相应的列表，其中的数字在大于 2 的情况下将乘以<br>2。列表推导就是这类情况的理想选择。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表推导</span></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">程序理解：</span></span><br><span class="line"><span class="string">当满足了某些条件时（ if i &gt; 2 ），我们进行指定的操作（ 2*i ），以此来获</span></span><br><span class="line"><span class="string">得一份新的列表。要注意到原始列表依旧保持不变。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line">listone = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">listtwo = [<span class="number">2</span> * i <span class="keyword">for</span> i <span class="keyword">in</span> listone <span class="keyword">if</span> i &gt; <span class="number">2</span>]</span><br><span class="line">print(listtwo)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">列表推导的优点在于，当我们使用循环来处理列表中的每个元素并将其存储到新的列表中时</span></span><br><span class="line"><span class="string">它能够减少代码量</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><blockquote>
-<p>1.如果输入超过了3位数，截获错误</p>
+<p>[6, 8]</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter someting --&gt;88888</span><br><span class="line">No exception was raised.</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>2.如果输入没有超过3位数</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter someting --&gt;12</span><br><span class="line">ShortInputException: The input was 2 long,expected at least 3</span><br></pre></td></tr></table></figure>
 
           
         
@@ -618,7 +829,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/with-open异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/python中的lambda函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -637,7 +848,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/with-open异常处理/" itemprop="url">with open异常处理</a></h1>
+                <a class="post-title-link" href="/2018/07/24/python中的lambda函数/" itemprop="url">python中的lambda函数</a></h1>
         
 
         <div class="post-meta">
@@ -649,8 +860,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:55:48+08:00">
-                2018-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T18:27:03+08:00">
+                2018-07-24
               </time>
             
 
@@ -702,8 +913,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/with-open异常处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/with-open异常处理/" itemprop="commentCount"></span>
+                <a href="/2018/07/24/python中的lambda函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/python中的lambda函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -711,7 +922,7 @@
 
           
           
-             <span id="/2018/07/23/with-open异常处理/" class="leancloud_visitors" data-flag-title="with open异常处理">
+             <span id="/2018/07/24/python中的lambda函数/" class="leancloud_visitors" data-flag-title="python中的lambda函数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -736,7 +947,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  71
+                  322
                 </span>
               
 
@@ -774,14 +985,15 @@
 
       
         
-          
-            <h3 id="with-open异常处理"><a href="#with-open异常处理" class="headerlink" title="with open异常处理"></a>with open异常处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> open(<span class="string">"poem.txt"</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> f:</span><br><span class="line">        print(line, end=<span class="string">''</span>)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">    with open能够将之前的try..finally最后执行的关闭文件的操作，交给with open自动完成</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><blockquote>
-<p>poem.txt里面的内容为：12165456478</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;12165456478</span><br></pre></td></tr></table></figure>
-
-          
+          <h3 id="python中的lambda函数"><a href="#python中的lambda函数" class="headerlink" title="python中的lambda函数"></a>python中的lambda函数</h3><p>lambda函数相当于定义了一个匿名的函数，减少了代码量</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Lambda表格  也是lambda函数</span></span><br><span class="line">points = [&#123;<span class="string">'x'</span>: <span class="number">2</span>, <span class="string">'y'</span>: <span class="number">3</span>&#125;,</span><br><span class="line">          &#123;<span class="string">'x'</span>: <span class="number">4</span>, <span class="string">'y'</span>: <span class="number">1</span>&#125;]</span><br><span class="line">points.sort(key=<span class="keyword">lambda</span> i: i[<span class="string">'y'</span>])</span><br><span class="line">print(points)</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">要注意到一个 list 的 sort 方法可以获得一个 key 参数，</span></span><br><span class="line"><span class="string">用以决定列表的排序方式（通常我们只知道升序与降序）。</span></span><br><span class="line"><span class="string">在我们的案例中，我们希望进行一次自定义排序，为此我们需要编写一个函数，</span></span><br><span class="line"><span class="string">但是又不是为函数编写一个独立的 def 块，只在这一个地方使用，因此我</span></span><br><span class="line"><span class="string">们使用 Lambda 表达式来创建一个新函数。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># lambda函数的其他使用方法</span></span><br><span class="line">add = <span class="keyword">lambda</span> x, y: x + y</span><br><span class="line">print(add(<span class="number">1</span>, <span class="number">2</span>))  <span class="comment"># 结果为3</span></span><br><span class="line"><span class="comment"># 需求：将列表中的元素按照绝对值大小进行升序排列</span></span><br><span class="line">list1 = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">-4</span>, <span class="number">-1</span>, <span class="number">0</span>, <span class="number">-2</span>, <span class="number">-6</span>]</span><br><span class="line">print(sorted(list1, key=<span class="keyword">lambda</span> x: abs(x)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">等价于</span></span><br><span class="line"><span class="string">def get_abs(x):</span></span><br><span class="line"><span class="string">    return abs(x)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">list1.sort(key=get_abs)</span></span><br><span class="line"><span class="string">print(list1)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">或者</span></span><br><span class="line"><span class="string">def get_abs(x):</span></span><br><span class="line"><span class="string">    return abs(x)</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">print(sorted(list1, key=get_abs))</span></span><br><span class="line"><span class="string">'''</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/24/python中的lambda函数/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -830,7 +1042,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/简单的异常处理/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/24/python的__name__-=-__main__的作用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -849,7 +1061,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/简单的异常处理/" itemprop="url">简单的异常处理</a></h1>
+                <a class="post-title-link" href="/2018/07/24/python的__name__-=-__main__的作用/" itemprop="url">python的__name__ = '__main__' 的作用</a></h1>
         
 
         <div class="post-meta">
@@ -861,8 +1073,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:51:46+08:00">
-                2018-07-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T11:05:44+08:00">
+                2018-07-24
               </time>
             
 
@@ -914,8 +1126,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/简单的异常处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/简单的异常处理/" itemprop="commentCount"></span>
+                <a href="/2018/07/24/python的__name__-=-__main__的作用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/24/python的__name__-=-__main__的作用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -923,7 +1135,7 @@
 
           
           
-             <span id="/2018/07/23/简单的异常处理/" class="leancloud_visitors" data-flag-title="简单的异常处理">
+             <span id="/2018/07/24/python的__name__-=-__main__的作用/" class="leancloud_visitors" data-flag-title="python的__name__ = '__main__' 的作用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -948,7 +1160,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  69
+                  427
                 </span>
               
 
@@ -964,7 +1176,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
@@ -986,220 +1198,24 @@
 
       
         
-          
-            <h3 id="简单的异常处理"><a href="#简单的异常处理" class="headerlink" title="简单的异常处理"></a>简单的异常处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    text = input(<span class="string">'Enter someting --&gt;'</span>)</span><br><span class="line"><span class="keyword">except</span> EOFError:   <span class="comment"># 按ctrl+D</span></span><br><span class="line">    print(<span class="string">'Why did you do an EOF on me?'</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt: <span class="comment"># 按ctrl+C</span></span><br><span class="line">    print(<span class="string">'You cancelled the operation.'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'You enterd &#123;&#125;'</span>.format(text))</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter someting --&gt;^D</span><br><span class="line">Why did you do an EOF on me?</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/finally异常处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BenY">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/23/finally异常处理/" itemprop="url">finally异常处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:51:46+08:00">
-                2018-07-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
-                2020-05-18
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/23/finally异常处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/finally异常处理/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/23/finally异常处理/" class="leancloud_visitors" data-flag-title="finally异常处理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  157
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="finally异常处理"><a href="#finally异常处理" class="headerlink" title="finally异常处理"></a>finally异常处理</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">f = <span class="keyword">None</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    f = open(<span class="string">"poem.txt"</span>)</span><br><span class="line">    <span class="comment"># 我们常用的文件阅读风格</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        line = f.readline()</span><br><span class="line">        <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        print(line, end=<span class="string">''</span>)</span><br><span class="line">        sys.stdout.flush()</span><br><span class="line">        print(<span class="string">"Press ctrl+c now"</span>)</span><br><span class="line">        <span class="comment"># 为了确保它能运行一段时间</span></span><br><span class="line">        time.sleep(<span class="number">2</span>)  <span class="comment"># time.sleep 函数任意在每打印一行后插入两秒休眠</span></span><br><span class="line"><span class="keyword">except</span> IOError:</span><br><span class="line">    print(<span class="string">"Could not find file poem.txt"</span>)</span><br><span class="line"><span class="keyword">except</span> KeyboardInterrupt:</span><br><span class="line">    print(<span class="string">"!! You cancelled the reading from the file."</span>)</span><br><span class="line"><span class="keyword">finally</span>:  <span class="comment"># 始终执行</span></span><br><span class="line">    <span class="keyword">if</span> f:</span><br><span class="line">        f.close()</span><br><span class="line">    print(<span class="string">"(Cleaning up: Closed the file)"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">12165456478Press ctrl+c now</span><br><span class="line">(Cleaning up: Closed the file)</span><br></pre></td></tr></table></figure>
-
-          
+          <h3 id="python的name-‘main‘-的作用"><a href="#python的name-‘main‘-的作用" class="headerlink" title="python的name = ‘main‘ 的作用"></a>python的<strong>name</strong> = ‘<strong>main</strong>‘ 的作用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">__name__ = <span class="string">'__main__'</span> 的作用</span><br><span class="line">先写一个模块：</span><br><span class="line"></span><br><span class="line"><span class="comment">#module.py</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">  <span class="keyword">print</span> <span class="string">"we are in %s"</span>%__name__</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">  main()</span><br></pre></td></tr></table></figure>
+<p>我们经常看到想上面代码底下的代码，其主要的意义在于：</p>
+<h4 id="让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行"><a href="#让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行" class="headerlink" title="让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行"></a><strong>让你写的脚本即可以导入别的模块中用，另外该模块自己也可以执行</strong></h4><p>这个函数定义了一个main函数，我们执行一下该py文件发现结果是打印出”we are in <strong>main</strong>“,说明我们的if语句中的内容被执行了，调用了main()：</p>
+<p>但是如果我们从另我一个模块导入该模块，并调用一次main()函数会是怎样的结果呢？</p>
+<p>其执行的结果是：we are in module</p>
+<p>但是没有显示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">”we are in __main__“</span><br></pre></td></tr></table></figure>
+<p>,也就是说模块</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">__name__ = &apos;__main__&apos;</span><br></pre></td></tr></table></figure>
+<p>下面的函数没有执行。</p>
+<p>这样既可以让“模块”文件运行，也可以被其他模块引入，而且不会执行函数2次。这才是关键。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/24/python的__name__-=-__main__的作用/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1239,7 +1255,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/32/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/32/">32</a><span class="page-number current">33</span><a class="page-number" href="/page/34/">34</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/34/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1291,7 +1307,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">164</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

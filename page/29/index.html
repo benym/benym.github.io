@@ -402,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/26/python中字符串的一些方法回顾(切片回顾)/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/07/正则表达式中的compile函数/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -421,7 +421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/python中字符串的一些方法回顾(切片回顾)/" itemprop="url">python中字符串的一些方法回顾(切片回顾)</a></h1>
+                <a class="post-title-link" href="/2018/08/07/正则表达式中的compile函数/" itemprop="url">正则表达式中的compile函数</a></h1>
         
 
         <div class="post-meta">
@@ -433,8 +433,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T19:40:48+08:00">
-                2018-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T20:47:00+08:00">
+                2018-08-07
               </time>
             
 
@@ -449,8 +449,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:23+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
               </time>
             
           </span>
@@ -486,8 +486,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/26/python中字符串的一些方法回顾(切片回顾)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/26/python中字符串的一些方法回顾(切片回顾)/" itemprop="commentCount"></span>
+                <a href="/2018/08/07/正则表达式中的compile函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/07/正则表达式中的compile函数/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -495,7 +495,7 @@
 
           
           
-             <span id="/2018/07/26/python中字符串的一些方法回顾(切片回顾)/" class="leancloud_visitors" data-flag-title="python中字符串的一些方法回顾(切片回顾)">
+             <span id="/2018/08/07/正则表达式中的compile函数/" class="leancloud_visitors" data-flag-title="正则表达式中的compile函数">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -520,7 +520,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  268
+                  517
                 </span>
               
 
@@ -536,12 +536,16 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  compile函数
+              </div>
           
 
         </div>
@@ -558,11 +562,31 @@
 
       
         
-          
-            <h3 id="python中字符串的一些方法回顾-切片回顾"><a href="#python中字符串的一些方法回顾-切片回顾" class="headerlink" title="python中字符串的一些方法回顾(切片回顾)"></a>python中字符串的一些方法回顾(切片回顾)</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串的切片   字符串[开始索引:结束索引:步长]</span></span><br><span class="line"><span class="comment"># 如果使用倒序索引的方法，那么最后一位元素是以-1开始，倒数第二位是-2</span></span><br><span class="line"><span class="comment"># 切片方法适用于字符串、列表、元组</span></span><br><span class="line"></span><br><span class="line">num_str = <span class="string">"0123456789"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 截取2-5的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 截取2-末尾的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:])</span><br><span class="line"><span class="comment"># 从起始位置截取到5位置的字符串   num_str[0:6]等价</span></span><br><span class="line">print(num_str[:<span class="number">6</span>])</span><br><span class="line"><span class="comment"># 生成切片的副本</span></span><br><span class="line">print(num_str[:])</span><br><span class="line"><span class="comment"># 从开始位置开始，每隔一个字符截取字符串</span></span><br><span class="line">print(num_str[::<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 从索引1开始，每隔一个取一个</span></span><br><span class="line">print(num_str[<span class="number">1</span>::<span class="number">2</span>])</span><br><span class="line"><span class="comment"># 截取从2到(末尾-1)的字符串</span></span><br><span class="line">print(num_str[<span class="number">2</span>:<span class="number">-1</span>])</span><br><span class="line"><span class="comment"># 截取字符串末尾两个字符</span></span><br><span class="line">print(num_str[<span class="number">-2</span>:])</span><br><span class="line"><span class="comment"># 字符串的逆序   num_str[::-1]等价</span></span><br><span class="line">print(num_str[<span class="number">-1</span>::<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;2345</span><br><span class="line">&gt;&gt;&gt;23456789</span><br><span class="line">&gt;&gt;&gt;012345</span><br><span class="line">&gt;&gt;&gt;0123456789</span><br><span class="line">&gt;&gt;&gt;02468</span><br><span class="line">&gt;&gt;&gt;13579</span><br><span class="line">&gt;&gt;&gt;2345678</span><br><span class="line">&gt;&gt;&gt;89</span><br><span class="line">&gt;&gt;&gt;9876543210</span><br></pre></td></tr></table></figure>
-
-          
+          <p><strong><em>compile 函数用于编译正则表达式，生成一个正则表达式（ Pattern ）对象，供 match() 和 search() 这两个函数使用。</em></strong></p>
+<p><strong><em>语法格式为：</em></strong></p>
+<blockquote>
+<p>re.compile(pattern[, flags])</p>
+</blockquote>
+<p>参数：</p>
+<ul>
+<li>pattern : 一个字符串形式的正则表达式</li>
+<li>flags 可选，表示匹配模式，比如忽略大小写，多行模式等，具体参数为：</li>
+<li>re.I 忽略大小写<ul>
+<li>re.L 表示特殊字符集 \w, \W, \b, \B, \s, \S 依赖于当前环境</li>
+<li>re.M 多行模式</li>
+<li>re.S 即为’ . ‘并且包括换行符在内的任意字符（’ . ‘不包括换行符）</li>
+<li>re.U 表示特殊字符集 \w, \W, \b, \B, \d, \D, \s, \S 依赖于 Unicode 字符属性数据库</li>
+<li>re.X 为了增加可读性，忽略空格和’ # ‘后面的注释</li>
+</ul>
+</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/07/正则表达式中的compile函数/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -611,7 +635,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/07/正则表达式检索与替换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -630,7 +654,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/" itemprop="url">python中字符串的一些方法回顾(拆分与合并)</a></h1>
+                <a class="post-title-link" href="/2018/08/07/正则表达式检索与替换/" itemprop="url">正则表达式检索与替换</a></h1>
         
 
         <div class="post-meta">
@@ -642,8 +666,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T19:40:01+08:00">
-                2018-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T20:43:26+08:00">
+                2018-08-07
               </time>
             
 
@@ -658,8 +682,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:13+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
               </time>
             
           </span>
@@ -695,8 +719,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/" itemprop="commentCount"></span>
+                <a href="/2018/08/07/正则表达式检索与替换/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/07/正则表达式检索与替换/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -704,7 +728,7 @@
 
           
           
-             <span id="/2018/07/26/python中字符串的一些方法回顾(拆分与合并)/" class="leancloud_visitors" data-flag-title="python中字符串的一些方法回顾(拆分与合并)">
+             <span id="/2018/08/07/正则表达式检索与替换/" class="leancloud_visitors" data-flag-title="正则表达式检索与替换">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -729,7 +753,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  275
+                  144
                 </span>
               
 
@@ -752,6 +776,10 @@
           
 
           
+              <div class="post-description">
+                  sub方法的使用
+              </div>
+          
 
         </div>
       </header>
@@ -767,12 +795,18 @@
 
       
         
-          
-            <h3 id="python中字符串的一些方法回顾-拆分与合并"><a href="#python中字符串的一些方法回顾-拆分与合并" class="headerlink" title="python中字符串的一些方法回顾(拆分与合并)"></a>python中字符串的一些方法回顾(拆分与合并)</h3><p>字符串中split函数和join函数的使用</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取的</span></span><br><span class="line"><span class="comment"># 要求：</span></span><br><span class="line"><span class="comment"># 1、将字符串中的空白字符全部去掉</span></span><br><span class="line"><span class="comment"># 2、再使用"  "作为分隔符，拼接成一个整齐的字符串</span></span><br><span class="line">poem_str = <span class="string">"登鹤鹊楼\t 王之涣 \t 白日依山尽 \t\n 黄河入海流 \t\t 欲穷千里目\t\t更上一层楼"</span></span><br><span class="line"></span><br><span class="line">print(poem_str)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1、拆分字符串  split方法会返回列表</span></span><br><span class="line">poem_list = poem_str.split()</span><br><span class="line">print(poem_list)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2、合并字符串</span></span><br><span class="line">result = <span class="string">" "</span>.join(poem_list)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">原始字符串：</span><br><span class="line"> 登鹤鹊楼	 王之涣 	 白日依山尽 	</span><br><span class="line"> 黄河入海流 		 欲穷千里目		更上一层楼</span><br><span class="line">拆分字符串后：</span><br><span class="line"> [<span class="string">'登鹤鹊楼'</span>, <span class="string">'王之涣'</span>, <span class="string">'白日依山尽'</span>, <span class="string">'黄河入海流'</span>, <span class="string">'欲穷千里目'</span>, <span class="string">'更上一层楼'</span>]</span><br><span class="line">合并字符串后: </span><br><span class="line"> 登鹤鹊楼 王之涣 白日依山尽 黄河入海流 欲穷千里目 更上一层楼</span><br></pre></td></tr></table></figure>
-
-          
+          <p><strong><em>re.sub用于替换字符串中的匹配项</em></strong></p>
+<blockquote>
+<p>re.sub(pattern, repl, string,  count=0)</p>
+</blockquote>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line">phone = <span class="string">"2004-959-559 # 这是一个电话号码"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除注释</span></span><br><span class="line">num = re.sub(<span class="string">r'#.*$'</span>, <span class="string">""</span>, phone)</span><br><span class="line">print(<span class="string">"电话号码:"</span>, num)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除非数字的内容</span></span><br><span class="line">num = re.sub(<span class="string">r'\D'</span>, <span class="string">""</span>, phone)</span><br><span class="line">print(<span class="string">"电话号码:"</span>, num)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 将匹配的数字乘以2</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">double</span><span class="params">(matched)</span>:</span></span><br><span class="line">    value = int(matched.group(<span class="string">'value'</span>))</span><br><span class="line">    <span class="keyword">return</span> str(value * <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">s = <span class="string">'A23G4HFD567'</span></span><br><span class="line">print(re.sub(<span class="string">'(?P&lt;value&gt;\d+)'</span>, double, s))</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/07/正则表达式检索与替换/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -821,7 +855,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/07/Python中的正则表达式match和search/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -840,7 +874,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/" itemprop="url">python中字符串的一些方法回顾(文本对齐、去除空白)</a></h1>
+                <a class="post-title-link" href="/2018/08/07/Python中的正则表达式match和search/" itemprop="url">Python中的正则表达式match和search</a></h1>
         
 
         <div class="post-meta">
@@ -852,8 +886,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T19:39:41+08:00">
-                2018-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T20:16:00+08:00">
+                2018-08-07
               </time>
             
 
@@ -868,8 +902,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:32+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
               </time>
             
           </span>
@@ -905,8 +939,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/" itemprop="commentCount"></span>
+                <a href="/2018/08/07/Python中的正则表达式match和search/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/07/Python中的正则表达式match和search/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -914,7 +948,7 @@
 
           
           
-             <span id="/2018/07/26/python中字符串的一些方法回顾(文本对齐、去除空白)/" class="leancloud_visitors" data-flag-title="python中字符串的一些方法回顾(文本对齐、去除空白)">
+             <span id="/2018/08/07/Python中的正则表达式match和search/" class="leancloud_visitors" data-flag-title="Python中的正则表达式match和search">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -939,7 +973,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  253
+                  192
                 </span>
               
 
@@ -962,6 +996,10 @@
           
 
           
+              <div class="post-description">
+                  re.match和re.search方法的区别
+              </div>
+          
 
         </div>
       </header>
@@ -977,12 +1015,15 @@
 
       
         
-          
-            <h3 id="python中字符串的一些方法回顾-文本对齐、去除空白"><a href="#python中字符串的一些方法回顾-文本对齐、去除空白" class="headerlink" title="python中字符串的一些方法回顾(文本对齐、去除空白)"></a>python中字符串的一些方法回顾(文本对齐、去除空白)</h3><p>文本对齐的方法，以及用strip函数去除字符串的中空白字符</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设：以下内容是从网络上抓取下来的</span></span><br><span class="line"><span class="comment"># 要求：顺序并且居中对齐输出一下内容</span></span><br><span class="line">poem = [<span class="string">"\t\n登鹤鹊楼"</span>,</span><br><span class="line">        <span class="string">"王之涣"</span>,</span><br><span class="line">        <span class="string">"白日依山尽\t\n"</span>,</span><br><span class="line">        <span class="string">"黄河入海流"</span>,</span><br><span class="line">        <span class="string">"欲穷千里目"</span>,</span><br><span class="line">        <span class="string">"更上一层楼"</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> poem_str <span class="keyword">in</span> poem:</span><br><span class="line">    <span class="comment"># 先使用strip方法去除字符串中的空白字符</span></span><br><span class="line">    <span class="comment"># 居中对齐  </span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">      Python center() 返回一个原字符串居中,并使用空格填充至长度 width 的新字符串。默认填充字符为空格。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    print(<span class="string">"|%s|"</span> % poem_str.strip().center(<span class="number">10</span>, <span class="string">"　"</span>))</span><br><span class="line">    <span class="comment"># 向左对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.ljust(10, "　"))</span></span><br><span class="line">    <span class="comment"># 向右对齐</span></span><br><span class="line">    <span class="comment"># print("|%s|" % poem_str.rjust(10, "　"))</span></span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">|　　　登鹤鹊楼　　　|</span><br><span class="line">|　　　王之涣　　　　|</span><br><span class="line">|　　白日依山尽　　　|</span><br><span class="line">|　　黄河入海流　　　|</span><br><span class="line">|　　欲穷千里目　　　|</span><br><span class="line">|　　更上一层楼　　　|</span><br></pre></td></tr></table></figure>
-
-          
+          <p><strong><em>re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配</em></strong> </p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">re.match只匹配字符串的开始，如果字符串开始不符合正则表达式，</span></span><br><span class="line"><span class="string">则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">line = <span class="string">"Cats are smarter than dogs"</span>;</span><br><span class="line"></span><br><span class="line">matchObj = re.match(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"match --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br><span class="line"></span><br><span class="line">matchObj = re.search(<span class="string">r'dogs'</span>, line, re.M | re.I)</span><br><span class="line"><span class="keyword">if</span> matchObj:</span><br><span class="line">    print(<span class="string">"search --&gt; matchObj.group() : "</span>, matchObj.group())</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No match!!"</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/07/Python中的正则表达式match和search/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1031,7 +1072,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/26/python中完整for循环的实际运用/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/07/Python中的正则表达式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -1050,7 +1091,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/26/python中完整for循环的实际运用/" itemprop="url">python中完整for循环的实际运用</a></h1>
+                <a class="post-title-link" href="/2018/08/07/Python中的正则表达式/" itemprop="url">Python中的正则表达式</a></h1>
         
 
         <div class="post-meta">
@@ -1062,8 +1103,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-26T09:56:03+08:00">
-                2018-07-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-07T20:00:45+08:00">
+                2018-08-07
               </time>
             
 
@@ -1078,8 +1119,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:17:30+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
               </time>
             
           </span>
@@ -1115,8 +1156,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/26/python中完整for循环的实际运用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/26/python中完整for循环的实际运用/" itemprop="commentCount"></span>
+                <a href="/2018/08/07/Python中的正则表达式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/07/Python中的正则表达式/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1124,7 +1165,7 @@
 
           
           
-             <span id="/2018/07/26/python中完整for循环的实际运用/" class="leancloud_visitors" data-flag-title="python中完整for循环的实际运用">
+             <span id="/2018/08/07/Python中的正则表达式/" class="leancloud_visitors" data-flag-title="Python中的正则表达式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1149,7 +1190,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  174
+                  527
                 </span>
               
 
@@ -1165,12 +1206,16 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1
+                  2
                 </span>
               
             </div>
           
 
+          
+              <div class="post-description">
+                  match和search方法
+              </div>
           
 
         </div>
@@ -1187,11 +1232,46 @@
 
       
         
-          
-            <h3 id="python中完整for循环的实际运用"><a href="#python中完整for循环的实际运用" class="headerlink" title="python中完整for循环的实际运用"></a>python中完整for循环的实际运用</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 完整的for循环的实际应用  for...else结构</span></span><br><span class="line"></span><br><span class="line">students = [</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"xx"</span>&#125;,</span><br><span class="line">    &#123;<span class="string">"name"</span>: <span class="string">"yy"</span>&#125;</span><br><span class="line">]</span><br><span class="line"><span class="comment"># 在学院列表中搜索指定的姓名</span></span><br><span class="line">find_name = <span class="string">"SS"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> students:</span><br><span class="line">    print(i)</span><br><span class="line">    <span class="keyword">if</span> i[<span class="string">"name"</span>] == find_name:</span><br><span class="line">        print(<span class="string">"找到了 &#123;&#125;"</span>.format(find_name))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果已经找到，应该直接退出循环，而不再遍历后续的元素</span></span><br><span class="line">    <span class="comment"># 如果把这个else写在if语句之后的话，每次没有找到就要输出一次，这是不对的！</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"没有找到&#123;&#125;"</span>.format(find_name))</span><br><span class="line">print(<span class="string">"循环结束"</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;&apos;name&apos;: &apos;xx&apos;&#125;</span><br><span class="line">&#123;&apos;name&apos;: &apos;yy&apos;&#125;</span><br><span class="line">没有找到SS</span><br><span class="line">循环结束</span><br></pre></td></tr></table></figure>
-
-          
+          <p>主要是一些正则表达式的基本语法和部分实例</p>
+<p><strong><em>re.match 尝试从字符串的起始位置匹配一个模式，如果不是起始位置匹配成功的话，match()就返回none</em></strong></p>
+<blockquote>
+<p>re.match(pattern,  string,  flag=0)</p>
+</blockquote>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">pattern</td>
+<td>匹配的正则表达式</td>
+</tr>
+<tr>
+<td style="text-align:left">string</td>
+<td>要匹配的字符串</td>
+</tr>
+<tr>
+<td style="text-align:left">flags</td>
+<td>标志位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong><em>re.search 扫描整个字符串并返回第一个成功的匹配</em></strong></p>
+<blockquote>
+<p>re.search(pattern,  string,  flag=0)</p>
+</blockquote>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/07/Python中的正则表达式/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1231,7 +1311,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span><a class="page-number" href="/page/30/">30</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/30/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1283,7 +1363,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">164</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

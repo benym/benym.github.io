@@ -402,7 +402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中字符串的一些基本操作/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/22/利用python进行文件的自动备份/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -421,7 +421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/07/python中字符串的一些基本操作/" itemprop="url">python中字符串的一些基本操作</a></h1>
+                <a class="post-title-link" href="/2018/07/22/利用python进行文件的自动备份/" itemprop="url">利用python进行文件的自动备份</a></h1>
         
 
         <div class="post-meta">
@@ -433,7 +433,221 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:04:05+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-22T16:04:32+08:00">
+                2018-07-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:11:37+08:00">
+                2018-08-02
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/22/利用python进行文件的自动备份/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/22/利用python进行文件的自动备份/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/22/利用python进行文件的自动备份/" class="leancloud_visitors" data-flag-title="利用python进行文件的自动备份">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  578
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  3
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="利用Python进行文件的自动备份（第一版）"><a href="#利用Python进行文件的自动备份（第一版）" class="headerlink" title="利用Python进行文件的自动备份（第一版）"></a>利用Python进行文件的自动备份（第一版）</h3><p>os.system 函数的命令，这一函数可以使命令像是从系统中运行的。也就是说，从 shell 中运行的——如果运行成功，它将返回 0 ，如果运行失败，将返回一个错误代码。</p>
+<h2 id="针对-Windows-用户的提示"><a href="#针对-Windows-用户的提示" class="headerlink" title="针对 Windows 用户的提示"></a>针对 Windows 用户的提示</h2><p>除了使用双反斜杠转义序列，你还可以使用原始字符串。例如使用 ‘C:\\Documents’ 或<br>r’C:\Documents’ 。然而，不要使用 ‘C:\Documents’ ，因为它将被识别为你使用了一个<br>未知的转义序列 \D 来结束路径的输入。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 需要备份的文件与目录将被</span></span><br><span class="line"><span class="comment"># 指定在一个列表中。</span></span><br><span class="line"><span class="comment"># 例如在 Windows 下：</span></span><br><span class="line">source = [<span class="string">r'E:\aaa.txt'</span>]</span><br><span class="line"><span class="comment"># 在这里要注意到我们必须在字符串中使用双引号</span></span><br><span class="line"><span class="comment"># 用以括起其中包含空格的名称。</span></span><br><span class="line"><span class="comment"># 2. 备份文件必须存储在一个</span></span><br><span class="line"><span class="comment"># 主备份目录中</span></span><br><span class="line"><span class="comment"># 例如在 Windows 下：</span></span><br><span class="line">target_dir = <span class="string">'E:\\Backup\\'</span></span><br><span class="line"><span class="comment"># 要记得将这里的目录地址修改至你将使用的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.备份文件将打包压缩成zip文件</span></span><br><span class="line"><span class="comment"># 4.zip压缩文件的文件名由当前日期与时间构成</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 其中os.sep 表示更改操作系统中的路径分隔符</span></span><br><span class="line"></span><br><span class="line">target = target_dir + os.sep + \</span><br><span class="line">         time.strftime(<span class="string">'%Y%m%d%H%M%S'</span>) + <span class="string">'.zip'</span></span><br><span class="line"><span class="comment"># 如果目标目录还不存在，则进行创建</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(target_dir):</span><br><span class="line">    os.mkdir(target_dir)  <span class="comment"># 创建目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.原本这里是使用zip命令，但是在windows环境下面这个是不是系统命令，所以解决方案如下：</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">1.1.下载7-Zip并安装</span></span><br><span class="line"><span class="string">2.将安装文件中的7z.exe移至‘C:\Windows’目录下</span></span><br><span class="line"><span class="string">3.将程序中的 zip_command = "zip -qr '%s' %s"%(target,''.join(source))</span></span><br><span class="line"><span class="string">改为：zip_command = "7z a %s %s"%(target, ' '.join(source))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">zip_command = <span class="string">"7z a %s %s"</span> % (target, <span class="string">' '</span>.join(source))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行备份</span></span><br><span class="line">print(<span class="string">'Zip command is:'</span>)</span><br><span class="line">print(zip_command)</span><br><span class="line">print(<span class="string">'Running:'</span>)</span><br><span class="line"><span class="keyword">if</span> os.system(zip_command) == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'Successful backup to'</span>, target)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'Backup FAILED'</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/22/利用python进行文件的自动备份/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中的集合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/07/python中的集合/" itemprop="url">python中的集合</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:34:06+08:00">
                 2018-07-07
               </time>
             
@@ -449,7 +663,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:52+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:24+08:00">
                 2018-08-02
               </time>
             
@@ -486,8 +700,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/07/python中字符串的一些基本操作/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中字符串的一些基本操作/" itemprop="commentCount"></span>
+                <a href="/2018/07/07/python中的集合/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中的集合/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -495,7 +709,7 @@
 
           
           
-             <span id="/2018/07/07/python中字符串的一些基本操作/" class="leancloud_visitors" data-flag-title="python中字符串的一些基本操作">
+             <span id="/2018/07/07/python中的集合/" class="leancloud_visitors" data-flag-title="python中的集合">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -520,7 +734,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  255
+                  158
                 </span>
               
 
@@ -558,14 +772,12 @@
 
       
         
-          <h3 id="python字符串的一些基本操作"><a href="#python字符串的一些基本操作" class="headerlink" title="python字符串的一些基本操作"></a>python字符串的一些基本操作</h3><p>在这里，我们会看见一此操作中包含了好多字符串方法。 startwith  方法用于查找字符串是<br>否以给定的字符串内容开头。 in  运算符用以检查给定的字符串是否是查询的字符串中的一<br>部分。<br>find  方法用于定位字符串中给定的子字符串的位置。如果找不到相应的子字符串， find<br>会返回 -1。 str  类同样还拥有一个简洁的方法用以  联结（Join）  序列中的项目，其中字符串<br>将会作为每一项目之间的分隔符，并以此生成并返回一串更大的字符串。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/07/python中字符串的一些基本操作/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h3><p>集合（Set）是简单对象的无序集合（Collection）。当集合中的项目存在与否比起次序或其出<br>现次数更加重要时，我们就会使用集合。<br>通过使用集合，你可以测试某些对象的资格或情况，检查它们是否是其它集合的子集，找到<br>两个集合的交集，等等。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 集合    判断子集</span></span><br><span class="line"></span><br><span class="line">bri = set([<span class="string">'brazil'</span>, <span class="string">'russia'</span>, <span class="string">'india'</span>])</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">'india'</span> <span class="keyword">in</span> bri:</span><br><span class="line">    print(<span class="string">'True'</span>)</span><br><span class="line"><span class="keyword">if</span> <span class="string">'usa'</span> <span class="keyword">in</span> bri:</span><br><span class="line">    print(<span class="string">'False'</span>)</span><br><span class="line">bric = bri.copy()</span><br><span class="line">bric.add(<span class="string">'china'</span>)</span><br><span class="line">print(bric.issuperset(bri))</span><br><span class="line">bri.remove(<span class="string">'russia'</span>)</span><br><span class="line">print(bri &amp; bric)</span><br></pre></td></tr></table></figure>
+<h2 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h2><p>True<br>True<br>{‘india’, ‘brazil’}</p>
+
+          
         
       
     </div>
@@ -614,7 +826,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中的引用和切片/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中字典（key-value）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -633,7 +845,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/07/python中的引用和切片/" itemprop="url">python中的引用和切片</a></h1>
+                <a class="post-title-link" href="/2018/07/07/python中字典（key-value）/" itemprop="url">python中字典（key-value）</a></h1>
         
 
         <div class="post-meta">
@@ -645,7 +857,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T16:04:03+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:25:27+08:00">
                 2018-07-07
               </time>
             
@@ -661,7 +873,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:54+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:09:04+08:00">
                 2018-08-02
               </time>
             
@@ -698,8 +910,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/07/python中的引用和切片/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中的引用和切片/" itemprop="commentCount"></span>
+                <a href="/2018/07/07/python中字典（key-value）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中字典（key-value）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -707,7 +919,7 @@
 
           
           
-             <span id="/2018/07/07/python中的引用和切片/" class="leancloud_visitors" data-flag-title="python中的引用和切片">
+             <span id="/2018/07/07/python中字典（key-value）/" class="leancloud_visitors" data-flag-title="python中字典（key-value）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -732,219 +944,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  378
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  1
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="引用和切片造成的不同影响"><a href="#引用和切片造成的不同影响" class="headerlink" title="引用和切片造成的不同影响"></a>引用和切片造成的不同影响</h3><p>当你创建了一个对象并将其分配给某个变量时，变量只会查阅（Refer）某个对象，并且它也<br>不会代表对象本身。也就是说，变量名只是指向你计算机内存中存储了相应对象的那一部<br>分。这叫作将名称绑定（Binding）给那一个对象。<br>一般来说，你不需要去关心这个，不过由于这一引用操作困难会产生某些微妙的效果，这是<br>需要你注意的：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/07/python中的引用和切片/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/06/27/python中的Docstring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BenY">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/27/python中的Docstring/" itemprop="url">python中的Docstring</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T17:14:51+08:00">
-                2018-06-27
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:06+08:00">
-                2018-08-02
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/27/python中的Docstring/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/06/27/python中的Docstring/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/06/27/python中的Docstring/" class="leancloud_visitors" data-flag-title="python中的Docstring">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  204
+                  299
                 </span>
               
 
@@ -983,7 +983,8 @@
       
         
           
-            <h3 id="基本教程"><a href="#基本教程" class="headerlink" title="基本教程"></a>基本教程</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">''</span><span class="string">'</span></span><br><span class="line"><span class="string">文档字符串的应用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">该文档字符串所约定的是一串多行字符串，其中第一行以某一大写字母开始，以句号结束。</span></span><br><span class="line"><span class="string">第二行为空行，后跟的第三行开始是任何详细的解释说明。 在此强烈建议你在有关你所有非</span></span><br><span class="line"><span class="string">凡功能的文档字符串中都遵循这一约定。</span></span><br><span class="line"><span class="string">'</span><span class="string">''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def print_max(x, y):</span><br><span class="line">    <span class="string">''</span><span class="string">'Prints the maximum of two numbers.打印两个数值中的最大数。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The two values must be integers.这两个数都应该是整数</span></span><br><span class="line"><span class="string">    '</span><span class="string">''</span></span><br><span class="line">    <span class="comment"># 如果可能，将其转换至整数类型</span></span><br><span class="line">    x = int(x)</span><br><span class="line">    y = int(y)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> x &gt; y:</span><br><span class="line">        <span class="built_in">print</span>(x, <span class="string">'is maximum'</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="built_in">print</span>(y, <span class="string">'is maximum'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print_max(3, 5)</span><br><span class="line"><span class="built_in">print</span>(print_max.__doc__)</span><br></pre></td></tr></table></figure>
+            <h3 id="字典（key-value）"><a href="#字典（key-value）" class="headerlink" title="字典（key-value）"></a>字典（key-value）</h3><p>字典就像一本地址簿，如果你知道了他或她的姓名，你就可以在这里找到其地址或是能够联<br>系上对方的更多详细信息，换言之，我们将键值（Keys）（即姓名）与值（Values）（即地<br>址等详细信息）联立到一起。在这里要注意到键值必须是唯一的，正如在现实中面对两个完<br>全同名的人你没办法找出有关他们的正确信息。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典</span></span><br><span class="line"><span class="comment"># "ab"是地址（Address）薄(Book)的缩写</span></span><br><span class="line"></span><br><span class="line">ab = &#123;</span><br><span class="line">    <span class="string">'Swaroop'</span>: <span class="string">'swaroop@swaroopch.com'</span>,</span><br><span class="line">    <span class="string">'Larry'</span>: <span class="string">'larry@wall.org'</span>,</span><br><span class="line">    <span class="string">'Matsumoto'</span>: <span class="string">'matz@ruby-lang.org'</span>,</span><br><span class="line">    <span class="string">'Spammer'</span>: <span class="string">'spammer@hptmail.com'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">print(<span class="string">"Swaroop's address is"</span>, ab[<span class="string">'Swaroop'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除一对键值-值配对</span></span><br><span class="line"><span class="keyword">del</span> ab[<span class="string">'Spammer'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\nThere are &#123;&#125; contacts in the address-book\n'</span>.format(len(ab)))</span><br><span class="line"></span><br><span class="line"><span class="comment">#我们通过使用字典的  item  方法来访问字典中的每一对键值—值配对信息，这一操作将返回一份包含元组的列表</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> name, address <span class="keyword">in</span> ab.items():</span><br><span class="line">    print(<span class="string">'Contact &#123;&#125; at &#123;&#125;'</span>.format(name, address))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一对键值-值配对</span></span><br><span class="line">ab[<span class="string">'Guido'</span>] = <span class="string">'guido@python.org'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="string">'Guido'</span> <span class="keyword">in</span> ab:</span><br><span class="line">    print(<span class="string">"\nGuido's address is"</span>, ab[<span class="string">'Guido'</span>])</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1034,7 +1035,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/04/10/最大公约数和最小公倍数/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/07/python中的列表/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -1053,7 +1054,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/10/最大公约数和最小公倍数/" itemprop="url">最大公约数和最小公倍数</a></h1>
+                <a class="post-title-link" href="/2018/07/07/python中的列表/" itemprop="url">python中的列表</a></h1>
         
 
         <div class="post-meta">
@@ -1065,8 +1066,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:43:28+08:00">
-                2018-04-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-07T17:19:37+08:00">
+                2018-07-07
               </time>
             
 
@@ -1081,8 +1082,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:53:02+08:00">
-                2018-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:08:35+08:00">
+                2018-08-02
               </time>
             
           </span>
@@ -1100,8 +1101,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C语言/" itemprop="url" rel="index">
-                    <span itemprop="name">C语言</span>
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
                   </a>
                 </span>
 
@@ -1118,8 +1119,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/04/10/最大公约数和最小公倍数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/04/10/最大公约数和最小公倍数/" itemprop="commentCount"></span>
+                <a href="/2018/07/07/python中的列表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/07/python中的列表/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1127,7 +1128,7 @@
 
           
           
-             <span id="/2018/04/10/最大公约数和最小公倍数/" class="leancloud_visitors" data-flag-title="最大公约数和最小公倍数">
+             <span id="/2018/07/07/python中的列表/" class="leancloud_visitors" data-flag-title="python中的列表">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1152,7 +1153,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  392
+                  279
                 </span>
               
 
@@ -1168,7 +1169,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -1190,27 +1191,10 @@
 
       
         
-          <h3 id="使用的辗转相除法"><a href="#使用的辗转相除法" class="headerlink" title="使用的辗转相除法"></a>使用的辗转相除法</h3><p><a href="https://baike.baidu.com/item/%E8%BE%97%E8%BD%AC%E7%9B%B8%E9%99%A4%E6%B3%95" target="_blank" rel="noopener">辗转相除法</a>：辗转相除法是求两个自然数的最大公约数的一种方法，也叫<a href="https://baike.baidu.com/item/%E6%AC%A7%E5%87%A0%E9%87%8C%E5%BE%B7%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">欧几里德算法</a>。</p>
-<p>例如，求（319，377）：</p>
-<p>∵ 319÷377=0（余319）</p>
-<p>∴（319，377）=（377，319）；</p>
-<p>∵ 377÷319=1（余58）</p>
-<p>∴（377，319）=（319，58）；</p>
-<p>∵ 319÷58=5（余29）</p>
-<p>∴ （319，58）=（58，29）；</p>
-<p>∵ 58÷29=2（余0）</p>
-<p>∴ （58，29）= 29；</p>
-<p>∴ （319，377）=29。</p>
-<p>可以写成右边的格式。</p>
-<p>用辗转相除法求几个数的最大公约数，可以先求出其中任意两个数的最大公约数，再求这个最大公约数与第三个数的最大公约数，依次求下去，直到最后一个数为止。最后所得的那个最大公约数，就是所有这些数的最大公约数。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/10/最大公约数和最小公倍数/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h3><p>列表  是一种用于保存一系列有序项目的集合，也就是说，你可以利用列表保存一串项目的序<br>列。想象起来也不难，你可以想象你有一张购物清单，上面列出了需要购买的商品，除开在<br>购物清单上你可能为每件物品都单独列一行，在 Python 中你需要在它们之间多加上一个逗<br>号。</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 列表</span></span><br><span class="line"><span class="comment"># This is my shopping list</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">在这里要注意在调用  print  函数时我们使用  end  参数，这样就能通过一个空格来结束输出</span></span><br><span class="line"><span class="string">工作，而不是通常的换行。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">shoplist = [<span class="string">'apple'</span>, <span class="string">'mango'</span>, <span class="string">'carrot'</span>, <span class="string">'banana'</span>]</span><br><span class="line"></span><br><span class="line">print(<span class="string">'I have'</span>, len(shoplist), <span class="string">'items to purchase'</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'These item are:'</span>, end=<span class="string">' '</span>)</span><br><span class="line"><span class="keyword">for</span> item <span class="keyword">in</span> shoplist:</span><br><span class="line">    print(item, end=<span class="string">' '</span>)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'\nI also have to buy rice.'</span>)</span><br><span class="line">shoplist.append(<span class="string">'rice'</span>)</span><br><span class="line">print(<span class="string">'My shopping list is now'</span>, shoplist)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'I will sort my list now'</span>)</span><br><span class="line">shoplist.sort()</span><br><span class="line">print(<span class="string">'Sorted shopping list is'</span>, shoplist)</span><br><span class="line"></span><br><span class="line">print(<span class="string">'The first item I will buy is'</span>, shoplist[<span class="number">0</span>])</span><br><span class="line">olditem = shoplist[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">del</span> shoplist[<span class="number">0</span>]</span><br><span class="line">print(<span class="string">'I bought the'</span>, olditem)</span><br><span class="line">print(<span class="string">'My shopping list is now'</span>, shoplist)</span><br></pre></td></tr></table></figure>
+          
         
       
     </div>
@@ -1250,7 +1234,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><a class="page-number" href="/page/40/">40</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/37/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/37/">37</a><span class="page-number current">38</span><a class="page-number" href="/page/39/">39</a><span class="space">&hellip;</span><a class="page-number" href="/page/41/">41</a><a class="extend next" rel="next" href="/page/39/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1302,7 +1286,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">158</span>
+                  <span class="site-state-item-count">164</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
