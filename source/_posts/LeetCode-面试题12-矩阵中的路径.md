@@ -5,11 +5,12 @@ description: 矩阵中的路径
 categories: 剑指Offer
 tags: 
 - 数组
+- 回溯
 - Java
 - Python
 - Medium
 - 剑指Offer
-keywords: 数组,Java,Python,Medium,剑指Offer
+keywords: 数组,回溯,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题12-矩阵中的路径

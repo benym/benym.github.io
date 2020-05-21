@@ -5,12 +5,13 @@ description: 把数字翻译成字符串
 categories: 剑指Offer
 tags:
 - DP
+- 回溯
 - 数组
 - Java
 - Python
 - Medium
 - 剑指Offer
-keywords: DP,数组,Java,Python,Medium,剑指Offer
+keywords: DP,回溯,数组,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题46-把数字翻译成字符串 

@@ -5,12 +5,13 @@ description: 二叉树中和为某一值的路径
 categories: 剑指Offer
 tags: 
 - 树
+- 回溯
 - DFS
 - Java
 - Python
 - Medium
 - 剑指Offer
-keywords: 树,DFS,Java,Python,Medium,剑指Offer
+keywords: 树,回溯,DFS,Java,Python,Medium,剑指Offer
 ---
 
 ## LeetCode-面试题34-二叉树中和为某一值的路径 
