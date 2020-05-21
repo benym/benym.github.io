@@ -1,3 +1,5 @@
+http://benym.cn/2020/05/21/LeetCode-面试题67-把字符串转化成整数/
+http://benym.cn/2020/05/21/LeetCode-面试题66-构建乘积数组/
 http://benym.cn/2020/05/20/LeetCode-面试题65-不用加减乘除做加法/
 http://benym.cn/2020/05/20/LeetCode-面试题64-求1+2+...+n/
 http://benym.cn/2020/05/20/LeetCode-面试题63-股票的最大利润/
@@ -6,5 +8,3 @@ http://benym.cn/2020/05/20/LeetCode-面试题61-扑克牌中的顺子/
 http://benym.cn/2020/05/20/LeetCode-面试题60-n个骰子的点数 - 副本/
 http://benym.cn/2020/05/19/LeetCode-面试题59-2-队列的最大值/
 http://benym.cn/2020/05/19/LeetCode-面试题59-1-滑动窗口的最大值/
-http://benym.cn/2020/05/19/LeetCode-面试题58-2-左旋转字符串/
-http://benym.cn/2020/05/19/LeetCode-面试题58-1-翻转单词顺序/
