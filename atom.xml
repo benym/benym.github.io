@@ -49,7 +49,7 @@
     <link href="http://benym.cn/2020/05/21/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9866-%E6%9E%84%E5%BB%BA%E4%B9%98%E7%A7%AF%E6%95%B0%E7%BB%84/"/>
     <id>http://benym.cn/2020/05/21/LeetCode-面试题66-构建乘积数组/</id>
     <published>2020-05-21T07:08:46.000Z</published>
-    <updated>2020-05-21T07:38:30.442Z</updated>
+    <updated>2020-05-23T06:21:56.524Z</updated>
     
     <content type="html"><![CDATA[<h2 id="LeetCode-面试题66-构建乘积数组"><a href="#LeetCode-面试题66-构建乘积数组" class="headerlink" title="LeetCode-面试题66-构建乘积数组"></a>LeetCode-面试题66-构建乘积数组</h2><p>给定一个数组 A[0,1,…,n-1]，请构建一个数组 B[0,1,…,n-1]，其中 B 中的元素 B[i]=A[0]×A[1]×…×A[i-1]×A[i+1]×…×A[n-1]。不能使用除法。</p> <a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3,4,5]</span><br><span class="line">输出: [120,60,40,30,24]</span><br></pre></td></tr></table></figure><p><strong>限制：</strong></p><ul><li>所有元素乘积之和不会溢出 32 位整数</li><li><code>a.length &lt;= 100000</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>将A[0]×A[1]×…×A[i-1]分为一个数组记为C[i]，A[i+1]×…×A[n-1]分为一个数组记为D[i]，数组B可以由这两个数组的乘积得到，把B看成一个矩阵其左对角线为全1，分开上述2个数组</p><script type="math/tex; mode=display">B=\left\{ \begin{array}{c|cccccc}     B0&1 & A1 & A2 & ... & An-2 & An-1\\     B1& A0 & 1 & A2 & ...&An-2 & An-1 \\     B2& A0 & A1 & 1 & ...&An-2 & An-1 \\     ...& A0 & A1 & ... & 1 &An-2& An-1 \\     Bn-2& A0 & A1 & ... & An-3&1 & An-1 \\     Bn-1& A0 & A1 & ... & An-3 &An-2& 1  \end{array} \right\}</script><p>A[0]×A[1]×…×A[i-1]可以自上而下，从左至右的顺序计算得到，对应于C[i] = C[i-1]*A[i-1]</p><p>A[i+1]×…×A[n-1]可以自下而上，从右至左的顺序计算得到，对应于D[i] = D[i+1]*A[i+1]</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] constructArr(<span class="keyword">int</span>[] a) &#123;</span><br><span class="line">        <span class="keyword">if</span>(a.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span>[] b = <span class="keyword">new</span> <span class="keyword">int</span>[a.length];</span><br><span class="line">        b[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 循环控制从上至下，累乘从左至右</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;a.length;i++)&#123;</span><br><span class="line">            b[i] = b[i-<span class="number">1</span>]*a[i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 循环控制从下至上，累乘从右至左</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=a.length-<span class="number">2</span>;j&gt;=<span class="number">0</span>;j--)&#123;</span><br><span class="line">            temp*=a[j+<span class="number">1</span>];</span><br><span class="line">            b[j]*=temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -318,9 +318,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -348,9 +348,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
