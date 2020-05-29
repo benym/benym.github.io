@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-05-21T11:57:00.773Z</updated>
+  <updated>2020-05-29T03:35:15.195Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-面试题68-2-二叉搜索树的最近公共祖先</title>
+    <link href="http://benym.cn/2020/05/29/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9868-2-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/"/>
+    <id>http://benym.cn/2020/05/29/LeetCode-面试题68-2-二叉搜索树的最近公共祖先/</id>
+    <published>2020-05-29T02:35:42.000Z</published>
+    <updated>2020-05-29T03:35:15.195Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-面试题68-2-二叉搜索树的最近公共祖先"><a href="#LeetCode-面试题68-2-二叉搜索树的最近公共祖先" class="headerlink" title="LeetCode-面试题68-2-二叉搜索树的最近公共祖先"></a>LeetCode-面试题68-2-二叉搜索树的最近公共祖先</h2><p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p><p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p><p>例如，给定如下二叉树:  root = [3,5,1,6,2,0,8,null,null,7,4]</p> <a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1</span><br><span class="line">输出: 3</span><br><span class="line">解释: 节点 5 和节点 1 的最近公共祖先是节点 3。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4</span><br><span class="line">输出: 5</span><br><span class="line">解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。</span><br></pre></td></tr></table></figure><p><strong>说明：</strong></p><ul><li>所有节点的值都是唯一的。</li><li>p、q 为不同节点且均存在于给定的二叉树中。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>递归：</p><p>如果当前节点为空或者当前节点等于p和q的其中一个，则直接返回root，符合示例2条件</p><p>如果当前节点的左右子树分别包括了p和q，那么这个节点就是最近公共祖先root</p><p>如果左子树找不到p或者q，则说明p和q都在右子树上，返回right</p><p>如果右子树找不到p或者q，则说明p和q都在左子树上，返回left</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>||root==p||root==q) <span class="keyword">return</span> root;</span><br><span class="line">        TreeNode left = lowestCommonAncestor(root.left,p,q);</span><br><span class="line">        TreeNode right = lowestCommonAncestor(root.right,p,q);</span><br><span class="line">        <span class="keyword">if</span>(left==<span class="keyword">null</span>) <span class="keyword">return</span> right;</span><br><span class="line">        <span class="keyword">if</span>(right==<span class="keyword">null</span>) <span class="keyword">return</span> left;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      二叉搜索树的最近公共祖先
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+      <category term="二叉树" scheme="http://benym.cn/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-面试题68-1-二叉搜索树的最近公共祖先</title>
+    <link href="http://benym.cn/2020/05/29/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9868-1-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88/"/>
+    <id>http://benym.cn/2020/05/29/LeetCode-面试题68-1-二叉搜索树的最近公共祖先/</id>
+    <published>2020-05-29T02:05:04.000Z</published>
+    <updated>2020-05-29T02:36:04.554Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-面试题68-1-二叉搜索树的最近公共祖先"><a href="#LeetCode-面试题68-1-二叉搜索树的最近公共祖先" class="headerlink" title="LeetCode-面试题68-1-二叉搜索树的最近公共祖先"></a>LeetCode-面试题68-1-二叉搜索树的最近公共祖先</h2><p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p><p>百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。”</p><p>例如，给定如下二叉搜索树:  root = [6,2,8,0,4,7,9,null,null,3,5]</p> <a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8</span><br><span class="line">输出: 6 </span><br><span class="line">解释: 节点 2 和节点 8 的最近公共祖先是 6。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4</span><br><span class="line">输出: 2</span><br><span class="line">解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。</span><br></pre></td></tr></table></figure><p><strong>说明：</strong></p><ul><li>所有节点的值都是唯一的。</li><li>p、q 为不同节点且均存在于给定的二叉搜索树中。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>方法1、递归：</p><p>比较当前的值和传入的2个节点值的大小，根据二叉搜索树的性质，比根节点小的数在左边，比根节点大的数在右边。如果当前值比2个节点值大，则最近的公共祖先应该在左子树</p><p>如果当前值比2个节点值小，则最近的公共祖先应该在右子树</p><p>如果当前值在2个节点值中间，或者等于2个节点值中的一个，则当前节点就是最近公共祖先</p><p>方法2、迭代：</p><p>迭代思路与递归类似，只是当找到节点时跳出循环返回即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">lowestCommonAncestor</span><span class="params">(TreeNode root, TreeNode p, TreeNode q)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root.val&gt;p.val&amp;&amp;root.val&gt;q.val)&#123;</span><br><span class="line">            <span class="keyword">return</span> lowestCommonAncestor(root.left,p,q);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(root.val&lt;p.val&amp;&amp;root.val&lt;q.val)&#123;</span><br><span class="line">            <span class="keyword">return</span> lowestCommonAncestor(root.right,p,q);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"># class TreeNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, x):</span></span><br><span class="line"><span class="comment">#         self.val = x</span></span><br><span class="line"><span class="comment">#         self.left = None</span></span><br><span class="line"><span class="comment">#         self.right = None</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">lowestCommonAncestor</span><span class="params">(self, root: <span class="string">'TreeNode'</span>, p: <span class="string">'TreeNode'</span>, q: <span class="string">'TreeNode'</span>)</span> -&gt; 'TreeNode':</span></span><br><span class="line">        <span class="keyword">while</span> root:</span><br><span class="line">            <span class="keyword">if</span> root.val&gt;p.val <span class="keyword">and</span> root.val&gt;q.val:</span><br><span class="line">                root = root.left</span><br><span class="line">            <span class="keyword">elif</span> root.val&lt;p.val <span class="keyword">and</span> root.val&lt;q.val:</span><br><span class="line">                root = root.right</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">return</span> root</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      二叉搜索树的最近公共祖先
+    
+    </summary>
+    
+      <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
+    
+      <category term="二叉树" scheme="http://benym.cn/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-面试题67-把字符串转化成整数</title>
@@ -36,9 +94,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -64,9 +122,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -120,9 +178,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -148,9 +206,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -176,9 +234,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -204,9 +262,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -232,9 +290,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -318,11 +376,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -348,11 +406,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -378,11 +436,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -408,11 +466,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -438,11 +496,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -468,9 +526,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -539,62 +597,6 @@
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-145-二叉树的后序遍历</title>
-    <link href="http://benym.cn/2020/05/13/LeetCode-145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/"/>
-    <id>http://benym.cn/2020/05/13/LeetCode-145-二叉树的后序遍历/</id>
-    <published>2020-05-13T07:05:04.000Z</published>
-    <updated>2020-05-18T03:02:07.022Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-145-二叉树的后序遍历"><a href="#LeetCode-145-二叉树的后序遍历" class="headerlink" title="LeetCode-145-二叉树的后序遍历"></a>LeetCode-145-二叉树的后序遍历</h2><p>给定一个二叉树，返回它的 <em>后序</em> 遍历。</p><p>相关链接：</p><ol><li><a href="/2020/05/13/LeetCode-94-二叉树的中序遍历/" title="LeetCode-94-二叉树的中序遍历">LeetCode-94-二叉树的中序遍历</a></li><li><a href="/2020/05/13/LeetCode-144-二叉树的前序遍历/" title="LeetCode-144-二叉树的前序遍历">LeetCode-144-二叉树的前序遍历</a></li></ol><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,null,2,3]  </span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    /</span><br><span class="line">   3 </span><br><span class="line"></span><br><span class="line">输出: [3,2,1]</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>二叉树的遍历问题都有2种解法，一种是递归，一种是迭代</p><p>递归：开启左子树递归，开启右子树递归，添加根节点</p><p>迭代：后序遍历的方式是左右根，前序遍历是根左右，如果用Stack来实现根左右，那么左边先加入就会后出，右边后加入会先出，于是看似是add(left)之后add(right)，实际上会先访问到right再访问left，从而实现前序遍历得到根右左，即后序遍历的倒序，之后将列表倒序就是后序遍历的结果</p><p>迭代模拟：严格按照后序遍历的左右根访问，代码整体与中序遍历很相似，但需要注意其中两个点。</p><p>思想来源于<a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/solution/di-gui-die-dai-qu-qiao-san-chong-fang-fa-quan-jie-/" target="_blank" rel="noopener">这里</a></p><p>第一，stack.peek()只是取出栈顶元素，要和stack.pop()弹出栈顶元素区分开来；</p><p>第二，变量last用于保存当前栈顶所弹出的元素，判断 curr.right == last 是为了避免重复访问同一个元素而陷入死循环当中</p><h3 id="Java代码-递归"><a href="#Java代码-递归" class="headerlink" title="Java代码(递归)"></a>Java代码(递归)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        helper(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">helper</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">        helper(root.left);</span><br><span class="line">        helper(root.right);</span><br><span class="line">        res.add(root.val);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-迭代Stack"><a href="#Java代码-迭代Stack" class="headerlink" title="Java代码(迭代Stack)"></a>Java代码(迭代Stack)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        LinkedList&lt;Integer&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;(); <span class="comment">// Stack实现根右左</span></span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        stack.add(root);</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            TreeNode temp = stack.pop();</span><br><span class="line">            res.addFirst(temp.val); <span class="comment">// 添加到头部，实现倒序</span></span><br><span class="line">            <span class="keyword">if</span>(temp.left!=<span class="keyword">null</span>)</span><br><span class="line">                stack.add(temp.left);</span><br><span class="line">            <span class="keyword">if</span>(temp.right!=<span class="keyword">null</span>)</span><br><span class="line">                stack.add(temp.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-迭代模拟"><a href="#Java代码-迭代模拟" class="headerlink" title="Java代码(迭代模拟)"></a>Java代码(迭代模拟)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">postorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; res = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        TreeNode curr = root;</span><br><span class="line">        TreeNode last = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">while</span> (curr != <span class="keyword">null</span> || !stack.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">while</span> (curr != <span class="keyword">null</span>) &#123;</span><br><span class="line">                stack.push(curr);</span><br><span class="line">                curr = curr.left;</span><br><span class="line">            &#125;</span><br><span class="line">            curr = stack.peek();</span><br><span class="line">            <span class="keyword">if</span> (curr.right == <span class="keyword">null</span> || curr.right == last) &#123;</span><br><span class="line">                res.add(curr.val);</span><br><span class="line">                stack.pop();</span><br><span class="line">                last = curr;</span><br><span class="line">                curr = <span class="keyword">null</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                curr = curr.right;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      二叉树的后序遍历
-    
-    </summary>
-    
-      <category term="树" scheme="http://benym.cn/categories/%E6%A0%91/"/>
-    
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
-      <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-144-二叉树的前序遍历</title>
-    <link href="http://benym.cn/2020/05/13/LeetCode-144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/"/>
-    <id>http://benym.cn/2020/05/13/LeetCode-144-二叉树的前序遍历/</id>
-    <published>2020-05-13T05:01:06.000Z</published>
-    <updated>2020-05-18T03:02:07.022Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-144-二叉树的前序遍历"><a href="#LeetCode-144-二叉树的前序遍历" class="headerlink" title="LeetCode-144-二叉树的前序遍历"></a>LeetCode-144-二叉树的前序遍历</h2><p>给定一个二叉树，返回它的 <em>前序</em> 遍历。</p><p>相关链接：</p><ol><li><a href="/2020/05/13/LeetCode-94-二叉树的中序遍历/" title="LeetCode-94-二叉树的中序遍历">LeetCode-94-二叉树的中序遍历</a></li><li><a href="/2020/05/13/LeetCode-145-二叉树的后序遍历/" title="LeetCode-145-二叉树的后序遍历">LeetCode-145-二叉树的后序遍历</a></li></ol><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,null,2,3]</span><br><span class="line">   1</span><br><span class="line">    \</span><br><span class="line">     2</span><br><span class="line">    /</span><br><span class="line">   3</span><br><span class="line"></span><br><span class="line">输出: [1,2,3]</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>二叉树的遍历问题都有2种解法，一种是递归，一种是迭代</p><p>递归：添加根节点，开启左子树递归，开启右子树递归</p><p>迭代：前序遍历一般等同于BFS，一般用Queue来实现，先进先出，层序遍历即可。</p><p>不过奇怪的是这个题跑不过测试用例…….只能换成栈来做，也就是调整一下加入顺序，需要先添加右子树，再添加左子树，由于pop是后进先出，所以弹出的顺序变为了先弹出左子树，再是右子树，变成了Queue的先进先出的样子</p><h3 id="Java代码-递归"><a href="#Java代码-递归" class="headerlink" title="Java代码(递归)"></a>Java代码(递归)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        BFS(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">BFS</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            res.add(root.val);</span><br><span class="line">            BFS(root.left);</span><br><span class="line">            BFS(root.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-迭代Queue"><a href="#Java代码-迭代Queue" class="headerlink" title="Java代码(迭代Queue)"></a>Java代码(迭代Queue)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.add(root);</span><br><span class="line">        <span class="keyword">while</span>(!queue.isEmpty())&#123;</span><br><span class="line">            TreeNode temp = queue.poll();</span><br><span class="line">            res.add(temp.val);</span><br><span class="line">            <span class="keyword">if</span>(temp.left!=<span class="keyword">null</span>)</span><br><span class="line">                queue.add(temp.left);</span><br><span class="line">            <span class="keyword">if</span>(temp.right!=<span class="keyword">null</span>)</span><br><span class="line">                queue.add(temp.right);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-迭代Stack"><a href="#Java代码-迭代Stack" class="headerlink" title="Java代码(迭代Stack)"></a>Java代码(迭代Stack)</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Integer&gt; <span class="title">preorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        List&lt;Integer&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> res;</span><br><span class="line">        Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        stack.add(root);</span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            TreeNode temp = stack.pop();</span><br><span class="line">            res.add(temp.val);</span><br><span class="line">            <span class="keyword">if</span>(temp.right!=<span class="keyword">null</span>)</span><br><span class="line">                stack.add(temp.right);</span><br><span class="line">            <span class="keyword">if</span>(temp.left!=<span class="keyword">null</span>)</span><br><span class="line">                stack.add(temp.left);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      二叉树的前序遍历
-    
-    </summary>
-    
-      <category term="树" scheme="http://benym.cn/categories/%E6%A0%91/"/>
-    
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
-      <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
