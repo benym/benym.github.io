@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-05-30T06:55:31.255Z</updated>
+  <updated>2020-06-05T13:06:32.702Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-121-买卖股票的最佳时机</title>
+    <link href="http://benym.cn/2020/06/05/LeetCode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA/"/>
+    <id>http://benym.cn/2020/06/05/LeetCode-121-买卖股票的最佳时机/</id>
+    <published>2020-06-05T12:28:28.000Z</published>
+    <updated>2020-06-05T13:06:32.702Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-121-买卖股票的最佳时机"><a href="#LeetCode-121-买卖股票的最佳时机" class="headerlink" title="LeetCode-121-买卖股票的最佳时机"></a>LeetCode-121-买卖股票的最佳时机</h2><p>给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。</p><p>如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。</p><p>注意：你不能在买入股票前卖出股票。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入: [7,1,5,3,6,4]</span><br><span class="line">输出: 5</span><br><span class="line">解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。</span><br><span class="line">     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [7,6,4,3,1]</span><br><span class="line">输出: 0</span><br><span class="line">解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>方法一、线性遍历(DP思想)：</p><p>当利润是负数时，最小数应该变化为当前值，当利润为正数时，max最大利润保存，最后返回最大利润即可</p><p>前i天的最大收益= max(前i-1天的最大收益，第i天的价格-前i-1天中的最小价格)</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProfit</span><span class="params">(<span class="keyword">int</span>[] prices)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(prices==<span class="keyword">null</span>||prices.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> low = prices[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> temp = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;prices.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(prices[i]-low&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                low = prices[i];</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                temp = Math.max(temp,prices[i]-low);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      买卖股票的最佳时机
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-392-判断子序列</title>
@@ -36,13 +66,13 @@
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -72,9 +102,9 @@
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="贪心算法" scheme="http://benym.cn/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="贪心算法" scheme="http://benym.cn/tags/%E8%B4%AA%E5%BF%83%E7%AE%97%E6%B3%95/"/>
     
   </entry>
   
@@ -154,11 +184,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -182,11 +212,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -266,11 +296,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -294,11 +324,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -322,11 +352,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -352,11 +382,11 @@
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -408,11 +438,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -436,11 +466,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -466,11 +496,11 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -496,13 +526,13 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -526,13 +556,13 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     
@@ -556,41 +586,13 @@
       <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-面试题56-1-数组中数字出现的次数</title>
-    <link href="http://benym.cn/2020/05/18/LeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9856-1-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B01/"/>
-    <id>http://benym.cn/2020/05/18/LeetCode-面试题56-1-数组中数字出现的次数1/</id>
-    <published>2020-05-18T08:06:08.000Z</published>
-    <updated>2020-05-18T08:57:05.341Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-面试题56-1-数组中数字出现的次数"><a href="#LeetCode-面试题56-1-数组中数字出现的次数" class="headerlink" title="LeetCode-面试题56-1-数组中数字出现的次数"></a>LeetCode-面试题56-1-数组中数字出现的次数</h2><p>一个整型数组 <code>nums</code> 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。要求时间复杂度是O(n)，空间复杂度是O(1)。</p> <a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [4,1,4,6]</span><br><span class="line">输出：[1,6] 或 [6,1]</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [1,2,10,4,1,4,3,3]</span><br><span class="line">输出：[2,10] 或 [10,2]</span><br></pre></td></tr></table></figure><ul><li><p><strong>限制：</strong></p><p><code>2 &lt;= nums.length &lt;= 10000</code></p></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>异或运算(单1为1，其余0)：</p><p>根据异或运算的特点，相同的数字会在异或的时候抵消了，不相同的数字，其不相同的位会被保留</p><p>如果数组中有2个数字是不相同的，所以对数组整体异或之后，剩下的数字肯定至少有一位为1</p><p>如果能够找到第一个为1的那一位，那么就能够通过判断这一位是否为1，而划分数组为2个子数组</p><p>这样问题就分解成了，分别寻找2个子数组中，只出现一次的数字</p><p>由于判断位的条件具有二分性，当判断出一个不相同的数字位为1时，另一个数字该位则不为1，于是划分的子数组中自然一个数组会包含一个不相同数字</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] singleNumbers(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> temp=<span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 数组整体异或</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i:nums)</span><br><span class="line">            temp^=i;</span><br><span class="line">        <span class="comment">// 初始化mask=1</span></span><br><span class="line">        <span class="keyword">int</span> mask = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 通过mask，判断第一次出现1的位数</span></span><br><span class="line">        <span class="keyword">while</span>((temp&amp;mask)==<span class="number">0</span>)&#123;</span><br><span class="line">            mask&lt;&lt;=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> num1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> num2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j:nums)&#123;</span><br><span class="line">            <span class="comment">// 通过判断1出现的位置和数组元素与运算结果是否为0，来二分数组</span></span><br><span class="line">            <span class="keyword">if</span>((j&amp;mask)==<span class="number">0</span>)&#123; <span class="comment">// 相同的数字会分在一起，但不同的数字会因此隔开</span></span><br><span class="line">                num1^=j;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                num2^=j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;num1,num2&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      数组中数字出现的次数
-    
-    </summary>
-    
-      <category term="剑指Offer" scheme="http://benym.cn/categories/%E5%89%91%E6%8C%87Offer/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="剑指Offer" scheme="http://benym.cn/tags/%E5%89%91%E6%8C%87Offer/"/>
     

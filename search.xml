@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-121-买卖股票的最佳时机]]></title>
+    <url>%2F2020%2F06%2F05%2FLeetCode-121-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%2F</url>
+    <content type="text"><![CDATA[LeetCode-121-买卖股票的最佳时机给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。 如果你最多只允许完成一笔交易（即买入和卖出一支股票一次），设计一个算法来计算你所能获取的最大利润。 注意：你不能在买入股票前卖出股票。 示例 1: 1234输入: [7,1,5,3,6,4]输出: 5解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。 注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。 示例2： 123输入: [7,6,4,3,1]输出: 0解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。 解题思路方法一、线性遍历(DP思想)： 当利润是负数时，最小数应该变化为当前值，当利润为正数时，max最大利润保存，最后返回最大利润即可 前i天的最大收益= max(前i-1天的最大收益，第i天的价格-前i-1天中的最小价格) Java代码123456789101112131415class Solution &#123; public int maxProfit(int[] prices) &#123; if(prices==null||prices.length==0) return 0; int low = prices[0]; int temp = 0; for(int i=1;i&lt;prices.length;i++)&#123; if(prices[i]-low&lt;0)&#123; low = prices[i]; &#125;else&#123; temp = Math.max(temp,prices[i]-low); &#125; &#125; return temp; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>DP</tag>
+        <tag>数组</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-392-判断子序列]]></title>
     <url>%2F2020%2F05%2F30%2FLeetCode-392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97%2F</url>
     <content type="text"><![CDATA[LeetCode-392-判断子序列给定字符串 s 和 t ，判断 s 是否为 t 的子序列。 你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 &lt;=100）。 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，”ace”是”abcde”的一个子序列，而”aec”不是）。 示例 1: 1s = &quot;abc&quot;, t = &quot;ahbgdc&quot; 示例2： 1s = &quot;axc&quot;, t = &quot;ahbgdc&quot; 后续挑战 : 如果有大量输入的 S，称作S1, S2, … , Sk 其中 k &gt;= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代码？ 解题思路方法1、顺序遍历： 固定s的第一位找t中有没有这一位，有就移动s指针，并让len++，当len达到slen的时候说明匹配上了 方法2、DP： DP不是很快，主要是为了练手该怎么做，出处来源于这里 状态dp[i][j]为s从头开始到i的子字符串是否是t从头开始到j的子字符串的子序列 状态转移公式： 当char[i]==char[j]时，则字符i一定是j的子序列，如果0~i-1子字符串是0~j-1子字符串的子序列，则dp[i][j]=true，也就是说当前的字符匹配上了，前面的也匹配上了，才是子序列，所以dp[i][j]=dp[i-1][j-1] 当char[i]!=char[j]时，即判断当前0~i子字符串是否是0~j-1的子字符串的子序列，即dp[i][j]=d[i][j-1]。如ab，eabc，虽然s的最后一个字符串和t中的最后一个字符不相等，但是ab是eab的子序列，所以ab也是eabc的子序列 初始化：空字符串一定是t的子字符串的子序列，所以dp[0][j]=true Java代码12345678910111213141516171819class Solution &#123; public boolean isSubsequence(String s, String t) &#123; if (s.length() != 0 &amp;&amp;t.length() == 0) return false; if (s.length()==0&amp;&amp;t.length()!=0) return true; if (s.length()==0&amp;&amp;t.length()==0) return true; int index = 0; int slen = s.length(); int len = 0; for (int i = 0; i &lt; t.length(); i++) &#123; if (s.charAt(index) == (t.charAt(i))) &#123; index++; len++; &#125; if (len == slen) return true; &#125; return false; &#125;&#125; Java代码2123456789101112131415161718192021class Solution &#123; public boolean isSubsequence(String s, String t) &#123; int slen = s.length(),tlen = t.length(); if(slen&gt;tlen) return false; if(slen==0) return true; boolean[][] dp = new boolean[slen+1][tlen+1]; for(int j = 0;j&lt;tlen;j++)&#123; dp[0][j] = true; &#125; for(int i =1;i&lt;=slen;i++)&#123; for(int j =1;j&lt;=tlen;j++)&#123; if(s.charAt(i-1)==t.charAt(j-1))&#123; dp[i][j] = dp[i-1][j-1]; &#125;else&#123; dp[i][j] = dp[i][j-1]; &#125; &#125; &#125; return dp[slen][tlen]; &#125;&#125;]]></content>
@@ -9,10 +24,10 @@
       </categories>
       <tags>
         <tag>DP</tag>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -27,8 +42,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
-        <tag>贪心算法</tag>
         <tag>Python</tag>
+        <tag>贪心算法</tag>
       </tags>
   </entry>
   <entry>
@@ -68,9 +83,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -82,9 +97,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -124,9 +139,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -138,9 +153,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -152,9 +167,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -167,9 +182,9 @@
       </categories>
       <tags>
         <tag>DP</tag>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -195,9 +210,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Hard</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -209,9 +224,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -224,9 +239,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -239,10 +254,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -254,10 +269,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -269,10 +284,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -284,9 +299,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -389,9 +404,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -403,9 +418,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -432,10 +447,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>Hard</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
+        <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
         <tag>分治</tag>
       </tags>
@@ -490,9 +505,9 @@
       </categories>
       <tags>
         <tag>DP</tag>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
         <tag>双指针</tag>
@@ -507,10 +522,10 @@
       </categories>
       <tags>
         <tag>DP</tag>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -523,10 +538,10 @@
       </categories>
       <tags>
         <tag>DP</tag>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
         <tag>回溯</tag>
       </tags>
@@ -539,11 +554,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>大数问题</tag>
-        <tag>数组</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -555,11 +570,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>大数问题</tag>
-        <tag>数组</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -572,9 +587,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
         <tag>大数问题</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -587,10 +602,10 @@
       </categories>
       <tags>
         <tag>DP</tag>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -602,9 +617,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Hard</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -616,10 +631,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -644,10 +659,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -659,9 +674,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
@@ -679,8 +694,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -935,10 +950,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -950,9 +965,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -966,10 +981,10 @@
       </categories>
       <tags>
         <tag>DP</tag>
-        <tag>字符串</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>字符串</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1010,11 +1025,11 @@
         <category>字符串</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
+        <tag>字符串</tag>
         <tag>大数问题</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1054,9 +1069,9 @@
         <category>字符串</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1086,8 +1101,8 @@
         <tag>DP</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>贪心算法</tag>
         <tag>Python</tag>
+        <tag>贪心算法</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1102,8 +1117,8 @@
         <tag>DP</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>贪心算法</tag>
         <tag>Python</tag>
+        <tag>贪心算法</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1131,10 +1146,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
         <tag>回溯</tag>
       </tags>
@@ -1147,10 +1162,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1251,9 +1266,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>字符串</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1266,10 +1281,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1281,10 +1296,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1296,10 +1311,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1339,10 +1354,10 @@
         <category>数组</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -1353,10 +1368,10 @@
         <category>数组</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -1367,10 +1382,10 @@
         <category>数组</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
