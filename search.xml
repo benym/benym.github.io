@@ -16,6 +16,21 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[LeetCode-303-区域和检索-数组不可变]]></title>
+    <url>%2F2020%2F05%2F31%2FLeetCode-303-%E5%8C%BA%E5%9F%9F%E5%92%8C%E6%A3%80%E7%B4%A2-%E6%95%B0%E7%BB%84%E4%B8%8D%E5%8F%AF%E5%8F%98%2F</url>
+    <content type="text"><![CDATA[LeetCode-303-区域和检索-数组不可变给定一个整数数组 nums，求出数组从索引 i 到 j (i ≤ j) 范围内元素的总和，包含 i, j 两点。 示例 1: 12345给定 nums = [-2, 0, 3, -5, 2, -1]，求和函数为 sumRange()sumRange(0, 2) -&gt; 1sumRange(2, 5) -&gt; -1sumRange(0, 5) -&gt; -3 说明: 你可以假设数组不可变。 会多次调用 sumRange 方法。 解题思路方法1、DP暴力破解： 显然这个方法可以用一维DP解决 状态：dp[in]代表从i开始到当前位置的元素和 状态转移方程： 当是第一个元素时，直接赋值 当是元素i，且i！=0时，dp[i]由dp[i-1]个元素和决定 需要一个dp数组指针in，线性遍历一次数组，dp数组的最后位置就是元素和 这个方法勉强能通过，但是每次调用都要计算[i,j]范围的和，速度很慢 方法2、缓存： 提前计算出所有范围的累和，能不能计算出第i个元素的和 sum[k]定义为nums[0…k-1]的累和，sum[0]=0 对于上述示例数组sum数组为[0，-2，-2，1，-4，-2，-3] sumrange(i,j)=sum[j+1]-sum[i]，也就是把后面部分的和前去并集部分即可 这种方法只需要计算一次和，之后仅需要从数组取值相减即可得到结果 Java代码1234567891011121314151617181920212223242526class NumArray &#123; private int[] nums; public NumArray(int[] nums) &#123; this.nums = nums; &#125; public int sumRange(int i, int j) &#123; if(nums==null||nums.length==0) return 0; int[] dp = new int[j-i+1]; int in = 0; for(int k=i;k&lt;=j;k++)&#123; if(k==i) dp[in] = this.nums[k]; else dp[in]=dp[in-1]+this.nums[k]; in++; &#125; return dp[in-1]; &#125;&#125;/** * Your NumArray object will be instantiated and called as such: * NumArray obj = new NumArray(nums); * int param_1 = obj.sumRange(i,j); */ Java代码21234567891011121314151617181920class NumArray &#123; private int[] sum; public NumArray(int[] nums) &#123; sum = new int[nums.length + 1]; for (int i = 0; i &lt; nums.length; i++) &#123; sum[i + 1] = sum[i] + nums[i]; &#125; &#125; public int sumRange(int i, int j) &#123; return sum[j + 1] - sum[i]; &#125;&#125;/** * Your NumArray object will be instantiated and called as such: * NumArray obj = new NumArray(nums); * int param_1 = obj.sumRange(i,j); */]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>DP</tag>
+        <tag>数组</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-392-判断子序列]]></title>
     <url>%2F2020%2F05%2F30%2FLeetCode-392-%E5%88%A4%E6%96%AD%E5%AD%90%E5%BA%8F%E5%88%97%2F</url>
     <content type="text"><![CDATA[LeetCode-392-判断子序列给定字符串 s 和 t ，判断 s 是否为 t 的子序列。 你可以认为 s 和 t 中仅包含英文小写字母。字符串 t 可能会很长（长度 ~= 500,000），而 s 是个短字符串（长度 &lt;=100）。 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，”ace”是”abcde”的一个子序列，而”aec”不是）。 示例 1: 1s = &quot;abc&quot;, t = &quot;ahbgdc&quot; 示例2： 1s = &quot;axc&quot;, t = &quot;ahbgdc&quot; 后续挑战 : 如果有大量输入的 S，称作S1, S2, … , Sk 其中 k &gt;= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代码？ 解题思路方法1、顺序遍历： 固定s的第一位找t中有没有这一位，有就移动s指针，并让len++，当len达到slen的时候说明匹配上了 方法2、DP： DP不是很快，主要是为了练手该怎么做，出处来源于这里 状态dp[i][j]为s从头开始到i的子字符串是否是t从头开始到j的子字符串的子序列 状态转移公式： 当char[i]==char[j]时，则字符i一定是j的子序列，如果0~i-1子字符串是0~j-1子字符串的子序列，则dp[i][j]=true，也就是说当前的字符匹配上了，前面的也匹配上了，才是子序列，所以dp[i][j]=dp[i-1][j-1] 当char[i]!=char[j]时，即判断当前0~i子字符串是否是0~j-1的子字符串的子序列，即dp[i][j]=d[i][j-1]。如ab，eabc，虽然s的最后一个字符串和t中的最后一个字符不相等，但是ab是eab的子序列，所以ab也是eabc的子序列 初始化：空字符串一定是t的子字符串的子序列，所以dp[0][j]=true Java代码12345678910111213141516171819class Solution &#123; public boolean isSubsequence(String s, String t) &#123; if (s.length() != 0 &amp;&amp;t.length() == 0) return false; if (s.length()==0&amp;&amp;t.length()!=0) return true; if (s.length()==0&amp;&amp;t.length()==0) return true; int index = 0; int slen = s.length(); int len = 0; for (int i = 0; i &lt; t.length(); i++) &#123; if (s.charAt(index) == (t.charAt(i))) &#123; index++; len++; &#125; if (len == slen) return true; &#125; return false; &#125;&#125; Java代码2123456789101112131415161718192021class Solution &#123; public boolean isSubsequence(String s, String t) &#123; int slen = s.length(),tlen = t.length(); if(slen&gt;tlen) return false; if(slen==0) return true; boolean[][] dp = new boolean[slen+1][tlen+1]; for(int j = 0;j&lt;tlen;j++)&#123; dp[0][j] = true; &#125; for(int i =1;i&lt;=slen;i++)&#123; for(int j =1;j&lt;=tlen;j++)&#123; if(s.charAt(i-1)==t.charAt(j-1))&#123; dp[i][j] = dp[i-1][j-1]; &#125;else&#123; dp[i][j] = dp[i][j-1]; &#125; &#125; &#125; return dp[slen][tlen]; &#125;&#125;]]></content>
@@ -2007,9 +2022,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2018,9 +2033,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
