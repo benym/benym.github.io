@@ -1,3 +1,5 @@
+http://benym.cn/2020/06/07/LeetCode-23-合并K个排序链表/
+http://benym.cn/2020/06/07/LeetCode-21-合并两个有序链表/
 http://benym.cn/2020/06/06/LeetCode-198-打家劫舍/
 http://benym.cn/2020/06/06/LeetCode-面试题17.16-按摩师/
 http://benym.cn/2020/06/05/LeetCode-121-买卖股票的最佳时机/
@@ -6,5 +8,3 @@ http://benym.cn/2020/05/30/LeetCode-392-判断子序列/
 http://benym.cn/2020/05/30/LeetCode-53-最大子序和/
 http://benym.cn/2020/05/29/LeetCode-面试题68-2-二叉搜索树的最近公共祖先/
 http://benym.cn/2020/05/29/LeetCode-面试题68-1-二叉搜索树的最近公共祖先/
-http://benym.cn/2020/05/21/LeetCode-面试题67-把字符串转化成整数/
-http://benym.cn/2020/05/21/LeetCode-面试题66-构建乘积数组/
