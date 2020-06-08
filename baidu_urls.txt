@@ -1,3 +1,4 @@
+http://benym.cn/2020/06/08/LeetCode-51-N皇后/
 http://benym.cn/2020/06/07/LeetCode-23-合并K个排序链表/
 http://benym.cn/2020/06/07/LeetCode-21-合并两个有序链表/
 http://benym.cn/2020/06/06/LeetCode-198-打家劫舍/
@@ -7,4 +8,3 @@ http://benym.cn/2020/05/31/LeetCode-303-区域和检索-数组不可变/
 http://benym.cn/2020/05/30/LeetCode-392-判断子序列/
 http://benym.cn/2020/05/30/LeetCode-53-最大子序和/
 http://benym.cn/2020/05/29/LeetCode-面试题68-2-二叉搜索树的最近公共祖先/
-http://benym.cn/2020/05/29/LeetCode-面试题68-1-二叉搜索树的最近公共祖先/
