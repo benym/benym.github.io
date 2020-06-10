@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-143-重排链表]]></title>
+    <url>%2F2020%2F06%2F10%2FLeetCode-143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[LeetCode-143-重排链表给定一个单链表 L：L0→L1→…→Ln-1→Ln ，将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→… 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。 示例1： 1给定链表 1-&gt;2-&gt;3-&gt;4, 重新排列为 1-&gt;4-&gt;2-&gt;3. 示例2： 1给定链表 1-&gt;2-&gt;3-&gt;4-&gt;5, 重新排列为 1-&gt;5-&gt;2-&gt;4-&gt;3. 解题思路方法1、存储+双指针： 用一个线性表存储所有的链表元素，之后用2个指针，分别获得链表的头尾 按照规律对于1，2，3，4这样的链表例子 1之后是4，4之后是2，2之后是3 初始化头尾指针，改变头部指针的指向到尾部，并使i指向下一位 即list.get(i).next = list.get(j);和i++ 改变尾部指针指向到原本头部的下一位，由于上面已经i++，此时线性表的i就是上一次i的下一位 所以list.get(j).next = list.get(i);，之后j-- 直到i==j时跳出循环，此时i仍然与原来的链表相连，将i.next=null完成链表构建 方法2、拆分+翻转+拼接： 这个解法复习的内容挺多的，按照题目规律，重排链表可以分为如下3个步骤 12345678910111 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6第一步，将链表平均分成两半1 -&gt; 2 -&gt; 34 -&gt; 5 -&gt; 6 第二步，将第二个链表逆序1 -&gt; 2 -&gt; 36 -&gt; 5 -&gt; 4 第三步，依次连接两个链表1 -&gt; 6 -&gt; 2 -&gt; 5 -&gt; 3 -&gt; 4 如何拆分链表，最重要的是找到拆分的中点 对于偶数链表，拆分的中点在边界左边，对于奇数链表，中点就是中间的那个 可以利用快慢指针来寻找中点，一个指针走2步，一个指针走1步，当快指针走到链表尾部的时候，慢指针的位置就是拆分的中点，由于奇数和偶数拆分点不一样，所以ListNode newHead = slow.next;和slow.next = null;在找到边界点之后，始终后移1位，这样保证了偶数情况下，拆分点始终是第二个链表的头部 但是对于奇数情况，则会让第一个链表始终比第二个链表多一个数字，这种情况在合并的时候进行处理。 链表的逆序思想和LeetCode-面试题24-反转链表相同 链表的合并思想和LeetCode-面试题25-合并两个排序的链表大致相同 稍微有点区别的地方是这里不是按照值进行合并 1234567对于slow 1 -&gt; 2 -&gt; 3fast 4 -&gt; 5而言，应该先存储slow和fast的next节点之后将slow的next变为fast，即1 -&gt; 4fast的next = 刚才存储的slow.next，即4 -&gt; 2接下来移动1位slow和fast指针，即slow = 刚才存储的slow.next，fast = 刚才存储的fast.next 而此时的第一个链表由于始终比第二个链表长，所以判断空的条件为slow.next!=null&amp;&amp;fast!=null，当满足此条件时，才会进行V字型拼接 Java代码123456789101112131415161718192021222324252627282930313233343536/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode() &#123;&#125; * ListNode(int val) &#123; this.val = val; &#125; * ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125; * &#125; */class Solution &#123; public void reorderList(ListNode head) &#123; if (head == null) &#123; return; &#125; //存到 list 中去 List&lt;ListNode&gt; list = new ArrayList&lt;&gt;(); while (head != null) &#123; list.add(head); head = head.next; &#125; //头尾指针依次取元素 int i = 0, j = list.size() - 1; while (i &lt; j) &#123; list.get(i).next = list.get(j); i++; //偶数个节点的情况，会提前相遇 if (i == j) &#123; break; &#125; list.get(j).next = list.get(i); j--; &#125; list.get(i).next = null; &#125;&#125; Java代码2123456789101112131415161718192021222324252627282930313233343536373839404142434445464748/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode() &#123;&#125; * ListNode(int val) &#123; this.val = val; &#125; * ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125; * &#125; */class Solution &#123; public void reorderList(ListNode head) &#123; if (head == null || head.next == null || head.next.next == null) &#123; return; &#125; ListNode slow = head; ListNode fast = head; while(fast!=null&amp;&amp;fast.next!=null)&#123; slow = slow.next; fast = fast.next.next; &#125; ListNode newHead = slow.next; slow.next = null; fast = reversList(newHead); slow = head; while(slow.next!=null&amp;&amp;fast!=null)&#123; ListNode stemp = slow.next; ListNode ftemp = fast.next; slow.next = fast; fast.next = stemp; slow = stemp; fast = ftemp; &#125; &#125; public ListNode reversList(ListNode head)&#123; if(head==null||head.next==null) return head; ListNode pre = null; ListNode cur = head; while(cur!=null)&#123; ListNode temp = cur.next; cur.next = pre; pre = cur; cur = temp; &#125; return pre; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-142-环形链表2]]></title>
+    <url>%2F2020%2F06%2F10%2FLeetCode-142-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A82%2F</url>
+    <content type="text"><![CDATA[LeetCode-142-环形链表2给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。 说明：不允许修改给定的链表。 示例1： 123输入：head = [3,2,0,-4], pos = 1输出：tail connects to node index 1解释：链表中有一个环，其尾部连接到第二个节点。 示例2： 123输入：head = [1,2], pos = 0输出：tail connects to node index 0解释：链表中有一个环，其尾部连接到第一个节点。 示例3： 123输入：head = [1], pos = -1输出：no cycle解释：链表中没有环。 进阶：你是否可以不用额外空间解决此题？ 解题思路相关链接： LeetCode-141-环形链表 LeetCode-面试题02.02-返回倒数第k个节点 快慢指针+双指针： 想要在环形链表中找到入环的第一个节点，首先要判断是否有环 在有环的前提下，如果能够计算出环内的节点有多少个，那么问题就变为同返回倒数第k个节点相似的问题 让其中一个指针先走n步，之后一个指针第一个指针走完n步之后开始走 两个指针继续移动1步，当第二个指针指向环的入口节点时，第一个指针已经绕了一圈回来到达了入口节点，此时第二个指针的位置就是入口 Java代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748/** * Definition for singly-linked list. * class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; * val = x; * next = null; * &#125; * &#125; */public class Solution &#123; public ListNode detectCycle(ListNode head) &#123; ListNode meetingNode = hasCycle(head); if(meetingNode==null) return null; int n = 1; ListNode temp = meetingNode; while(temp.next!=meetingNode)&#123; temp = temp.next; n++; &#125; ListNode start = head; temp = head; for(int i=0;i&lt;n;i++)&#123; temp = temp.next; &#125; while(temp!=start)&#123; temp = temp.next; start = start.next; &#125; return start; &#125; public ListNode hasCycle(ListNode head) &#123; if(head==null) return null; ListNode slow = head.next; if(slow==null) return null; ListNode fast = slow.next; while(fast!=null&amp;&amp;slow!=null)&#123; if(fast==slow) return fast; slow = slow.next; fast = fast.next; if(fast!=null)&#123; fast = fast.next; &#125; &#125; return null; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-141-环形链表]]></title>
+    <url>%2F2020%2F06%2F10%2FLeetCode-141-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[LeetCode-141-环形链表给定一个链表，判断链表中是否有环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。 示例1： 123输入：head = [3,2,0,-4], pos = 1输出：true解释：链表中有一个环，其尾部连接到第二个节点。 示例2： 123输入：head = [1,2], pos = 0输出：true解释：链表中有一个环，其尾部连接到第一个节点。 示例3： 123输入：head = [1], pos = -1输出：false解释：链表中没有环。 进阶： 你能用 O(1)（即，常量）内存解决此问题吗？ 解题思路快慢指针： 要找到一个链表有没有环，可以通过设置快慢指针的方式 如果快的指针赶上了慢的指针说明链表中有环，如果不存在环那么其中一个指针必定会等于null 初始化慢指针slow=head.next，如果他等于null说明链表只有一个节点，不存在环，返回false 初始化快指针fast=slow.next，当快慢指针都不为空的时候，判断是否相等，相等则有环 如果不相等，则移动慢指针1步，移动快指针2步，但快指针移动一步之后需要判断是否为null，不为null才能移动第二步，否则没有环，跳出循环返回false Java代码12345678910111213141516171819202122232425262728/** * Definition for singly-linked list. * class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; * val = x; * next = null; * &#125; * &#125; */public class Solution &#123; public boolean hasCycle(ListNode head) &#123; if(head==null) return false; ListNode slow = head.next; if(slow==null) return false; ListNode fast = slow.next; while(fast!=null&amp;&amp;slow!=null)&#123; if(fast==slow) return true; slow = slow.next; fast = fast.next; if(fast!=null)&#123; fast = fast.next; &#125; &#125; return false; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题02.02-返回倒数第k个节点]]></title>
+    <url>%2F2020%2F06%2F10%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9802.02-%E8%BF%94%E5%9B%9E%E5%80%92%E6%95%B0%E7%AC%ACk%E4%B8%AA%E8%8A%82%E7%82%B9%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题02.02-返回倒数第k个节点实现一种算法，找出单向链表中倒数第 k 个节点。返回该节点的值。 注意：本题相对原题稍作改动 示例 1: 12输入： 1-&gt;2-&gt;3-&gt;4-&gt;5 和 k = 2输出： 4 说明： 给定的 k 保证是有效的。 解题思路双指针： 根据链表的性质，要获得倒数第k个节点，就等于求n-(k-1)个节点， 但这需要知道链表的长度，意味着需要两次遍历链表。 换一种想法，想要知道倒数第k个节点，那么就让一个指针先走k-1步，另外一个指针始终和第一个指针保持k-1的距离 当第一个指针到达链表结尾时，第二个指针则正好在n-(k-1)的位置，只需要一次遍历即可完成 Java代码123456789101112131415161718192021222324/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public int kthToLast(ListNode head, int k) &#123; if(head==null) return 0; ListNode fast = head; ListNode low = null; for(int i=0;i&lt;k-1;i++)&#123; fast = fast.next; &#125; low = head; while(fast.next!=null)&#123; fast = fast.next; low = low.next; &#125; return low.val; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-328-奇偶链表]]></title>
+    <url>%2F2020%2F06%2F10%2FLeetCode-328-%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8%2F</url>
+    <content type="text"><![CDATA[LeetCode-328-奇偶链表给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。 请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。 示例 1: 12输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL 示例2： 12输入: 2-&gt;1-&gt;3-&gt;5-&gt;6-&gt;4-&gt;7-&gt;NULL 输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL 说明: 应当保持奇数节点和偶数节点的相对顺序。 链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。 解题思路双指针： 一个指针指向奇数节点，一个指针指向偶数节点 间隔遍历，奇数指针只能指向奇数节点，偶数指针只能指向偶数节点 对于链表长度为奇数时，奇数指针one能够指向之后一个数字，此时偶数指针two==null，作为循环结束条件 对于链表长度为偶数时，奇数指针one会在之前遍历完毕奇数位置，此时偶数指针two.next==null，作为循环结束条件 最后进行奇偶链表拼接，one.next=tempTwo 注意：间隔遍历很重要，如果按照顺序遍历，会出现one和two指针在奇偶长度的指向不一样，即one和two在快到链表末尾时候，可能指向的奇数链表也可能指向的偶数链表，这样就无法进行最后指针拼接的判断了，间隔遍历保证了指针的奇偶性 Java代码1234567891011121314151617181920212223242526/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode() &#123;&#125; * ListNode(int val) &#123; this.val = val; &#125; * ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125; * &#125; */class Solution &#123; public ListNode oddEvenList(ListNode head) &#123; if(head==null) return head; ListNode one = head; ListNode two = head.next; ListNode tempTwo = two; while(two!=null&amp;&amp;two.next!=null)&#123; one.next = two.next; one = one.next; two.next = one.next; two = two.next; &#125; one.next = tempTwo; return head; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>LeetCode</tag>
+        <tag>链表</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-300-最长上升子序列]]></title>
     <url>%2F2020%2F06%2F09%2FLeetCode-300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97%2F</url>
     <content type="text"><![CDATA[LeetCode-300-最长上升子序列给定一个无序的整数数组，找到其中最长上升子序列的长度。 示例 1: 123输入: [10,9,2,5,3,7,101,18]输出: 4 解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。 说明: 可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。你算法的时间复杂度应该为 O(n2) 。进阶: 你能将算法的时间复杂度降低到 O(n log n) 吗? 解题思路动态规划： 子序列严格上升，不存在中间数字相等的情况，且不要求序列连续 状态定义为：第i个数字为结尾的最长上升子序列的长度，自身也需要统计在其中，每个位置的初始化长度为1 状态转移方程：遍历到索引是i的数字的时候，需要看i前面的i-1个数字是否小于当前的nums[i]的值，如果小于则可以构成一个更长的子序列，但i-1个数字中比nums[i]小的数字有多个，所以dp[i]位置的子序列长度，应该是前面i-1个数字的最长的那个加上1，即dp[i] = Math.max(dp[j]+1,dp[i]) 外层循环到len，控制dp[i]每个位置的初始化为1 内层循环到i，查看从数组开头到i-1个数，最长的子序列分别是多少 最后dp数组中的最大值，就是最长上升子序列的长度 贪心+二分查找： 实在是想不到这种解法….原题题解出处 Java代码12345678910111213141516171819class Solution &#123; public int lengthOfLIS(int[] nums) &#123; int len = nums.length; if(len&lt;2) return len; int[] dp = new int[len]; int res = 1; for(int i=0;i&lt;len;i++)&#123; dp[i]=1; // 看前面i-1个数字 for(int j=0;j&lt;i;j++)&#123; if(nums[j]&lt;nums[i])&#123; //可以构成更长的子序列，所以dp[j]+1 dp[i] = Math.max(dp[j]+1,dp[i]); &#125; &#125; if(res&lt;dp[i]) res=dp[i]; &#125; return res; &#125;&#125; Java代码212345678910111213141516171819202122232425class Solution &#123; public int lengthOfLIS(int[] nums) &#123; int len = nums.length; if(len&lt;2) return len; int[] dp = new int[nums.length]; int maxL = 0; for(int num:nums)&#123; int low = 0; int high = maxL; while(low&lt;high)&#123; int mid = low+(high-low)/2; if(dp[mid]&lt;num)&#123; low = mid+1; &#125; else&#123; high = mid; &#125; &#125; dp[low]=num; if(low==maxL) maxL++; &#125; return maxL; &#125;&#125;]]></content>
@@ -69,8 +139,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>链表</tag>
+        <tag>Hard</tag>
         <tag>分治</tag>
       </tags>
   </entry>
@@ -84,8 +154,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -260,8 +330,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -420,8 +490,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -449,8 +519,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
+        <tag>Python</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -465,9 +535,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -495,9 +565,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Medium</tag>
         <tag>树</tag>
         <tag>BFS</tag>
-        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -509,8 +579,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -524,8 +594,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
+        <tag>Python</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -560,7 +630,7 @@
   </entry>
   <entry>
     <title><![CDATA[LeetCode-面试题52-两个链表的第一个公共节点]]></title>
-    <url>%2F2020%2F05%2F12%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9852-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9%20-%20%E5%89%AF%E6%9C%AC%2F</url>
+    <url>%2F2020%2F05%2F12%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9852-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%85%AC%E5%85%B1%E8%8A%82%E7%82%B9%2F</url>
     <content type="text"><![CDATA[LeetCode-面试题52-两个链表的第一个公共节点输入两个链表，找出它们的第一个公共节点。 示例1： 123输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3输出：Reference of the node with value = 8输入解释：相交节点的值为 8 （注意，如果两个列表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。 示例2： 123输入：intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1输出：Reference of the node with value = 2输入解释：相交节点的值为 2 （注意，如果两个列表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [0,9,1,2,4]，链表 B 为 [3,2,4]。在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。 示例3： 1234输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2输出：null输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。解释：这两个链表不相交，因此返回 null。 说明： 如果两个链表没有交点，返回 null. 在返回结果后，两个链表仍须保持原有的结构。 可假定整个链表结构中没有循环。 程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。 解题思路方法1、双指针+先遍历： 因为链表一长一短，所以先让长的一方走到和短的一方开始的位置，然后用双指针同时进行遍历，出现第一个相同的节点时就返回对应指针 方法2、双指针+重置： 同样是双指针，因为一长一短的关系，有一个指针会先到达末尾，当第一个指针pA先到末尾时，将他重置到链表B的开始位置，当第二个指针pB到达末尾时，将他重置到链表A开始的位置。由于有一个先到达先重置，在等待第二个指针走到末尾的过程中，先达到的指针pA将会走这段A比B多出的长度。这样当第二个指针重置时，两个指针都在一个位置开始，之后遍历到相同的节点返回即可 Java代码1234567891011121314151617181920212223242526272829303132333435363738394041/** * Definition for singly-linked list. * public class ListNode &#123; * int val; * ListNode next; * ListNode(int x) &#123; * val = x; * next = null; * &#125; * &#125; */public class Solution &#123; public ListNode getIntersectionNode(ListNode headA, ListNode headB) &#123; int lenA = getTreelen(headA); int lenB = getTreelen(headB); int firstStep = Math.abs(lenA-lenB); ListNode pLong = headA; ListNode pShort = headB; if(lenA&lt;lenB)&#123; pLong = headB; pShort = headA; &#125; // 长的先走几步 for(int i=0;i&lt;firstStep;i++)&#123; pLong = pLong.next; &#125; while(pLong!=null&amp;&amp;pShort!=null&amp;&amp;pLong!=pShort)&#123; pLong = pLong.next; pShort = pShort.next; &#125; return pLong; &#125; public int getTreelen(ListNode head)&#123; int lenTree = 0; while(head!=null)&#123; lenTree++; head = head.next; &#125; return lenTree; &#125;&#125; Python代码12345678910111213# Definition for singly-linked list.# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def getIntersectionNode(self, headA: ListNode, headB: ListNode) -&gt; ListNode: node1, node2 = headA, headB while node1 != node2: node1 = node1.next if node1 else headB node2 = node2.next if node2 else headA return node1]]></content>
       <categories>
         <category>剑指Offer</category>
@@ -568,8 +638,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -583,8 +653,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>分治</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -640,8 +710,8 @@
       <tags>
         <tag>DP</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
         <tag>双指针</tag>
@@ -658,8 +728,8 @@
         <tag>DP</tag>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -674,8 +744,8 @@
         <tag>DP</tag>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -690,8 +760,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -706,8 +776,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -721,8 +791,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -767,8 +837,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -809,8 +879,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
         <tag>DFS</tag>
@@ -827,9 +897,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>树</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -842,8 +912,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -857,9 +927,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>Medium</tag>
         <tag>链表</tag>
+        <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -872,9 +942,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
+        <tag>Python</tag>
         <tag>回溯</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
@@ -889,9 +959,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -904,9 +974,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Medium</tag>
         <tag>树</tag>
         <tag>BFS</tag>
-        <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -920,9 +990,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -935,10 +1005,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
+        <tag>Medium</tag>
         <tag>树</tag>
         <tag>BFS</tag>
-        <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -951,8 +1021,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
         <tag>栈</tag>
       </tags>
@@ -996,8 +1066,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1011,8 +1081,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>树</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1025,9 +1095,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1041,8 +1111,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1056,8 +1126,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1071,8 +1141,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1100,8 +1170,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1116,8 +1186,8 @@
       <tags>
         <tag>DP</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1132,8 +1202,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1146,8 +1216,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1189,8 +1259,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
         <tag>位运算</tag>
       </tags>
@@ -1225,22 +1295,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
-      <categories>
-        <category>剑指Offer</category>
-      </categories>
-      <tags>
-        <tag>DP</tag>
-        <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>Medium</tag>
-        <tag>贪心算法</tag>
-        <tag>剑指Offer</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
     <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
     <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
@@ -1250,8 +1304,24 @@
       <tags>
         <tag>DP</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
+        <tag>贪心算法</tag>
+        <tag>剑指Offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+      <categories>
+        <category>剑指Offer</category>
+      </categories>
+      <tags>
+        <tag>DP</tag>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>贪心算法</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1265,9 +1335,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>BFS</tag>
         <tag>Medium</tag>
+        <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1282,8 +1352,8 @@
       <tags>
         <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1371,9 +1441,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
-        <tag>树</tag>
         <tag>Medium</tag>
+        <tag>树</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1387,8 +1457,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1461,8 +1531,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>二维数组</tag>
       </tags>
   </entry>
@@ -1475,8 +1545,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Medium</tag>
+        <tag>Python</tag>
         <tag>二维数组</tag>
       </tags>
   </entry>
@@ -1677,9 +1747,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1689,9 +1759,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -2097,9 +2167,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2108,9 +2178,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2141,9 +2211,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2152,9 +2222,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
