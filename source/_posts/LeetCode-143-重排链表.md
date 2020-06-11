@@ -94,7 +94,7 @@ fast的next = 刚才存储的slow.next，即4 -> 2
 接下来移动1位slow和fast指针，即slow = 刚才存储的slow.next，fast = 刚才存储的fast.next
 ```
 
-而此时的第一个链表由于始终比第二个链表长，所以判断空的条件为`slow.next!=null&&fast!=null`，当满足此条件时，才会进行V字型拼接
+而此时的第一个链表由于始终比第二个链表长，所以判断空的条件为`slow!=null&&fast!=null`，当满足此条件时，才会进行V字型拼接
 
 ### Java代码
 
@@ -165,7 +165,7 @@ class Solution {
         slow.next = null;
         fast = reversList(newHead);
         slow = head;
-        while(slow.next!=null&&fast!=null){
+        while(slow!=null&&fast!=null){
             ListNode stemp = slow.next;
             ListNode ftemp = fast.next;
             slow.next = fast;
