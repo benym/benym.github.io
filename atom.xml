@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-18T13:14:05.047Z</updated>
+  <updated>2020-06-18T13:54:27.157Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-136-只出现一次的数字</title>
+    <link href="http://benym.cn/2020/06/18/LeetCode-136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"/>
+    <id>http://benym.cn/2020/06/18/LeetCode-136-只出现一次的数字/</id>
+    <published>2020-06-18T13:22:13.000Z</published>
+    <updated>2020-06-18T13:54:27.157Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-136-只出现一次的数字"><a href="#LeetCode-136-只出现一次的数字" class="headerlink" title="LeetCode-136-只出现一次的数字"></a>LeetCode-136-只出现一次的数字</h2><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p>说明：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,2,1]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [4,1,2,1,2]</span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、异或运算：</strong></p><p>异或运算的特点</p><ul><li>任何数和0做异或运算，结果是原来的数</li><li>任何数和其自身做异或运算，结果是自身</li><li>异或运算满足交换律和结合律，即<code>a^b^a=b^a^a=b^(a^a)=b^0=b</code></li></ul><p>根据这个特点可以直接用异或运算得出出现一次的字符</p><p><strong>方法2、哈希表：</strong></p><p>这个解法不符合题意，用到了一个哈希表来存储数字出现的次数</p><p>之后取出出现次数为1的数字即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> single = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            single ^= num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        dict1 = dict()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">in</span> dict1:</span><br><span class="line">                dict1[i]+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dict1[i]=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> list(dict1.keys())[list(dict1.values()).index(<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      只出现一次的数字
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-413-等差数列划分</title>
@@ -34,13 +64,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -64,11 +94,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -126,9 +156,9 @@
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -150,11 +180,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -178,11 +208,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
@@ -206,13 +236,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
-      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
   </entry>
   
@@ -234,11 +264,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -266,9 +296,9 @@
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -294,9 +324,9 @@
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -378,9 +408,9 @@
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
@@ -402,13 +432,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -432,9 +462,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -462,9 +492,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -554,41 +584,9 @@
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-198-打家劫舍</title>
-    <link href="http://benym.cn/2020/06/06/LeetCode-198-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D/"/>
-    <id>http://benym.cn/2020/06/06/LeetCode-198-打家劫舍/</id>
-    <published>2020-06-06T07:03:23.000Z</published>
-    <updated>2020-06-06T08:12:23.205Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-198-打家劫舍"><a href="#LeetCode-198-打家劫舍" class="headerlink" title="LeetCode-198-打家劫舍"></a>LeetCode-198-打家劫舍</h2><p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p><p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,2,3,1]</span><br><span class="line">输出：4</span><br><span class="line">解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。</span><br><span class="line">     偷窃到的最高金额 = 1 + 3 = 4 。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：[2,7,9,3,1]</span><br><span class="line">输出：12</span><br><span class="line">解释：偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。</span><br><span class="line">     偷窃到的最高金额 = 2 + 9 + 1 = 12 。</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li><code>0 &lt;= nums.length &lt;= 100</code></li><li><code>0 &lt;= nums[i] &lt;= 400</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>动态规划：</p><p>题目和<a href="/2020/06/06/LeetCode-面试题17.16-按摩师/" title="LeetCode-面试题17.16-按摩师">LeetCode-面试题17.16-按摩师</a>是基本上一样的</p><p>dp数组的状态：当前位置前相隔数据的最大值</p><p>初始化：dp[0] = nums[0] ,dp[1] = Math.max(nums[0],nums[1])</p><p>转移方程：索引从2开始，由于dp[i-1]存储前面相隔数据的最大值，所以需要比较，当前位置的num[i]和前面间隔位置的数值最大值dp[i-2]之和，与dp[i-1]之间的大小关系，即<code>dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i])</code></p><p>双指针：</p><p>多加一间房子，这个解法是经过分析之后简化的，原文来源<a href="https://leetcode-cn.com/problems/house-robber/solution/da-jia-jie-she-dong-tai-gui-hua-jie-gou-hua-si-lu-/" target="_blank" rel="noopener">这里</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">rob</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||len==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span>(len&lt;<span class="number">2</span>)</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        dp[<span class="number">0</span>] = nums[<span class="number">0</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = Math.max(nums[<span class="number">0</span>],nums[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;len;i++)&#123;</span><br><span class="line">            dp[i] = Math.max(dp[i-<span class="number">1</span>],dp[i-<span class="number">2</span>]+nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">rob</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        cur , pre = <span class="number">0</span>,<span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            cur,pre = max(pre+i,cur),cur</span><br><span class="line">        <span class="keyword">return</span> cur;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      打家劫舍
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
   </entry>
   
