@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-18T13:54:27.157Z</updated>
+  <updated>2020-06-19T07:30:47.508Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-11-盛最多水的容器</title>
+    <link href="http://benym.cn/2020/06/19/LeetCode-11-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"/>
+    <id>http://benym.cn/2020/06/19/LeetCode-11-盛最多水的容器/</id>
+    <published>2020-06-19T06:57:16.000Z</published>
+    <updated>2020-06-19T07:30:47.508Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-11-盛最多水的容器"><a href="#LeetCode-11-盛最多水的容器" class="headerlink" title="LeetCode-11-盛最多水的容器"></a>LeetCode-11-盛最多水的容器</h2><p>给你 n 个非负整数 a1，a2，…，an，每个数代表坐标中的一个点 (i, ai) 。在坐标内画 n 条垂直线，垂直线 i 的两个端点分别为 (i, ai) 和 (i, 0)。找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。</p><p>说明：你不能倾斜容器，且 n 的值至少为 2。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：[1,8,6,2,5,4,8,3,7]</span><br><span class="line">输出：49</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、双指针：</strong></p><p>根据题目的意思，最大面积=左右两个内板较低的一个高度*左右两个内板的间隔</p><p>利用双指针解决，初始化首尾指针，现在的问题是怎么样去移动首尾指针，才能够使得面积最大</p><p>想象一下，无论首尾指针谁大，我们都需要移动一次首尾指针，依次判断面积谁更大，此时无论是移动首还是尾指针，底部长度的变化都是1。于是我们只需要知道，移动哪个指针能让面积增大就行了。经过思考，移动值较小的那个指针，保留值较大的指针，可以使得面积更大的概率更大。所以当其中一个指针的值小于另外一个的时候，移动那个指针即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxArea</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = height.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(left&lt;right)&#123;</span><br><span class="line">            max = Math.max(max,(right-left)*Math.min(height[left],height[right]));</span><br><span class="line">            <span class="keyword">if</span>(height[left]&lt;height[right]) left++;</span><br><span class="line">            <span class="keyword">else</span> right--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      盛最多水的容器
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-4-寻找两个正序数组的中位数</title>
+    <link href="http://benym.cn/2020/06/19/LeetCode-4-%E5%AF%BB%E6%89%BE%E4%B8%A4%E4%B8%AA%E6%AD%A3%E5%BA%8F%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E4%BD%8D%E6%95%B0/"/>
+    <id>http://benym.cn/2020/06/19/LeetCode-4-寻找两个正序数组的中位数/</id>
+    <published>2020-06-19T05:52:54.000Z</published>
+    <updated>2020-06-19T06:55:19.730Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-4-寻找两个正序数组的中位数"><a href="#LeetCode-4-寻找两个正序数组的中位数" class="headerlink" title="LeetCode-4-寻找两个正序数组的中位数"></a>LeetCode-4-寻找两个正序数组的中位数</h2><p>给定两个大小为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。</p><p>请你找出这两个正序数组的中位数，并且要求算法的时间复杂度为 O(log(m + n))。</p><p>你可以假设 nums1 和 nums2 不会同时为空。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 3]</span><br><span class="line">nums2 = [2]</span><br><span class="line"></span><br><span class="line">则中位数是 2.0</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">nums1 = [1, 2]</span><br><span class="line">nums2 = [3, 4]</span><br><span class="line"></span><br><span class="line">则中位数是 (2 + 3)/2 = 2.5</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、归并排序思想：</strong></p><p>这种方法的复杂度不符合题意，属于备用解法</p><p>对于两个有序的数组，想要找到对应的中位数，最简单的方法就是将两个数组合并为1个，之后找中位数就很简单</p><p>只需要知道中间位置即可，奇数情况是一个数，偶数情况是两个数</p><p><strong>方法2、二分查找思想：</strong></p><p>不会做….答案出自<a href="https://leetcode-cn.com/problems/median-of-two-sorted-arrays/solution/xun-zhao-liang-ge-you-xu-shu-zu-de-zhong-wei-s-114/" target="_blank" rel="noopener">官方题解</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] merge = <span class="keyword">new</span> <span class="keyword">int</span>[nums1.length + nums2.length];</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> m = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; nums1.length &amp;&amp; j &lt; nums2.length) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums1[i] &lt;= nums2[j]) &#123;</span><br><span class="line">                merge[m++] = nums1[i++];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                merge[m++] = nums2[j++];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (i &lt; nums1.length) &#123;</span><br><span class="line">            merge[m++] = nums1[i++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> (j &lt; nums2.length) &#123;</span><br><span class="line">            merge[m++] = nums2[j++];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (m % <span class="number">2</span> == <span class="number">0</span>) ? ((<span class="keyword">double</span>) merge[m / <span class="number">2</span>] + (<span class="keyword">double</span>) merge[m / <span class="number">2</span> - <span class="number">1</span>]) / <span class="number">2</span> : (<span class="keyword">double</span>) merge[m / <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">findMedianSortedArrays</span><span class="params">(<span class="keyword">int</span>[] nums1, <span class="keyword">int</span>[] nums2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> leftLength = nums1.length;</span><br><span class="line">        <span class="keyword">int</span> rightLength = nums2.length;</span><br><span class="line">        <span class="comment">// 为了保证第一个数组比第二个数组小(或者相等)</span></span><br><span class="line">        <span class="keyword">if</span> (leftLength &gt; rightLength) &#123;</span><br><span class="line">            <span class="keyword">return</span> findMedianSortedArrays(nums2, nums1);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 分割线左边的所有元素需要满足的个数 m + (n - m + 1) / 2;</span></span><br><span class="line">        <span class="comment">// 两个数组长度之和为偶数时，当在长度之和上+1时，由于整除是向下取整，所以不会改变结果</span></span><br><span class="line">        <span class="comment">// 两个数组长度之和为奇数时，按照分割线的左边比右边多一个元素的要求，此时在长度之和上+1，就会被2整除，会在原来的数</span></span><br><span class="line">        <span class="comment">//的基础上+1，于是多出来的那个1就是左边比右边多出来的一个元素</span></span><br><span class="line">        <span class="keyword">int</span> totalLeft = (leftLength + rightLength + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 在 nums1 的区间 [0, leftLength] 里查找恰当的分割线，</span></span><br><span class="line">        <span class="comment">// 使得 nums1[i - 1] &lt;= nums2[j] &amp;&amp; nums2[j - 1] &lt;= nums1[i]</span></span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> right = leftLength;</span><br><span class="line">        <span class="comment">// nums1[i - 1] &lt;= nums2[j]</span></span><br><span class="line">        <span class="comment">//  此处要求第一个数组中分割线的左边的值 不大于(小于等于) 第二个数组中分割线的右边的值</span></span><br><span class="line">        <span class="comment">// nums2[j - 1] &lt;= nums1[i]</span></span><br><span class="line">        <span class="comment">//  此处要求第二个数组中分割线的左边的值 不大于(小于等于) 第一个数组中分割线的右边的值</span></span><br><span class="line">        <span class="comment">// 循环条件结束的条件为指针重合，即分割线已找到</span></span><br><span class="line">        <span class="keyword">while</span> (left &lt; right) &#123;</span><br><span class="line">            <span class="comment">// 二分查找，此处为取第一个数组中左右指针下标的中位数，决定起始位置</span></span><br><span class="line">            <span class="comment">// 此处+1首先是为了不出现死循环，即left永远小于right的情况</span></span><br><span class="line">            <span class="comment">// left和right最小差距是1，此时下面的计算结果如果不加1会出现i一直=left的情况，而+1之后i才会=right</span></span><br><span class="line">            <span class="comment">// 于是在left=i的时候可以破坏循环条件，其次下标+1还会保证下标不会越界，因为+1之后向上取整，保证了</span></span><br><span class="line">            <span class="comment">// i不会取到0值，即i-1不会小于0</span></span><br><span class="line">            <span class="comment">// 此时i也代表着在一个数组中左边的元素的个数</span></span><br><span class="line">            <span class="keyword">int</span> i = left + (right - left + <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">            <span class="comment">// 第一个数组中左边的元素个数确定后，用左边元素的总和-第一个数组中元素的总和=第二个元素中左边的元素的总和</span></span><br><span class="line">            <span class="comment">// 此时j就是第二个元素中左边的元素的个数</span></span><br><span class="line">            <span class="keyword">int</span> j = totalLeft - i;</span><br><span class="line">            <span class="comment">// 此处用了nums1[i - 1] &lt;= nums2[j]的取反，当第一个数组中分割线的左边的值大于第二个数组中分割线的右边的值</span></span><br><span class="line">            <span class="comment">// 说明又指针应该左移，即-1</span></span><br><span class="line">            <span class="keyword">if</span> (nums1[i - <span class="number">1</span>] &gt; nums2[j]) &#123;</span><br><span class="line">                <span class="comment">// 下一轮搜索的区间 [left, i - 1]</span></span><br><span class="line">                right = i - <span class="number">1</span>;</span><br><span class="line">                <span class="comment">// 此时说明条件满足，应当将左指针右移到i的位置，至于为什么是右移，请看i的定义</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 下一轮搜索的区间 [i, right]</span></span><br><span class="line">                left = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 退出循环时left一定等于right，所以此时等于left和right都可以</span></span><br><span class="line">        <span class="comment">// 为什么left一定不会大于right?因为left=i。</span></span><br><span class="line">        <span class="comment">// 此时i代表分割线在第一个数组中所在的位置</span></span><br><span class="line">        <span class="comment">// nums1[i]为第一个数组中分割线右边的第一个值</span></span><br><span class="line">        <span class="comment">// nums[i-1]即第一个数组中分割线左边的第一个值</span></span><br><span class="line">        <span class="keyword">int</span> i = left;</span><br><span class="line">        <span class="comment">// 此时j代表分割线在第二个数组中的位置</span></span><br><span class="line">        <span class="comment">// nums2[j]为第一个数组中分割线右边的第一个值</span></span><br><span class="line">        <span class="comment">// nums2[j-1]即第一个数组中分割线左边的第一个值</span></span><br><span class="line">        <span class="keyword">int</span> j = totalLeft - i;</span><br><span class="line">        <span class="comment">// 当i=0时，说明第一个数组分割线左边没有值，为了不影响</span></span><br><span class="line">        <span class="comment">// nums1[i - 1] &lt;= nums2[j] 和 Math.max(nums1LeftMax, nums2LeftMax)</span></span><br><span class="line">        <span class="comment">// 的判断，所以将它设置为int的最小值</span></span><br><span class="line">        <span class="keyword">int</span> nums1LeftMax = i == <span class="number">0</span> ? Integer.MIN_VALUE : nums1[i - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 等i=第一个数组的长度时，说明第一个数组分割线右边没有值，为了不影响</span></span><br><span class="line">        <span class="comment">// nums2[j - 1] &lt;= nums1[i] 和 Math.min(nums1RightMin, nums2RightMin)</span></span><br><span class="line">        <span class="comment">// 的判断，所以将它设置为int的最大值</span></span><br><span class="line">        <span class="keyword">int</span> nums1RightMin = i == leftLength ? Integer.MAX_VALUE : nums1[i];</span><br><span class="line">        <span class="comment">// 当j=0时，说明第二个数组分割线左边没有值，为了不影响</span></span><br><span class="line">        <span class="comment">// nums2[j - 1] &lt;= nums1[i] 和 Math.max(nums1LeftMax, nums2LeftMax)</span></span><br><span class="line">        <span class="comment">// 的判断，所以将它设置为int的最小值</span></span><br><span class="line">        <span class="keyword">int</span> nums2LeftMax = j == <span class="number">0</span> ? Integer.MIN_VALUE : nums2[j - <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 等j=第二个数组的长度时，说明第二个数组分割线右边没有值，为了不影响</span></span><br><span class="line">        <span class="comment">// nums1[i - 1] &lt;= nums2[j] 和 Math.min(nums1RightMin, nums2RightMin)</span></span><br><span class="line">        <span class="comment">// 的判断，所以将它设置为int的最大值</span></span><br><span class="line">        <span class="keyword">int</span> nums2RightMin = j == rightLength ? Integer.MAX_VALUE : nums2[j];</span><br><span class="line">        <span class="comment">// 如果两个数组的长度之和为奇数，直接返回两个数组在分割线左边的最大值即可</span></span><br><span class="line">        <span class="keyword">if</span> (((leftLength + rightLength) % <span class="number">2</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Math.max(nums1LeftMax, nums2LeftMax);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 如果两个数组的长度之和为偶数，返回的是两个数组在左边的最大值和两个数组在右边的最小值的和的二分之一</span></span><br><span class="line">            <span class="comment">// 此处不能被向下取整，所以要强制转换为double类型</span></span><br><span class="line">            <span class="keyword">return</span> (<span class="keyword">double</span>) ((Math.max(nums1LeftMax, nums2LeftMax) + Math.min(nums1RightMin, nums2RightMin))) / <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      寻找两个正序数组的中位数
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-136-只出现一次的数字</title>
@@ -38,9 +94,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -68,11 +124,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -96,11 +152,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -126,9 +182,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -154,9 +210,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -184,9 +240,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -210,9 +266,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
@@ -238,11 +294,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -266,11 +322,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -294,9 +350,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -322,9 +378,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -350,9 +406,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -378,9 +434,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -406,9 +462,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -436,11 +492,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -466,9 +522,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -496,9 +552,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -531,62 +587,6 @@
       <category term="二维数组" scheme="http://benym.cn/tags/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/"/>
     
       <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-23-合并K个排序链表</title>
-    <link href="http://benym.cn/2020/06/07/LeetCode-23-%E5%90%88%E5%B9%B6K%E4%B8%AA%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/06/07/LeetCode-23-合并K个排序链表/</id>
-    <published>2020-06-07T12:09:48.000Z</published>
-    <updated>2020-06-07T13:39:47.264Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-23-合并K个排序链表"><a href="#LeetCode-23-合并K个排序链表" class="headerlink" title="LeetCode-23-合并K个排序链表"></a>LeetCode-23-合并K个排序链表</h2><p>合并 <em>k</em> 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  1-&gt;4-&gt;5,</span><br><span class="line">  1-&gt;3-&gt;4,</span><br><span class="line">  2-&gt;6</span><br><span class="line">]</span><br><span class="line">输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>相关链接：</p><ul><li><a href="/2020/06/07/LeetCode-21-合并两个有序链表/" title="LeetCode-21-合并两个有序链表">LeetCode-21-合并两个有序链表</a></li></ul><p>方法1、分治+递归+自底向上：</p><p>利用了归并排序分治的思想，对于一组链表，如果能够将每个链表两两拆分，那么问题就会简化为对两个链表的合并，合并之后的两两链表变为一个链表，再和另外一组已经合并成一个的链表合并，这个是自底向上的过程。</p><p>两个链表的合并过程与LeetCode21一致，所以本题只需要研究如何进行链表划分，并判断返回条件</p><ul><li><p>返回条件：</p><p>当链表长度为空，返回null；</p><p>当链表长度为1，返回list[0];</p><p>当链表长度为2，需要返回两个链表的合并</p></li><li><p>链表划分：</p><p>直接进行二分即可，mid左边的给l1数组，用于存储左边的一组链表；mid右边的给l2数组，用于存储右边的一组链表</p></li><li><p>开启递归：</p><p>拆分左边的多组链表，并进行合并；</p><p>拆分右边的多组链表，并进行合并；</p><p>返回：最后的左右链表的合并</p></li></ul><p>方法2、顺序遍历：</p><p>这种方法就是暴力破解，一个一个遍历链表组中的链表，然后进行合并即可，最终返回的就是顺序排序的合并链表</p><p>方法3、优先队列：</p><p>前提知识：</p><p>优先队列本身由最小堆实现，对于基础类型不需要重写Comparator接口，就可以实现默认加入数据之后队列是从小到大排序。在本题中，需要将链表从小到大的放入优先队列中，链表不是基础类型，所以需要重写Comparator接口将原本的v1.compareTo(v2)比较转化为v1.val和v2.val分别代表链表中的头结点值。这里采用匿名函数的实现方式</p><p>在Comparator接口中，排序的判断依据如下：</p><ul><li>如果v1&gt;v2，return 1</li><li>如果v1&lt;v2，return -1</li><li>如果v1==v2，return 0</li></ul><p>题目思路：</p><p>将所有链表的头结点放进去，由于是最小堆，所以每次就让队列中最小的出队，操作为pq.poll()，之后让出队的节点的下一个节点入队，再出队优先队列中的最小值，直到队列为空</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lists.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(lists.length == <span class="number">1</span>) <span class="keyword">return</span> lists[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">if</span>(lists.length == <span class="number">2</span>) <span class="keyword">return</span> mergeTwoLists(lists[<span class="number">0</span>],lists[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">int</span> mid = lists.length/<span class="number">2</span>;</span><br><span class="line">        ListNode[] l1 = <span class="keyword">new</span> ListNode[mid];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;mid;i++)&#123;</span><br><span class="line">            l1[i] = lists[i];</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode[] l2 = <span class="keyword">new</span> ListNode[lists.length-mid];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=mid,j=<span class="number">0</span>;i&lt;lists.length;i++,j++)&#123;</span><br><span class="line">            l2[j] = lists[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mergeTwoLists(mergeKLists(l1),mergeKLists(l2));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span>(l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        ListNode mergehead = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(l1.val&lt;l2.val)&#123;</span><br><span class="line">            mergehead = l1;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1.next,l2);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            mergehead = l2;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1,l2.next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mergehead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</span><br><span class="line">        ListNode res = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;lists.length;i++)&#123;</span><br><span class="line">            res = mergeTwoLists(res,lists[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span>(l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        ListNode mergehead = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(l1.val&lt;l2.val)&#123;</span><br><span class="line">            mergehead = l1;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1.next,l2);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            mergehead = l2;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1,l2.next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mergehead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeKLists</span><span class="params">(ListNode[] lists)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(lists.length==<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        Queue&lt;ListNode&gt; pq = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1, v2) -&gt; v1.val - v2.val);</span><br><span class="line">        ListNode head = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        <span class="keyword">for</span>(ListNode list:lists)&#123;</span><br><span class="line">            <span class="keyword">if</span>(list!=<span class="keyword">null</span>)</span><br><span class="line">                pq.offer(list);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(!pq.isEmpty())&#123;</span><br><span class="line">            ListNode minNode = pq.poll();</span><br><span class="line">            cur.next = minNode;</span><br><span class="line">            cur = cur.next;</span><br><span class="line">            <span class="keyword">if</span>(minNode.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                pq.offer(minNode.next);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      合并K个排序链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-      <category term="分治" scheme="http://benym.cn/tags/%E5%88%86%E6%B2%BB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-21-合并两个有序链表</title>
-    <link href="http://benym.cn/2020/06/07/LeetCode-21-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/06/07/LeetCode-21-合并两个有序链表/</id>
-    <published>2020-06-07T11:00:23.000Z</published>
-    <updated>2020-06-07T12:08:01.180Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-21-合并两个有序链表"><a href="#LeetCode-21-合并两个有序链表" class="headerlink" title="LeetCode-21-合并两个有序链表"></a>LeetCode-21-合并两个有序链表</h2><p>将两个升序链表合并为一个新的 <strong>升序</strong> 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4</span><br><span class="line">输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>方法一、递归：</p><p>首先，两个链表存在长短不一致的情况</p><p>递归终止条件：当链表1为空时，合并的链表为链表2；当链表2为空时，合并的链表为链表1</p><p>之后，链表需要从小到大的有序合并</p><p>新增一个合并后链表的头部指针，判断l1和l2的链表的当前位置值谁更小，小的加入到合并链表中，之后合并链表的next就是剩下的两个链表中的最小值。</p><p>最后返回合并链表头部</p><p>方法二、迭代：</p><p>迭代的思路大致和递归一样，但需要一个新的指针，pre记录当前位置的前一个元素，并不断调整他的next指向构建整个合并链表，phead负责合并链表的头部。</p><p>如果l1.val&lt;l2.val则，把l1接在pre的后面，同时l1指针向后移动1位。否则就对l2做相同操作</p><p>不管将l1和l2中的哪个元素接在了pre后面，pre指针始终需要向后移动1位，因为接了之后next就不为空了，需要移动到下一位继续构建链表</p><p>在循环终止的时候，l1和l2可能出现长短不一的情况，至多会有一个是非空的，由于输入的链表都是有序的，所以不管是哪个链表是非空的，它包含的所有元素都比前面已经合并链表中的元素要大，此时只需要将剩下的链表接在pre.next，之后返回合并链表的头部即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span>(l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        ListNode mergehead = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">if</span>(l1.val&lt;l2.val)&#123;</span><br><span class="line">            mergehead = l1;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1.next,l2);</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            mergehead = l2;</span><br><span class="line">            mergehead.next = mergeTwoLists(l1,l2.next);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mergehead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"># class ListNode:</span></span><br><span class="line"><span class="comment">#     def __init__(self, val=0, next=None):</span></span><br><span class="line"><span class="comment">#         self.val = val</span></span><br><span class="line"><span class="comment">#         self.next = next</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">mergeTwoLists</span><span class="params">(self, l1: ListNode, l2: ListNode)</span> -&gt; ListNode:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> l1: <span class="keyword">return</span> l2</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> l2: <span class="keyword">return</span> l1</span><br><span class="line">        <span class="keyword">if</span> l1.val&lt;l2.val:</span><br><span class="line">            mergeHead = l1</span><br><span class="line">            mergeHead.next = self.mergeTwoLists(l1.next,l2)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            mergeHead = l2</span><br><span class="line">            mergeHead.next = self.mergeTwoLists(l1,l2.next)</span><br><span class="line">        <span class="keyword">return</span> mergeHead</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">mergeTwoLists</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>) <span class="keyword">return</span> l2;</span><br><span class="line">        <span class="keyword">if</span>(l2==<span class="keyword">null</span>) <span class="keyword">return</span> l1;</span><br><span class="line">        ListNode phead = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</span><br><span class="line">        ListNode pre = phead;</span><br><span class="line">        <span class="keyword">while</span>(l1!=<span class="keyword">null</span>&amp;&amp;l2!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(l1.val&lt;l2.val)&#123;</span><br><span class="line">                pre.next = l1;</span><br><span class="line">                l1 = l1.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pre.next = l2;</span><br><span class="line">                l2 = l2.next;</span><br><span class="line">            &#125;</span><br><span class="line">            pre = pre.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(l1==<span class="keyword">null</span>) pre.next = l2;</span><br><span class="line">        <span class="keyword">if</span>(l2==<span class="keyword">null</span>) pre.next = l1;</span><br><span class="line">        <span class="keyword">return</span> phead.next;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      合并两个有序链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
