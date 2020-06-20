@@ -400,6 +400,312 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/数据类型和arange方法_astype方法的使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/22/数据类型和arange方法_astype方法的使用/" itemprop="url">数据类型和arange方法、astype方法的使用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-22T20:55:17+08:00">
+                2018-08-22
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Numpy/" itemprop="url" rel="index">
+                    <span itemprop="name">Numpy</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/22/数据类型和arange方法_astype方法的使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/22/数据类型和arange方法_astype方法的使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/08/22/数据类型和arange方法_astype方法的使用/" class="leancloud_visitors" data-flag-title="数据类型和arange方法、astype方法的使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  471
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  2
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  Numpy中的数据类型
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Numpy支持比Python更多的数字类型</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool_</code></td>
+<td>布尔（True或False），存储为一个字节</td>
+</tr>
+<tr>
+<td><code>int_</code></td>
+<td>默认整数类型（与C<code>long</code>相同；通常是<code>int64</code>或<code>int32</code>）</td>
+</tr>
+<tr>
+<td>INTC</td>
+<td>与C<code>int</code>（通常为<code>int32</code>或<code>int64</code>）相同</td>
+</tr>
+<tr>
+<td>INTP</td>
+<td>用于索引的整数（与C<code>ssize_t</code>相同；通常是<code>int32</code>或<code>int64</code>）</td>
+</tr>
+<tr>
+<td>INT8</td>
+<td>字节（-128至127）</td>
+</tr>
+<tr>
+<td>INT16</td>
+<td>整数（-32768至32767）</td>
+</tr>
+<tr>
+<td>INT32</td>
+<td>整数（-2147483648至2147483647）</td>
+</tr>
+<tr>
+<td>Int64的</td>
+<td>整数（-9223372036854775808至9223372036854775807）</td>
+</tr>
+<tr>
+<td>UINT8</td>
+<td>无符号整数（0到255）</td>
+</tr>
+<tr>
+<td>UINT16</td>
+<td>无符号整数（0到65535）</td>
+</tr>
+<tr>
+<td>UINT32</td>
+<td>无符号整数（0到4294967295）</td>
+</tr>
+<tr>
+<td>UINT64</td>
+<td>无符号整数（0到18446744073709551615）</td>
+</tr>
+<tr>
+<td>float_</td>
+<td><code>float64</code>的简写。</td>
+</tr>
+<tr>
+<td>float16</td>
+<td>半精度浮点：符号位，5位指数，10位尾数</td>
+</tr>
+<tr>
+<td>FLOAT32</td>
+<td>单精度浮点数：符号位，8位指数，23位尾数</td>
+</tr>
+<tr>
+<td>float64</td>
+<td>双精度浮点：符号位，11位指数，52位尾数</td>
+</tr>
+<tr>
+<td>complex_</td>
+<td><code>complex128</code>的简写。</td>
+</tr>
+<tr>
+<td>complex64</td>
+<td>复数，由两个32位浮点数（实部和虚部）</td>
+</tr>
+<tr>
+<td>complex128</td>
+<td>复数，由两个64位浮点数（实部和虚部）</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>除了<code>intc</code>之外，还定义了平台相关的C整数类型<code>short</code>，<code>long</code>，<code>longlong</code>。</p>
+<div class="note info"><p>arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数</p></div>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/22/数据类型和arange方法_astype方法的使用/" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/Ndarray对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1077,229 +1383,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/11/使用k-近邻算法改进约会网站的配对效果/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BenY">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" itemprop="url">使用k-近邻算法改进约会网站的配对效果</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-11T11:47:52+08:00">
-                2018-08-11
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
-                2020-05-18
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" class="leancloud_visitors" data-flag-title="使用k-近邻算法改进约会网站的配对效果">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1,812
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  9
-                </span>
-              
-            </div>
-          
-
-          
-              <div class="post-description">
-                  在约会网站上使用k-近邻算法
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <center>***实例：在约会网站上使用k-近邻算法***</center>
-
-<p>(1) 收集数据：提供文本文件。<br>(2) 准备数据 :  使用python解析文本文件。<br>(3) 分析数据    使用 Matplotlib画二维扩散图 。<br>(4) 训练算法：此步驟不适用于k-近邻算法。<br>(5) 测试算法：使用海伦提供的部分数据作为测试样本。<br>测试样本和非测试样本的区别在于：测试样本是已经完成分类的数据，如果预测分类与实际类别不同，则标记为一个错误。<br>(6) 使用算法：产生简单的命令行程序，然后可以输入一些特征数据以判断对方是否为自己喜欢的类型。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/11/使用k-近邻算法改进约会网站的配对效果/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/49/">49</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/33/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/33/">33</a><span class="page-number current">34</span><a class="page-number" href="/page/35/">35</a><span class="space">&hellip;</span><a class="page-number" href="/page/50/">50</a><a class="extend next" rel="next" href="/page/35/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1349,7 +1437,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">196</span>
+                  <span class="site-state-item-count">197</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-19T07:30:47.508Z</updated>
+  <updated>2020-06-20T13:26:34.479Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-70-爬楼梯</title>
+    <link href="http://benym.cn/2020/06/20/LeetCode-70-%E7%88%AC%E6%A5%BC%E6%A2%AF/"/>
+    <id>http://benym.cn/2020/06/20/LeetCode-70-爬楼梯/</id>
+    <published>2020-06-20T12:58:35.000Z</published>
+    <updated>2020-06-20T13:26:34.479Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-70-爬楼梯"><a href="#LeetCode-70-爬楼梯" class="headerlink" title="LeetCode-70-爬楼梯"></a>LeetCode-70-爬楼梯</h2><p>假设你正在爬楼梯。需要 <em>n</em> 阶你才能到达楼顶。</p><p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p><p><strong>注意：</strong>给定 <em>n</em> 是一个正整数。</p><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入： 2</span><br><span class="line">输出： 2</span><br><span class="line">解释： 有两种方法可以爬到楼顶。</span><br><span class="line">1.  1 阶 + 1 阶</span><br><span class="line">2.  2 阶</span><br></pre></td></tr></table></figure><p><strong>示例 2:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入： 3</span><br><span class="line">输出： 3</span><br><span class="line">解释： 有三种方法可以爬到楼顶。</span><br><span class="line">1.  1 阶 + 1 阶 + 1 阶</span><br><span class="line">2.  1 阶 + 2 阶</span><br><span class="line">3.  2 阶 + 1 阶</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>当n等于1的时候，只需要跳一次即可，只有一种跳法，记f(1)=1</p><p>当n等于2的时候，可以先跳一级再跳一级，或者直接跳二级，共有2种跳法，记f(2)=2</p><p>当n等于3的时候，他可以从一级台阶上跳两步上来，也可以从二级台阶上跳一步上来，所以总共有f(3)=f(2)+f(1)；</p><p>所以当等于n(n&gt;2)的时候，总共有f(n)=f(n-1)+f(n-2)种跳法</p><p>此时的状态:   为n的时候，可能的跳法有多少种</p><p>状态转移方程：<code>f(n)=f(n-1)+f(n-2)</code></p><p><strong>方法2、优化的动态规划：</strong></p><p>上一个方法需要开辟一个n的数组，其实可以直接用双指针完成状态的转移，不再需要开辟多余的空间</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (n &lt;= <span class="number">1</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">2</span>] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">3</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            dp[i] = dp[i - <span class="number">1</span>] + dp[i - <span class="number">2</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">climbStairs</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span> (n &lt; <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> result[n];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> f1 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> f2 = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            sum = (f1 + f2);</span><br><span class="line">            f1 = f2;</span><br><span class="line">            f2 = sum;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      爬楼梯
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-11-盛最多水的容器</title>
@@ -38,9 +66,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -94,9 +122,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -120,15 +148,15 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -150,13 +178,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -182,9 +210,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -210,9 +238,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -240,9 +268,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -266,9 +294,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
@@ -294,11 +322,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -350,9 +378,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -378,9 +406,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -406,9 +434,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -434,9 +462,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -462,9 +490,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -488,15 +516,15 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -522,9 +550,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -552,41 +580,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-51-N皇后</title>
-    <link href="http://benym.cn/2020/06/08/LeetCode-51-N%E7%9A%87%E5%90%8E/"/>
-    <id>http://benym.cn/2020/06/08/LeetCode-51-N皇后/</id>
-    <published>2020-06-08T11:55:16.000Z</published>
-    <updated>2020-06-08T13:46:46.223Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-51-N皇后"><a href="#LeetCode-51-N皇后" class="headerlink" title="LeetCode-51-N皇后"></a>LeetCode-51-N皇后</h2><p><em>n</em> 皇后问题研究的是如何将 <em>n</em> 个皇后放置在 <em>n</em>×<em>n</em> 的棋盘上，并且使皇后彼此之间不能相互攻击。</p><p>给定一个整数 n，返回所有不同的 n 皇后问题的解决方案。</p><p>每一种解法包含一个明确的 n 皇后问题的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入: 4</span><br><span class="line">输出: [</span><br><span class="line"> [&quot;.Q..&quot;,  // 解法 1</span><br><span class="line">  &quot;...Q&quot;,</span><br><span class="line">  &quot;Q...&quot;,</span><br><span class="line">  &quot;..Q.&quot;],</span><br><span class="line"></span><br><span class="line"> [&quot;..Q.&quot;,  // 解法 2</span><br><span class="line">  &quot;Q...&quot;,</span><br><span class="line">  &quot;...Q&quot;,</span><br><span class="line">  &quot;.Q..&quot;]</span><br><span class="line">]</span><br><span class="line">解释: 4 皇后问题存在两个不同的解法。</span><br></pre></td></tr></table></figure><p>提示：</p><ul><li>皇后，是国际象棋中的棋子，意味着国王的妻子。皇后只做一件事，那就是“吃子”。当她遇见可以吃的棋子时，就迅速冲上去吃掉棋子。当然，她横、竖、斜都可走一到七步，可进可退。（引用自 百度百科 - 皇后 ）</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>回溯方法引用与<a href="https://leetcode-cn.com/problems/n-queens/solution/nhuang-hou-by-leetcode/" target="_blank" rel="noopener">LeetCode官方</a></p><p><strong>方法1、</strong>回溯：</p><p>在建立算法之前，我们来考虑两个有用的细节。</p><p>一行只可能有一个皇后且一列也只可能有一个皇后。</p><p>这意味着没有必要再棋盘上考虑所有的方格。只需要按列循环即可。</p><p>对于所有的主对角线有 <strong>行号 + 列号 = 常数</strong>，对于所有的次对角线有 <strong>行号 - 列号 = 常数</strong>.</p><p>这可以让我们标记已经在攻击范围下的对角线并且检查一个方格 (行号, 列号) 是否处在攻击位置。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1、一行一个皇后</span><br><span class="line">2、每个皇后的左上方向没有其他皇后，每个皇后的上方没有其他皇后，每个皇后的右上方向没有皇后</span><br></pre></td></tr></table></figure><p>现在已经可以写回溯函数 backtrack(row = 0).</p><ul><li><p>从第一个 row = 0 开始.</p></li><li><p>循环列并且试图在每个 column 中放置皇后.</p><ul><li>如果方格 (row, column) 不在攻击范围内<ul><li>在 (row, column) 方格上放置皇后。</li><li>排除对应行，列和两个对角线的位置。</li><li>If 所有的行被考虑过，row == N<ul><li>意味着我们找到了一个解</li></ul></li><li>Else<ul><li>继续考虑接下来的皇后放置 backtrack(row + 1).</li></ul></li><li>回溯：将在 (row, column) 方格的皇后移除.</li></ul></li></ul></li></ul><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;List&lt;String&gt;&gt; output = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 用于标记是否被列方向的皇后攻击</span></span><br><span class="line">    <span class="keyword">int</span>[] rows;</span><br><span class="line">    <span class="comment">// 用于标记是否被主对角线方向的皇后攻击</span></span><br><span class="line">    <span class="keyword">int</span>[] mains;</span><br><span class="line">    <span class="comment">// 用于标记是否被次对角线方向的皇后攻击</span></span><br><span class="line">    <span class="keyword">int</span>[] secondary;</span><br><span class="line">    <span class="comment">// 用于存储皇后放置的位置</span></span><br><span class="line">    <span class="keyword">int</span>[] queens;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;String&gt;&gt; solveNQueens(<span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="comment">// 初始化</span></span><br><span class="line">        rows = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        mains = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>*n-<span class="number">1</span>];</span><br><span class="line">        secondary = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>*n-<span class="number">1</span>];</span><br><span class="line">        queens = <span class="keyword">new</span> <span class="keyword">int</span>[n];</span><br><span class="line">        <span class="keyword">this</span>.n = n;</span><br><span class="line">        <span class="comment">// 从第一行开始回溯求解N皇后</span></span><br><span class="line">        backtrack(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> output;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在一行中放置一个皇后</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span> row)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(row&gt;=n) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 分别尝试在row行中的每一列都放置一个皇后</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> col=<span class="number">0</span>;col&lt;n;col++)&#123;</span><br><span class="line">            <span class="comment">// 判断当前放置的皇后不被其他皇后攻击</span></span><br><span class="line">            <span class="keyword">if</span>(isNotUnderAttack(row,col))&#123;</span><br><span class="line">                <span class="comment">// 选择，在当前的位置上放置皇后</span></span><br><span class="line">                placeQueen(row,col);</span><br><span class="line">                <span class="comment">// 当前行是最后一行，则找到了一个解决方案</span></span><br><span class="line">                <span class="keyword">if</span>(row==n-<span class="number">1</span>) addSolution();</span><br><span class="line">                <span class="comment">// 在下一行中放置皇后</span></span><br><span class="line">                backtrack(row+<span class="number">1</span>);</span><br><span class="line">                <span class="comment">// 回溯，将当前位置的皇后去掉</span></span><br><span class="line">                removeQueen(row,col);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 判断row行，col列这个位置有没有被其他方向的皇后攻击</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isNotUnderAttack</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 判断的逻辑是：</span></span><br><span class="line">        <span class="comment">//      1. 当前位置的这一列方向没有皇后攻击</span></span><br><span class="line">        <span class="comment">//      2. 当前位置的主对角线方向没有皇后攻击</span></span><br><span class="line">        <span class="comment">//      3. 当前位置的次对角线方向没有皇后攻击</span></span><br><span class="line">        <span class="keyword">int</span> res = rows[col]+mains[row-col+n-<span class="number">1</span>]+secondary[row+col];</span><br><span class="line">        <span class="comment">// 如果三个方向都没有攻击的话，则res=0</span></span><br><span class="line">        <span class="keyword">return</span> res == <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 在指定的位置上放置皇后</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">placeQueen</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 在row行，col列放置皇后</span></span><br><span class="line">        queens[row] = col;</span><br><span class="line">        <span class="comment">// 当前位置的列方向已经有皇后了</span></span><br><span class="line">        rows[col] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 当前位置的主对角线方向已经有皇后了</span></span><br><span class="line">        mains[row-col+n-<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// 当前位置的次对角线方向已经有皇后了</span></span><br><span class="line">        secondary[row+col] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 移除指定位置上的皇后</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">removeQueen</span><span class="params">(<span class="keyword">int</span> row,<span class="keyword">int</span> col)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 移除row行上的皇后</span></span><br><span class="line">        queens[row] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 当前位置的列方向没有皇后了</span></span><br><span class="line">        rows[col] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 当前位置的主对角线方向没有皇后了</span></span><br><span class="line">        mains[row-col+n-<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 当前位置的次对角线方向没有皇后了</span></span><br><span class="line">        secondary[row+col] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将满足条件的皇后位置放入output中</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addSolution</span><span class="params">()</span></span>&#123;</span><br><span class="line">        List&lt;String&gt; Solution = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> col = queens[i];</span><br><span class="line">            StringBuilder sb = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;col;j++) sb.append(<span class="string">"."</span>);</span><br><span class="line">            sb.append(<span class="string">"Q"</span>);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n-col-<span class="number">1</span>;j++) sb.append(<span class="string">"."</span>);</span><br><span class="line">            Solution.add(sb.toString());</span><br><span class="line">        &#125;</span><br><span class="line">        output.add(Solution);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      N皇后
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-      <category term="二维数组" scheme="http://benym.cn/tags/%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
     
   </entry>
   
