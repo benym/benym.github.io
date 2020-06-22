@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-20T13:26:34.479Z</updated>
+  <updated>2020-06-22T06:59:34.367Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-105-从前序与中序遍历构造二叉树</title>
+    <link href="http://benym.cn/2020/06/22/LeetCode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <id>http://benym.cn/2020/06/22/LeetCode-105-从前序与中序遍历构造二叉树/</id>
+    <published>2020-06-22T03:01:44.000Z</published>
+    <updated>2020-06-22T06:59:34.367Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-105-从前序与中序遍历构造二叉树"><a href="#LeetCode-105-从前序与中序遍历构造二叉树" class="headerlink" title="LeetCode-105-从前序与中序遍历构造二叉树"></a>LeetCode-105-从前序与中序遍历构造二叉树</h2><p>根据一棵树的前序遍历与中序遍历构造二叉树。</p><p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p><a id="more"></a><p><strong>示例 1:</strong></p><p>例如，给出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前序遍历 preorder = [3,9,20,15,7]</span><br><span class="line">中序遍历 inorder = [9,3,15,20,7]</span><br></pre></td></tr></table></figure><p>返回如下的二叉树：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、递归：</strong></p><p>前序遍历：根左右</p><p>中序遍历：左根右</p><p>对于任意一棵树而言，前序遍历的形式总是</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[根节点，[左子树的前序遍历结果],[右子树的前序遍历结果]]</span><br></pre></td></tr></table></figure><p>根节点总是，前序遍历中的第一个节点</p><p>中序遍历的形式总是</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[左子树的中序遍历结果],根节点,[右子树的中序遍历结果]]</span><br></pre></td></tr></table></figure><p>只要能够在中序遍历中<strong>定位</strong>到根节点，那么就可以得到对应的左右子树的节点数目</p><p>由于前序遍历和中序遍历的长度是相同的，所以我们也能知道前序遍历的左右字数的区间范围</p><p>之后进行递归，问题就变为了：</p><p>知道左子树的前序和中序遍历，重建左子树；知道右子树的前序和中序遍历，重建右子树；</p><p>定位优化：</p><p>在中序遍历中需要根据前序遍历的根节点，定位到中序遍历中的根节点</p><p>直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(preorder==<span class="keyword">null</span>||preorder.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;inorder.length;i++)&#123;</span><br><span class="line">            map.put(inorder[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length = preorder.length-<span class="number">1</span>;</span><br><span class="line">        TreeNode root = reconstrTree(preorder,<span class="number">0</span>,length,inorder,<span class="number">0</span>,length,map);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reconstrTree</span><span class="params">(<span class="keyword">int</span>[] preorder,<span class="keyword">int</span> postart,<span class="keyword">int</span> poend,<span class="keyword">int</span>[] inorder,<span class="keyword">int</span> instart,<span class="keyword">int</span> inend,Map&lt;Integer,Integer&gt; map)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(postart&gt;poend)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rootNode = preorder[postart];</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(rootNode);</span><br><span class="line">        <span class="keyword">if</span>(postart==poend)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> rootIndex = map.get(rootNode);</span><br><span class="line">            <span class="keyword">int</span> leftRange = rootIndex - instart;</span><br><span class="line">            <span class="keyword">int</span> rightRange = inend - rootIndex;</span><br><span class="line">            TreeNode leftTree = reconstrTree(preorder,postart+<span class="number">1</span>,postart+leftRange,inorder,instart,rootIndex-<span class="number">1</span>,map);</span><br><span class="line">            TreeNode rightTree = reconstrTree(preorder,poend-rightRange+<span class="number">1</span>,poend,inorder,rootIndex+<span class="number">1</span>,inend,map);</span><br><span class="line">            root.left = leftTree;</span><br><span class="line">            root.right = rightTree;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      从前序与中序遍历构造二叉树
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-70-爬楼梯</title>
@@ -34,13 +60,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
@@ -62,13 +88,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -90,9 +116,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -118,11 +144,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -148,15 +174,15 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
@@ -178,13 +204,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -210,9 +236,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -238,9 +264,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -264,11 +290,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -292,11 +318,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
@@ -320,13 +346,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -348,13 +374,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -378,9 +404,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -406,9 +432,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -490,9 +516,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -516,15 +542,15 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
@@ -546,43 +572,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
-      <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-46-全排列</title>
-    <link href="http://benym.cn/2020/06/08/LeetCode-46-%E5%85%A8%E6%8E%92%E5%88%97/"/>
-    <id>http://benym.cn/2020/06/08/LeetCode-46-全排列/</id>
-    <published>2020-06-08T14:18:43.000Z</published>
-    <updated>2020-06-09T10:32:14.803Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-46-全排列"><a href="#LeetCode-46-全排列" class="headerlink" title="LeetCode-46-全排列"></a>LeetCode-46-全排列</h2><p>给定一个 <strong>没有重复</strong> 数字的序列，返回其所有可能的全排列。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: [1,2,3]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [1,3,2],</span><br><span class="line">  [2,1,3],</span><br><span class="line">  [2,3,1],</span><br><span class="line">  [3,1,2],</span><br><span class="line">  [3,2,1]</span><br><span class="line">]</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>方法1、回溯：</p><p>回溯问题经常会涉及到一个状态数组</p><p>基本的思路想象成一个树的问题，是从一个数字(外层循环分别固定1，2，3数字)出发，往树的更深处遍历</p><ul><li>如果当前位置没有访问过，就将这个数加入到路径中，之后开启更深一层的遍历</li><li>如果路径的长度等于了初始的数组长度，说明找到了一个可能的排列</li><li>如果走到最后没有找到这样的排列路径，则说明此路不同进行回溯操作，将访问的位置状态还原，并同时移除还原路上已经添加的数字</li></ul><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; permute(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        <span class="keyword">boolean</span>[] visited = <span class="keyword">new</span> <span class="keyword">boolean</span>[len];</span><br><span class="line">        List&lt;Integer&gt; path = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        dfs(nums,len,<span class="number">0</span>,path,visited,res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> len, <span class="keyword">int</span> depth,</span></span></span><br><span class="line"><span class="function"><span class="params">                     List&lt;Integer&gt; path, <span class="keyword">boolean</span>[] visited,</span></span></span><br><span class="line"><span class="function"><span class="params">                     List&lt;List&lt;Integer&gt;&gt; res)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(len==depth)&#123;</span><br><span class="line">            res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(path));</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(!visited[i])&#123;</span><br><span class="line">                path.add(nums[i]);</span><br><span class="line">                visited[i] = <span class="keyword">true</span>;</span><br><span class="line">                dfs(nums,len,depth+<span class="number">1</span>,path,visited,res);</span><br><span class="line">                visited[i] = <span class="keyword">false</span>;</span><br><span class="line">                path.remove(path.size()-<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      全排列
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
