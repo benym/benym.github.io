@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-15-三数之和]]></title>
+    <url>%2F2020%2F06%2F23%2FLeetCode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
+    <content type="text"><![CDATA[LeetCode-15-三数之和给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。 注意：答案中不可以包含重复的三元组。 示例 1: 1234567给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[ [-1, 0, 1], [-1, -1, 2]] 解题思路方法1、双指针： 不重复问题首先一步是要对数组进行排序 排序之后固定一个数nums[i]，之后利用左右指针找nums[left]+nums[right]+nums[i]==0的数，就可以添加进入结果集合 但过程中需要考虑数据重复的问题 如果nums[i]&gt;0，则说明三数之和必然无法等于0，直接跳出循环 如果nums[i]==nums[i-1]，则说明该数字重复，会导致重复的结果，所以直接跳过 之后当left&lt;right的时候，且 sum==0，nums[left]==nums[left+1]会导致重复的结果，应该跳过，所以left++ sum==0，nums[right]==nums[right-1]时，会导致重复的，应该跳过，所以right— Java代码12345678910111213141516171819202122232425262728class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123; int len = nums.length; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); if(len&lt;3) return res; Arrays.sort(nums); for(int i=0;i&lt;len-2;i++)&#123; if(nums[i]&gt;0) break; if(i&gt;0&amp;&amp;nums[i]==nums[i-1]) continue; int left = i+1; int right = len-1; while(left&lt;right)&#123; if(nums[i]+nums[left]+nums[right]==0)&#123; res.add(Arrays.asList(nums[i],nums[left],nums[right])); while(left&lt;right&amp;&amp;nums[left]==nums[left+1]) left++; while(left&lt;right&amp;&amp;nums[right]==nums[right-1]) right--; left++; right--; &#125;else if(nums[i]+nums[left]+nums[right]&gt;0)&#123; right--; &#125;else&#123; left++; &#125; &#125; &#125; return res; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-105-从前序与中序遍历构造二叉树]]></title>
     <url>%2F2020%2F06%2F22%2FLeetCode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
     <content type="text"><![CDATA[LeetCode-105-从前序与中序遍历构造二叉树根据一棵树的前序遍历与中序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。 示例 1: 例如，给出 12前序遍历 preorder = [3,9,20,15,7]中序遍历 inorder = [9,3,15,20,7] 返回如下的二叉树： 12345 3 / \9 20 / \ 15 7 解题思路方法1、递归： 前序遍历：根左右 中序遍历：左根右 对于任意一棵树而言，前序遍历的形式总是 1[根节点，[左子树的前序遍历结果],[右子树的前序遍历结果]] 根节点总是，前序遍历中的第一个节点 中序遍历的形式总是 1[[左子树的中序遍历结果],根节点,[右子树的中序遍历结果]] 只要能够在中序遍历中定位到根节点，那么就可以得到对应的左右子树的节点数目 由于前序遍历和中序遍历的长度是相同的，所以我们也能知道前序遍历的左右字数的区间范围 之后进行递归，问题就变为了： 知道左子树的前序和中序遍历，重建左子树；知道右子树的前序和中序遍历，重建右子树； 定位优化： 在中序遍历中需要根据前序遍历的根节点，定位到中序遍历中的根节点 直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了 Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public TreeNode buildTree(int[] preorder, int[] inorder) &#123; if(preorder==null||preorder.length==0)&#123; return null; &#125; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); for(int i=0;i&lt;inorder.length;i++)&#123; map.put(inorder[i],i); &#125; int length = preorder.length-1; TreeNode root = reconstrTree(preorder,0,length,inorder,0,length,map); return root; &#125; public TreeNode reconstrTree(int[] preorder,int postart,int poend,int[] inorder,int instart,int inend,Map&lt;Integer,Integer&gt; map)&#123; if(postart&gt;poend)&#123; return null; &#125; int rootNode = preorder[postart]; TreeNode root = new TreeNode(rootNode); if(postart==poend)&#123; return root; &#125;else&#123; int rootIndex = map.get(rootNode); int leftRange = rootIndex - instart; int rightRange = inend - rootIndex; TreeNode leftTree = reconstrTree(preorder,postart+1,postart+leftRange,inorder,instart,rootIndex-1,map); TreeNode rightTree = reconstrTree(preorder,poend-rightRange+1,poend,inorder,rootIndex+1,inend,map); root.left = leftTree; root.right = rightTree; return root; &#125; &#125;&#125;]]></content>
@@ -22,9 +36,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -64,9 +78,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -137,9 +151,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -165,9 +179,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -179,9 +193,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -221,8 +235,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>LeetCode</tag>
+        <tag>Easy</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -235,8 +249,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>LeetCode</tag>
+        <tag>Easy</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -351,10 +365,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -367,10 +381,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -382,10 +396,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -397,10 +411,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -412,9 +426,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -427,9 +441,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>贪心算法</tag>
       </tags>
@@ -486,8 +500,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -528,8 +542,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -542,8 +556,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -556,8 +570,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -643,8 +657,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -658,8 +672,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -702,9 +716,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -718,11 +732,11 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>BFS</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -763,9 +777,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -777,9 +791,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -793,8 +807,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -807,8 +821,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -990,9 +1004,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
         <tag>DP</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1048,8 +1062,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1062,9 +1076,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
@@ -1096,9 +1110,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1126,9 +1140,9 @@
       </categories>
       <tags>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1175,8 +1189,8 @@
         <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1191,8 +1205,8 @@
         <tag>树</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1236,8 +1250,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
-        <tag>剑指Offer</tag>
         <tag>矩阵</tag>
+        <tag>剑指Offer</tag>
       </tags>
   </entry>
   <entry>
@@ -1339,8 +1353,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1518,11 +1532,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1551,8 +1565,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1670,8 +1684,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1685,8 +1699,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1700,8 +1714,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1743,8 +1757,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1757,8 +1771,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1771,8 +1785,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1931,9 +1945,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1943,9 +1957,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -2015,8 +2029,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>矩阵</tag>
         <tag>机器学习</tag>
+        <tag>矩阵</tag>
         <tag>Numpy</tag>
       </tags>
   </entry>
@@ -2395,9 +2409,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2406,9 +2420,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
