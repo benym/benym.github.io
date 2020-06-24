@@ -1,6 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-215-数组中的第K个最大元素]]></title>
+    <url>%2F2020%2F06%2F24%2FLeetCode-215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[LeetCode-215-数组中的第K个最大元素在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 示例 1: 12输入: [3,2,1,5,6,4] 和 k = 2输出: 5 示例2： 12输入: [3,2,3,1,2,4,5,5,6] 和 k = 4输出: 4 说明: 你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。 解题思路方法1、优先队列： 首先想到的是给数组进行排序，排序之后就很容易找到第k个最大的元素 那么有没有不排序的方法，自然就会想到建立堆来进行操作 我们可以建立一个大顶堆，最大的数在建堆的过程中排最上面，一次遍历就能完成数组从大到小的构建 寻找排序之后的第k个最大的元素，也就是寻找大顶堆的正序第k个元素 之后一直弹出到k-1为止，下一个位置就是第k个最大的元素 方法2、暴力破解： 排序之后，倒置一下，第k-1个位置就是第k个最大的元素，不倒置就是nums.length-k个位置 方法3、快速选择： 摘自LeetCode官方题解 就像快速排序那样，本算法也是 Tony Hoare 发明的，因此也被称为 Hoare选择算法。 本方法大致上与快速排序相同。简便起见，注意到第 k 个最大元素也就是第 N - k 个最小元素，因此可以用第 k 小算法来解决本问题。 首先，我们选择一个枢轴，并在线性时间内定义其在排序数组中的位置。这可以通过 划分算法 的帮助来完成。 为了实现划分，沿着数组移动，将每个元素与枢轴进行比较，并将小于枢轴的所有元素移动到枢轴的左侧。 这样，在输出的数组中，枢轴达到其合适位置。所有小于枢轴的元素都在其左侧，所有大于或等于的元素都在其右侧。 这样，数组就被分成了两部分。如果是快速排序算法，会在这里递归地对两部分进行快速排序。 而在这里，由于知道要找的第 N - k 小的元素在哪部分中，我们不需要对两部分都做处理。 最终的算法十分直接了当 : 随机选择一个枢轴。 使用划分算法将枢轴放在数组中的合适位置 pos。将小于枢轴的元素移到左边，大于等于枢轴的元素移到右边。 比较 pos 和 N - k 以决定在哪边继续递归处理。 Java代码12345678910111213141516171819202122class Solution &#123; public int findKthLargest(int[] nums, int k) &#123; int len = nums.length; if (len == 1) &#123; return nums[0]; &#125; if (len &lt;= 2) &#123; Arrays.sort(nums); return nums[len - k]; &#125; Queue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;((v1,v2)-&gt;v2-v1); for (int i = 0; i &lt; len; i++) &#123; queue.add(nums[i]); &#125; int i=0; while (!queue.isEmpty()&amp;&amp;i&lt;k-1)&#123; queue.poll(); i++; &#125; return queue.poll(); &#125;&#125; Python代码1234class Solution: def findKthLargest(self, nums: List[int], k: int) -&gt; int: nums.sort(reverse=True) return nums[k-1] Java代码21234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859class Solution &#123; int[] nums; public void swap(int a, int b) &#123; int tmp = this.nums[a]; this.nums[a] = this.nums[b]; this.nums[b] = tmp; &#125; public int partition(int left, int right, int pivot_index) &#123; // 优化之后的快排，比枢轴元素大的理论应该放右边，但右边这部分甚至不需要排序 // 只需要找到N-k个位置就可以了 int pivot = this.nums[pivot_index]; // 1. 移动枢轴到最右 swap(pivot_index, right); int store_index = left; // 2. 移动所有小的元素到枢轴左边 for (int i = left; i &lt;= right; i++) &#123; if (this.nums[i] &lt; pivot) &#123; swap(store_index, i); store_index++; &#125; &#125; // 3. 还原枢轴到最终位置，左边的元素全部比他小 swap(store_index, right); return store_index; &#125; public int quickselect(int left, int right, int k_smallest) &#123; if (left == right) // 如果list只包含一个元素 return this.nums[left]; // 则返回这个元素 // 选择一个随机的枢轴 Random random_num = new Random(); int pivot_index = left + random_num.nextInt(right - left); pivot_index = partition(left, right, pivot_index); // 枢轴在N-k小的位置上，比较pos和N-k if (k_smallest == pivot_index) return this.nums[k_smallest]; // 左递归 else if (k_smallest &lt; pivot_index) return quickselect(left, pivot_index - 1, k_smallest); // 右递归 return quickselect(pivot_index + 1, right, k_smallest); &#125; public int findKthLargest(int[] nums, int k) &#123; this.nums = nums; int size = nums.length; // 第k个最大的元素，也就是第N-k个最小的元素 return quickselect(0, size - 1, size - k); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
+        <tag>Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-20-有效的括号]]></title>
+    <url>%2F2020%2F06%2F24%2FLeetCode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[LeetCode-20-有效的括号给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。 有效字符串需满足： 左括号必须用相同类型的右括号闭合。 左括号必须以正确的顺序闭合。 注意空字符串可被认为是有效字符串。 示例 1: 12输入: &quot;()&quot;输出: true 示例2： 12输入: &quot;()[]&#123;&#125;&quot;输出: true 示例3： 12输入: &quot;(]&quot;输出: false 示例4： 12输入: &quot;([)]&quot;输出: false 示例5： 12输入: &quot;&#123;[]&#125;&quot;输出: true 解题思路方法1、栈： 观察题目可知，要想构成有效的括号，最开始加入的(括号的反)必须是最后加入 这种规律符合栈的先进后出的方式，于是可以用栈来模拟 当扫描到前括号(、{、[的时候，在栈中加入对应的反括号),},] 当全部匹配时，栈为空等于true 特例处理当输入的字符为null的时候，直接返回true 当输入的字符为[的时候，栈中会加入反括号]，此时栈不为空，返回false 当输入的字符为]的时候，栈中不会加入反括号，此时如果直接返回栈是否为空，会返回true，但这是一个错误的结果 所以新增一个新的判断，else if(stack.isEmpty()||c!=stack.pop())联合判别反括号和栈空的情况，都是false Java代码12345678910111213141516171819class Solution &#123; public boolean isValid(String s) &#123; if(s==null||s.length()==0) return true; Stack&lt;Character&gt; stack = new Stack&lt;&gt;(); char[] cs = s.toCharArray(); for(char c:cs)&#123; if(c=='(')&#123; stack.push(')'); &#125;else if(c=='&#123;')&#123; stack.push('&#125;'); &#125;else if(c=='[')&#123; stack.push(']'); &#125;else if(stack.isEmpty()||c!=stack.pop())&#123; return false; &#125; &#125; return stack.isEmpty(); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Easy</tag>
+        <tag>Python</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-15-三数之和]]></title>
     <url>%2F2020%2F06%2F23%2FLeetCode-15-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
     <content type="text"><![CDATA[LeetCode-15-三数之和给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有满足条件且不重复的三元组。 注意：答案中不可以包含重复的三元组。 示例 1: 1234567给定数组 nums = [-1, 0, 1, 2, -1, -4]，满足要求的三元组集合为：[ [-1, 0, 1], [-1, -1, 2]] 解题思路方法1、双指针： 不重复问题首先一步是要对数组进行排序 排序之后固定一个数nums[i]，之后利用左右指针找nums[left]+nums[right]+nums[i]==0的数，就可以添加进入结果集合 但过程中需要考虑数据重复的问题 如果nums[i]&gt;0，则说明三数之和必然无法等于0，直接跳出循环 如果nums[i]==nums[i-1]，则说明该数字重复，会导致重复的结果，所以直接跳过 之后当left&lt;right的时候，且 sum==0，nums[left]==nums[left+1]会导致重复的结果，应该跳过，所以left++ sum==0，nums[right]==nums[right-1]时，会导致重复的，应该跳过，所以right— Java代码12345678910111213141516171819202122232425262728class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; threeSum(int[] nums) &#123; int len = nums.length; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); if(len&lt;3) return res; Arrays.sort(nums); for(int i=0;i&lt;len-2;i++)&#123; if(nums[i]&gt;0) break; if(i&gt;0&amp;&amp;nums[i]==nums[i-1]) continue; int left = i+1; int right = len-1; while(left&lt;right)&#123; if(nums[i]+nums[left]+nums[right]==0)&#123; res.add(Arrays.asList(nums[i],nums[left],nums[right])); while(left&lt;right&amp;&amp;nums[left]==nums[left+1]) left++; while(left&lt;right&amp;&amp;nums[right]==nums[right-1]) right--; left++; right--; &#125;else if(nums[i]+nums[left]+nums[right]&gt;0)&#123; right--; &#125;else&#123; left++; &#125; &#125; &#125; return res; &#125;&#125;]]></content>
@@ -37,8 +66,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>DP</tag>
         <tag>Easy</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -79,8 +108,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>LeetCode</tag>
         <tag>Easy</tag>
+        <tag>LeetCode</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -152,8 +181,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>LeetCode</tag>
         <tag>Easy</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -235,8 +264,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Easy</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -249,8 +278,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Easy</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -366,9 +395,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -382,9 +411,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -397,9 +426,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -412,9 +441,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -426,9 +455,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -441,9 +470,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
-        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>贪心算法</tag>
       </tags>
@@ -735,8 +764,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>DFS</tag>
-        <tag>Python</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1005,8 +1034,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>DP</tag>
         <tag>Easy</tag>
+        <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1189,8 +1218,8 @@
         <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1205,8 +1234,8 @@
         <tag>树</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1385,8 +1414,8 @@
         <tag>Java</tag>
         <tag>DP</tag>
         <tag>Python</tag>
-        <tag>Hard</tag>
         <tag>字符串</tag>
+        <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1493,9 +1522,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1509,9 +1538,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1535,8 +1564,8 @@
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>DFS</tag>
-        <tag>Python</tag>
         <tag>BFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1811,8 +1840,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
         <tag>机器学习</tag>
+        <tag>matlab</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -1945,9 +1974,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Ndarray对象]]></title>
-    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
-    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
+    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
+    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1957,9 +1986,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[数据类型和arange方法、astype方法的使用]]></title>
-    <url>%2F2018%2F08%2F22%2F%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8Carange%E6%96%B9%E6%B3%95_astype%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8%2F</url>
-    <content type="text"><![CDATA[Numpy支持比Python更多的数字类型 数据类型 描述 bool_ 布尔（True或False），存储为一个字节 int_ 默认整数类型（与Clong相同；通常是int64或int32） INTC 与Cint（通常为int32或int64）相同 INTP 用于索引的整数（与Cssize_t相同；通常是int32或int64） INT8 字节（-128至127） INT16 整数（-32768至32767） INT32 整数（-2147483648至2147483647） Int64的 整数（-9223372036854775808至9223372036854775807） UINT8 无符号整数（0到255） UINT16 无符号整数（0到65535） UINT32 无符号整数（0到4294967295） UINT64 无符号整数（0到18446744073709551615） float_ float64的简写。 float16 半精度浮点：符号位，5位指数，10位尾数 FLOAT32 单精度浮点数：符号位，8位指数，23位尾数 float64 双精度浮点：符号位，11位指数，52位尾数 complex_ complex128的简写。 complex64 复数，由两个32位浮点数（实部和虚部） complex128 复数，由两个64位浮点数（实部和虚部） 除了intc之外，还定义了平台相关的C整数类型short，long，longlong。 arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数 代码12345678910111213141516171819import numpy as npz = np.arange(5)print(z)print(z.dtype)print(50*'*')# 转化数据类型为float64floar_arr = z.astype(np.float64)print(floar_arr)print(floar_arr.dtype)print(50*'*')# 如果将浮点数转换为整数，则小数部分会被截断z2 = np.array([5.1,9.2,8.3,7.4,3.3214])print(z2)print(z2.astype(np.int32))print(50*'*')# arange的用法print(np.arange(1, 5))print(np.arange(0, 10, 2)) 运行结果1234567891011[0 1 2 3 4]int32**************************************************[0. 1. 2. 3. 4.]float64**************************************************[5.1 9.2 8.3 7.4 3.3214][5 9 8 7 3]**************************************************[1 2 3 4][0 2 4 6 8]]]></content>
+    <title><![CDATA[Ndarray对象]]></title>
+    <url>%2F2018%2F08%2F22%2FNdarray%E5%AF%B9%E8%B1%A1%2F</url>
+    <content type="text"><![CDATA[NumPy 中定义的最重要的对象是称为 ndarray 的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray 中的每个元素在内存中使用相同大小的块。基本的 ndarray 是使用 NumPy 中的数组函数创建的，如：numpy.array 它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。 numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0 上面的构造器接受以下参数： 序号 参数及描述 1. object 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。 2. dtype 数组的所需数据类型，可选。 3. copy 可选，默认为true，对象是否被复制。 4. order C（按行）、F（按列）或A（任意，默认）。 5. subok 默认情况下，返回的数组被强制为基类数组。 如果为true，则返回子类。 6. ndimin 指定返回数组的最小维数。 代码1234567891011121314151617import numpy as npa = np.array([1,2,3])print(a,"\n")# 当维度比一维高时b = np.array([[1,2],[3,4]])print(b,"\n")# zeros(shape)将创建一个用指定形状用0填充的数组print(np.zeros((2,3)),"\n")# ones(shape)将创建一个用1填充的数组print(np.ones((3,3)),"\n")# 最小维度c = np.array([1,2,3,4,5],ndmin=2)print(c,"\n")# dtype参数a = np.array([1,2,3],dtype=complex)print(a,"\n") 运行结果123456789101112131415[1 2 3] [[1 2] [3 4]] [[0. 0. 0.] [0. 0. 0.]] [[1. 1. 1.] [1. 1. 1.] [1. 1. 1.]] [[1 2 3 4 5]] [1.+0.j 2.+0.j 3.+0.j]]]></content>
       <categories>
         <category>Numpy</category>
       </categories>
@@ -1989,8 +2018,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2029,9 +2058,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2365,9 +2394,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2376,9 +2405,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>

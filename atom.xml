@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-23T13:14:50.289Z</updated>
+  <updated>2020-06-24T07:06:06.176Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-215-数组中的第K个最大元素</title>
+    <link href="http://benym.cn/2020/06/24/LeetCode-215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/"/>
+    <id>http://benym.cn/2020/06/24/LeetCode-215-数组中的第K个最大元素/</id>
+    <published>2020-06-24T02:18:17.000Z</published>
+    <updated>2020-06-24T07:06:06.176Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-215-数组中的第K个最大元素"><a href="#LeetCode-215-数组中的第K个最大元素" class="headerlink" title="LeetCode-215-数组中的第K个最大元素"></a>LeetCode-215-数组中的第K个最大元素</h2><p>在未排序的数组中找到第 <strong>k</strong> 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,1,5,6,4] 和 k = 2</span><br><span class="line">输出: 5</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [3,2,3,1,2,4,5,5,6] 和 k = 4</span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure><p><strong>说明:</strong></p><p>你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。</p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、优先队列：</strong></p><p>首先想到的是给数组进行排序，排序之后就很容易找到第k个最大的元素</p><p>那么有没有不排序的方法，自然就会想到建立堆来进行操作</p><p>我们可以建立一个大顶堆，最大的数在建堆的过程中排最上面，一次遍历就能完成数组从大到小的构建</p><p>寻找排序之后的第k个最大的元素，也就是寻找大顶堆的正序第k个元素</p><p>之后一直弹出到k-1为止，下一个位置就是第k个最大的元素</p><p><strong>方法2、暴力破解：</strong></p><p>排序之后，倒置一下，第k-1个位置就是第k个最大的元素，不倒置就是nums.length-k个位置</p><p><strong>方法3、快速选择：</strong></p><p>摘自<a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/solution/shu-zu-zhong-de-di-kge-zui-da-yuan-su-by-leetcode/" target="_blank" rel="noopener">LeetCode官方题解</a></p><p>就像快速排序那样，本算法也是 Tony Hoare 发明的，因此也被称为 Hoare选择算法。</p><p>本方法大致上与快速排序相同。简便起见，注意到第 k 个最大元素也就是第 N - k 个最小元素，因此可以用第 k 小算法来解决本问题。</p><p>首先，我们选择一个枢轴，并在线性时间内定义其在排序数组中的位置。这可以通过 划分算法 的帮助来完成。</p><p>为了实现划分，沿着数组移动，将每个元素与枢轴进行比较，并将小于枢轴的所有元素移动到枢轴的左侧。</p><p>这样，在输出的数组中，枢轴达到其合适位置。所有小于枢轴的元素都在其左侧，所有大于或等于的元素都在其右侧。</p><p>这样，数组就被分成了两部分。如果是快速排序算法，会在这里递归地对两部分进行快速排序。</p><p>而在这里，由于知道要找的第 N - k 小的元素在哪部分中，我们不需要对两部分都做处理。</p><p>最终的算法十分直接了当 :</p><ul><li><p>随机选择一个枢轴。</p></li><li><p>使用划分算法将枢轴放在数组中的合适位置 pos。将小于枢轴的元素移到左边，大于等于枢轴的元素移到右边。</p></li><li><p>比较 pos 和 N - k 以决定在哪边继续递归处理。</p></li></ul><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> nums[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (len &lt;= <span class="number">2</span>) &#123;</span><br><span class="line">            Arrays.sort(nums);</span><br><span class="line">            <span class="keyword">return</span> nums[len - k];</span><br><span class="line">        &#125;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> PriorityQueue&lt;&gt;((v1,v2)-&gt;v2-v1);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            queue.add(nums[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()&amp;&amp;i&lt;k-<span class="number">1</span>)&#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">            i++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> queue.poll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findKthLargest</span><span class="params">(self, nums: List[int], k: int)</span> -&gt; int:</span></span><br><span class="line">        nums.sort(reverse=<span class="keyword">True</span>)</span><br><span class="line">        <span class="keyword">return</span> nums[k<span class="number">-1</span>]</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span>[] nums;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> tmp = <span class="keyword">this</span>.nums[a];</span><br><span class="line">        <span class="keyword">this</span>.nums[a] = <span class="keyword">this</span>.nums[b];</span><br><span class="line">        <span class="keyword">this</span>.nums[b] = tmp;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="keyword">int</span> pivot_index)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 优化之后的快排，比枢轴元素大的理论应该放右边，但右边这部分甚至不需要排序</span></span><br><span class="line">        <span class="comment">// 只需要找到N-k个位置就可以了</span></span><br><span class="line">        <span class="keyword">int</span> pivot = <span class="keyword">this</span>.nums[pivot_index];</span><br><span class="line">        <span class="comment">// 1. 移动枢轴到最右</span></span><br><span class="line">        swap(pivot_index, right);</span><br><span class="line">        <span class="keyword">int</span> store_index = left;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 移动所有小的元素到枢轴左边</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = left; i &lt;= right; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.nums[i] &lt; pivot) &#123;</span><br><span class="line">                swap(store_index, i);</span><br><span class="line">                store_index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 还原枢轴到最终位置，左边的元素全部比他小</span></span><br><span class="line">        swap(store_index, right);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> store_index;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">quickselect</span><span class="params">(<span class="keyword">int</span> left, <span class="keyword">int</span> right, <span class="keyword">int</span> k_smallest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (left == right) <span class="comment">// 如果list只包含一个元素</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.nums[left];  <span class="comment">// 则返回这个元素</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 选择一个随机的枢轴</span></span><br><span class="line">        Random random_num = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">int</span> pivot_index = left + random_num.nextInt(right - left);</span><br><span class="line"></span><br><span class="line">        pivot_index = partition(left, right, pivot_index);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 枢轴在N-k小的位置上，比较pos和N-k</span></span><br><span class="line">        <span class="keyword">if</span> (k_smallest == pivot_index)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.nums[k_smallest];</span><br><span class="line">            <span class="comment">// 左递归</span></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (k_smallest &lt; pivot_index)</span><br><span class="line">            <span class="keyword">return</span> quickselect(left, pivot_index - <span class="number">1</span>, k_smallest);</span><br><span class="line">        <span class="comment">// 右递归</span></span><br><span class="line">        <span class="keyword">return</span> quickselect(pivot_index + <span class="number">1</span>, right, k_smallest);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findKthLargest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.nums = nums;</span><br><span class="line">        <span class="keyword">int</span> size = nums.length;</span><br><span class="line">        <span class="comment">// 第k个最大的元素，也就是第N-k个最小的元素</span></span><br><span class="line">        <span class="keyword">return</span> quickselect(<span class="number">0</span>, size - <span class="number">1</span>, size - k);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      数组中的第K个最大元素
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-20-有效的括号</title>
+    <link href="http://benym.cn/2020/06/24/LeetCode-20-%E6%9C%89%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/"/>
+    <id>http://benym.cn/2020/06/24/LeetCode-20-有效的括号/</id>
+    <published>2020-06-24T01:37:20.000Z</published>
+    <updated>2020-06-24T02:14:43.907Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-20-有效的括号"><a href="#LeetCode-20-有效的括号" class="headerlink" title="LeetCode-20-有效的括号"></a>LeetCode-20-有效的括号</h2><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p><p>有效字符串需满足：</p><ol><li>左括号必须用相同类型的右括号闭合。</li><li>左括号必须以正确的顺序闭合。</li></ol><p>注意空字符串可被认为是有效字符串。</p><a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;()&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;()[]&#123;&#125;&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><p><strong>示例3：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;(]&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure><p><strong>示例4：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;([)]&quot;</span><br><span class="line">输出: false</span><br></pre></td></tr></table></figure><p><strong>示例5：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;&#123;[]&#125;&quot;</span><br><span class="line">输出: true</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>方法1、栈：</p><p>观察题目可知，要想构成有效的括号，最开始加入的<code>(</code>括号的反<code>)</code>必须是最后加入</p><p>这种规律符合栈的先进后出的方式，于是可以用栈来模拟</p><p>当扫描到前括号<code>(</code>、<code>{</code>、<code>[</code>的时候，在栈中加入对应的反括号<code>)</code>,<code>}</code>,<code>]</code></p><p>当全部匹配时，栈为空等于true</p><p>特例处理当输入的字符为<code>null</code>的时候，直接返回true</p><p>当输入的字符为<code>[</code>的时候，栈中会加入反括号<code>]</code>，此时栈不为空，返回false</p><p>当输入的字符为<code>]</code>的时候，栈中不会加入反括号，此时如果直接返回栈是否为空，会返回true，但这是一个错误的结果</p><p>所以新增一个新的判断，<code>else if(stack.isEmpty()||c!=stack.pop())</code>联合判别反括号和栈空的情况，都是false</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s==<span class="keyword">null</span>||s.length()==<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        Stack&lt;Character&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">char</span>[] cs = s.toCharArray();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">char</span> c:cs)&#123;</span><br><span class="line">            <span class="keyword">if</span>(c==<span class="string">'('</span>)&#123;</span><br><span class="line">                stack.push(<span class="string">')'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'&#123;'</span>)&#123;</span><br><span class="line">                stack.push(<span class="string">'&#125;'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(c==<span class="string">'['</span>)&#123;</span><br><span class="line">                stack.push(<span class="string">']'</span>);</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(stack.isEmpty()||c!=stack.pop())&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stack.isEmpty();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      有效的括号
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-15-三数之和</title>
@@ -92,9 +150,9 @@
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
@@ -176,9 +234,9 @@
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -322,9 +380,9 @@
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -488,9 +546,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -516,69 +574,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-328-奇偶链表</title>
-    <link href="http://benym.cn/2020/06/10/LeetCode-328-%E5%A5%87%E5%81%B6%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/06/10/LeetCode-328-奇偶链表/</id>
-    <published>2020-06-10T07:14:20.000Z</published>
-    <updated>2020-06-10T07:26:40.630Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-328-奇偶链表"><a href="#LeetCode-328-奇偶链表" class="headerlink" title="LeetCode-328-奇偶链表"></a>LeetCode-328-奇偶链表</h2><p>给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。</p><p>请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 1-&gt;3-&gt;5-&gt;2-&gt;4-&gt;NULL</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 2-&gt;1-&gt;3-&gt;5-&gt;6-&gt;4-&gt;7-&gt;NULL </span><br><span class="line">输出: 2-&gt;3-&gt;6-&gt;7-&gt;1-&gt;5-&gt;4-&gt;NULL</span><br></pre></td></tr></table></figure><p><strong>说明:</strong></p><ul><li>应当保持奇数节点和偶数节点的相对顺序。</li><li>链表的第一个节点视为奇数节点，第二个节点视为偶数节点，以此类推。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>双指针：</strong></p><p>一个指针指向奇数节点，一个指针指向偶数节点</p><p>间隔遍历，奇数指针只能指向奇数节点，偶数指针只能指向偶数节点</p><p>对于链表长度为奇数时，奇数指针one能够指向之后一个数字，此时偶数指针two==null，作为循环结束条件</p><p>对于链表长度为偶数时，奇数指针one会在之前遍历完毕奇数位置，此时偶数指针two.next==null，作为循环结束条件</p><p>最后进行奇偶链表拼接，one.next=tempTwo</p><p>注意：间隔遍历很重要，如果按照顺序遍历，会出现one和two指针在奇偶长度的指向不一样，即one和two在快到链表末尾时候，可能指向的奇数链表也可能指向的偶数链表，这样就无法进行最后指针拼接的判断了，<strong>间隔遍历保证了指针的奇偶性</strong></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">oddEvenList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode one = head;</span><br><span class="line">        ListNode two = head.next;</span><br><span class="line">        ListNode tempTwo = two;</span><br><span class="line">        <span class="keyword">while</span>(two!=<span class="keyword">null</span>&amp;&amp;two.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            one.next = two.next;</span><br><span class="line">            one = one.next;</span><br><span class="line">            two.next = one.next;</span><br><span class="line">            two = two.next;</span><br><span class="line">        &#125;</span><br><span class="line">        one.next = tempTwo;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      奇偶链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-300-最长上升子序列</title>
-    <link href="http://benym.cn/2020/06/09/LeetCode-300-%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97/"/>
-    <id>http://benym.cn/2020/06/09/LeetCode-300-最长上升子序列/</id>
-    <published>2020-06-09T12:02:29.000Z</published>
-    <updated>2020-06-10T05:35:46.986Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-300-最长上升子序列"><a href="#LeetCode-300-最长上升子序列" class="headerlink" title="LeetCode-300-最长上升子序列"></a>LeetCode-300-最长上升子序列</h2><p>给定一个无序的整数数组，找到其中最长上升子序列的长度。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [10,9,2,5,3,7,101,18]</span><br><span class="line">输出: 4 </span><br><span class="line">解释: 最长的上升子序列是 [2,3,7,101]，它的长度是 4。</span><br></pre></td></tr></table></figure><p>说明:</p><p>可能会有多种最长上升子序列的组合，你只需要输出对应的长度即可。<br>你算法的时间复杂度应该为 O(n2) 。<br>进阶: 你能将算法的时间复杂度降低到 O(n log n) 吗?</p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>动态规划：</strong></p><p>子序列严格上升，不存在中间数字相等的情况，且不要求序列连续</p><p>状态定义为：第i个数字为结尾的最长上升子序列的长度，自身也需要统计在其中，每个位置的初始化长度为1</p><p>状态转移方程：遍历到索引是i的数字的时候，需要看i前面的i-1个数字是否小于当前的nums[i]的值，如果小于则可以构成一个更长的子序列，但i-1个数字中比nums[i]小的数字有多个，所以dp[i]位置的子序列长度，应该是前面i-1个数字的<strong>最长</strong>的那个加上1，即<code>dp[i] = Math.max(dp[j]+1,dp[i])</code></p><p>外层循环到len，控制dp[i]每个位置的初始化为1</p><p>内层循环到i，查看从数组开头到i-1个数，最长的子序列分别是多少</p><p>最后dp数组中的最大值，就是最长上升子序列的长度</p><p><strong>贪心+二分查找：</strong></p><p>实在是想不到这种解法….<a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/" target="_blank" rel="noopener">原题题解出处</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(len&lt;<span class="number">2</span>) <span class="keyword">return</span> len;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            dp[i]=<span class="number">1</span>;</span><br><span class="line">            <span class="comment">// 看前面i-1个数字</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;i;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]&lt;nums[i])&#123; <span class="comment">//可以构成更长的子序列，所以dp[j]+1</span></span><br><span class="line">                    dp[i] = Math.max(dp[j]+<span class="number">1</span>,dp[i]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(res&lt;dp[i]) res=dp[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLIS</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(len&lt;<span class="number">2</span>) <span class="keyword">return</span> len;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">        <span class="keyword">int</span> maxL = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> num:nums)&#123;</span><br><span class="line">            <span class="keyword">int</span> low = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> high = maxL;</span><br><span class="line">            <span class="keyword">while</span>(low&lt;high)&#123;</span><br><span class="line">                <span class="keyword">int</span> mid = low+(high-low)/<span class="number">2</span>;</span><br><span class="line">                <span class="keyword">if</span>(dp[mid]&lt;num)&#123;</span><br><span class="line">                    low = mid+<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    high = mid;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[low]=num;</span><br><span class="line">            <span class="keyword">if</span>(low==maxL)</span><br><span class="line">                maxL++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxL;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      最长上升子序列
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
