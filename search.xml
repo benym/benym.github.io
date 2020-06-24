@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-17-电话号码的字母组合]]></title>
+    <url>%2F2020%2F06%2F24%2FLeetCode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%2F</url>
+    <content type="text"><![CDATA[LeetCode-17-电话号码的字母组合给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 示例 1: 12输入：&quot;23&quot;输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;]. 说明:尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。 解题思路方法1、回溯： 首先需要建立一个map，存储数字到字符串的映射 排列组合问题一般想象成树形问题，可以进行回溯选择 本题中回溯的停止条件是当深度达到输入字符长度的时候 回溯流程： 选择第一个输入的数字 找到这个数字对应的字母列表，并选择第一个字母加入到tmp中 开启下一层递归 当加入过一个答案之后，进行回溯，即删除刚选择的最后一个字符，选择另外的路走 Java代码123456789101112131415161718192021222324252627282930313233class Solution &#123; Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;() &#123;&#123; put("2", "abc"); put("3", "def"); put("4", "ghi"); put("5", "jkl"); put("6", "mno"); put("7", "pqrs"); put("8", "tuv"); put("9", "wxyz"); &#125;&#125;; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); StringBuilder tmp = new StringBuilder(); public List&lt;String&gt; letterCombinations(String digits) &#123; if(digits==null||digits.length()==0) return res; backtrack(digits,0); return res; &#125; public void backtrack(String digits,int index)&#123; if(index&gt;=digits.length())&#123; res.add(tmp.toString()); return; &#125; String letter = map.get(digits.substring(index,index+1)); for(int i=0;i&lt;letter.length();i++)&#123; tmp.append(letter.charAt(i)); backtrack(digits,index+1); tmp.deleteCharAt(tmp.length()-1); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>LeetCode</tag>
+        <tag>Medium</tag>
+        <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-215-数组中的第K个最大元素]]></title>
     <url>%2F2020%2F06%2F24%2FLeetCode-215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%2F</url>
     <content type="text"><![CDATA[LeetCode-215-数组中的第K个最大元素在未排序的数组中找到第 k 个最大的元素。请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 示例 1: 12输入: [3,2,1,5,6,4] 和 k = 2输出: 5 示例2： 12输入: [3,2,3,1,2,4,5,5,6] 和 k = 4输出: 4 说明: 你可以假设 k 总是有效的，且 1 ≤ k ≤ 数组的长度。 解题思路方法1、优先队列： 首先想到的是给数组进行排序，排序之后就很容易找到第k个最大的元素 那么有没有不排序的方法，自然就会想到建立堆来进行操作 我们可以建立一个大顶堆，最大的数在建堆的过程中排最上面，一次遍历就能完成数组从大到小的构建 寻找排序之后的第k个最大的元素，也就是寻找大顶堆的正序第k个元素 之后一直弹出到k-1为止，下一个位置就是第k个最大的元素 方法2、暴力破解： 排序之后，倒置一下，第k-1个位置就是第k个最大的元素，不倒置就是nums.length-k个位置 方法3、快速选择： 摘自LeetCode官方题解 就像快速排序那样，本算法也是 Tony Hoare 发明的，因此也被称为 Hoare选择算法。 本方法大致上与快速排序相同。简便起见，注意到第 k 个最大元素也就是第 N - k 个最小元素，因此可以用第 k 小算法来解决本问题。 首先，我们选择一个枢轴，并在线性时间内定义其在排序数组中的位置。这可以通过 划分算法 的帮助来完成。 为了实现划分，沿着数组移动，将每个元素与枢轴进行比较，并将小于枢轴的所有元素移动到枢轴的左侧。 这样，在输出的数组中，枢轴达到其合适位置。所有小于枢轴的元素都在其左侧，所有大于或等于的元素都在其右侧。 这样，数组就被分成了两部分。如果是快速排序算法，会在这里递归地对两部分进行快速排序。 而在这里，由于知道要找的第 N - k 小的元素在哪部分中，我们不需要对两部分都做处理。 最终的算法十分直接了当 : 随机选择一个枢轴。 使用划分算法将枢轴放在数组中的合适位置 pos。将小于枢轴的元素移到左边，大于等于枢轴的元素移到右边。 比较 pos 和 N - k 以决定在哪边继续递归处理。 Java代码12345678910111213141516171819202122class Solution &#123; public int findKthLargest(int[] nums, int k) &#123; int len = nums.length; if (len == 1) &#123; return nums[0]; &#125; if (len &lt;= 2) &#123; Arrays.sort(nums); return nums[len - k]; &#125; Queue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;((v1,v2)-&gt;v2-v1); for (int i = 0; i &lt; len; i++) &#123; queue.add(nums[i]); &#125; int i=0; while (!queue.isEmpty()&amp;&amp;i&lt;k-1)&#123; queue.poll(); i++; &#125; return queue.poll(); &#125;&#125; Python代码1234class Solution: def findKthLargest(self, nums: List[int], k: int) -&gt; int: nums.sort(reverse=True) return nums[k-1] Java代码21234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859class Solution &#123; int[] nums; public void swap(int a, int b) &#123; int tmp = this.nums[a]; this.nums[a] = this.nums[b]; this.nums[b] = tmp; &#125; public int partition(int left, int right, int pivot_index) &#123; // 优化之后的快排，比枢轴元素大的理论应该放右边，但右边这部分甚至不需要排序 // 只需要找到N-k个位置就可以了 int pivot = this.nums[pivot_index]; // 1. 移动枢轴到最右 swap(pivot_index, right); int store_index = left; // 2. 移动所有小的元素到枢轴左边 for (int i = left; i &lt;= right; i++) &#123; if (this.nums[i] &lt; pivot) &#123; swap(store_index, i); store_index++; &#125; &#125; // 3. 还原枢轴到最终位置，左边的元素全部比他小 swap(store_index, right); return store_index; &#125; public int quickselect(int left, int right, int k_smallest) &#123; if (left == right) // 如果list只包含一个元素 return this.nums[left]; // 则返回这个元素 // 选择一个随机的枢轴 Random random_num = new Random(); int pivot_index = left + random_num.nextInt(right - left); pivot_index = partition(left, right, pivot_index); // 枢轴在N-k小的位置上，比较pos和N-k if (k_smallest == pivot_index) return this.nums[k_smallest]; // 左递归 else if (k_smallest &lt; pivot_index) return quickselect(left, pivot_index - 1, k_smallest); // 右递归 return quickselect(pivot_index + 1, right, k_smallest); &#125; public int findKthLargest(int[] nums, int k) &#123; this.nums = nums; int size = nums.length; // 第k个最大的元素，也就是第N-k个最小的元素 return quickselect(0, size - 1, size - k); &#125;&#125;]]></content>
@@ -8,10 +22,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -37,10 +51,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -51,8 +65,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -64,8 +78,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
       </tags>
@@ -78,10 +92,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -92,8 +106,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
       </tags>
@@ -106,8 +120,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>Python</tag>
@@ -121,10 +135,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -137,8 +151,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>DP</tag>
         <tag>字符串</tag>
       </tags>
@@ -152,8 +166,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -166,8 +180,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -179,8 +193,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
       </tags>
@@ -193,9 +207,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -207,9 +221,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -221,10 +235,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
-        <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -236,8 +250,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -250,8 +264,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -292,8 +306,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -305,10 +319,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -320,10 +334,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -335,10 +349,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -381,8 +395,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -393,8 +407,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -409,8 +423,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -424,8 +438,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -439,8 +453,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -528,8 +542,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -570,8 +584,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -584,8 +598,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -598,8 +612,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -612,9 +626,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>DP</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -641,8 +655,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -685,8 +699,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -700,8 +714,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -715,9 +729,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -730,9 +744,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -744,9 +758,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -760,9 +774,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -777,8 +791,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>BFS</tag>
         <tag>Hard</tag>
       </tags>
@@ -791,8 +805,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
       </tags>
@@ -805,10 +819,10 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
-        <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -819,9 +833,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -835,8 +849,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -849,8 +863,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -865,8 +879,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -878,8 +892,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>分治</tag>
@@ -952,9 +966,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -968,9 +982,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -985,9 +999,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1001,9 +1015,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1032,8 +1046,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
         <tag>Python</tag>
@@ -1048,8 +1062,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1062,9 +1076,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1090,8 +1104,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1106,8 +1120,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
@@ -1123,8 +1137,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
@@ -1138,10 +1152,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
-        <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1155,8 +1169,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1168,10 +1182,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
-        <tag>Medium</tag>
+        <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1185,8 +1199,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1200,8 +1214,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>剑指Offer</tag>
@@ -1215,9 +1229,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1231,8 +1245,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -1291,9 +1305,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1306,9 +1320,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1321,8 +1335,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1338,8 +1352,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1353,8 +1367,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1368,8 +1382,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1381,8 +1395,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1414,8 +1428,8 @@
         <tag>Java</tag>
         <tag>DP</tag>
         <tag>Python</tag>
-        <tag>字符串</tag>
         <tag>Hard</tag>
+        <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1429,8 +1443,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -1443,8 +1457,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1562,8 +1576,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>DFS</tag>
+        <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1577,9 +1591,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1593,8 +1607,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1667,8 +1681,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>树</tag>
         <tag>Java</tag>
+        <tag>树</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1684,8 +1698,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1712,8 +1726,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1727,8 +1741,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1742,8 +1756,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1785,8 +1799,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1799,8 +1813,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1813,8 +1827,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>数组</tag>
+        <tag>Java</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
