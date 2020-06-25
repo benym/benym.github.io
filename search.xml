@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Redis实现共享Session]]></title>
+    <url>%2F2020%2F06%2F25%2FRedis%E5%AE%9E%E7%8E%B0%E5%85%B1%E4%BA%ABSession%2F</url>
+    <content type="text"><![CDATA[Redis实现共享SessionSession共享，一般有一个这样的场景。以往单机的项目，数据请求都是在一个服务器上，session保存在这个服务器上自然是没有问题的。但是如果项目需要部署在多台服务器上的时候，session就会存在共享的问题 举一个例子： 假如现在有两台服务器同时运行，分别是ServerA和ServerB。 假设第一次请求(登陆请求)被分配到了A进行处理，A收到请求之后会生成一个sessionId并保存到内存中，然后返回给用户(浏览器)，浏览器会把sessionId保存到cookie中，第一次请求完成。如果之后每一次请求还是由A来进行处理，那么一切正常。如果A服务器挂掉了，这时候请求被分配到B，B拿到的sessionId是由A生成的，两边就对不上了。于是用户会发现，需要重新登陆了。 那么这样的问题应该怎么样去解决呢？ 首先，问题的根源出在sessionId无法共享上，想要把sessionId共享，一个简单的思路就是把sessionId保存到数据库中(这里选择redis)，这样验证的时候就不再从当前服务器获取sessionId了，而改为了从redis中获取 实现思路如下： 登陆页面提交用户名密码 登陆成功之后生成token。Token相当于原来的sessionId，字符串等，可以使用UUID 把用户信息保存到redis中。Key就是token，value就是userId 设置key的过期时间。模拟Session的过期时间 拦截器请求校验sessionId 代码实现登陆成功，生成sessionId存入redis 123456789101112131415161718192021222324252627282930@Servicepublic class UserServiceImpl implements UserService &#123; @Autowired private SysUserMapper sysUserMapper; @Autowired private RedisService redisService; @Override public LoginRespVo login(LoginReqVo vo) &#123; SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername()); if(sysUser==null)&#123; throw new BusinessException(4001005,"不存在该用户,请先注册"); &#125; if(sysUser.getStatus()==2)&#123; throw new BusinessException(4001006,"该帐号已被禁用"); &#125; if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123; throw new BusinessException(4001007,"用户名密码不匹配"); &#125; String token = UUID.randomUUID().toString(); LoginRespVo respVo = new LoginRespVo(); respVo.setUserId(sysUser.getId()); respVo.setToken(token); redisService.set(token,sysUser.getId(),60, TimeUnit.MINUTES); redisService.set(sysUser.getId(),token,60,TimeUnit.MINUTES); return respVo; &#125;&#125; 其中LoginRespVo类为 12345678910111213package com.cqupt.lesson.vo.req;import io.swagger.annotations.ApiModelProperty;import lombok.Data;@Datapublic class LoginReqVo &#123; @ApiModelProperty(value = "用户名") private String username; @ApiModelProperty(value = "密码") private String password;&#125; SessionInterceptor拦截器校验sessionId 123456789101112131415161718192021222324252627282930313233package com.cqupt.lesson.interceptor;import com.cqupt.lesson.exception.BusinessException;import com.cqupt.lesson.service.RedisService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.util.StringUtils;import org.springframework.web.servlet.HandlerInterceptor;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;public class TokenInterceptor implements HandlerInterceptor &#123; @Autowired private RedisService redisService; @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123; String token = request.getHeader("token"); if(StringUtils.isEmpty(token))&#123; throw new BusinessException(4001002,"用户凭证不能为空"); &#125;else &#123; if(!redisService.hasKey(token))&#123; throw new BusinessException(4001002,"用户凭证无效"); &#125; String userId = (String) redisService.get(token); if(redisService.hasKey(userId)&amp;&amp;!token.equals(redisService.get(userId)))&#123; throw new BusinessException(4001002,"帐号已在异地登陆"); &#125; &#125; return true; &#125;&#125; 1234567891011121314151617181920package com.cqupt.lesson.config;import com.cqupt.lesson.interceptor.TokenInterceptor;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.web.servlet.config.annotation.InterceptorRegistry;import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;@Configurationpublic class WebAppConfig implements WebMvcConfigurer &#123; @Bean public TokenInterceptor tokenInterceptor()&#123; return new TokenInterceptor(); &#125; @Override public void addInterceptors(InterceptorRegistry registry) &#123; registry.addInterceptor(tokenInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/login","/api/user/register","/api/user/code/*"); &#125;&#125;]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自定义RedisTemplate]]></title>
+    <url>%2F2020%2F06%2F25%2F%E8%87%AA%E5%AE%9A%E4%B9%89RedisTemplate%2F</url>
+    <content type="text"><![CDATA[自定义RedisTemplate在Spring Data Redis中，有一个高度封装的RedisTemplate类，实现了对Redis客户端的操作，其中提供了针对数据的StringRedisSerializer序列化方式，但这只能序列化String类型的Key和Value。在日常的数据处理中，通常会面对存储一个对象数据的任务，所以需要定义一个自己的序列化和反序列化方法。 Redis基本数据结构RedisTemplate中定义了对应的redis五种数据结构操作： opsForValue();//操作字符串 opsForHash();//操作hash opsForList(); //操作list opsForSet(); //操作set opsForZSet();//操作有序set RedisTemplate可以直接通过@Autowired获取对象引用，为什么能够直接声明获取引用呢？ 在spring boot启动后会向spring 注入两个bean RedisTemplate、StringRedisTemplate 源码中StringRedisTemplate继承自RedisTemplate RedisTemplate是一个泛型类，而StringRedisTemplate则不是 StringRedisTemplate只能对key=String，value=String的键值对进行操作，RedisTemplate可以对任何类型的key-value键值对操作 他们各自序列化的方式不同，但最终都是得到了一个字节数组，殊途同归，StringRedisTemplate使用的是StringRedisSerializer类；RedisTemplate使用的是JdkSerializationRedisSerializer类。反序列化，则是一个得到String，一个得到Object RedisTemplate在操作数据的时候，存入数据会将数据先序列化成字节数组然后在存入Redis数据库(默认JdkSerializationRedisSerializer:这个序列化方法就是Jdk提供的了,首先要求我们要被序列化的类继承自Serializeable接口，然后通过Jdk对象序列化的方法保存)，这个时候打开Redis查看的时候，你会看到你的数据不是以可读的形式，展现的，而是以字节数组显示。 而StringRedisSerializer在操作数据的时候就是通过String.getBytes()来实现的。而且在Redis中，所有存储的值都是字符串类型的。所以这种方法保存后，通过Redis-cli控制台或者Redis-Desktop-Manager图形化工具，是可以清楚的查看到我们保存了什么key,value是什么。 如当我们从以前的项目升级为RedisTemplate在不指定序列化方式的时候取不到原来的值 12345678@Autowired private RedisTemplate redisTemplate; @Test public void testRedisTemplate() &#123; System.out.println(redisTemplate.opsForValue().get("username")); &#125; 输出：null 这是因为升级成RedisTemplate他的默认使用序列化是JdkSerializationRedisSerializer，所以当需要获取数据的时候就找不到数据了(因为拿key去匹配的时候两种序列化得到的byte数组是不一样的)。 我们把RedisTemplate序列化方式设置成StringRedisSerializer看看效果 12345678910@Autowired @Test public void testRedisTemplate() &#123; stringRedisTemplate.opsForValue().set("username","张三"); StringRedisSerializer stringRedisSerializer=new StringRedisSerializer(); redisTemplate.setKeySerializer(stringRedisSerializer); redisTemplate.setValueSerializer(stringRedisSerializer); System.out.println(redisTemplate.opsForValue().get("username")); &#125;输出：张三 当我们指定使用StringRedisSerializer做value的序列化时，StringRedisSerializer的泛型指定的是String，传其他对象就会报类不能转换为String的异常 我们希望redis能够保存对象数据，就应该要自定义StringRedisSerializer 在StringRedisSerializer的源码中，它继承了RedisSerializer&lt;String&gt;，如下所示： 123456789101112131415161718192021222324252627282930313233//// Source code recreated from a .class file by IntelliJ IDEA// (powered by Fernflower decompiler)//package org.springframework.data.redis.serializer;import java.nio.charset.Charset;import java.nio.charset.StandardCharsets;import org.springframework.lang.Nullable;import org.springframework.util.Assert;public class StringRedisSerializer implements RedisSerializer&lt;String&gt; &#123; private final Charset charset; public static final StringRedisSerializer US_ASCII; public static final StringRedisSerializer ISO_8859_1; public static final StringRedisSerializer UTF_8; public StringRedisSerializer() &#123; this(StandardCharsets.UTF_8); &#125; public StringRedisSerializer(Charset charset) &#123; Assert.notNull(charset, "Charset must not be null!"); this.charset = charset; &#125; public String deserialize(@Nullable byte[] bytes) &#123; return bytes == null ? null : new String(bytes, this.charset); &#125; public byte[] serialize(@Nullable String string) &#123; return string == null ? null : string.getBytes(this.charset); &#125; static &#123; US_ASCII = new StringRedisSerializer(StandardCharsets.US_ASCII); ISO_8859_1 = new StringRedisSerializer(StandardCharsets.ISO_8859_1); UTF_8 = new StringRedisSerializer(StandardCharsets.UTF_8); &#125;&#125; 自定义redis序列化工具类将传入的Object对象转化为JSON字符串，之后再变为字节数组 1234567891011121314151617181920212223242526272829303132333435363738394041package com.cqupt.lesson.serializer;import com.alibaba.fastjson.JSON;import org.springframework.data.redis.serializer.RedisSerializer;import org.springframework.data.redis.serializer.SerializationException;import org.springframework.util.Assert;import java.nio.charset.Charset;import java.nio.charset.StandardCharsets;public class MyStringRedisSerializer implements RedisSerializer&lt;Object&gt; &#123; private final Charset charset; public MyStringRedisSerializer() &#123; this(StandardCharsets.UTF_8); &#125; public MyStringRedisSerializer(Charset charset) &#123; Assert.notNull(charset, "Charset must not be null!"); this.charset = charset; &#125; @Override public byte[] serialize(Object object) throws SerializationException &#123; if(object==null)&#123; return new byte[0]; &#125; if(object instanceof String)&#123; return object.toString().getBytes(charset); &#125;else&#123; String string = JSON.toJSONString(object); return string.getBytes(charset); &#125; &#125; @Override public Object deserialize(byte[] bytes) throws SerializationException &#123; return (bytes == null ? null : new String(bytes, charset)); &#125;&#125; 同时需要加入fastjson依赖，创建一个RedisConfig配置类，设置2种key-value的序列化方式 1234567891011121314151617181920212223package com.cqupt.lesson.config;import com.cqupt.lesson.serializer.MyStringRedisSerializer;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.data.redis.connection.RedisConnectionFactory;import org.springframework.data.redis.core.RedisTemplate;import org.springframework.data.redis.serializer.StringRedisSerializer;@Configurationpublic class RedisConfig &#123; @Bean public RedisTemplate&lt;String,Object&gt; redisTemplate(RedisConnectionFactory redisConnectionFactory)&#123; RedisTemplate&lt;String,Object&gt; redisTemplate = new RedisTemplate&lt;&gt;(); redisTemplate.setConnectionFactory(redisConnectionFactory); redisTemplate.setKeySerializer(new StringRedisSerializer()); redisTemplate.setHashKeySerializer(new StringRedisSerializer()); redisTemplate.setValueSerializer(new MyStringRedisSerializer()); redisTemplate.setHashValueSerializer(new MyStringRedisSerializer()); return redisTemplate; &#125;&#125; 之后自定义一个RedisService类，接管RedisTemplate的功能，并在此基础上进行一点判空修改(代码过长，只贴一部分) 1234567891011121314151617181920212223242526272829303132333435363738@Servicepublic class RedisService &#123; @Autowired private RedisTemplate&lt;String,Object&gt; redisTemplate; /** -------------------key相关操作--------------------- */ /** * 是否存在key * @Author: YuanMing * @UpdateUser: * @Version: 0.0.1 * @param key * @return java.lang.Boolean * @throws */ public Boolean hasKey(String key) &#123; if (null==key)&#123; return false; &#125; return redisTemplate.hasKey(key); &#125; /** * 删除key * @Author: YuanMing * @UpdateUser: * @Version: 0.0.1 * @param key * @return Boolean 成功返回true 失败返回false * @throws */ public Boolean delete(String key) &#123; if (null==key)&#123; return false; &#125; return redisTemplate.delete(key); &#125;&#125;]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-17-电话号码的字母组合]]></title>
     <url>%2F2020%2F06%2F24%2FLeetCode-17-%E7%94%B5%E8%AF%9D%E5%8F%B7%E7%A0%81%E7%9A%84%E5%AD%97%E6%AF%8D%E7%BB%84%E5%90%88%2F</url>
     <content type="text"><![CDATA[LeetCode-17-电话号码的字母组合给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。 示例 1: 12输入：&quot;23&quot;输出：[&quot;ad&quot;, &quot;ae&quot;, &quot;af&quot;, &quot;bd&quot;, &quot;be&quot;, &quot;bf&quot;, &quot;cd&quot;, &quot;ce&quot;, &quot;cf&quot;]. 说明:尽管上面的答案是按字典序排列的，但是你可以任意选择答案输出的顺序。 解题思路方法1、回溯： 首先需要建立一个map，存储数字到字符串的映射 排列组合问题一般想象成树形问题，可以进行回溯选择 本题中回溯的停止条件是当深度达到输入字符长度的时候 回溯流程： 选择第一个输入的数字 找到这个数字对应的字母列表，并选择第一个字母加入到tmp中 开启下一层递归 当加入过一个答案之后，进行回溯，即删除刚选择的最后一个字符，选择另外的路走 Java代码123456789101112131415161718192021222324252627282930313233class Solution &#123; Map&lt;String, String&gt; map = new HashMap&lt;String, String&gt;() &#123;&#123; put("2", "abc"); put("3", "def"); put("4", "ghi"); put("5", "jkl"); put("6", "mno"); put("7", "pqrs"); put("8", "tuv"); put("9", "wxyz"); &#125;&#125;; List&lt;String&gt; res = new ArrayList&lt;String&gt;(); StringBuilder tmp = new StringBuilder(); public List&lt;String&gt; letterCombinations(String digits) &#123; if(digits==null||digits.length()==0) return res; backtrack(digits,0); return res; &#125; public void backtrack(String digits,int index)&#123; if(index&gt;=digits.length())&#123; res.add(tmp.toString()); return; &#125; String letter = map.get(digits.substring(index,index+1)); for(int i=0;i&lt;letter.length();i++)&#123; tmp.append(letter.charAt(i)); backtrack(digits,index+1); tmp.deleteCharAt(tmp.length()-1); &#125; &#125;&#125;]]></content>
@@ -237,8 +261,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -761,8 +785,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -777,9 +801,9 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -821,8 +845,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -836,8 +860,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1120,9 +1144,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1154,8 +1178,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1184,9 +1208,9 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1428,8 +1452,8 @@
         <tag>Java</tag>
         <tag>DP</tag>
         <tag>Python</tag>
-        <tag>Hard</tag>
         <tag>字符串</tag>
+        <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1576,10 +1600,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1854,8 +1878,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>matlab</tag>
+        <tag>机器学习</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2032,8 +2056,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2072,9 +2096,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2408,9 +2432,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2419,9 +2443,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2452,9 +2476,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2463,9 +2487,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2652,7 +2676,7 @@
   <entry>
     <title><![CDATA[折半查找]]></title>
     <url>%2F2018%2F04%2F10%2F%E6%8A%98%E5%8D%8A%E6%9F%A5%E6%89%BE%2F</url>
-    <content type="text"><![CDATA[折半查找定义二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列 查找过程首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。 比较次数 当顺序表有n个关键字时： 查找失败时，至少比较a次关键字；查找成功时，最多比较关键字次数是b。 注意：a,b,n均为正整数。 算法复杂度折半查找法也称为二分查找法，它充分利用了元素间的次序关系，采用分治策略，可在最坏的情况下用O(log n)完成搜索任务。 代码 1234567891011121314151617181920212223242526272829303132333435363738394041#include&lt;stdio.h&gt;#define N 5//折半查找算法int main() &#123; int a[N],i,j,low=0,high=N-1,mid,flag,num; printf("请输入5个数:\n"); scanf("%d",&amp;a[0]); i=1; //升序输入 while(i&lt;N) &#123; scanf("%d",&amp;a[i]); if(a[i]&gt;=a[i-1]) &#123; i++; &#125; else &#123; printf("重新输入数据:\n"); &#125; &#125; printf("\n"); for(i=0; i&lt;N; i++) &#123; printf("%5d",a[i]); &#125; printf("\n请输入你要查询的数字:\n"); scanf("%d",&amp;num); if((num&lt;a[0])||(num&gt;a[N-1])) &#123; printf("该数不在区间范围内\n"); &#125; while(low&lt;=high) &#123; mid = (low + high)/2; if(num==a[mid])&#123; flag=mid; //记录这个数的位置 printf("找到了%d,这个数在第%d号位置",num,flag+1); break; &#125; else if (num &gt; a[mid]) &#123; low = mid+1; &#125; else if (num &lt; a[mid]) &#123; high = mid - 1; &#125; &#125; return 0;&#125;]]></content>
+    <content type="text"><![CDATA[折半查找定义二分查找也称折半查找（Binary Search），它是一种效率较高的查找方法。但是，折半查找要求线性表必须采用顺序存储结构，而且表中元素按关键字有序排列 查找过程首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。 比较次数当顺序表有n个关键字时： 查找失败时，至少比较a次关键字；查找成功时，最多比较关键字次数是b。 注意：a,b,n均为正整数。 算法复杂度折半查找法也称为二分查找法，它充分利用了元素间的次序关系，采用分治策略，可在最坏的情况下用O(log n)完成搜索任务。 代码 1234567891011121314151617181920212223242526272829303132333435363738394041#include&lt;stdio.h&gt;#define N 5//折半查找算法int main() &#123; int a[N],i,j,low=0,high=N-1,mid,flag,num; printf("请输入5个数:\n"); scanf("%d",&amp;a[0]); i=1; //升序输入 while(i&lt;N) &#123; scanf("%d",&amp;a[i]); if(a[i]&gt;=a[i-1]) &#123; i++; &#125; else &#123; printf("重新输入数据:\n"); &#125; &#125; printf("\n"); for(i=0; i&lt;N; i++) &#123; printf("%5d",a[i]); &#125; printf("\n请输入你要查询的数字:\n"); scanf("%d",&amp;num); if((num&lt;a[0])||(num&gt;a[N-1])) &#123; printf("该数不在区间范围内\n"); &#125; while(low&lt;=high) &#123; mid = (low + high)/2; if(num==a[mid])&#123; flag=mid; //记录这个数的位置 printf("找到了%d,这个数在第%d号位置",num,flag+1); break; &#125; else if (num &gt; a[mid]) &#123; low = mid+1; &#125; else if (num &lt; a[mid]) &#123; high = mid - 1; &#125; &#125; return 0;&#125;]]></content>
       <categories>
         <category>C语言</category>
       </categories>
@@ -2663,7 +2687,7 @@
   <entry>
     <title><![CDATA[任意行数的杨辉三角形（动态分配）]]></title>
     <url>%2F2018%2F04%2F10%2F%E4%BB%BB%E6%84%8F%E8%A1%8C%E6%95%B0%E7%9A%84%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92%E5%BD%A2%EF%BC%88%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[杨辉三角形金字塔型和直角三角形 代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main() &#123; int i,j,num; int **a; printf("请输入你想打印的杨辉三角形行数:\n"); scanf("%d",&amp;num); a=(int **)malloc(num*sizeof(int *)); for (i = 0; i &lt; num; ++i) &#123; //为每列分配num个大小空间 a[i] = (int*)malloc(sizeof(int)*num); &#125; //书上分开打印// for(i=0; i&lt;num; i++) &#123;// a[i][i]=1;// a[i][0]=1;// &#125;// for(i=2; i&lt;num; i++) &#123;// for(j=1; j&lt;=i-1; j++) &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125;// &#125;// for(i=0;i&lt;num;i++)&#123;// for(j=0;j&lt;=i;j++)&#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125;// printf("\n"); //优化 for(i=0; i&lt;num; i++) &#123; for(j=0; j&lt;=i; j++) &#123;// if(i==0||j==0||j==i) &#123;// a[i][j]=1;// &#125; else &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125; printf("%4d",(a[i][j])=(i==0||j==0||j==i)?1:a[i-1][j-1]+a[i-1][j]); &#125; printf("\n"); &#125;// for(i=0; i&lt;num; i++) &#123;// for(j=0; j&lt;=i; j++) &#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125; for (i = 0; i &lt; num; i++) &#123; free(a[i]); &#125; free(a); printf("\n"); return 0;&#125;]]></content>
+    <content type="text"><![CDATA[杨辉三角形金字塔型和直角三角形代码 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354#include&lt;stdio.h&gt;#include&lt;stdlib.h&gt;int main() &#123; int i,j,num; int **a; printf("请输入你想打印的杨辉三角形行数:\n"); scanf("%d",&amp;num); a=(int **)malloc(num*sizeof(int *)); for (i = 0; i &lt; num; ++i) &#123; //为每列分配num个大小空间 a[i] = (int*)malloc(sizeof(int)*num); &#125; //书上分开打印// for(i=0; i&lt;num; i++) &#123;// a[i][i]=1;// a[i][0]=1;// &#125;// for(i=2; i&lt;num; i++) &#123;// for(j=1; j&lt;=i-1; j++) &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125;// &#125;// for(i=0;i&lt;num;i++)&#123;// for(j=0;j&lt;=i;j++)&#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125;// printf("\n"); //优化 for(i=0; i&lt;num; i++) &#123; for(j=0; j&lt;=i; j++) &#123;// if(i==0||j==0||j==i) &#123;// a[i][j]=1;// &#125; else &#123;// a[i][j]=a[i-1][j-1]+a[i-1][j];// &#125; printf("%4d",(a[i][j])=(i==0||j==0||j==i)?1:a[i-1][j-1]+a[i-1][j]); &#125; printf("\n"); &#125;// for(i=0; i&lt;num; i++) &#123;// for(j=0; j&lt;=i; j++) &#123;// printf("%4d",a[i][j]);// &#125;// printf("\n");// &#125; for (i = 0; i &lt; num; i++) &#123; free(a[i]); &#125; free(a); printf("\n"); return 0;&#125;]]></content>
       <categories>
         <category>C语言</category>
       </categories>
