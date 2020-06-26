@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-25T09:04:14.114Z</updated>
+  <updated>2020-06-26T02:23:34.558Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://benym.cn/2020/06/25/Redis%E5%AE%9E%E7%8E%B0%E5%85%B1%E4%BA%ABSession/"/>
     <id>http://benym.cn/2020/06/25/Redis实现共享Session/</id>
     <published>2020-06-25T08:30:43.000Z</published>
-    <updated>2020-06-25T09:04:14.114Z</updated>
+    <updated>2020-06-26T02:23:34.558Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="Redis实现共享Session"><a href="#Redis实现共享Session" class="headerlink" title="Redis实现共享Session"></a>Redis实现共享Session</h2><p>Session共享，一般有一个这样的场景。以往单机的项目，数据请求都是在一个服务器上，session保存在这个服务器上自然是没有问题的。但是如果项目需要部署在多台服务器上的时候，session就会存在共享的问题</p> <a id="more"></a><p>举一个例子：</p><p>假如现在有两台服务器同时运行，分别是ServerA和ServerB。</p><p>假设第一次请求(登陆请求)被分配到了A进行处理，A收到请求之后会生成一个sessionId并保存到内存中，然后返回给用户(浏览器)，浏览器会把sessionId保存到cookie中，第一次请求完成。如果之后每一次请求还是由A来进行处理，那么一切正常。如果A服务器挂掉了，这时候请求被分配到B，B拿到的sessionId是由A生成的，两边就对不上了。于是用户会发现，需要重新登陆了。</p><p>那么这样的问题应该怎么样去解决呢？</p><p>首先，问题的根源出在sessionId无法共享上，想要把sessionId共享，一个简单的思路就是把sessionId保存到数据库中(这里选择redis)，这样验证的时候就不再从当前服务器获取sessionId了，而改为了从redis中获取</p><p>实现思路如下：</p><ol><li>登陆页面提交用户名密码</li><li>登陆成功之后生成token。Token相当于原来的sessionId，字符串等，可以使用UUID</li><li>把用户信息保存到redis中。Key就是token，value就是userId</li><li>设置key的过期时间。模拟Session的过期时间</li><li>拦截器请求校验sessionId</li></ol><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>登陆成功，生成sessionId存入redis</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisService redisService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LoginRespVo <span class="title">login</span><span class="params">(LoginReqVo vo)</span> </span>&#123;</span><br><span class="line">        SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername());</span><br><span class="line">        <span class="keyword">if</span>(sysUser==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001005</span>,<span class="string">"不存在该用户,请先注册"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sysUser.getStatus()==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001006</span>,<span class="string">"该帐号已被禁用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001007</span>,<span class="string">"用户名密码不匹配"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String token = UUID.randomUUID().toString();</span><br><span class="line">        LoginRespVo respVo = <span class="keyword">new</span> LoginRespVo();</span><br><span class="line">        respVo.setUserId(sysUser.getId());</span><br><span class="line">        respVo.setToken(token);</span><br><span class="line">        redisService.set(token,sysUser.getId(),<span class="number">60</span>, TimeUnit.MINUTES);</span><br><span class="line">        redisService.set(sysUser.getId(),token,<span class="number">60</span>,TimeUnit.MINUTES);</span><br><span class="line">        <span class="keyword">return</span> respVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中LoginRespVo类为</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.vo.req;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiModelProperty;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginReqVo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户名"</span>)</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"密码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>SessionInterceptor拦截器校验sessionId</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.exception.BusinessException;</span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.service.RedisService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisService redisService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String token = request.getHeader(<span class="string">"token"</span>);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(token))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"用户凭证不能为空"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!redisService.hasKey(token))&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"用户凭证无效"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            String userId = (String) redisService.get(token);</span><br><span class="line">            <span class="keyword">if</span>(redisService.hasKey(userId)&amp;&amp;!token.equals(redisService.get(userId)))&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"帐号已在异地登陆"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.interceptor.TokenInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenInterceptor <span class="title">tokenInterceptor</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TokenInterceptor();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(tokenInterceptor()).addPathPatterns(<span class="string">"/api/**"</span>).excludePathPatterns(<span class="string">"/api/user/login"</span>,<span class="string">"/api/user/register"</span>,<span class="string">"/api/user/code/*"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<h2 id="Redis实现共享Session"><a href="#Redis实现共享Session" class="headerlink" title="Redis实现共享Session"></a>Redis实现共享Session</h2><p>Session共享，一般有一个这样的场景。以往单机的项目，数据请求都是在一个服务器上，session保存在这个服务器上自然是没有问题的。但是如果项目需要部署在多台服务器上的时候，session就会存在共享的问题</p> <a id="more"></a><p>举一个例子：</p><p>假如现在有两台服务器同时运行，分别是ServerA和ServerB。</p><p>假设第一次请求(登陆请求)被分配到了A进行处理，A收到请求之后会生成一个sessionId并保存到内存中，然后返回给用户(浏览器)，浏览器会把sessionId保存到cookie中，第一次请求完成。如果之后每一次请求还是由A来进行处理，那么一切正常。如果A服务器挂掉了，这时候请求被分配到B，B拿到的sessionId是由A生成的，两边就对不上了。于是用户会发现，需要重新登陆了。</p><p>那么这样的问题应该怎么样去解决呢？</p><p>首先，问题的根源出在sessionId无法共享上，想要把sessionId共享，一个简单的思路就是把sessionId保存到数据库中(这里选择redis)，这样验证的时候就不再从当前服务器获取sessionId了，而改为了从redis中获取</p><p>实现思路如下：</p><ol><li>登陆页面提交用户名密码</li><li>登陆成功之后生成token。Token相当于原来的sessionId，字符串等，可以使用UUID</li><li>把用户信息保存到redis中。Key就是token，value就是userId</li><li>设置key的过期时间。模拟Session的过期时间</li><li>拦截器请求校验sessionId</li></ol><h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>登陆成功，生成sessionId存入redis</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisService redisService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LoginRespVo <span class="title">login</span><span class="params">(LoginReqVo vo)</span> </span>&#123;</span><br><span class="line">        SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername());</span><br><span class="line">        <span class="keyword">if</span>(sysUser==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001005</span>,<span class="string">"不存在该用户,请先注册"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sysUser.getStatus()==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001006</span>,<span class="string">"该帐号已被禁用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001007</span>,<span class="string">"用户名密码不匹配"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String token = UUID.randomUUID().toString();</span><br><span class="line">        LoginRespVo respVo = <span class="keyword">new</span> LoginRespVo();</span><br><span class="line">        respVo.setUserId(sysUser.getId());</span><br><span class="line">        respVo.setToken(token);</span><br><span class="line">        redisService.set(token,sysUser.getId(),<span class="number">60</span>, TimeUnit.MINUTES);</span><br><span class="line">        redisService.set(sysUser.getId(),token,<span class="number">60</span>,TimeUnit.MINUTES);</span><br><span class="line">        <span class="keyword">return</span> respVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>其中LoginRespVo类为</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.vo.req;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.swagger.annotations.ApiModelProperty;</span><br><span class="line"><span class="keyword">import</span> lombok.Data;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginReqVo</span> </span>&#123;</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户名"</span>)</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"密码"</span>)</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>SessionInterceptor拦截器校验sessionId，拦截器实现HandlerInterceptor的preHandle方法，可以获取从头部获取token或者从cookie获取token，之后进行token的验证</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.interceptor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.exception.BusinessException;</span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.service.RedisService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.HandlerInterceptor;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</span><br><span class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisService redisService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String token = request.getHeader(<span class="string">"token"</span>);</span><br><span class="line">        <span class="keyword">if</span>(StringUtils.isEmpty(token))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"用户凭证不能为空"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(!redisService.hasKey(token))&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"用户凭证无效"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            String userId = (String) redisService.get(token);</span><br><span class="line">            <span class="keyword">if</span>(redisService.hasKey(userId)&amp;&amp;!token.equals(redisService.get(userId)))&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001002</span>,<span class="string">"帐号已在异地登陆"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>之后设置一个web拦截器，并注入自定义的拦截器</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.cqupt.lesson.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.cqupt.lesson.interceptor.TokenInterceptor;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Bean;</span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.InterceptorRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurer;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebAppConfig</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TokenInterceptor <span class="title">tokenInterceptor</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> TokenInterceptor();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        registry.addInterceptor(tokenInterceptor()).addPathPatterns(<span class="string">"/api/**"</span>).excludePathPatterns(<span class="string">"/api/user/login"</span>,<span class="string">"/api/user/register"</span>,<span class="string">"/api/user/code/*"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>登陆Service代码实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserServiceImpl</span> <span class="keyword">implements</span> <span class="title">UserService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> SysUserMapper sysUserMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> RedisService redisService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LoginRespVo <span class="title">login</span><span class="params">(LoginReqVo vo)</span> </span>&#123;</span><br><span class="line">        SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername());</span><br><span class="line">        <span class="keyword">if</span>(sysUser==<span class="keyword">null</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001005</span>,<span class="string">"不存在该用户,请先注册"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(sysUser.getStatus()==<span class="number">2</span>)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001006</span>,<span class="string">"该帐号已被禁用"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> BusinessException(<span class="number">4001007</span>,<span class="string">"用户名密码不匹配"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        String token = UUID.randomUUID().toString();</span><br><span class="line">        LoginRespVo respVo = <span class="keyword">new</span> LoginRespVo();</span><br><span class="line">        respVo.setUserId(sysUser.getId());</span><br><span class="line">        respVo.setToken(token);</span><br><span class="line">        redisService.set(token,sysUser.getId(),<span class="number">60</span>, TimeUnit.MINUTES);</span><br><span class="line">        redisService.set(sysUser.getId(),token,<span class="number">60</span>,TimeUnit.MINUTES);</span><br><span class="line">        <span class="keyword">return</span> respVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>登陆Controller实现</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api"</span>)</span><br><span class="line"><span class="meta">@Api</span>(tags = <span class="string">"用户模块"</span>,description = <span class="string">"用户模块相关接口"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserService userService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PostMapping</span>(<span class="string">"/user/login"</span>)</span><br><span class="line">    <span class="meta">@ApiModelProperty</span>(value = <span class="string">"用户登陆接口"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> LoginRespVo <span class="title">login</span><span class="params">(@RequestBody LoginReqVo vo)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> userService.login(vo);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -84,9 +84,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -110,13 +110,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -168,13 +168,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -196,9 +196,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -222,9 +222,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -250,13 +250,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -278,9 +278,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -306,9 +306,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -336,13 +336,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -368,9 +368,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -398,9 +398,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -426,9 +426,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -452,9 +452,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -480,11 +480,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
@@ -508,11 +508,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -536,9 +536,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -566,9 +566,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     

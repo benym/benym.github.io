@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Redis实现共享Session]]></title>
     <url>%2F2020%2F06%2F25%2FRedis%E5%AE%9E%E7%8E%B0%E5%85%B1%E4%BA%ABSession%2F</url>
-    <content type="text"><![CDATA[Redis实现共享SessionSession共享，一般有一个这样的场景。以往单机的项目，数据请求都是在一个服务器上，session保存在这个服务器上自然是没有问题的。但是如果项目需要部署在多台服务器上的时候，session就会存在共享的问题 举一个例子： 假如现在有两台服务器同时运行，分别是ServerA和ServerB。 假设第一次请求(登陆请求)被分配到了A进行处理，A收到请求之后会生成一个sessionId并保存到内存中，然后返回给用户(浏览器)，浏览器会把sessionId保存到cookie中，第一次请求完成。如果之后每一次请求还是由A来进行处理，那么一切正常。如果A服务器挂掉了，这时候请求被分配到B，B拿到的sessionId是由A生成的，两边就对不上了。于是用户会发现，需要重新登陆了。 那么这样的问题应该怎么样去解决呢？ 首先，问题的根源出在sessionId无法共享上，想要把sessionId共享，一个简单的思路就是把sessionId保存到数据库中(这里选择redis)，这样验证的时候就不再从当前服务器获取sessionId了，而改为了从redis中获取 实现思路如下： 登陆页面提交用户名密码 登陆成功之后生成token。Token相当于原来的sessionId，字符串等，可以使用UUID 把用户信息保存到redis中。Key就是token，value就是userId 设置key的过期时间。模拟Session的过期时间 拦截器请求校验sessionId 代码实现登陆成功，生成sessionId存入redis 123456789101112131415161718192021222324252627282930@Servicepublic class UserServiceImpl implements UserService &#123; @Autowired private SysUserMapper sysUserMapper; @Autowired private RedisService redisService; @Override public LoginRespVo login(LoginReqVo vo) &#123; SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername()); if(sysUser==null)&#123; throw new BusinessException(4001005,"不存在该用户,请先注册"); &#125; if(sysUser.getStatus()==2)&#123; throw new BusinessException(4001006,"该帐号已被禁用"); &#125; if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123; throw new BusinessException(4001007,"用户名密码不匹配"); &#125; String token = UUID.randomUUID().toString(); LoginRespVo respVo = new LoginRespVo(); respVo.setUserId(sysUser.getId()); respVo.setToken(token); redisService.set(token,sysUser.getId(),60, TimeUnit.MINUTES); redisService.set(sysUser.getId(),token,60,TimeUnit.MINUTES); return respVo; &#125;&#125; 其中LoginRespVo类为 12345678910111213package com.cqupt.lesson.vo.req;import io.swagger.annotations.ApiModelProperty;import lombok.Data;@Datapublic class LoginReqVo &#123; @ApiModelProperty(value = "用户名") private String username; @ApiModelProperty(value = "密码") private String password;&#125; SessionInterceptor拦截器校验sessionId 123456789101112131415161718192021222324252627282930313233package com.cqupt.lesson.interceptor;import com.cqupt.lesson.exception.BusinessException;import com.cqupt.lesson.service.RedisService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.util.StringUtils;import org.springframework.web.servlet.HandlerInterceptor;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;public class TokenInterceptor implements HandlerInterceptor &#123; @Autowired private RedisService redisService; @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123; String token = request.getHeader("token"); if(StringUtils.isEmpty(token))&#123; throw new BusinessException(4001002,"用户凭证不能为空"); &#125;else &#123; if(!redisService.hasKey(token))&#123; throw new BusinessException(4001002,"用户凭证无效"); &#125; String userId = (String) redisService.get(token); if(redisService.hasKey(userId)&amp;&amp;!token.equals(redisService.get(userId)))&#123; throw new BusinessException(4001002,"帐号已在异地登陆"); &#125; &#125; return true; &#125;&#125; 1234567891011121314151617181920package com.cqupt.lesson.config;import com.cqupt.lesson.interceptor.TokenInterceptor;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.web.servlet.config.annotation.InterceptorRegistry;import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;@Configurationpublic class WebAppConfig implements WebMvcConfigurer &#123; @Bean public TokenInterceptor tokenInterceptor()&#123; return new TokenInterceptor(); &#125; @Override public void addInterceptors(InterceptorRegistry registry) &#123; registry.addInterceptor(tokenInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/login","/api/user/register","/api/user/code/*"); &#125;&#125;]]></content>
+    <content type="text"><![CDATA[Redis实现共享SessionSession共享，一般有一个这样的场景。以往单机的项目，数据请求都是在一个服务器上，session保存在这个服务器上自然是没有问题的。但是如果项目需要部署在多台服务器上的时候，session就会存在共享的问题 举一个例子： 假如现在有两台服务器同时运行，分别是ServerA和ServerB。 假设第一次请求(登陆请求)被分配到了A进行处理，A收到请求之后会生成一个sessionId并保存到内存中，然后返回给用户(浏览器)，浏览器会把sessionId保存到cookie中，第一次请求完成。如果之后每一次请求还是由A来进行处理，那么一切正常。如果A服务器挂掉了，这时候请求被分配到B，B拿到的sessionId是由A生成的，两边就对不上了。于是用户会发现，需要重新登陆了。 那么这样的问题应该怎么样去解决呢？ 首先，问题的根源出在sessionId无法共享上，想要把sessionId共享，一个简单的思路就是把sessionId保存到数据库中(这里选择redis)，这样验证的时候就不再从当前服务器获取sessionId了，而改为了从redis中获取 实现思路如下： 登陆页面提交用户名密码 登陆成功之后生成token。Token相当于原来的sessionId，字符串等，可以使用UUID 把用户信息保存到redis中。Key就是token，value就是userId 设置key的过期时间。模拟Session的过期时间 拦截器请求校验sessionId 代码实现登陆成功，生成sessionId存入redis 123456789101112131415161718192021222324252627282930@Servicepublic class UserServiceImpl implements UserService &#123; @Autowired private SysUserMapper sysUserMapper; @Autowired private RedisService redisService; @Override public LoginRespVo login(LoginReqVo vo) &#123; SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername()); if(sysUser==null)&#123; throw new BusinessException(4001005,"不存在该用户,请先注册"); &#125; if(sysUser.getStatus()==2)&#123; throw new BusinessException(4001006,"该帐号已被禁用"); &#125; if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123; throw new BusinessException(4001007,"用户名密码不匹配"); &#125; String token = UUID.randomUUID().toString(); LoginRespVo respVo = new LoginRespVo(); respVo.setUserId(sysUser.getId()); respVo.setToken(token); redisService.set(token,sysUser.getId(),60, TimeUnit.MINUTES); redisService.set(sysUser.getId(),token,60,TimeUnit.MINUTES); return respVo; &#125;&#125; 其中LoginRespVo类为 12345678910111213package com.cqupt.lesson.vo.req;import io.swagger.annotations.ApiModelProperty;import lombok.Data;@Datapublic class LoginReqVo &#123; @ApiModelProperty(value = "用户名") private String username; @ApiModelProperty(value = "密码") private String password;&#125; SessionInterceptor拦截器校验sessionId，拦截器实现HandlerInterceptor的preHandle方法，可以获取从头部获取token或者从cookie获取token，之后进行token的验证 123456789101112131415161718192021222324252627282930313233package com.cqupt.lesson.interceptor;import com.cqupt.lesson.exception.BusinessException;import com.cqupt.lesson.service.RedisService;import org.springframework.beans.factory.annotation.Autowired;import org.springframework.util.StringUtils;import org.springframework.web.servlet.HandlerInterceptor;import javax.servlet.http.HttpServletRequest;import javax.servlet.http.HttpServletResponse;public class TokenInterceptor implements HandlerInterceptor &#123; @Autowired private RedisService redisService; @Override public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception &#123; String token = request.getHeader("token"); if(StringUtils.isEmpty(token))&#123; throw new BusinessException(4001002,"用户凭证不能为空"); &#125;else &#123; if(!redisService.hasKey(token))&#123; throw new BusinessException(4001002,"用户凭证无效"); &#125; String userId = (String) redisService.get(token); if(redisService.hasKey(userId)&amp;&amp;!token.equals(redisService.get(userId)))&#123; throw new BusinessException(4001002,"帐号已在异地登陆"); &#125; &#125; return true; &#125;&#125; 之后设置一个web拦截器，并注入自定义的拦截器 1234567891011121314151617181920package com.cqupt.lesson.config;import com.cqupt.lesson.interceptor.TokenInterceptor;import org.springframework.context.annotation.Bean;import org.springframework.context.annotation.Configuration;import org.springframework.web.servlet.config.annotation.InterceptorRegistry;import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;@Configurationpublic class WebAppConfig implements WebMvcConfigurer &#123; @Bean public TokenInterceptor tokenInterceptor()&#123; return new TokenInterceptor(); &#125; @Override public void addInterceptors(InterceptorRegistry registry) &#123; registry.addInterceptor(tokenInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/login","/api/user/register","/api/user/code/*"); &#125;&#125; 登陆Service代码实现 123456789101112131415161718192021222324252627282930@Servicepublic class UserServiceImpl implements UserService &#123; @Autowired private SysUserMapper sysUserMapper; @Autowired private RedisService redisService; @Override public LoginRespVo login(LoginReqVo vo) &#123; SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername()); if(sysUser==null)&#123; throw new BusinessException(4001005,"不存在该用户,请先注册"); &#125; if(sysUser.getStatus()==2)&#123; throw new BusinessException(4001006,"该帐号已被禁用"); &#125; if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword()))&#123; throw new BusinessException(4001007,"用户名密码不匹配"); &#125; String token = UUID.randomUUID().toString(); LoginRespVo respVo = new LoginRespVo(); respVo.setUserId(sysUser.getId()); respVo.setToken(token); redisService.set(token,sysUser.getId(),60, TimeUnit.MINUTES); redisService.set(sysUser.getId(),token,60,TimeUnit.MINUTES); return respVo; &#125;&#125; 登陆Controller实现 1234567891011121314@RestController@RequestMapping("/api")@Api(tags = "用户模块",description = "用户模块相关接口")public class UserController &#123; @Autowired private UserService userService; @PostMapping("/user/login") @ApiModelProperty(value = "用户登陆接口") public LoginRespVo login(@RequestBody LoginReqVo vo)&#123; return userService.login(vo); &#125;&#125;]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -33,8 +33,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -46,10 +46,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -75,10 +75,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -89,8 +89,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -102,8 +102,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
       </tags>
@@ -116,10 +116,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -130,8 +130,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
       </tags>
@@ -144,8 +144,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>Python</tag>
@@ -159,10 +159,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -175,8 +175,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
         <tag>字符串</tag>
       </tags>
@@ -190,8 +190,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -204,8 +204,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -217,8 +217,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
       </tags>
@@ -231,9 +231,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -245,9 +245,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -259,8 +259,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
@@ -274,8 +274,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -288,8 +288,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -330,8 +330,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -343,10 +343,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -358,10 +358,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -373,10 +373,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -419,8 +419,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -431,8 +431,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -447,8 +447,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -462,8 +462,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -477,8 +477,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -566,8 +566,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -608,8 +608,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -622,8 +622,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -636,8 +636,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -650,9 +650,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -679,8 +679,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -723,8 +723,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -738,8 +738,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -753,9 +753,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -768,9 +768,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -782,11 +782,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -798,12 +798,12 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
-        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -815,8 +815,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>BFS</tag>
         <tag>Hard</tag>
       </tags>
@@ -829,8 +829,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
       </tags>
@@ -843,8 +843,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
@@ -857,11 +857,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -873,8 +873,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -887,8 +887,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -903,8 +903,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -916,8 +916,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>分治</tag>
@@ -990,9 +990,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1006,9 +1006,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -1023,9 +1023,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1039,9 +1039,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1070,8 +1070,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
         <tag>Python</tag>
@@ -1086,8 +1086,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1100,9 +1100,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1128,8 +1128,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1145,8 +1145,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1161,8 +1161,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
@@ -1176,8 +1176,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
@@ -1193,8 +1193,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1206,11 +1206,11 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1223,8 +1223,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1238,8 +1238,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>剑指Offer</tag>
@@ -1253,9 +1253,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1269,8 +1269,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -1329,9 +1329,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1344,9 +1344,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1359,8 +1359,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1376,8 +1376,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1391,8 +1391,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1406,8 +1406,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1419,8 +1419,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1467,8 +1467,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1481,8 +1481,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1560,9 +1560,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1576,9 +1576,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1601,9 +1601,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
-        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1615,9 +1615,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1631,8 +1631,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1705,8 +1705,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1722,8 +1722,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1750,8 +1750,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1765,8 +1765,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1780,8 +1780,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1823,8 +1823,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1837,8 +1837,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1851,8 +1851,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1878,8 +1878,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
         <tag>机器学习</tag>
+        <tag>matlab</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2056,8 +2056,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2096,9 +2096,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
