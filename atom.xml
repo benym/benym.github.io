@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-26T02:23:34.558Z</updated>
+  <updated>2020-06-26T07:36:25.941Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>利用AOP实现操作日志</title>
+    <link href="http://benym.cn/2020/06/26/%E5%88%A9%E7%94%A8AOP%E5%AE%9E%E7%8E%B0%E6%93%8D%E4%BD%9C%E6%97%A5%E5%BF%97/"/>
+    <id>http://benym.cn/2020/06/26/利用AOP实现操作日志/</id>
+    <published>2020-06-26T02:54:58.000Z</published>
+    <updated>2020-06-26T07:36:25.941Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="利用AOP实现操作日志"><a href="#利用AOP实现操作日志" class="headerlink" title="利用AOP实现操作日志"></a>利用AOP实现操作日志</h2><p>AOP能够实现一些前置或者后置任务，作为一个切面，来完成例如日志记录、性能统计、安全控制、事务处理、异常处理等任务。这篇文章主要是总结自己利用AOP去实现全局操作日志记录功能的步骤。</p> <a id="more"></a><p>要完成日志功能的记录和查询首先需要一个数据库表，命名为sysLog</p><p>包含id、visitTime、username、ip、url、executionTime、method字段</p><p>分别代表主键、访问时间、操作者用户名、访问ip、访问资源url、执行时长、访问方法。</p><p>创建一个对应的实体类</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SysLog</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String id;</span><br><span class="line">    <span class="keyword">private</span> Date visitTime;</span><br><span class="line">    <span class="keyword">private</span> String visitTimeStr;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String ip;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line">    <span class="keyword">private</span> Long executionTime;</span><br><span class="line">    <span class="keyword">private</span> String method;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>创建AOP切面</p><ol><li><p>前置通知：</p><p>开始时间的获取直接new Date()即可</p><p>利用JoinPoint对象的<code>getTarget()</code>方法可以获得被代理的对象，之后通过getClass()获取要访问的类</p><p>那么如何去获得类中的方法名称呢？</p><p>JoinPoint中还有一个方法叫<code>getSignature()</code>用于获取封装了署名信息的对象，在该对象中可以获取到目标方</p><p>法名，所属类的Class等信息</p><p>除此之外还可以通过<code>getArgs()</code>方法获取传入目标方法的参数对象</p></li><li><p>后置通知：</p><p>结束时间可以直接用new Date().getTime()减去开始时间，即可获得访问时长了</p><p>我们还想要获取Controller中执行注解的url，有一下几个步骤：</p><p>当访问的类、访问的方法不为空且当前的类不是AOP这个类的时候，进行反射url获取</p><p>我们可以通过<code>getAnnotation(xxx.class)</code>获取class的注解，并通过<code>.value()</code>找到对应的RequesMapping映</p><p>射值，在这里我们分别通过<code>clazz.getAnnotation</code>和<code>method.getAnnotation</code>获取对应的类和方法上的url</p><p>之后进行字符串拼接即可得到完整的操作路径。</p><p>如何获取IP地址呢？如果我们能够拿到request对象，那么获取ip地址就比较容易，这里采用了Spring提供的</p><p><code>org.springframework.web.context.request.RequestContextListener</code>，在LogAop中我们可以注入一</p><p>个<code>HttpServletRequest request</code>，通过<code>request.getRemoteAddr()</code>获取ip地址。</p><p>由于当前的用户受到SpringSecurity的控制，所以获取操作用户的对象，也必须从SpringSecurity的上下文中获取</p><p>具体代码如下，获取的User非用户定义，而是SpringSecurity中提供的User；</p><p>或者通过<code>request.getSession().getAttribute(&quot;SPRING_SECURITY_CONTEXT&quot;)</code>也可以获取User对象</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SecurityContext context = SecurityContextHolder.getContext();<span class="comment">// 从上下文中获取当前登陆的用户</span></span><br><span class="line">User user = (User) context.getAuthentication().getPrincipal();</span><br><span class="line">String username = user.getUsername();</span><br></pre></td></tr></table></figure><p>之后可以对上面的信息进行数据存储，或者查询操作</p></li></ol><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogAop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> HttpServletRequest request;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ISysLogService sysLogService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Date visitTime; <span class="comment">// 开始时间</span></span><br><span class="line">    <span class="keyword">private</span> Class clazz;<span class="comment">// 访问的类</span></span><br><span class="line">    <span class="keyword">private</span> Method method;<span class="comment">// 访问的方法</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//前置通知 主要是获取开始时间，执行的类是哪一个，执行的是哪一个方法</span></span><br><span class="line">    <span class="meta">@Before</span>(<span class="string">"execution(* com.cqupt.lesson.controller.*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doBefore</span><span class="params">(JoinPoint jp)</span> <span class="keyword">throws</span> NoSuchMethodException </span>&#123;</span><br><span class="line">        visitTime = <span class="keyword">new</span> Date();<span class="comment">// 当前时间是就是开始访问的时间</span></span><br><span class="line">        clazz = jp.getTarget().getClass();<span class="comment">// 具体要访问的类</span></span><br><span class="line">        String methodName = jp.getSignature().getName();<span class="comment">// 获取访问的方法的名称</span></span><br><span class="line">        Object[] args = jp.getArgs();<span class="comment">// 获取访问的方法的参数</span></span><br><span class="line">        <span class="comment">// 获取具体执行方法的Method对象</span></span><br><span class="line">        <span class="keyword">if</span> (args == <span class="keyword">null</span> || args.length == <span class="number">0</span>) &#123;</span><br><span class="line">            method = clazz.getMethod(methodName);<span class="comment">// 只能获取无参数的方法</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 构建Class[]数组</span></span><br><span class="line">            Class[] classArgs = <span class="keyword">new</span> Class[args.length];</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; args.length; i++) &#123;</span><br><span class="line">                classArgs[i] = args[i].getClass();</span><br><span class="line">            &#125;</span><br><span class="line">            clazz.getMethod(methodName, classArgs);<span class="comment">// 获取有参的方法</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//后置通知</span></span><br><span class="line">    <span class="comment">//通过反射完成方法体的寻找</span></span><br><span class="line">    <span class="meta">@After</span>(<span class="string">"execution(* com.cqupt.lesson.controller.*.*(..))"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doAfter</span><span class="params">(JoinPoint jp)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">long</span> time = <span class="keyword">new</span> Date().getTime() - visitTime.getTime();<span class="comment">// 获取访问时长</span></span><br><span class="line"></span><br><span class="line">        String url = <span class="string">""</span>;</span><br><span class="line">        <span class="comment">// 获取url</span></span><br><span class="line">        <span class="keyword">if</span> (clazz != <span class="keyword">null</span> &amp;&amp; method != <span class="keyword">null</span> &amp;&amp; clazz != LogAop.class) &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">//1、获取类上的@RequestMapping("/orders")</span></span><br><span class="line">            RequestMapping classAnnotation = (RequestMapping) clazz.getAnnotation(RequestMapping.class);</span><br><span class="line">            <span class="keyword">if</span> (classAnnotation != <span class="keyword">null</span>) &#123;</span><br><span class="line">                String[] classValue = classAnnotation.value();</span><br><span class="line"></span><br><span class="line">                <span class="comment">//2、获取方法上的@RequestMapping("/findAll")</span></span><br><span class="line">                RequestMapping methodAnnotation = method.getAnnotation(RequestMapping.class);</span><br><span class="line">                <span class="keyword">if</span> (methodAnnotation != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    String[] methodValue = methodAnnotation.value();</span><br><span class="line">                    url = classValue[<span class="number">0</span>] + methodValue[<span class="number">0</span>];</span><br><span class="line">                    <span class="comment">// 获取访问的ip地址</span></span><br><span class="line">                    String ip = request.getRemoteAddr();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 获取当前操作的用户</span></span><br><span class="line">                    SecurityContext context = SecurityContextHolder.getContext();<span class="comment">// 从上下文中获取当前登陆的用户</span></span><br><span class="line">                    User user = (User) context.getAuthentication().getPrincipal();</span><br><span class="line">                    String username = user.getUsername();</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//将日志相关信息封装到SysLog对象</span></span><br><span class="line">                    SysLog sysLog = <span class="keyword">new</span> SysLog();</span><br><span class="line">                    sysLog.setExecutionTime(time);<span class="comment">//执行时长</span></span><br><span class="line">                    sysLog.setIp(ip);</span><br><span class="line">                    sysLog.setMethod(<span class="string">"[类名] "</span> + clazz.getName() + <span class="string">"[方法名] "</span> + method.getName());</span><br><span class="line">                    sysLog.setUrl(url);</span><br><span class="line">                    sysLog.setUsername(username);</span><br><span class="line">                    sysLog.setVisitTime(visitTime);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">//调用Service完成操作</span></span><br><span class="line">                    sysLogService.save(sysLog);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      使用总结
+    
+    </summary>
+    
+      <category term="Java" scheme="http://benym.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="AOP" scheme="http://benym.cn/tags/AOP/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis实现共享Session</title>
@@ -84,9 +108,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -112,11 +136,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -170,11 +194,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -224,11 +248,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -252,11 +276,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -308,9 +332,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -338,13 +362,13 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -368,11 +392,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -398,9 +422,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -426,9 +450,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
@@ -454,9 +478,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
@@ -510,11 +534,11 @@
     
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
+      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
   </entry>
   
@@ -538,39 +562,11 @@
     
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
-  </entry>
-  
-  <entry>
-    <title>LeetCode-143-重排链表</title>
-    <link href="http://benym.cn/2020/06/10/LeetCode-143-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/06/10/LeetCode-143-重排链表/</id>
-    <published>2020-06-10T12:33:33.000Z</published>
-    <updated>2020-06-11T08:28:34.995Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-143-重排链表"><a href="#LeetCode-143-重排链表" class="headerlink" title="LeetCode-143-重排链表"></a>LeetCode-143-重排链表</h2><p>给定一个单链表 L：L0→L1→…→Ln-1→Ln ，<br>将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…</p><p>你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</p> <a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给定链表 1-&gt;2-&gt;3-&gt;4, 重新排列为 1-&gt;4-&gt;2-&gt;3.</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">给定链表 1-&gt;2-&gt;3-&gt;4-&gt;5, 重新排列为 1-&gt;5-&gt;2-&gt;4-&gt;3.</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、存储+双指针：</strong></p><p>用一个线性表存储所有的链表元素，之后用2个指针，分别获得链表的头尾</p><p>按照规律对于1，2，3，4这样的链表例子</p><p>1之后是4，4之后是2，2之后是3</p><p>初始化头尾指针，改变头部指针的指向到尾部，并使i指向下一位</p><p>即<code>list.get(i).next = list.get(j);</code>和<code>i++</code></p><p>改变尾部指针指向到原本头部的下一位，由于上面已经<code>i++</code>，此时线性表的i就是上一次i的下一位</p><p>所以<code>list.get(j).next = list.get(i);</code>，之后<code>j--</code></p><p>直到i==j时跳出循环，此时i仍然与原来的链表相连，将i.next=null完成链表构建</p><p><strong>方法2、拆分+翻转+拼接：</strong></p><p>这个解法复习的内容挺多的，按照题目规律，重排链表可以分为如下3个步骤</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1 -&gt; 2 -&gt; 3 -&gt; 4 -&gt; 5 -&gt; 6</span><br><span class="line">第一步，将链表平均分成两半</span><br><span class="line">1 -&gt; 2 -&gt; 3</span><br><span class="line">4 -&gt; 5 -&gt; 6</span><br><span class="line">    </span><br><span class="line">第二步，将第二个链表逆序</span><br><span class="line">1 -&gt; 2 -&gt; 3</span><br><span class="line">6 -&gt; 5 -&gt; 4</span><br><span class="line">    </span><br><span class="line">第三步，依次连接两个链表</span><br><span class="line">1 -&gt; 6 -&gt; 2 -&gt; 5 -&gt; 3 -&gt; 4</span><br></pre></td></tr></table></figure><p>如何拆分链表，最重要的是找到拆分的中点</p><p>对于偶数链表，拆分的中点在边界左边，对于奇数链表，中点就是中间的那个</p><p>可以利用<strong>快慢指针</strong>来寻找中点，一个指针走2步，一个指针走1步，当快指针走到链表尾部的时候，慢指针的位置就是拆分的中点，由于奇数和偶数拆分点不一样，所以<code>ListNode newHead = slow.next;</code>和<code>slow.next = null;</code>在找到边界点之后，始终后移1位，这样保证了偶数情况下，拆分点始终是第二个链表的头部</p><p>但是对于奇数情况，则会让第一个链表始终比第二个链表多一个数字，这种情况在合并的时候进行处理。</p><p>链表的逆序思想和<a href="/2020/04/19/LeetCode-面试题24-反转链表/" title="LeetCode-面试题24-反转链表">LeetCode-面试题24-反转链表</a>相同</p><p>链表的合并思想和<a href="/2020/04/19/LeetCode-面试题25-合并两个排序的链表/" title="LeetCode-面试题25-合并两个排序的链表">LeetCode-面试题25-合并两个排序的链表</a>大致相同</p><p>稍微有点区别的地方是这里不是按照值进行合并</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">对于</span><br><span class="line">slow  1 -&gt; 2 -&gt; 3</span><br><span class="line">fast  4 -&gt; 5</span><br><span class="line">而言，应该先存储slow和fast的next节点</span><br><span class="line">之后将slow的next变为fast，即1 -&gt; 4</span><br><span class="line">fast的next = 刚才存储的slow.next，即4 -&gt; 2</span><br><span class="line">接下来移动1位slow和fast指针，即slow = 刚才存储的slow.next，fast = 刚才存储的fast.next</span><br></pre></td></tr></table></figure><p>而此时的第一个链表由于始终比第二个链表长，所以判断空的条件为<code>slow!=null&amp;&amp;fast!=null</code>，当满足此条件时，才会进行V字型拼接</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//存到 list 中去</span></span><br><span class="line">        List&lt;ListNode&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">while</span> (head != <span class="keyword">null</span>) &#123;</span><br><span class="line">            list.add(head);</span><br><span class="line">            head = head.next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//头尾指针依次取元素</span></span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>, j = list.size() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">            list.get(i).next = list.get(j);</span><br><span class="line">            i++;</span><br><span class="line">            <span class="comment">//偶数个节点的情况，会提前相遇</span></span><br><span class="line">            <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            list.get(j).next = list.get(i);</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">        list.get(i).next = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode() &#123;&#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val) &#123; this.val = val; &#125;</span></span><br><span class="line"><span class="comment"> *     ListNode(int val, ListNode next) &#123; this.val = val; this.next = next; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">reorderList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (head == <span class="keyword">null</span> || head.next == <span class="keyword">null</span> || head.next.next == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode slow = head;</span><br><span class="line">        ListNode fast = head;</span><br><span class="line">        <span class="keyword">while</span>(fast!=<span class="keyword">null</span>&amp;&amp;fast.next!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            slow = slow.next;</span><br><span class="line">            fast = fast.next.next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode newHead = slow.next;</span><br><span class="line">        slow.next = <span class="keyword">null</span>;</span><br><span class="line">        fast = reversList(newHead);</span><br><span class="line">        slow = head;</span><br><span class="line">        <span class="keyword">while</span>(slow!=<span class="keyword">null</span>&amp;&amp;fast!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode stemp = slow.next;</span><br><span class="line">            ListNode ftemp = fast.next;</span><br><span class="line">            slow.next = fast;</span><br><span class="line">            fast.next = stemp;</span><br><span class="line">            slow = stemp;</span><br><span class="line">            fast = ftemp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reversList</span><span class="params">(ListNode head)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>||head.next==<span class="keyword">null</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode temp = cur.next;</span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      重排链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
