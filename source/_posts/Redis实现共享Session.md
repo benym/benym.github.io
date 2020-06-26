@@ -88,7 +88,7 @@ public class LoginReqVo {
 }
 ```
 
-SessionInterceptor拦截器校验sessionId
+SessionInterceptor拦截器校验sessionId，拦截器实现HandlerInterceptor的preHandle方法，可以获取从头部获取token或者从cookie获取token，之后进行token的验证
 
 ```java
 package com.cqupt.lesson.interceptor;
@@ -127,6 +127,8 @@ public class TokenInterceptor implements HandlerInterceptor {
 
 ```
 
+之后设置一个web拦截器，并注入自定义的拦截器
+
 ```java
 package com.cqupt.lesson.config;
 
@@ -148,6 +150,61 @@ public class WebAppConfig implements WebMvcConfigurer {
         registry.addInterceptor(tokenInterceptor()).addPathPatterns("/api/**").excludePathPatterns("/api/user/login","/api/user/register","/api/user/code/*");
     }
 }
-
 ```
+
+登陆Service代码实现
+
+```java
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private RedisService redisService;
+
+    @Override
+    public LoginRespVo login(LoginReqVo vo) {
+        SysUser sysUser = sysUserMapper.selectByUsername(vo.getUsername());
+        if(sysUser==null){
+            throw new BusinessException(4001005,"不存在该用户,请先注册");
+        }
+        if(sysUser.getStatus()==2){
+            throw new BusinessException(4001006,"该帐号已被禁用");
+        }
+        if(!PasswordUtils.matches(sysUser.getSalt(),vo.getPassword(),sysUser.getPassword())){
+            throw new BusinessException(4001007,"用户名密码不匹配");
+        }
+        String token = UUID.randomUUID().toString();
+        LoginRespVo respVo = new LoginRespVo();
+        respVo.setUserId(sysUser.getId());
+        respVo.setToken(token);
+        redisService.set(token,sysUser.getId(),60, TimeUnit.MINUTES);
+        redisService.set(sysUser.getId(),token,60,TimeUnit.MINUTES);
+        return respVo;
+    }
+}
+```
+
+登陆Controller实现
+
+```java
+@RestController
+@RequestMapping("/api")
+@Api(tags = "用户模块",description = "用户模块相关接口")
+public class UserController {
+
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/user/login")
+    @ApiModelProperty(value = "用户登陆接口")
+    public LoginRespVo login(@RequestBody LoginReqVo vo){
+        return userService.login(vo);
+    }
+}
+```
+
+
 
