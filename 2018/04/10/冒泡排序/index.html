@@ -108,12 +108,10 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="冒泡排序概念冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。 它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。 这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。 算法原理冒泡排序算法的运作如下：（从后往前）  比较相邻的元素。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D40/sign=17b28fa860d0f703e2b294dc09fa9d5c/e4dde71190ef76c63a4e22949f16fdfaae5167f5.jpg">
-<meta property="og:updated_time" content="2018-08-25T11:53:11.282Z">
+<meta property="og:updated_time" content="2020-06-28T07:59:49.364Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="冒泡排序">
 <meta name="twitter:description" content="冒泡排序概念冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。 它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。 这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。 算法原理冒泡排序算法的运作如下：（从后往前）  比较相邻的元素。">
-<meta name="twitter:image" content="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D40/sign=17b28fa860d0f703e2b294dc09fa9d5c/e4dde71190ef76c63a4e22949f16fdfaae5167f5.jpg">
 
 
 
@@ -448,8 +446,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-25T19:53:11+08:00">
-                2018-08-25
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-28T15:59:49+08:00">
+                2020-06-28
               </time>
             
           </span>
@@ -519,7 +517,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  506
+                  508
                 </span>
               
 
@@ -568,11 +566,9 @@
 <li><p>针对所有的元素重复以上的步骤，除了最后一个。</p>
 </li>
 <li><p>持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。</p>
-<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>冒泡排序总的平均时间复杂度为</p>
-<p> <img src="https://gss1.bdstatic.com/-vo3dSag_xI4khGkpoWK1HF6hhy/baike/s%3D40/sign=17b28fa860d0f703e2b294dc09fa9d5c/e4dde71190ef76c63a4e22949f16fdfaae5167f5.jpg" alt="img"> </p>
+<h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>冒泡排序总的平均时间复杂度为O(n2)</p>
 <h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()&#123;</span><br><span class="line">	void sort(int *x,int n);</span><br><span class="line">	int i,*p,a[10];</span><br><span class="line">	p=a;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"请输入10个整数:\n"</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=0;i&lt;10;i++)&#123;</span><br><span class="line">		scanf(<span class="string">"%d"</span>,p++);</span><br><span class="line">	&#125;</span><br><span class="line">	p=a;</span><br><span class="line">	sort(p,10);</span><br><span class="line">	<span class="keyword">for</span>(p=a,i=0;i&lt;10;i++)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d "</span>,*p++);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">	<span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//数组形式 </span><br><span class="line">void sort(int x[],int n)&#123;</span><br><span class="line">	int i,j,temp;</span><br><span class="line">	<span class="keyword">for</span>(i=0;i&lt;n-1;i++)</span><br><span class="line">		<span class="keyword">for</span>(j=0;j&lt;n-1-i;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(x[j]&lt;x[j+1])&#123;</span><br><span class="line">				temp=x[j];</span><br><span class="line">				x[j]=x[j+1];</span><br><span class="line">				x[j+1]=temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//指针形式 </span><br><span class="line">void sort(int *x,int n)&#123;</span><br><span class="line">	int i,j,temp;</span><br><span class="line">	<span class="keyword">for</span>(i=0;i&lt;n-1;i++)</span><br><span class="line">		<span class="keyword">for</span>(j=0;j&lt;n-1-i;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(*(x+j)&lt;*(x+j+1))&#123;   //*(x+j)就是x[j] </span><br><span class="line">				temp=*(x+j);</span><br><span class="line">				*(x+j)=*(x+j+1);</span><br><span class="line">				*(x+j+1)=temp;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line">   int <span class="function"><span class="title">main</span></span>()&#123;</span><br><span class="line">   	void sort(int *x,int n);</span><br><span class="line">   	int i,*p,a[10];</span><br><span class="line">   	p=a;</span><br><span class="line">   	<span class="built_in">printf</span>(<span class="string">"请输入10个整数:\n"</span>);</span><br><span class="line">   	<span class="keyword">for</span>(i=0;i&lt;10;i++)&#123;</span><br><span class="line">   		scanf(<span class="string">"%d"</span>,p++);</span><br><span class="line">   	&#125;</span><br><span class="line">   	p=a;</span><br><span class="line">   	sort(p,10);</span><br><span class="line">   	<span class="keyword">for</span>(p=a,i=0;i&lt;10;i++)&#123;</span><br><span class="line">   		<span class="built_in">printf</span>(<span class="string">"%d "</span>,*p++);</span><br><span class="line">   	&#125;</span><br><span class="line">   	<span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">   	<span class="built_in">return</span> 0;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //数组形式 </span><br><span class="line">void sort(int x[],int n)&#123;</span><br><span class="line">   	int i,j,temp;</span><br><span class="line">   	<span class="keyword">for</span>(i=0;i&lt;n-1;i++)</span><br><span class="line">   		<span class="keyword">for</span>(j=0;j&lt;n-1-i;j++)&#123;</span><br><span class="line">   			<span class="keyword">if</span>(x[j]&lt;x[j+1])&#123;</span><br><span class="line">   				temp=x[j];</span><br><span class="line">   				x[j]=x[j+1];</span><br><span class="line">   				x[j+1]=temp;</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   //指针形式 </span><br><span class="line">void sort(int *x,int n)&#123;</span><br><span class="line">   	int i,j,temp;</span><br><span class="line">   	<span class="keyword">for</span>(i=0;i&lt;n-1;i++)</span><br><span class="line">   		<span class="keyword">for</span>(j=0;j&lt;n-1-i;j++)&#123;</span><br><span class="line">   			<span class="keyword">if</span>(*(x+j)&lt;*(x+j+1))&#123;   //*(x+j)就是x[j] </span><br><span class="line">   				temp=*(x+j);</span><br><span class="line">   				*(x+j)=*(x+j+1);</span><br><span class="line">   				*(x+j+1)=temp;</span><br><span class="line">   			&#125;</span><br><span class="line">   		&#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 
@@ -745,7 +741,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">208</span>
+                  <span class="site-state-item-count">212</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

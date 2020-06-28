@@ -400,7 +400,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/类变量与对象变量/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/输入输出——回文字串的判断（加强版）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -419,7 +419,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/类变量与对象变量/" itemprop="url">类变量与对象变量</a></h1>
+                <a class="post-title-link" href="/2018/07/23/输入输出——回文字串的判断（加强版）/" itemprop="url">输入输出——回文字串的判断（加强版）</a></h1>
         
 
         <div class="post-meta">
@@ -431,7 +431,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:08:50+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:36:35+08:00">
                 2018-07-23
               </time>
             
@@ -484,8 +484,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/类变量与对象变量/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/类变量与对象变量/" itemprop="commentCount"></span>
+                <a href="/2018/07/23/输入输出——回文字串的判断（加强版）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/输入输出——回文字串的判断（加强版）/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -493,7 +493,7 @@
 
           
           
-             <span id="/2018/07/23/类变量与对象变量/" class="leancloud_visitors" data-flag-title="类变量与对象变量">
+             <span id="/2018/07/23/输入输出——回文字串的判断（加强版）/" class="leancloud_visitors" data-flag-title="输入输出——回文字串的判断（加强版）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -518,7 +518,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  538
+                  205
                 </span>
               
 
@@ -534,7 +534,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  1
                 </span>
               
             </div>
@@ -556,15 +556,11 @@
 
       
         
-          <h3 id="类变量与对象变量"><a href="#类变量与对象变量" class="headerlink" title="类变量与对象变量"></a>类变量与对象变量</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=UTF-8,类变量与对象变量</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Robot</span>:</span></span><br><span class="line">    <span class="string">"""表示有一个带有名字的机器人。"""</span></span><br><span class="line">    <span class="comment"># 一个类变量，用来计数机器人的数量</span></span><br><span class="line">    population = <span class="number">0</span>  <span class="comment"># 这是一个类变量，属于Robot类</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span>  <span class="comment"># name变量属于一个对象（通过self分配），因此它是一个对象变量</span></span><br><span class="line">        <span class="string">"""初始化数据"""</span></span><br><span class="line">        self.name = name</span><br><span class="line">        print(<span class="string">"(Initializing &#123;&#125;)"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 当有人被创建时，机器人会增加人口数量</span></span><br><span class="line">        <span class="string">'''</span></span><br><span class="line"><span class="string">       除了 Robot.popluation ，我们还可以使用 self.__class__.population ，因为每个对象都通过</span></span><br><span class="line"><span class="string">       self.__class__ 属性来引用它的类。 </span></span><br><span class="line"><span class="string">       '''</span></span><br><span class="line">        Robot.population += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">die</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""我挂了。"""</span></span><br><span class="line">        print(<span class="string">"&#123;&#125; is being destroyed!"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">        Robot.population -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> Robot.population == <span class="number">0</span>:</span><br><span class="line">            print(<span class="string">"&#123;&#125; was the last one."</span>.format(self.name))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            print(<span class="string">"There are still &#123;:d&#125; robots working."</span>.format(Robot.population))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">"""来自机器人的诚挚问候</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        没问题，你做得到"""</span></span><br><span class="line">        print(<span class="string">"Greetings , my masters call me &#123;&#125;"</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    classmethod 修饰符对应的函数不需要实例化，不需要 self 参数，</span></span><br><span class="line"><span class="string">    但第一个参数需要是表示自身类的 cls 参数，可以来调用类的属性，类的方法，实例化对象等。</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># how_many实际上是一个属于类而非属于对象的方法</span></span><br><span class="line">    <span class="comment"># classmethod(类方法)或是一个staticmethod(静态方法)</span></span><br><span class="line"><span class="meta">    @classmethod  # 装饰器，等价于how_many = classmethod(how_many)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">how_many</span><span class="params">(cls)</span>:</span></span><br><span class="line">        <span class="string">"""打印出当前的人口数量"""</span></span><br><span class="line">        print(<span class="string">"We have &#123;:d&#125; robots."</span>.format(cls.population))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">droid1 = Robot(<span class="string">"R2-D2"</span>)</span><br><span class="line">droid1.say_hi()</span><br><span class="line">Robot.how_many()</span><br><span class="line"></span><br><span class="line">droid2 = Robot(<span class="string">"C-3PO"</span>)</span><br><span class="line">droid2.say_hi()</span><br><span class="line">Robot.how_many()</span><br><span class="line">print(<span class="string">"\nRobots can do some work here.\n"</span>)</span><br><span class="line">print(<span class="string">"Robots have finished their work. So let's destroy them."</span>)</span><br><span class="line">droid1.die()</span><br><span class="line">droid2.die()</span><br><span class="line"></span><br><span class="line">Robot.how_many()</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/23/类变量与对象变量/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+          
+            <h3 id="输入输出——回文字串的判断（加强版）"><a href="#输入输出——回文字串的判断（加强版）" class="headerlink" title="输入输出——回文字串的判断（加强版）"></a>输入输出——回文字串的判断（加强版）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">forbindden_word = (<span class="string">' '</span>, <span class="string">','</span>, <span class="string">';'</span>, <span class="string">'.'</span>, <span class="string">'!'</span>, <span class="string">'//'</span>, <span class="string">'?'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 样例字符串Rise to vote,sir.   共17长度</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ignore_word</span><span class="params">(text)</span>:</span>  <span class="comment"># 去除忽略的特殊字符</span></span><br><span class="line">    strdemo = list(text.lower())</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    print(<span class="string">'长度为:'</span>, len(strdemo))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> list(range(len(strdemo))):   <span class="comment"># 遍历从0-16，共17长度 ，debug一下就懂了</span></span><br><span class="line">        <span class="keyword">if</span> strdemo[i - count] <span class="keyword">in</span> forbindden_word:</span><br><span class="line">            <span class="keyword">del</span> strdemo[i - count]  <span class="comment"># 删除特殊字符</span></span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> strdemo</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text[::<span class="number">-1</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_reverse</span><span class="params">(text)</span>:</span>  <span class="comment"># 判断是否为回文</span></span><br><span class="line">    <span class="keyword">return</span> text == reverse(text)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">something = input(<span class="string">'随便输入点什么:'</span>)</span><br><span class="line"><span class="keyword">if</span> is_reverse(ignore_word(something)):</span><br><span class="line">    print(<span class="string">'恭喜！他是回文文本'</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'这好像不是回文文本哦'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">随便输入点什么:Rise to vote,sir.</span><br><span class="line">长度为: 17</span><br><span class="line">恭喜！他是回文文本</span><br></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -613,7 +609,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/python对象的实例化/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/文件操作/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -632,7 +628,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/python对象的实例化/" itemprop="url">python对象的实例化</a></h1>
+                <a class="post-title-link" href="/2018/07/23/文件操作/" itemprop="url">文件操作</a></h1>
         
 
         <div class="post-meta">
@@ -644,7 +640,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:03:33+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:36:35+08:00">
                 2018-07-23
               </time>
             
@@ -697,8 +693,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/python对象的实例化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/python对象的实例化/" itemprop="commentCount"></span>
+                <a href="/2018/07/23/文件操作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/文件操作/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -706,7 +702,7 @@
 
           
           
-             <span id="/2018/07/23/python对象的实例化/" class="leancloud_visitors" data-flag-title="python对象的实例化">
+             <span id="/2018/07/23/文件操作/" class="leancloud_visitors" data-flag-title="文件操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -731,7 +727,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  103
+                  198
                 </span>
               
 
@@ -770,9 +766,221 @@
       
         
           
-            <h3 id="python对象的实例化"><a href="#python对象的实例化" class="headerlink" title="python对象的实例化"></a>python对象的实例化</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">__init__ 方法会在类的对象被实例化（Instantiated）时立即运行。这一方法可以对任何你想</span></span><br><span class="line"><span class="string">进行操作的目标对象进行初始化（Initialization）操作。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hi</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">'Hello,my name is'</span>, self.name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">p = Person(<span class="string">'Swaroop'</span>)</span><br><span class="line">p.say_hi()</span><br></pre></td></tr></table></figure>
+            <h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">poem = <span class="string">'''</span></span><br><span class="line"><span class="string">Programming is fun</span></span><br><span class="line"><span class="string">When the work is done</span></span><br><span class="line"><span class="string">if you wanna make your work also fun:</span></span><br><span class="line"><span class="string">    use Python!</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开文件以编辑（'w'riting）</span></span><br><span class="line">f = open(<span class="string">'poem.txt'</span>, <span class="string">'w'</span>)</span><br><span class="line"><span class="comment"># 向文件中编写文本</span></span><br><span class="line">f.write(poem)</span><br><span class="line"><span class="comment"># 关闭文件</span></span><br><span class="line">f.close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果没有特别指定</span></span><br><span class="line"><span class="comment"># 将假定启用默认的阅读（'r'ead）模式</span></span><br><span class="line">f = open(<span class="string">'poem.txt'</span>)</span><br><span class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">    line = f.readline()</span><br><span class="line">    <span class="comment"># 零长度指示 EOF , 用来判断文档结尾</span></span><br><span class="line">    <span class="keyword">if</span> len(line) == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="comment"># 每行（'line'）的末尾</span></span><br><span class="line">    <span class="comment"># 都已经有了换行符</span></span><br><span class="line">    <span class="comment"># 因为它是从一个文件中进行读取的</span></span><br><span class="line">    print(line, end=<span class="string">' '</span>)</span><br><span class="line"><span class="comment"># 关闭文件</span></span><br><span class="line">f.close()</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Programming is fun</span><br><span class="line">When the work is done</span><br><span class="line">if you wanna make your work also fun:</span><br><span class="line">    use Python!</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/输入输出——简单的回文判断/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/23/输入输出——简单的回文判断/" itemprop="url">输入输出——简单的回文判断</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:30:11+08:00">
+                2018-07-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/23/输入输出——简单的回文判断/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/输入输出——简单的回文判断/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/07/23/输入输出——简单的回文判断/" class="leancloud_visitors" data-flag-title="输入输出——简单的回文判断">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  227
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="输入输出——简单的回文判断"><a href="#输入输出——简单的回文判断" class="headerlink" title="输入输出——简单的回文判断"></a>输入输出——简单的回文判断</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">可以通过使用 seq[a:b] 来从位置 a 开</span></span><br><span class="line"><span class="string">始到位置 b 结束来对序列进行切片 。我们同样可以提供第三个参数来确定切片的步长</span></span><br><span class="line"><span class="string">（Step）。默认的步长为 1 ，它会返回一份连续的文本。如果给定一个负数步长，如 -1 ，</span></span><br><span class="line"><span class="string">将返回翻转过的文本。</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">reverse</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text[::<span class="number">-1</span>]  <span class="comment"># 使用切片功能返回倒序</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_palindrome</span><span class="params">(text)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> text == reverse(text)  <span class="comment"># 如果正序和倒序相等的话，就是回文</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">something = input(<span class="string">"Enter text: "</span>)</span><br><span class="line"><span class="keyword">if</span> is_palindrome(something):</span><br><span class="line">    print(<span class="string">"Yes,it is a palidrome"</span>)  <span class="comment"># 是回文</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"No, it is not a palindrome"</span>)  <span class="comment"># 不是回文</span></span><br></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><blockquote>
-<p>Hello,my name is Swaroop</p>
+<p>如果是回文字串</p>
+<p>Enter text: 1221<br>Yes,it is a palidrome</p>
+<p>如果不是回文字串</p>
+<p>Enter text: 11111555<br>No, it is not a palindrome</p>
 </blockquote>
 
           
@@ -824,7 +1032,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/继承的运用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -843,7 +1051,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/" itemprop="url">利用python进行文件的自动备份(第三版和第四版)</a></h1>
+                <a class="post-title-link" href="/2018/07/23/继承的运用/" itemprop="url">继承的运用</a></h1>
         
 
         <div class="post-meta">
@@ -855,7 +1063,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T18:54:24+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T19:19:24+08:00">
                 2018-07-23
               </time>
             
@@ -871,8 +1079,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:11:25+08:00">
-                2018-08-02
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
+                2020-05-18
               </time>
             
           </span>
@@ -908,8 +1116,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/" itemprop="commentCount"></span>
+                <a href="/2018/07/23/继承的运用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/继承的运用/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -917,7 +1125,7 @@
 
           
           
-             <span id="/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/" class="leancloud_visitors" data-flag-title="利用python进行文件的自动备份(第三版和第四版)">
+             <span id="/2018/07/23/继承的运用/" class="leancloud_visitors" data-flag-title="继承的运用">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -942,7 +1150,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  395
+                  260
                 </span>
               
 
@@ -958,7 +1166,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  1
                 </span>
               
             </div>
@@ -980,11 +1188,11 @@
 
       
         
-          <h3 id="利用python进行文件的自动备份-第三版和第四版"><a href="#利用python进行文件的自动备份-第三版和第四版" class="headerlink" title="利用python进行文件的自动备份(第三版和第四版)"></a>利用python进行文件的自动备份(第三版和第四版)</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">第三版和第四版差别不大整合在一起，用户注释的内容可以添加到文件名中来实现</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">source = [<span class="string">r'E:\aaa.txt'</span>]</span><br><span class="line"></span><br><span class="line">target_dir = <span class="string">'E:\\Backup\\'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(target_dir):</span><br><span class="line">    os.mkdir(target_dir)</span><br><span class="line"><span class="comment"># 子目录名称</span></span><br><span class="line">today = target_dir + os.sep + time.strftime(<span class="string">'%Y%m%d'</span>)</span><br><span class="line"><span class="comment"># 将当前时间作为zio文件的文件名</span></span><br><span class="line">now = time.strftime(<span class="string">'%H%M%S'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一条来自用户的注释以创建</span></span><br><span class="line"><span class="comment"># zip文件的文件名</span></span><br><span class="line"></span><br><span class="line">comment = input(<span class="string">'Enter a comment --&gt;'</span>)</span><br><span class="line"><span class="comment"># 检查是否有评论键入</span></span><br><span class="line"><span class="keyword">if</span> len(comment) == <span class="number">0</span>:</span><br><span class="line">    target = today + os.sep + now + <span class="string">'.zip'</span></span><br><span class="line"><span class="comment"># replace函数中前面的将被替换为后面的</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    target = today + os.sep + now + <span class="string">'_'</span> + \</span><br><span class="line">             comment.replace(<span class="string">' '</span>, <span class="string">'_'</span>) + <span class="string">'.zip'</span></span><br><span class="line"><span class="comment"># 如果子目录尚不存在则创建一个</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(today):</span><br><span class="line">    os.mkdir(today)</span><br><span class="line">    print(<span class="string">'Successfully created directory'</span>, today)</span><br><span class="line"></span><br><span class="line">zip_command = <span class="string">"7z a &#123;0&#125; &#123;1&#125;"</span>.format(target, <span class="string">' '</span>.join(source))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行备份</span></span><br><span class="line">print(<span class="string">'Zip command is:'</span>)</span><br><span class="line">print(zip_command)</span><br><span class="line">print(<span class="string">'Running:'</span>)</span><br><span class="line"><span class="keyword">if</span> os.system(zip_command) == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'Successful backup to'</span>, target)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'Backup FAILED'</span>)</span><br></pre></td></tr></table></figure>
+          <h3 id="继承的运用"><a href="#继承的运用" class="headerlink" title="继承的运用"></a>继承的运用</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 继承的运用</span></span><br><span class="line"><span class="comment"># coding = UTF-8</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SchoolMember</span>:</span></span><br><span class="line">    <span class="string">'''代表学校里的成员。'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line">        print(<span class="string">'(Initialized SchoolMember: &#123;&#125;)'</span>.format((self.name)))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tell</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="string">'''告诉我有关我的细节。'''</span></span><br><span class="line">        print(<span class="string">'Name:"&#123;&#125;" Age:"&#123;&#125;"'</span>.format(self.name, self.age), end=<span class="string">" "</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span><span class="params">(SchoolMember)</span>:</span></span><br><span class="line">    <span class="string">'''代表一位老师。'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age, salary)</span>:</span></span><br><span class="line">        SchoolMember.__init__(self, name, age)</span><br><span class="line">        self.salary = salary</span><br><span class="line">        print(<span class="string">'(Initialized Teacher: &#123;&#125;)'</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tell</span><span class="params">(self)</span>:</span></span><br><span class="line">        SchoolMember.tell(self)</span><br><span class="line">        print(<span class="string">'Salary: "&#123;:d&#125;"'</span>.format(self.salary))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(SchoolMember)</span>:</span></span><br><span class="line">    <span class="string">'''代表一位学生。'''</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age, marks)</span>:</span></span><br><span class="line">        SchoolMember.__init__(self, name, age)</span><br><span class="line">        self.marks = marks</span><br><span class="line">        print(<span class="string">'(Initialized Student: &#123;&#125;)'</span>.format(self.name))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">tell</span><span class="params">(self)</span>:</span></span><br><span class="line">        SchoolMember.tell(self)</span><br><span class="line">        print(<span class="string">'Marks: "&#123;:d&#125;"'</span>.format(self.marks))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">t = Teacher(<span class="string">'Mrs. Shrividya'</span>, <span class="number">40</span>, <span class="number">30000</span>)</span><br><span class="line">s = Student(<span class="string">'Swaroop'</span>, <span class="number">25</span>, <span class="number">75</span>)</span><br><span class="line"></span><br><span class="line">print()</span><br><span class="line"></span><br><span class="line">members = [t, s]</span><br><span class="line"><span class="keyword">for</span> member <span class="keyword">in</span> members:  <span class="comment"># 对全体师生工作</span></span><br><span class="line">    member.tell()</span><br></pre></td></tr></table></figure>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/23/利用python进行文件的自动备份(第三版和第四版)/" rel="contents">
+            <a class="btn" href="/2018/07/23/继承的运用/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1024,220 +1232,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/07/23/利用python进行文件的自动备份（第二版）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="BenY">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Ming.Y">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/23/利用python进行文件的自动备份（第二版）/" itemprop="url">利用python进行文件的自动备份（第二版）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-23T18:49:11+08:00">
-                2018-07-23
-              </time>
-            
-
-            
-              <span class="post-meta-divider">|</span>
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-check-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">更新于&#58;</span>
-              
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-02T10:11:15+08:00">
-                2018-08-02
-              </time>
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/07/23/利用python进行文件的自动备份（第二版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/07/23/利用python进行文件的自动备份（第二版）/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/2018/07/23/利用python进行文件的自动备份（第二版）/" class="leancloud_visitors" data-flag-title="利用python进行文件的自动备份（第二版）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">热度&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  611
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  3
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="利用python进行文件的自动备份（第二版）"><a href="#利用python进行文件的自动备份（第二版）" class="headerlink" title="利用python进行文件的自动备份（第二版）"></a>利用python进行文件的自动备份（第二版）</h3><h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">第二版是第一版的改进，</span></span><br><span class="line"><span class="string">启用一种更好的文件命名机制——使用时间作为文件名，存储在以当前时间为名字的文件夹中，这一文件夹则照常存储在主备份目录下。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 例如在 Windows 下：</span></span><br><span class="line">source = [<span class="string">r'E:\aaa.txt'</span>]</span><br><span class="line"><span class="comment"># 在这里要注意到我们必须在字符串中使用双引号</span></span><br><span class="line"><span class="comment"># 用以括起其中包含空格的名称。</span></span><br><span class="line"><span class="comment"># 2. 备份文件必须存储在一个</span></span><br><span class="line"><span class="comment"># 主备份目录中</span></span><br><span class="line"><span class="comment"># 例如在 Windows 下：</span></span><br><span class="line">target_dir = <span class="string">'E:\\Backup\\'</span></span><br><span class="line"><span class="comment"># 要记得将这里的目录地址修改至你将使用的路径</span></span><br><span class="line"><span class="comment"># 如果目标目录还不存在，则进行创建</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(target_dir):</span><br><span class="line">    os.mkdir(target_dir)  <span class="comment"># 创建目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.备份文件将打包压缩成zip文件</span></span><br><span class="line"><span class="comment"># 4.zip压缩文件的文件名由当前日期与时间构成</span></span><br><span class="line"><span class="comment"># 其中os.sep 表示更改操作系统中的路径分隔符</span></span><br><span class="line">today = target_dir + os.sep + time.strftime(<span class="string">'%Y%m%d'</span>)</span><br><span class="line"><span class="comment"># 将当前时间作为zip文件的文件名</span></span><br><span class="line">now = time.strftime(<span class="string">'%H%M%S'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># zip文件名称格式</span></span><br><span class="line">target = today + os.sep + now + <span class="string">'zip'</span></span><br><span class="line"><span class="comment"># 如果子目录尚不存在则创建一个</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(today):</span><br><span class="line">    os.mkdir(today)</span><br><span class="line">    print(<span class="string">'Successfully created diectory'</span>, today)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.原本这里是使用zip命令，但是在windows环境下面这个是不是系统命令，所以解决方案如下：</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line"><span class="string">1.1.下载7-Zip并安装</span></span><br><span class="line"><span class="string">2.将安装文件中的7z.exe移至‘C:\Windows’目录下</span></span><br><span class="line"><span class="string">3.将程序中的 zip_command = "zip -qr '%s' %s"%(target,''.join(source))</span></span><br><span class="line"><span class="string">改为：zip_command = "7z a %s %s"%(target, ' '.join(source))</span></span><br><span class="line"><span class="string">或者是"7z a &#123;0&#125; &#123;1&#125;".format(target, ' '.join(source))</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">zip_command = <span class="string">"7z a &#123;0&#125; &#123;1&#125;"</span>.format(target, <span class="string">' '</span>.join(source))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行备份</span></span><br><span class="line">print(<span class="string">'Zip command is:'</span>)</span><br><span class="line">print(zip_command)</span><br><span class="line">print(<span class="string">'Running:'</span>)</span><br><span class="line"><span class="keyword">if</span> os.system(zip_command) == <span class="number">0</span>:</span><br><span class="line">    print(<span class="string">'Successful backup to'</span>, target)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">'Backup FAILED'</span>)</span><br></pre></td></tr></table></figure>
-<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Zip <span class="built_in">command</span> is:</span><br><span class="line">7z a E:\Backup\\20180723\185035zip E:\aaa.txt</span><br><span class="line">Running:</span><br><span class="line"></span><br><span class="line">7-Zip 18.05 (x64) : Copyright (c) 1999-2018 Igor Pavlov : 2018-04-30</span><br><span class="line"></span><br><span class="line">Scanning the drive:</span><br><span class="line">1 file, 10 bytes (1 KiB)</span><br><span class="line"></span><br><span class="line">Creating archive: E:\Backup\\20180723\185035zip.7z</span><br><span class="line"></span><br><span class="line">Add new data to archive: 1 file, 10 bytes (1 KiB)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Files <span class="built_in">read</span> from disk: 1</span><br><span class="line">Archive size: 136 bytes (1 KiB)</span><br><span class="line">Everything is Ok</span><br><span class="line">Successful backup to E:\Backup\\20180723\185035zip</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-
-	
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/52/">52</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/47/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/47/">47</a><span class="page-number current">48</span><a class="page-number" href="/page/49/">49</a><span class="space">&hellip;</span><a class="page-number" href="/page/53/">53</a><a class="extend next" rel="next" href="/page/49/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1287,7 +1286,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">208</span>
+                  <span class="site-state-item-count">212</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

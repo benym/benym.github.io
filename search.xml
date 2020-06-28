@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-希尔排序]]></title>
+    <url>%2F2020%2F06%2F28%2FLeetCode-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-希尔排序希尔排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路希尔排序算法回顾 希尔排序是插入排序的一种又称”缩小增量排序” 它是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止 希尔排序是不稳定的排序算法，时间复杂度O(n^1.3)-O(n^2) Java代码12345678910111213141516171819202122232425262728293031323334public class ShellSort &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; shellSort(arr); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void shellSort(int[] arr) &#123; //当前正在比较的数字 int current; //初始增量 int gap = arr.length / 2; //gap==1的时候，数组已经有序 while (gap &gt; 0) &#123; for (int i = gap; i &lt; arr.length; i++) &#123;//内部就是一个插入排序 current = arr[i]; // 与current同组的前一个数字 int preIndex = i - gap; // 找到同组内比current小的数字 while (preIndex &gt;= 0 &amp;&amp; current &lt; arr[preIndex]) &#123; // 向后移动同组内已排好序的，大于current的数字 arr[preIndex + gap] = arr[preIndex]; preIndex -= gap; &#125; //插入current到相应的位置 arr[preIndex + gap] = current; &#125; //缩小增量 gap /= 2; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-插入排序]]></title>
+    <url>%2F2020%2F06%2F28%2FLeetCode-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-插入排序插入排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路插入排序算法回顾 插入排序是一种简单直观的排序算法，其基本原理是通过构建有序序列，对未排序的数组，需要在已排序的序列中从后向前进行扫描，找到相应位置并插入。在从后向前扫描的过程中，需要反复把已排序的元素向后移动，为新元素提供插入的空间。 插入排序是稳定的排序算法，时间复杂度O(n^(1-2)) Java代码123456789101112131415161718192021public class InsertSort &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; insertSort(arr, arr.length - 1); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void insertSort(int arr[], int len) &#123; for (int i = 1; i &lt; len; i++) &#123; int temp = arr[i]; int left = i - 1; while (left &gt;= 0 &amp;&amp; arr[left] &gt; temp) &#123; arr[left + 1] = arr[left]; left--; &#125; arr[left + 1] = temp; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-选择排序]]></title>
+    <url>%2F2020%2F06%2F28%2FLeetCode-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-选择排序选择排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路选择排序算法回顾 选择排序是指每一趟从待排序的数据元素中选出最大（或最小）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。时间复杂度O(n^2)，是不稳定的排序算法。 Java代码12345678910111213141516171819202122232425public class SelectionSort &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; selectionSort(arr); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void selectionSort(int[] arr) &#123; for (int i = 0; i &lt; arr.length - 1; i++) &#123; int min = i; for (int j = min + 1; j &lt; arr.length; j++) &#123; if (arr[min] &gt; arr[j]) &#123; min = j; &#125; &#125; if (min != i) &#123; int temp = arr[min]; arr[min] = arr[i]; arr[i] = temp; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-冒泡排序]]></title>
+    <url>%2F2020%2F06%2F28%2FLeetCode-%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-冒泡排序冒泡排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路冒泡排序算法回顾，列表中两个相邻的数比较大小，如果前面的比后面的大，则交换位置 整个过程像冒泡一样，时间复杂度O(n^2)，是稳定的排序算法 Java代码123456789101112131415161718192021public class BubbleSort &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; bubbleSort(arr, arr.length - 1); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void bubbleSort(int[] arr, int len) &#123; for (int i = 0; i &lt; len; i++) &#123; for (int j = 0; j &lt; len - i; j++) &#123; if (arr[j] &gt; arr[j + 1]) &#123; int temp = arr[j + 1]; arr[j + 1] = arr[j]; arr[j] = temp; &#125; &#125; &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>排序算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Java多线程实现的几种方式]]></title>
     <url>%2F2020%2F06%2F28%2FJava%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F%2F</url>
     <content type="text"><![CDATA[Java多线程实现的几种方式多进程是计算机中的一个重要概念，通常一个任务称为一个进程，比如浏览网页、播放音乐都是一个进程。 在进程内部可能还需要执行多个子任务，比如在使用word文档打字的时候，不仅要进行字符打印，同时还要进行字符统计、拼接检查等任务。 进程和线程的关系是：一个进程可以包含一个或者多个线程，但至少会包含一个线程。 在Java中，多线程的学习是非常重要的，本文主要概括Java多线程实现的几种方式。 Java中实现多进程的方式大概有3种： 实现Runnable接口，重写run方法 继承Thread类，重写run方法(Thread类本身也实现了Runnable接口) 实现Callable接口，重写call方法(带有返回值) 通过Runnable接口实现多线程12345678910111213public class Main &#123; public static void main(String[] args) &#123; Thread t = new Thread(new MyRunnable()); t.start(); // 启动新线程 &#125;&#125;class MyRunnable implements Runnable &#123; @Override public void run() &#123; System.out.println("start new thread!"); &#125;&#125; 实现Runnable接口的类，只定义了任务，自身不具有线程能力。需要通过Thread类的构造器来将任务驱动在一个线程中。 通过继承Thread类实现Thread类中已经实现了Runnable接口，所以可以直接继承Thread类，覆写run方法实现多线程 12345678910public class MyThread extends Thread&#123; public void run()&#123; System.out.println("New Thread : "+Thread.currentThread().getName()); &#125; public static void main (String []args)&#123; MyThread thread = new MyThread(); thread.start(); System.out.println("Main Thread : " + Thread.currentThread().getName()); &#125;&#125; 通过继承Callable接口实现相较于实现Runnable接口，Callable方法可以有返回值，并且可以抛出异常 执行Callable方法，需要FutureTask实现类的支持，用于接受运算的结果，FutureTask是Future接口的实现 需要覆写call方法，运行Callable任务可以拿到一个Future对象，Future表示异步计算的结果 通过Future对象可了解任务执行情况，可取消任务的执行，还可以获取任务执行的结果 12345678910111213141516171819202122232425262728293031323334353637import java.util.concurrent.Callable;import java.util.concurrent.ExecutionException;import java.util.concurrent.FutureTask;public class TestCallable &#123; public static void main(String[] args) &#123; ThreadDemo td = new ThreadDemo(); FutureTask&lt;Integer&gt; result = new FutureTask&lt;&gt;(td); new Thread(result).start(); try &#123; Integer sum = result.get(); System.out.println(sum); &#125; catch (InterruptedException | ExecutionException e) &#123; e.printStackTrace(); &#125; &#125;&#125;class ThreadDemo implements Callable&lt;Integer&gt; &#123; @Override public Integer call() throws Exception &#123; int sum = 0; for (int i = 0; i &lt;= 100; i++) &#123; sum += i; &#125; return sum; &#125;&#125;]]></content>
@@ -883,8 +931,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>BFS</tag>
         <tag>Medium</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
   <entry>
@@ -979,7 +1027,7 @@
   <entry>
     <title><![CDATA[LeetCode-归并排序]]></title>
     <url>%2F2020%2F05%2F09%2FLeetCode-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[LeetCode-归并排序归并排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路归并排序算法采用分治的思想 把原本的数组不断进行二分，直到分为数组元素是单个的时候，之后开始排序合并 Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546public class Solution&#123; public static void main(String[] args) &#123; int[] arr = &#123;9, 8, 7, 6, 5, 4, 3, 2, 1&#125;; // 创建临时数组避免重复开辟空间 int[] temp = new int[arr.length]; MergerSort(arr, 0, arr.length - 1, temp); for(int i : arr)&#123; System.out.print(i); &#125; &#125; private static void MergerSort(int[] arr, int left, int right, int[] temp) &#123; if (left &lt; right) &#123; int mid = (left + right) / 2; MergerSort(arr, left, mid, temp); // 左边归并排序，使得左子序列有序 MergerSort(arr, mid + 1, right, temp); // 右边归并排序，使得右子序列有序 Merge(arr, left, mid, right, temp); // 将两个有序子数组合并 &#125; &#125; private static void Merge(int[] arr, int left, int mid, int right, int[] temp) &#123; int i = left; // 左序列指针 int j = mid + 1; // 右序列指针 int t = 0; // 临时数组指针 while (i &lt;= mid &amp;&amp; j &lt;= right) &#123; if (arr[i] &lt; arr[j]) &#123; temp[t++] = arr[i++]; &#125; else &#123; temp[t++] = arr[j++]; &#125; &#125; // 将左边剩余元素填充进temp中 while (i &lt;= mid) &#123; temp[t++] = arr[i++]; &#125; // 将右边剩余元素填充进temp中 while (j &lt;= right) &#123; temp[t++] = arr[j++]; &#125; t = 0; // 拷贝回原数组 while (left &lt;= right) &#123; arr[left++] = temp[t++]; &#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[LeetCode-归并排序归并排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路归并排序算法采用分治的思想 把原本的数组不断进行二分，直到分为数组元素是单个的时候，之后开始排序合并 归并排序是稳定的排序算法，时间复杂度O(nlogn) Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546public class Solution&#123; public static void main(String[] args) &#123; int[] arr = &#123;9, 8, 7, 6, 5, 4, 3, 2, 1&#125;; // 创建临时数组避免重复开辟空间 int[] temp = new int[arr.length]; MergerSort(arr, 0, arr.length - 1, temp); for(int i : arr)&#123; System.out.print(i); &#125; &#125; private static void MergerSort(int[] arr, int left, int right, int[] temp) &#123; if (left &lt; right) &#123; int mid = (left + right) / 2; MergerSort(arr, left, mid, temp); // 左边归并排序，使得左子序列有序 MergerSort(arr, mid + 1, right, temp); // 右边归并排序，使得右子序列有序 Merge(arr, left, mid, right, temp); // 将两个有序子数组合并 &#125; &#125; private static void Merge(int[] arr, int left, int mid, int right, int[] temp) &#123; int i = left; // 左序列指针 int j = mid + 1; // 右序列指针 int t = 0; // 临时数组指针 while (i &lt;= mid &amp;&amp; j &lt;= right) &#123; if (arr[i] &lt; arr[j]) &#123; temp[t++] = arr[i++]; &#125; else &#123; temp[t++] = arr[j++]; &#125; &#125; // 将左边剩余元素填充进temp中 while (i &lt;= mid) &#123; temp[t++] = arr[i++]; &#125; // 将右边剩余元素填充进temp中 while (j &lt;= right) &#123; temp[t++] = arr[j++]; &#125; t = 0; // 拷贝回原数组 while (left &lt;= right) &#123; arr[left++] = temp[t++]; &#125; &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -1162,7 +1210,7 @@
   <entry>
     <title><![CDATA[LeetCode-快速排序]]></title>
     <url>%2F2020%2F05%2F04%2FLeetCode-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[LeetCode-快速排序快速排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路快速排序算法回顾，左右两个指针进行操作，判断基准数和指针位置的大小关系，使得基准数左边的数字比它小，右边的数字比它大。递归进行求解 Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546public class Solotion &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; quickSort(arr, 0, arr.length - 1); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void quickSort(int[] list, int left, int right) &#123; if (left &lt; right) &#123; // 分割数组，找到分割点 int point = partition(list, left, right); // 对左子数组进行快排 quickSort(list, left, point - 1); // 对右子数组进行快排 quickSort(list, point + 1, right); &#125; &#125; public static int partition(int[] list, int left, int right) &#123; // 用数组的第一个元素作为基准数 int first = list[left]; while (left &lt; right) &#123; while (left &lt; right &amp;&amp; list[right] &gt;= first) &#123; right--; &#125; swap(list, left, right); while (left &lt; right &amp;&amp; list[left] &lt;= first) &#123; left++; &#125; swap(list, left, right); &#125; // 返回分割点所在的位置 return left; &#125; public static void swap(int[] list, int left, int right) &#123; int temp; if (list != null &amp;&amp; list.length &gt; 0) &#123; temp = list[left]; list[left] = list[right]; list[right] = temp; &#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[LeetCode-快速排序快速排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路快速排序算法回顾，左右两个指针进行操作，判断基准数和指针位置的大小关系，使得基准数左边的数字比它小，右边的数字比它大。递归进行求解 快速排序是不稳定的排序算法，时间复杂度O(nlogn)-O(n^2) Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243444546public class Solotion &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; quickSort(arr, 0, arr.length - 1); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void quickSort(int[] list, int left, int right) &#123; if (left &lt; right) &#123; // 分割数组，找到分割点 int point = partition(list, left, right); // 对左子数组进行快排 quickSort(list, left, point - 1); // 对右子数组进行快排 quickSort(list, point + 1, right); &#125; &#125; public static int partition(int[] list, int left, int right) &#123; // 用数组的第一个元素作为基准数 int first = list[left]; while (left &lt; right) &#123; while (left &lt; right &amp;&amp; list[right] &gt;= first) &#123; right--; &#125; swap(list, left, right); while (left &lt; right &amp;&amp; list[left] &lt;= first) &#123; left++; &#125; swap(list, left, right); &#125; // 返回分割点所在的位置 return left; &#125; public static void swap(int[] list, int left, int right) &#123; int temp; if (list != null &amp;&amp; list.length &gt; 0) &#123; temp = list[left]; list[left] = list[right]; list[right] = temp; &#125; &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -1292,8 +1340,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>BFS</tag>
         <tag>Medium</tag>
+        <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1323,8 +1371,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>BFS</tag>
         <tag>Medium</tag>
+        <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1612,9 +1660,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1628,9 +1676,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1653,8 +1701,8 @@
       <tags>
         <tag>Java</tag>
         <tag>DFS</tag>
-        <tag>BFS</tag>
         <tag>Medium</tag>
+        <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1930,8 +1978,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
         <tag>机器学习</tag>
+        <tag>matlab</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2108,8 +2156,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2148,9 +2196,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2484,9 +2532,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2495,9 +2543,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2750,7 +2798,7 @@
   <entry>
     <title><![CDATA[冒泡排序]]></title>
     <url>%2F2018%2F04%2F10%2F%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[冒泡排序概念冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。 它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。 这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。 算法原理冒泡排序算法的运作如下：（从后往前） 比较相邻的元素。如果第一个比第二个大，就交换他们两个。 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。 针对所有的元素重复以上的步骤，除了最后一个。 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。 时间复杂度冒泡排序总的平均时间复杂度为 代码 12345678910111213141516171819202122232425262728293031323334353637383940414243#include&lt;stdio.h&gt;int main()&#123; void sort(int *x,int n); int i,*p,a[10]; p=a; printf("请输入10个整数:\n"); for(i=0;i&lt;10;i++)&#123; scanf("%d",p++); &#125; p=a; sort(p,10); for(p=a,i=0;i&lt;10;i++)&#123; printf("%d ",*p++); &#125; printf("\n"); return 0;&#125;//数组形式 void sort(int x[],int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(x[j]&lt;x[j+1])&#123; temp=x[j]; x[j]=x[j+1]; x[j+1]=temp; &#125; &#125;&#125;//指针形式 void sort(int *x,int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(*(x+j)&lt;*(x+j+1))&#123; //*(x+j)就是x[j] temp=*(x+j); *(x+j)=*(x+j+1); *(x+j+1)=temp; &#125; &#125;&#125; ​]]></content>
+    <content type="text"><![CDATA[冒泡排序概念冒泡排序（Bubble Sort），是一种计算机科学领域的较简单的排序算法。 它重复地走访过要排序的数列，一次比较两个元素，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。 这个算法的名字由来是因为越大的元素会经由交换慢慢“浮”到数列的顶端，故名“冒泡排序”。 算法原理冒泡排序算法的运作如下：（从后往前） 比较相邻的元素。如果第一个比第二个大，就交换他们两个。 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。 针对所有的元素重复以上的步骤，除了最后一个。 持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。 时间复杂度冒泡排序总的平均时间复杂度为O(n2) 代码 12345678910111213141516171819202122232425262728293031323334353637383940414243 #include&lt;stdio.h&gt; int main()&#123; void sort(int *x,int n); int i,*p,a[10]; p=a; printf("请输入10个整数:\n"); for(i=0;i&lt;10;i++)&#123; scanf("%d",p++); &#125; p=a; sort(p,10); for(p=a,i=0;i&lt;10;i++)&#123; printf("%d ",*p++); &#125; printf("\n"); return 0; &#125; //数组形式 void sort(int x[],int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(x[j]&lt;x[j+1])&#123; temp=x[j]; x[j]=x[j+1]; x[j+1]=temp; &#125; &#125; &#125; //指针形式 void sort(int *x,int n)&#123; int i,j,temp; for(i=0;i&lt;n-1;i++) for(j=0;j&lt;n-1-i;j++)&#123; if(*(x+j)&lt;*(x+j+1))&#123; //*(x+j)就是x[j] temp=*(x+j); *(x+j)=*(x+j+1); *(x+j+1)=temp; &#125; &#125; &#125;]]></content>
       <categories>
         <category>C语言</category>
       </categories>
