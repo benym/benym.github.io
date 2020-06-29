@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Java反射获取类对象的三种方式]]></title>
+    <url>%2F2020%2F06%2F29%2FJava%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%2F</url>
+    <content type="text"><![CDATA[Java反射获取类对象的三种方式简单了解Java获取类的3种方式 1、Class.forName(“全类名”) 将字节吗文件加载进内存，返回Class对象，多用于配指文件，将类名定义在配置文件中，便于利用java的反射机制生成类对象，加载类。 12//加载一个用户实体类UserBeanClass c1 = Class.forName(``"com.test.UserBean"``)； 2、类名.class 通过类名的属性class获取，多用于传递参数。 1Class c2 = UserBean.class; 3、对象.getClass() 多用于对象获取字节码的方式。 12UserBean user = new UserBean();Class c3 = user.getClass(); 对于三种方式获取到的类对象都指向堆内存中同一个地址，所以三种方式获取的类对象都是同一个，根据实际应用环境选择使用。]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>反射</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[海量数据TopK问题]]></title>
+    <url>%2F2020%2F06%2F29%2F%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AETopK%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[海量数据TopK问题在大规模数据处理中，经常会遇到这类问题：在海量数据中找到出现频率/数值最大的前K个数 本文主要提供这类问题的基本解决方法 假设这样一个场景，一个问题阅读量越高，说明这个问题越有价值，越应该推送给用户 假设数据量有1亿，取Top100 最容易想到的方法是将全部数据进行排序，但如果数据量太大 ，这显然是不能接受的。 第二种方法为局部淘汰法，该方法与排序方法类似，用一个容器保存前K个数，然后将剩余的所有数字——与容器内的最小数字相比，如果所有后续的元素都比容器内的K个数还小，那么容器内这个K个数就是最大K个数。如果某一后续元素比容器内最小数字大，则删掉容器内最小元素，并将该元素插入容器，最后遍历完这1亿个数，得到的结果容器中保存的数即为最终结果了。此时的时间复杂度为O（n+m^2），其中m为容器的大小，即K。 第三种方法是分治法，将1亿个数据分成100份，每份100万个数据，找到每份数据中最大的100个(即每份数据的TopK)，最后在剩下的100*100个数据里面找出最大的100个。如果100万数据选择足够理想，那么可以过滤掉1亿数据里面99%的数据。100万个数据里面查找最大的100个数据的方法如下：用快速排序的方法，将数据分为2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大堆个数N小于100个，就在小的那堆里面快速排序一次，找第100-n大的数字；递归以上过程，就可以找到第100大的数。参考上面的找出第100大数字，就可以类似的方法找到前100大数字了。 第四种方法是Hash法。如果这1亿个数里面有很多重复的数，先通过Hash法，把这1亿个数字去重复，这样如果重复率很高的话，会减少很大的内存用量，从而缩小运算空间，然后通过分治法或最小堆法查找最大的100个数。 第五种方法采用最小堆。首先读入前100个数来创建大小为100的最小堆，然后遍历后续的数字，并于堆顶（最小）数字进行比较。如果比最小的数小，则继续读取后续数字；如果比堆顶数字大，则替换堆顶元素并重新调整堆为最小堆。整个过程直至1亿个数全部遍历完为止。然后按照中序遍历的方式输出当前堆中的所有100个数字。建堆时间复杂度是O(m)，堆调整的时间复杂度是O(logm)，最终的时间复杂度=1次建堆的时间+n次堆调整的时间，所以该算法的时间复杂度为O(nlogm)，空间复杂度是100（常数）。 代码示例： 我们首先可以用HashMap去存储问题和阅读量的映射 1234567891011//伪代码String read;HashMap&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();while (fileStream.hasNext())&#123; url = read(); if (map.containsKey(read))&#123; map.get(read)++; &#125;else&#123; map.put(read, 1); &#125;&#125; 之后， 我们使用长度为100的最小堆来找到最热的100条数据。 12345678910111213141516171819PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue = new PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(100, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123; @Override public int compare(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2) &#123; return o1.getValue() - o2.getValue(); &#125; &#125;); int k = 100;for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123; if (queue.size() &lt; k)&#123; queue.add(entry); &#125; else &#123; if (entry.getValue() &gt; queue.peek().getValue())&#123; queue.poll(); queue.add(entry); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>TopK</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-希尔排序]]></title>
     <url>%2F2020%2F06%2F28%2FLeetCode-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F%2F</url>
     <content type="text"><![CDATA[LeetCode-希尔排序希尔排序算法回顾 示例1 12输入: nums = [4,0,1,2,0,5]输出: [0,0,1,2,4,5] 解题思路希尔排序算法回顾 希尔排序是插入排序的一种又称”缩小增量排序” 它是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止 希尔排序是不稳定的排序算法，时间复杂度O(n^1.3)-O(n^2) Java代码12345678910111213141516171819202122232425262728293031323334public class ShellSort &#123; public static void main(String[] args) &#123; int[] arr = &#123;4, 0, 1, 2, 0, 5&#125;; shellSort(arr); for (Integer i : arr) &#123; System.out.print(i); &#125; &#125; public static void shellSort(int[] arr) &#123; //当前正在比较的数字 int current; //初始增量 int gap = arr.length / 2; //gap==1的时候，数组已经有序 while (gap &gt; 0) &#123; for (int i = gap; i &lt; arr.length; i++) &#123;//内部就是一个插入排序 current = arr[i]; // 与current同组的前一个数字 int preIndex = i - gap; // 找到同组内比current小的数字 while (preIndex &gt;= 0 &amp;&amp; current &lt; arr[preIndex]) &#123; // 向后移动同组内已排好序的，大于current的数字 arr[preIndex + gap] = arr[preIndex]; preIndex -= gap; &#125; //插入current到相应的位置 arr[preIndex + gap] = current; &#125; //缩小增量 gap /= 2; &#125; &#125;&#125;]]></content>
@@ -56,8 +80,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>多线程</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -69,8 +93,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
       </tags>
@@ -133,8 +157,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -146,10 +170,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -175,10 +199,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -202,8 +226,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
       </tags>
@@ -216,10 +240,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -230,8 +254,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
       </tags>
@@ -244,8 +268,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>Python</tag>
@@ -259,10 +283,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -275,8 +299,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
         <tag>字符串</tag>
       </tags>
@@ -290,8 +314,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -304,8 +328,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -317,8 +341,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
       </tags>
@@ -332,8 +356,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -346,8 +370,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -361,8 +385,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -374,8 +398,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -388,8 +412,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -430,8 +454,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -443,10 +467,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -458,10 +482,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -473,10 +497,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -531,8 +555,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -547,8 +571,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -562,8 +586,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -577,8 +601,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -666,8 +690,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -708,8 +732,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -722,8 +746,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -736,8 +760,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -750,9 +774,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -779,8 +803,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -823,8 +847,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -838,8 +862,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -853,9 +877,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -868,9 +892,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -883,8 +907,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -899,8 +923,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -945,8 +969,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -958,8 +982,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -973,8 +997,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -987,8 +1011,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1016,8 +1040,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>分治</tag>
@@ -1090,9 +1114,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1106,9 +1130,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -1123,9 +1147,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1139,9 +1163,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1170,8 +1194,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
         <tag>Python</tag>
@@ -1186,8 +1210,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1200,9 +1224,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1228,8 +1252,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1244,8 +1268,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
@@ -1278,8 +1302,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1308,8 +1332,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1354,8 +1378,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1430,8 +1454,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1445,8 +1469,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1519,8 +1543,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1660,9 +1684,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1676,9 +1700,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1700,8 +1724,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1715,9 +1739,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1731,8 +1755,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1850,8 +1874,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1865,8 +1889,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1880,8 +1904,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1923,8 +1947,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1937,8 +1961,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -1951,8 +1975,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-06-28T12:20:26.569Z</updated>
+  <updated>2020-06-29T12:31:19.452Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java反射获取类对象的三种方式</title>
+    <link href="http://benym.cn/2020/06/29/Java%E5%8F%8D%E5%B0%84%E8%8E%B7%E5%8F%96%E7%B1%BB%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F/"/>
+    <id>http://benym.cn/2020/06/29/Java反射获取类对象的三种方式/</id>
+    <published>2020-06-29T11:36:09.000Z</published>
+    <updated>2020-06-29T12:31:19.452Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Java反射获取类对象的三种方式"><a href="#Java反射获取类对象的三种方式" class="headerlink" title="Java反射获取类对象的三种方式"></a>Java反射获取类对象的三种方式</h2><p>简单了解Java获取类的3种方式</p> <a id="more"></a><p><strong>1、Class.forName(“全类名”)</strong></p><p>将字节吗文件加载进内存，返回Class对象，多用于配指文件，将类名定义在配置文件中，便于利用java的反射机制生成类对象，加载类。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载一个用户实体类UserBean</span></span><br><span class="line">Class c1 = Class.forName(``<span class="string">"com.test.UserBean"</span>``)；</span><br></pre></td></tr></table></figure><p><strong>2、类名.class</strong></p><p>通过类名的属性class获取，多用于传递参数。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class c2 = UserBean.class;</span><br></pre></td></tr></table></figure><p><strong>3、对象.getClass()</strong></p><p>多用于对象获取字节码的方式。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UserBean user = <span class="keyword">new</span> UserBean();</span><br><span class="line">Class c3 = user.getClass();</span><br></pre></td></tr></table></figure><p>对于三种方式获取到的类对象都指向堆内存中同一个地址，所以三种方式获取的类对象都是同一个，根据实际应用环境选择使用。</p>]]></content>
+    
+    <summary type="html">
+    
+      总结
+    
+    </summary>
+    
+      <category term="Java" scheme="http://benym.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="反射" scheme="http://benym.cn/tags/%E5%8F%8D%E5%B0%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>海量数据TopK问题</title>
+    <link href="http://benym.cn/2020/06/29/%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AETopK%E9%97%AE%E9%A2%98/"/>
+    <id>http://benym.cn/2020/06/29/海量数据TopK问题/</id>
+    <published>2020-06-29T08:18:11.000Z</published>
+    <updated>2020-06-29T11:28:11.883Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="海量数据TopK问题"><a href="#海量数据TopK问题" class="headerlink" title="海量数据TopK问题"></a>海量数据TopK问题</h2><p>在大规模数据处理中，经常会遇到这类问题：在海量数据中找到出现频率/数值最大的前K个数</p><p>本文主要提供这类问题的基本解决方法</p> <a id="more"></a><p>假设这样一个场景，一个问题阅读量越高，说明这个问题越有价值，越应该推送给用户</p><p>假设数据量有1亿，取Top100</p><ol><li>最容易想到的方法是将全部数据进行<strong>排序</strong>，但如果数据量太大 ，这显然是不能接受的。</li><li>第二种方法为<strong>局部淘汰法</strong>，该方法与排序方法类似，用一个容器保存前K个数，然后将剩余的所有数字——与容器内的最小数字相比，如果所有后续的元素都比容器内的K个数还小，那么容器内这个K个数就是最大K个数。如果某一后续元素比容器内最小数字大，则删掉容器内最小元素，并将该元素插入容器，最后遍历完这1亿个数，得到的结果容器中保存的数即为最终结果了。此时的时间复杂度为O（n+m^2），其中m为容器的大小，即K。</li><li>第三种方法是<strong>分治法</strong>，将1亿个数据分成100份，每份100万个数据，找到每份数据中最大的100个(即每份数据的TopK)，最后在剩下的100*100个数据里面找出最大的100个。如果100万数据选择足够理想，那么可以过滤掉1亿数据里面99%的数据。100万个数据里面查找最大的100个数据的方法如下：用快速排序的方法，将数据分为2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大堆个数N小于100个，就在小的那堆里面快速排序一次，找第100-n大的数字；递归以上过程，就可以找到第100大的数。参考上面的找出第100大数字，就可以类似的方法找到前100大数字了。</li><li>第四种方法是<strong>Hash法</strong>。如果这1亿个数里面有很多重复的数，先通过Hash法，把这1亿个数字去重复，这样如果重复率很高的话，会减少很大的内存用量，从而缩小运算空间，然后通过分治法或最小堆法查找最大的100个数。</li><li>第五种方法采用<strong>最小堆</strong>。首先读入前100个数来创建大小为100的最小堆，然后遍历后续的数字，并于堆顶（最小）数字进行比较。如果比最小的数小，则继续读取后续数字；如果比堆顶数字大，则替换堆顶元素并重新调整堆为最小堆。整个过程直至1亿个数全部遍历完为止。然后按照中序遍历的方式输出当前堆中的所有100个数字。建堆时间复杂度是O(m)，堆调整的时间复杂度是O(logm)，最终的时间复杂度=1次建堆的时间+n次堆调整的时间，所以该算法的时间复杂度为O(nlogm)，空间复杂度是100（常数）。</li></ol><p><strong>代码示例：</strong></p><p>我们首先可以用HashMap去存储问题和阅读量的映射</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line">String read;</span><br><span class="line">HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line"><span class="keyword">while</span> (fileStream.hasNext())&#123;</span><br><span class="line">    url = read();</span><br><span class="line">   <span class="keyword">if</span> (map.containsKey(read))&#123;</span><br><span class="line">        map.get(read)++;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        map.put(read, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>之后， 我们使用长度为100的<strong>最小堆</strong>来找到最热的100条数据。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue =</span><br><span class="line">    <span class="keyword">new</span> PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(<span class="number">100</span>,</span><br><span class="line">           <span class="keyword">new</span> Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getValue() - o2.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">         </span><br><span class="line"><span class="keyword">int</span> k = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123;</span><br><span class="line">    <span class="keyword">if</span> (queue.size() &lt; k)&#123;</span><br><span class="line">        queue.add(entry);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (entry.getValue() &gt; queue.peek().getValue())&#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">        queue.add(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      总结
+    
+    </summary>
+    
+      <category term="Java" scheme="http://benym.cn/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="TopK" scheme="http://benym.cn/tags/TopK/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-希尔排序</title>
@@ -130,9 +178,9 @@
       <category term="Java" scheme="http://benym.cn/categories/Java/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="多线程" scheme="http://benym.cn/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
   </entry>
   
@@ -156,9 +204,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -284,9 +332,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -310,13 +358,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
     
@@ -368,13 +416,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -422,9 +470,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -450,13 +498,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
   </entry>
   
@@ -478,73 +526,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
     
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-136-只出现一次的数字</title>
-    <link href="http://benym.cn/2020/06/18/LeetCode-136-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/"/>
-    <id>http://benym.cn/2020/06/18/LeetCode-136-只出现一次的数字/</id>
-    <published>2020-06-18T13:22:13.000Z</published>
-    <updated>2020-06-18T13:54:27.157Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-136-只出现一次的数字"><a href="#LeetCode-136-只出现一次的数字" class="headerlink" title="LeetCode-136-只出现一次的数字"></a>LeetCode-136-只出现一次的数字</h2><p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p><p>说明：</p><p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,2,1]</span><br><span class="line">输出: 1</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [4,1,2,1,2]</span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、异或运算：</strong></p><p>异或运算的特点</p><ul><li>任何数和0做异或运算，结果是原来的数</li><li>任何数和其自身做异或运算，结果是自身</li><li>异或运算满足交换律和结合律，即<code>a^b^a=b^a^a=b^(a^a)=b^0=b</code></li></ul><p>根据这个特点可以直接用异或运算得出出现一次的字符</p><p><strong>方法2、哈希表：</strong></p><p>这个解法不符合题意，用到了一个哈希表来存储数字出现的次数</p><p>之后取出出现次数为1的数字即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> single = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            single ^= num;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> single;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">singleNumber</span><span class="params">(self, nums: List[int])</span> -&gt; int:</span></span><br><span class="line">        dict1 = dict()</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">            <span class="keyword">if</span> i <span class="keyword">in</span> dict1:</span><br><span class="line">                dict1[i]+=<span class="number">1</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dict1[i]=<span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> list(dict1.keys())[list(dict1.values()).index(<span class="number">1</span>)]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      只出现一次的数字
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-413-等差数列划分</title>
-    <link href="http://benym.cn/2020/06/18/LeetCode-413-%E7%AD%89%E5%B7%AE%E6%95%B0%E5%88%97%E5%88%92%E5%88%86/"/>
-    <id>http://benym.cn/2020/06/18/LeetCode-413-等差数列划分/</id>
-    <published>2020-06-18T12:13:57.000Z</published>
-    <updated>2020-06-18T13:14:05.047Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-413-等差数列划分"><a href="#LeetCode-413-等差数列划分" class="headerlink" title="LeetCode-413-等差数列划分"></a>LeetCode-413-等差数列划分</h2><p>如果一个数列至少有三个元素，并且任意两个相邻元素之差相同，则称该数列为等差数列。</p><p>例如，以下数列为等差数列:</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1, 3, 5, 7, 9</span><br><span class="line">7, 7, 7, 7</span><br><span class="line">3, -1, -5, -9</span><br></pre></td></tr></table></figure><p>以下数列不是等差数列</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1, 1, 2, 5, 7</span><br></pre></td></tr></table></figure> <a id="more"></a><p>数组 A 包含 N 个数，且索引从0开始。数组 A 的一个子数组划分为数组 (P, Q)，P 与 Q 是整数且满足 0&lt;=P&lt;Q&lt;N 。</p><p>如果满足以下条件，则称子数组(P, Q)为等差数组：</p><p>元素 A[P], A[p + 1], …, A[Q - 1], A[Q] 是等差的。并且 P + 1 &lt; Q 。</p><p>函数要返回数组 A 中所有为等差数组的子数组个数。</p><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">A = [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">返回: 3, A 中有三个子等差数组: [1, 2, 3], [2, 3, 4] 以及自身 [1, 2, 3, 4]。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p><strong>状态定义</strong>为：当前的等差数组数量</p><p>如果前一个状态是等差数组，则只需要判断后一个数字前两个的差值是否满足等差数组，如果满足则+1</p><p>如1，2，3是等差数组，指针后移到4时仍然满足等差数组的条件，此时不需要往前判断到1，只需要判断到前2位即可，2，3，4是等差数组，之前的1，2，3，4同样也是</p><p>所以<strong>状态转移方程</strong>为：dp[i]=dp[i-1]+1</p><p>之后返回dp数组的和就是等差数组的数量</p><p><strong>方法2、暴力破解：</strong></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfArithmeticSlices</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = A.length;</span><br><span class="line">        <span class="keyword">if</span>(A==<span class="keyword">null</span>||len==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A[i-<span class="number">1</span>]-A[i-<span class="number">2</span>]==A[i]-A[i-<span class="number">1</span>])&#123;</span><br><span class="line">                dp[i]=dp[i-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">                sum+=dp[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numberOfArithmeticSlices</span><span class="params">(<span class="keyword">int</span>[] A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = A.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len-<span class="number">2</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> distance = A[i+<span class="number">1</span>]-A[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">2</span>;j&lt;len;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(A[j]-A[j-<span class="number">1</span>]==distance)&#123;</span><br><span class="line">                    sum++;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sum;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      判断子序列
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
