@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-07-01T12:06:37.444Z</updated>
+  <updated>2020-07-02T11:22:08.156Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>常见排序算法总结</title>
+    <link href="http://benym.cn/2020/07/02/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/"/>
+    <id>http://benym.cn/2020/07/02/常见排序算法总结/</id>
+    <published>2020-07-02T08:17:37.000Z</published>
+    <updated>2020-07-02T11:22:08.156Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="常见排序算法总结"><a href="#常见排序算法总结" class="headerlink" title="常见排序算法总结"></a>常见排序算法总结</h2><p>总结了常用的排序算法，以及对应分析</p><p>相关链接：</p><ol><li><a href="/2020/06/28/LeetCode-冒泡排序/" title="LeetCode-冒泡排序">LeetCode-冒泡排序</a></li><li><a href="/2020/06/28/LeetCode-选择排序/" title="LeetCode-选择排序">LeetCode-选择排序</a></li><li><a href="/2020/06/28/LeetCode-插入排序/" title="LeetCode-插入排序">LeetCode-插入排序</a></li><li><a href="/2020/05/04/LeetCode-快速排序/" title="LeetCode-快速排序">LeetCode-快速排序</a></li><li><a href="/2020/05/09/LeetCode-归并排序/" title="LeetCode-归并排序">LeetCode-归并排序</a></li><li><a href="/2020/06/28/LeetCode-希尔排序/" title="LeetCode-希尔排序">LeetCode-希尔排序</a></li><li><a href="/2020/07/01/LeetCode-桶排序/" title="LeetCode-桶排序">LeetCode-桶排序</a></li><li><a href="/2020/07/01/LeetCode-基数排序/" title="LeetCode-基数排序">LeetCode-基数排序</a></li><li><a href="/2020/07/01/LeetCode-堆排序/" title="LeetCode-堆排序">LeetCode-堆排序</a><a id="more"></a></li></ol><p>总结各种排序算法的时间复杂度和空间复杂度，以及其对应的稳定性</p><div class="table-container"><table><thead><tr><th style="text-align:center">算法种类</th><th style="text-align:center">最好情况</th><th style="text-align:center">平均时间复杂度</th><th style="text-align:center">最坏情况</th><th style="text-align:center">空间复杂度</th><th style="text-align:center">是否稳定</th></tr></thead><tbody><tr><td style="text-align:center">冒泡排序</td><td style="text-align:center">O(n)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(1)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">选择排序</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(1)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">插入排序</td><td style="text-align:center">O(n)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(1)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">快速排序</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(logn)</td><td style="text-align:center">否</td></tr><tr><td style="text-align:center">归并排序</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(n)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">希尔排序</td><td style="text-align:center"></td><td style="text-align:center">O(n^1.3)-O(n^2)</td><td style="text-align:center"></td><td style="text-align:center">O(1)</td><td style="text-align:center">否</td></tr><tr><td style="text-align:center">桶排序</td><td style="text-align:center">O(n)</td><td style="text-align:center">O(n*(log(n/m)+1))</td><td style="text-align:center">O(n^2)</td><td style="text-align:center">O(n+m)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">基数排序</td><td style="text-align:center">O(d(n+r))</td><td style="text-align:center">O(d(n+r))</td><td style="text-align:center">O(d(n+r))</td><td style="text-align:center">O(r)</td><td style="text-align:center">是</td></tr><tr><td style="text-align:center">堆排序</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(nlogn)</td><td style="text-align:center">O(1)</td><td style="text-align:center">否</td></tr></tbody></table></div>]]></content>
+    
+    <summary type="html">
+    
+      排序算法总结
+    
+    </summary>
+    
+      <category term="算法" scheme="http://benym.cn/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="排序算法" scheme="http://benym.cn/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-堆排序</title>
@@ -250,9 +274,9 @@
       <category term="Java" scheme="http://benym.cn/categories/Java/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="多线程" scheme="http://benym.cn/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
   </entry>
   
@@ -464,9 +488,9 @@
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="Python" scheme="http://benym.cn/tags/Python/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -495,32 +519,6 @@
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-105-从前序与中序遍历构造二叉树</title>
-    <link href="http://benym.cn/2020/06/22/LeetCode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
-    <id>http://benym.cn/2020/06/22/LeetCode-105-从前序与中序遍历构造二叉树/</id>
-    <published>2020-06-22T03:01:44.000Z</published>
-    <updated>2020-06-22T06:59:34.367Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-105-从前序与中序遍历构造二叉树"><a href="#LeetCode-105-从前序与中序遍历构造二叉树" class="headerlink" title="LeetCode-105-从前序与中序遍历构造二叉树"></a>LeetCode-105-从前序与中序遍历构造二叉树</h2><p>根据一棵树的前序遍历与中序遍历构造二叉树。</p><p><strong>注意:</strong><br>你可以假设树中没有重复的元素。</p><a id="more"></a><p><strong>示例 1:</strong></p><p>例如，给出</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">前序遍历 preorder = [3,9,20,15,7]</span><br><span class="line">中序遍历 inorder = [9,3,15,20,7]</span><br></pre></td></tr></table></figure><p>返回如下的二叉树：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  3</span><br><span class="line"> / \</span><br><span class="line">9  20</span><br><span class="line">  /  \</span><br><span class="line"> 15   7</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、递归：</strong></p><p>前序遍历：根左右</p><p>中序遍历：左根右</p><p>对于任意一棵树而言，前序遍历的形式总是</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[根节点，[左子树的前序遍历结果],[右子树的前序遍历结果]]</span><br></pre></td></tr></table></figure><p>根节点总是，前序遍历中的第一个节点</p><p>中序遍历的形式总是</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[左子树的中序遍历结果],根节点,[右子树的中序遍历结果]]</span><br></pre></td></tr></table></figure><p>只要能够在中序遍历中<strong>定位</strong>到根节点，那么就可以得到对应的左右子树的节点数目</p><p>由于前序遍历和中序遍历的长度是相同的，所以我们也能知道前序遍历的左右字数的区间范围</p><p>之后进行递归，问题就变为了：</p><p>知道左子树的前序和中序遍历，重建左子树；知道右子树的前序和中序遍历，重建右子树；</p><p>定位优化：</p><p>在中序遍历中需要根据前序遍历的根节点，定位到中序遍历中的根节点</p><p>直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span>[] preorder, <span class="keyword">int</span>[] inorder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(preorder==<span class="keyword">null</span>||preorder.length==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;Integer,Integer&gt; map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;inorder.length;i++)&#123;</span><br><span class="line">            map.put(inorder[i],i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> length = preorder.length-<span class="number">1</span>;</span><br><span class="line">        TreeNode root = reconstrTree(preorder,<span class="number">0</span>,length,inorder,<span class="number">0</span>,length,map);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">reconstrTree</span><span class="params">(<span class="keyword">int</span>[] preorder,<span class="keyword">int</span> postart,<span class="keyword">int</span> poend,<span class="keyword">int</span>[] inorder,<span class="keyword">int</span> instart,<span class="keyword">int</span> inend,Map&lt;Integer,Integer&gt; map)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(postart&gt;poend)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rootNode = preorder[postart];</span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(rootNode);</span><br><span class="line">        <span class="keyword">if</span>(postart==poend)&#123;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">int</span> rootIndex = map.get(rootNode);</span><br><span class="line">            <span class="keyword">int</span> leftRange = rootIndex - instart;</span><br><span class="line">            <span class="keyword">int</span> rightRange = inend - rootIndex;</span><br><span class="line">            TreeNode leftTree = reconstrTree(preorder,postart+<span class="number">1</span>,postart+leftRange,inorder,instart,rootIndex-<span class="number">1</span>,map);</span><br><span class="line">            TreeNode rightTree = reconstrTree(preorder,poend-rightRange+<span class="number">1</span>,poend,inorder,rootIndex+<span class="number">1</span>,inend,map);</span><br><span class="line">            root.left = leftTree;</span><br><span class="line">            root.right = rightTree;</span><br><span class="line">            <span class="keyword">return</span> root;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      从前序与中序遍历构造二叉树
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
