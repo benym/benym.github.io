@@ -10,7 +10,7 @@
 
 'use strict';
 
-var precacheConfig = [["/about/index.html","d645a6f66f5d664575b4e812e960424d"],["/categories/index.html","4fef441861ca23324eaf84fdc3652af8"],["/index.html","6d5fe7b1a0d618226b706e034288eb47"],["/tags/index.html","b7ed135bf82c6afa277480f3e6c91a0d"],["/top/index.html","df43bd0a5e9fe274f3dc56b5603d7d05"]];
+var precacheConfig = [["/about/index.html","c9940f212cecb1832e35b1267b282301"],["/categories/index.html","a958ffae8245623a3169dfba7f70634b"],["/index.html","69f0aad983bae5b42e2a870922e22ee9"],["/tags/index.html","f17c55b2818625682f54f9b35dee82b9"],["/top/index.html","a8f62ded0987aba66a73c0a42f7a1f73"]];
 var cacheName = 'sw-precache-v3--' + (self.registration ? self.registration.scope : '');
 var firstRegister = 1; // 默认1是首次安装SW， 0是SW更新
 
