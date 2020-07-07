@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[ArrayList的扩容机制]]></title>
+    <url>%2F2020%2F07%2F07%2FArrayList%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[ArrayList的扩容机制ArrayList是List接口的实现类，能够根据需要动态增长数组，本文通过分析源码，总结ArrayList的扩容机制 ArrayList构造函数在ArrayList中有3种方法进行初始化，构造方法源码如下 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576 /** * Default initial capacity. 默认初始容量大小 */ private static final int DEFAULT_CAPACITY = 10; /** * Shared empty array instance used for empty instances. */ private static final Object[] EMPTY_ELEMENTDATA = &#123;&#125;; /** * Shared empty array instance used for default sized empty instances. We * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when * first element is added. */ private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;; /** * The array buffer into which the elements of the ArrayList are stored. * The capacity of the ArrayList is the length of this array buffer. Any * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA * will be expanded to DEFAULT_CAPACITY when the first element is added. */ transient Object[] elementData; // non-private to simplify nested class access /** * The size of the ArrayList (the number of elements it contains). * * @serial */ private int size;/** * 带初始容量参数的构造方法，容量由用户指定 */ public ArrayList(int initialCapacity) &#123; if (initialCapacity &gt; 0) &#123; // 初始容量大于0 // 创建initialCapacity大小的数组 this.elementData = new Object[initialCapacity]; &#125; else if (initialCapacity == 0) &#123; // 初始容量等于0 // 创建空数组 this.elementData = EMPTY_ELEMENTDATA; &#125; else &#123; // 初始容量小于0，抛出异常 throw new IllegalArgumentException("Illegal Capacity: "+ initialCapacity); &#125; &#125; /** * Constructs an empty list with an initial capacity of ten. * 默认构造函数，使用初始容量10构造一个空列表(无参数构造) */ public ArrayList() &#123; this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA; &#125; /** * Constructs a list containing the elements of the specified * collection, in the order they are returned by the collection's * iterator. * 构造包含指定collection元素的列表，这些元素利用该集合的迭代器按顺序返回 * 如果指定的集合为null，抛出空指针异常 * @param c the collection whose elements are to be placed into this list * @throws NullPointerException if the specified collection is null */ public ArrayList(Collection&lt;? extends E&gt; c) &#123; elementData = c.toArray(); if ((size = elementData.length) != 0) &#123; // c.toArray might (incorrectly) not return Object[] (see 6260652) if (elementData.getClass() != Object[].class) elementData = Arrays.copyOf(elementData, size, Object[].class); &#125; else &#123; // replace with empty array. this.elementData = EMPTY_ELEMENTDATA; &#125; &#125; 在无参构造方法中，创建ArrayList实际上是初始化一个空数组。 EMPTY_ELEMENTDATA常量数组为空实例共享一个空数组 DEFAULTCAPACITY_EMPTY_ELEMENTDATA常量数组，与EMPTY_ELEMENTDATA不同，用于默认大小的空实例的共享空数组实例。将其与EMPTY_ELEMENTDATA区分开来，以便知道添加第一个元素时需要扩容多少。当真正对数组进行添加元素操作的时候，才真正分配容量。即向数组中添加第一个元素时，数组容量扩为10 1.Add方法12345678910111213/** * Appends the specified element to the end of this list. * 将指定的元素追加到此列表的末尾 * @param e element to be appended to this list * @return &lt;tt&gt;true&lt;/tt&gt; (as specified by &#123;@link Collection#add&#125;) */public boolean add(E e) &#123;// 添加元素之前，先调用ensureCapacityInternal方法 ensureCapacityInternal(size + 1); // Increments modCount!! // 在ArrayList添加元素的实质，相当于为数组赋值 elementData[size++] = e; return true;&#125; 2.ensureCapacityInternal()方法在add方法中，调用了ensureCapacityInternal(size + 1)，ensureCapacityInternal源码如下 123private void ensureCapacityInternal(int minCapacity) &#123; ensureExplicitCapacity(calculateCapacity(elementData, minCapacity));&#125; 在源码中，又调用了calculateCapacity和ensureExplicitCapacity方法 3.calculateCapacity()方法calculateCapacity传入一个数组和最小扩容量，计算扩容量的值 1234567private static int calculateCapacity(Object[] elementData, int minCapacity) &#123; if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) &#123; // 获取默认的容量和传入参数的较大值 return Math.max(DEFAULT_CAPACITY, minCapacity); &#125; return minCapacity;&#125; 当要add第一个元素时，数组的size为0，传入的参数为size+1，所以minCapacity为1，在Math.max方法比较后，minCapacity变为10，之后将minCapacity返回，执行ensureExplicitCapacity()方法 4.ensureExplicitCapacity()方法当第1次add的时候，从上一个返回接回10，作为minCapacity的初始值，由于minCapacity-elementData.length &gt; 0所以会进入到grow(minCapacity)方法 此后，当添加2，3，……，10个元素时，由于数组容量足够大，都不会进行grow方法扩容 而当添加第11个元素时，minCapacity - elementData.length &gt; 0成立，再次进行扩容 123456789// 判断是否需要扩容private void ensureExplicitCapacity(int minCapacity) &#123; modCount++; // overflow-conscious code if (minCapacity - elementData.length &gt; 0) // 调用grow方法进行扩容，调用此方法代表已经开始扩容了 grow(minCapacity);&#125; 5.grow()方法123456789101112131415161718192021222324252627// 要分配的最大数组大小private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;/** * Increases the capacity to ensure that it can hold at least the * number of elements specified by the minimum capacity argument. * 增加容量，以确保它至少可以容纳最小容量参数指定的元素数量。 * ArrayList扩容的核心方法 * @param minCapacity the desired minimum capacity */private void grow(int minCapacity) &#123; // overflow-conscious code // oldCapacity为旧容量，newCapacity为新容量 int oldCapacity = elementData.length; // 将oldCapacity右移一位，其效果相当于oldCapacity/2 // 位运算的速度远远快于整除运算，整句运算式的结果就是将新容量更新为旧容量的1.5倍 int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1); // 然后检查新容量是否大于最小需要容量，若还是小于最小需要容量，那么就把最小需要容量当作数组的新容量 if (newCapacity - minCapacity &lt; 0) newCapacity = minCapacity; // 如果新容量大于 MAX_ARRAY_SIZE,进入(执行) `hugeCapacity()` 方法来比较 minCapacity 和 MAX_ARRAY_SIZE // 如果minCapacity大于最大容量，则新容量则为`Integer.MAX_VALUE`，否则，新容量大小则为 MAX_ARRAY_SIZE 即为 `Integer.MAX_VALUE - 8` if (newCapacity - MAX_ARRAY_SIZE &gt; 0) newCapacity = hugeCapacity(minCapacity); // minCapacity is usually close to size, so this is a win: elementData = Arrays.copyOf(elementData, newCapacity);&#125; int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1)，所以ArrayList每次扩容之后容量都会变为原来的1.5倍左右(oldCapacity为偶数就是1.5倍，否则是1.5倍左右)，奇偶不同，比如：10+10/2 = 15，33+33/2 = 49。如果是奇数的话会丢掉小数。 我们再来通过例子探究一下grow() 方法 ： 当add第1个元素时，oldCapacity 为0，经比较后第一个if判断成立，newCapacity = minCapacity(为10)。但是第二个if判断不会成立，即newCapacity 不比 MAX_ARRAY_SIZE大，则不会进入 hugeCapacity 方法。数组容量为10，add方法中 return true,size增为1。 当add第11个元素进入grow方法时，newCapacity为15，比minCapacity（为11）大，第一个if判断不成立。新容量没有大于数组最大size，不会进入hugeCapacity方法。数组容量扩为15，add方法中return true,size增为11。 以此类推······ 6.hugeCapacity()方法从上面grow()方法源码中能够知道，如果新容量大于最大容量MAX_ARRAY_SIZE，进入(执行)hugeCapacity()方法来比较minCapacity和MAX_ARRAY_SIZE，如果minCapacity大于最大容量，则新容量则为Integer.MAX_VALUE，否则，新容量大小则为 MAX_ARRAY_SIZE 即为 Integer.MAX_VALUE - 8。 1234567private static int hugeCapacity(int minCapacity) &#123; if (minCapacity &lt; 0) // overflow throw new OutOfMemoryError(); return (minCapacity &gt; MAX_ARRAY_SIZE) ? Integer.MAX_VALUE : MAX_ARRAY_SIZE;&#125; 通过以上6个方法，即可实现ArrayList的完整扩容流程 其他方法(ensureCapacity方法)ArrayList源码中，还有一个ensureCapacity方法，这个方法在ArrayList内部没有被调用过，所以显然是提供给用户调用的，那么这个方法有什么作用呢？ 12345678910111213141516171819/** * Increases the capacity of this &lt;tt&gt;ArrayList&lt;/tt&gt; instance, if * necessary, to ensure that it can hold at least the number of elements * specified by the minimum capacity argument. * 如有必要，增加此ArrayList实例的容量，以确保它至少可以容纳由minimum capacity参数指定的元素数 * @param minCapacity the desired minimum capacity 所需的最小容量 */public void ensureCapacity(int minCapacity) &#123; int minExpand = (elementData != DEFAULTCAPACITY_EMPTY_ELEMENTDATA) // any size if not default element table ? 0 // larger than default for default empty table. It's already // supposed to be at default size. : DEFAULT_CAPACITY; if (minCapacity &gt; minExpand) &#123; ensureExplicitCapacity(minCapacity); &#125;&#125; 最好在add大量元素之前用ensureCapacity方法，以减少增量重新分配的次数 代码示例 12345678910111213public class EnsureCapacityTest &#123; public static void main(String[] args) &#123; ArrayList&lt;Object&gt; list = new ArrayList&lt;Object&gt;(); final int N = 10000000; long startTime = System.currentTimeMillis(); for (int i = 0; i &lt; N; i++) &#123; list.add(i); &#125; long endTime = System.currentTimeMillis(); System.out.println("使用ensureCapacity方法前："+(endTime - startTime)); &#125;&#125; 运行结果： 1使用ensureCapacity方法前：2158 使用ensureCapacity后 1234567891011121314public class EnsureCapacityTest &#123; public static void main(String[] args) &#123; ArrayList&lt;Object&gt; list = new ArrayList&lt;Object&gt;(); final int N = 10000000; list = new ArrayList&lt;Object&gt;(); long startTime1 = System.currentTimeMillis(); list.ensureCapacity(N); for (int i = 0; i &lt; N; i++) &#123; list.add(i); &#125; long endTime1 = System.currentTimeMillis(); System.out.println("使用ensureCapacity方法后："+(endTime1 - startTime1)); &#125;&#125; 运行结果： 1使用ensureCapacity方法后：1773 通过运行结果，我们可以看出向 ArrayList 添加大量元素之前最好先使用ensureCapacity 方法，以减少增量重新分配的次数。 参考资料：]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-55-跳跃游戏]]></title>
     <url>%2F2020%2F07%2F06%2FLeetCode-55-%E8%B7%B3%E8%B7%83%E6%B8%B8%E6%88%8F%2F</url>
     <content type="text"><![CDATA[LeetCode-55-跳跃游戏给定一个非负整数数组，你最初位于数组的第一个位置。 数组中的每个元素代表你在该位置可以跳跃的最大长度。 判断你是否能够到达最后一个位置。 示例1： 123输入: [2,3,1,1,4]输出: true解释: 我们可以先跳 1 步，从位置 0 到达 位置 1, 然后再从位置 1 跳 3 步到达最后一个位置。 示例2： 123输入: [3,2,1,0,4]输出: false解释: 无论怎样，你总会到达索引为 3 的位置。但该位置的最大跳跃长度是 0 ， 所以你永远不可能到达最后一个位置。 解题思路方法1、贪心： 对于数组中任意的一个位置y，如何判断是否可达 根据题意，只要存在一个位置x，它本身可达，并且它跳跃的最大长度为x+nums[x]，这个值&gt;=y，即x+nums[x]&gt;=y，那么位置y也可达 换句话说，对于每个可达的位置x，它使得x+1，x+2，……，x+nums[x]这些连续的位置都可以到达 于是我们可以动态记录最远可以到达的位置，对于每一个起跳点，更新对应的最远可以到达的位置 即把每个能起跳的点都试一次，使用max表示最远能够到达的点，超过max就不能跳了，直接进行返回 Java代码12345678910111213class Solution &#123; public boolean canJump(int[] nums) &#123; boolean falg = true; if(nums.length&lt;2) return falg; int max = 0; for(int i=0;i&lt;nums.length;i++)&#123; if(i&gt;max) falg = false; max = Math.max(max,i+nums[i]); &#125; return falg; &#125;&#125;]]></content>
@@ -22,9 +33,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
       </tags>
   </entry>
   <entry>
@@ -35,9 +46,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
+        <tag>DFS</tag>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -182,8 +193,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>多线程</tag>
         <tag>Java</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -194,8 +205,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
@@ -315,8 +326,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -329,8 +340,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -371,8 +382,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>Python</tag>
       </tags>
@@ -388,8 +399,8 @@
         <tag>Java</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -402,8 +413,8 @@
       <tags>
         <tag>Java</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -444,8 +455,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
       </tags>
   </entry>
@@ -457,9 +468,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -471,10 +482,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -485,9 +496,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -572,8 +583,8 @@
         <tag>Java</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -658,11 +669,11 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -674,8 +685,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
@@ -689,8 +700,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
@@ -704,8 +715,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
@@ -736,8 +747,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -793,8 +804,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -835,8 +846,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -849,8 +860,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -863,8 +874,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -878,8 +889,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -950,8 +961,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -965,8 +976,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1008,10 +1019,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1024,10 +1035,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1041,8 +1052,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>BFS</tag>
         <tag>Hard</tag>
       </tags>
@@ -1055,8 +1066,8 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
       </tags>
@@ -1069,9 +1080,9 @@
         <category>树</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
       </tags>
   </entry>
@@ -1083,10 +1094,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1100,8 +1111,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1114,8 +1125,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1186,8 +1197,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>DP</tag>
+        <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1200,9 +1211,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>DP</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
         <tag>双指针</tag>
@@ -1218,9 +1229,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>DP</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1234,9 +1245,9 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>DP</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1297,10 +1308,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1355,8 +1366,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1369,8 +1380,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>字符串</tag>
@@ -1387,8 +1398,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Python</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
@@ -1402,9 +1413,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1432,9 +1443,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -1449,8 +1460,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1464,8 +1475,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>剑指Offer</tag>
@@ -1479,9 +1490,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1495,8 +1506,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -1555,9 +1566,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1570,9 +1581,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
+        <tag>树</tag>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>树</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1585,8 +1596,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1646,8 +1657,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1676,8 +1687,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>Hard</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
@@ -1794,9 +1805,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>DP</tag>
         <tag>贪心算法</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1810,9 +1821,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>DP</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
-        <tag>DP</tag>
         <tag>贪心算法</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1825,8 +1836,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>DFS</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
@@ -1858,8 +1869,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1931,8 +1942,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>树</tag>
+        <tag>Java</tag>
         <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1977,8 +1988,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1992,8 +2003,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2007,8 +2018,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2050,8 +2061,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -2064,8 +2075,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -2078,8 +2089,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>数组</tag>
         <tag>Easy</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -2179,8 +2190,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>算法</tag>
       </tags>
   </entry>
@@ -2193,8 +2204,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>算法</tag>
       </tags>
   </entry>
@@ -2207,8 +2218,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>DP</tag>
+        <tag>Python</tag>
         <tag>算法</tag>
       </tags>
   </entry>
@@ -2283,8 +2294,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2296,8 +2307,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
         <tag>matplotlib</tag>
       </tags>
   </entry>
@@ -2310,8 +2321,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -2658,9 +2669,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2669,9 +2680,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2702,9 +2713,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -2713,9 +2724,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
