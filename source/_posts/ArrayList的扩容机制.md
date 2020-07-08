@@ -307,9 +307,7 @@ public class EnsureCapacityTest {
 
 **参考资料：**
 
-[1]: https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/ArrayList-Grow.md	"JavaGuide"
-
-
+JavaGuide：https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/ArrayList-Grow.md 
 
 
 
