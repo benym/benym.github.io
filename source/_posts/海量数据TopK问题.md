@@ -39,7 +39,7 @@ HashMap<String, Integer> map = new HashMap<String, Integer>();
 while (fileStream.hasNext()){
     url = read();
    if (map.containsKey(read)){
-        map.get(read)++;
+        map.put(read,map.get(read)+1);
     }else{
         map.put(read, 1);
     }
@@ -64,7 +64,7 @@ for (Map.Entry<String, Integer> entry : map.entrySet()){
     } else {
         if (entry.getValue() > queue.peek().getValue()){
             queue.poll();
-        queue.add(entry);
+        	queue.add(entry);
         }
     }
 }
