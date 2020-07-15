@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="总结">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-06-29T11:28:11.883Z">
+<meta property="og:updated_time" content="2020-07-15T01:56:15.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="海量数据TopK问题">
 <meta name="twitter:description" content="总结">
@@ -446,8 +446,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-06-29T19:28:11+08:00">
-                2020-06-29
+              <time title="更新于" itemprop="dateModified" datetime="2020-07-15T09:56:15+08:00">
+                2020-07-15
               </time>
             
           </span>
@@ -517,7 +517,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,043
+                  1,047
                 </span>
               
 
@@ -572,9 +572,9 @@
 </ol>
 <p><strong>代码示例：</strong></p>
 <p>我们首先可以用HashMap去存储问题和阅读量的映射</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line">String read;</span><br><span class="line">HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line"><span class="keyword">while</span> (fileStream.hasNext())&#123;</span><br><span class="line">    url = read();</span><br><span class="line">   <span class="keyword">if</span> (map.containsKey(read))&#123;</span><br><span class="line">        map.get(read)++;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        map.put(read, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//伪代码</span></span><br><span class="line">String read;</span><br><span class="line">HashMap&lt;String, Integer&gt; map = <span class="keyword">new</span> HashMap&lt;String, Integer&gt;();</span><br><span class="line"><span class="keyword">while</span> (fileStream.hasNext())&#123;</span><br><span class="line">    url = read();</span><br><span class="line">   <span class="keyword">if</span> (map.containsKey(read))&#123;</span><br><span class="line">        map.put(read,map.get(read)+<span class="number">1</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        map.put(read, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>之后， 我们使用长度为100的<strong>最小堆</strong>来找到最热的100条数据。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue =</span><br><span class="line">    <span class="keyword">new</span> PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(<span class="number">100</span>,</span><br><span class="line">           <span class="keyword">new</span> Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getValue() - o2.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">         </span><br><span class="line"><span class="keyword">int</span> k = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123;</span><br><span class="line">    <span class="keyword">if</span> (queue.size() &lt; k)&#123;</span><br><span class="line">        queue.add(entry);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (entry.getValue() &gt; queue.peek().getValue())&#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">        queue.add(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue =</span><br><span class="line">    <span class="keyword">new</span> PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(<span class="number">100</span>,</span><br><span class="line">           <span class="keyword">new</span> Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123;</span><br><span class="line">            <span class="meta">@Override</span> <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> o1.getValue() - o2.getValue();</span><br><span class="line">                &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">         </span><br><span class="line"><span class="keyword">int</span> k = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123;</span><br><span class="line">    <span class="keyword">if</span> (queue.size() &lt; k)&#123;</span><br><span class="line">        queue.add(entry);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (entry.getValue() &gt; queue.peek().getValue())&#123;</span><br><span class="line">            queue.poll();</span><br><span class="line">        	queue.add(entry);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -747,7 +747,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">236</span>
+                  <span class="site-state-item-count">239</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

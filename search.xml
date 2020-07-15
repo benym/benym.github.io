@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-102-二叉树的层序遍历]]></title>
+    <url>%2F2020%2F07%2F15%2FLeetCode-102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86%2F</url>
+    <content type="text"><![CDATA[LeetCode-102-二叉树的层序遍历给你一个二叉树，请你返回其按 层序遍历 得到的节点值。 （即逐层地，从左到右访问所有节点）。 示例：二叉树：[3,9,20,null,null,15,7], 12345 3 / \9 20 / \ 15 7 返回其层次遍历结果： 12345[ [3], [9,20], [15,7]] 解题思路方法1、Queue迭代： 利用一个Queue存储每层的节点，当一层没有遍历完时，持续poll出队列中的节点，并同时加入对应左右节点进入queue中，当一层遍历完成之后加入到结果集res中。 Java代码12345678910111213141516171819202122232425262728293031/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; levelOrder(TreeNode root) &#123; List&lt;List&lt;Integer&gt;&gt; res = new LinkedList&lt;&gt;(); if(root==null) return res; Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;(); queue.add(root); while(!queue.isEmpty())&#123; List&lt;Integer&gt; row = new LinkedList&lt;&gt;(); int size = queue.size(); for(int i=0;i&lt;size;i++)&#123; TreeNode temp = queue.poll(); row.add(temp.val); if(temp.left!=null) queue.add(temp.left); if(temp.right!=null) queue.add(temp.right); &#125; res.add(new LinkedList&lt;&gt;(row)); &#125; return res; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>树</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-169-多数元素]]></title>
+    <url>%2F2020%2F07%2F15%2FLeetCode-169-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[LeetCode-169-多数元素给定一个大小为 n 的数组，找到其中的多数元素。多数元素是指在数组中出现次数大于 ⌊ n/2 ⌋ 的元素。 你可以假设数组是非空的，并且给定的数组总是存在多数元素。 示例1： 12输入: [3,2,3]输出: 3 示例2： 12输入: [2,2,1,1,1,2,2]输出: 2 解题思路方法1、哈希表： 利用一个哈希表计算频率，当元素的频率大于nums.length/2的时候就是要找的元素 方法2、排序： 由于多数元素在数组中出现的次数大于n/2，于是可以将数组排序，对应nums.length/2的位置就是这个多数元素 方法3、摩尔计数法： 原文链接：https://leetcode-cn.com/problems/majority-element/solution/3chong-fang-fa-by-gfu-2/ 候选人(cand_num)初始化为nums[0]，票数count初始化为1。当遇到与cand_num相同的数，则票数count = count + 1，否则票数count = count - 1。当票数count为0时，更换候选人，并将票数count重置为1。遍历完数组后，cand_num即为最终答案。 为何这行得通呢？投票法是遇到相同的则票数 + 1，遇到不同的则票数 - 1。且“多数元素”的个数&gt; ⌊ n/2 ⌋，其余元素的个数总和&lt;= ⌊ n/2 ⌋。因此“多数元素”的个数 - 其余元素的个数总和 的结果 肯定 &gt;= 1。这就相当于每个“多数元素”和其他元素 两两相互抵消，抵消到最后肯定还剩余至少1个“多数元素”。 无论数组是1 2 1 2 1，亦或是1 2 2 1 1，总能得到正确的候选人。 Java代码112345678910111213141516class Solution &#123; public int majorityElement(int[] nums) &#123; int len = nums.length; int res = Integer.MIN_VALUE; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); for(int num:nums)&#123; map.put(num,map.getOrDefault(num,0)+1); &#125; for(Map.Entry&lt;Integer,Integer&gt; entry: map.entrySet())&#123; if(entry.getValue()&gt;len/2)&#123; res = entry.getKey(); &#125; &#125; return res; &#125;&#125; Java代码2123456class Solution &#123; public int majorityElement(int[] nums) &#123; Arrays.sort(nums); return nums[nums.length/2]; &#125;&#125; Java代码31234567891011121314class Solution &#123; public int majorityElement(int[] nums) &#123; int cand_num = nums[0], count = 1; for (int i = 1; i &lt; nums.length; ++i) &#123; if (cand_num == nums[i]) ++count; else if (--count == 0) &#123; cand_num = nums[i]; count = 1; &#125; &#125; return cand_num; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>数组</tag>
+        <tag>Easy</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-347-前K个高频元素]]></title>
+    <url>%2F2020%2F07%2F15%2FLeetCode-347-%E5%89%8DK%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0%2F</url>
+    <content type="text"><![CDATA[LeetCode-347-前K个高频元素给定一个非空的整数数组，返回其中出现频率前 k 高的元素。 示例1： 12输入: nums = [1,1,1,2,2,3], k = 2输出: [1,2] 示例2： 12输入: nums = [1], k = 1输出: [1] 提示： 你可以假设给定的 k 总是合理的，且 1 ≤ k ≤ 数组中不相同的元素的个数。 你的算法的时间复杂度必须优于 O(n log n) , n 是数组的大小。 题目数据保证答案唯一，换句话说，数组中前 k 个高频元素的集合是唯一的。 你可以按任意顺序返回答案。 解题思路方法1、最小堆： 首先利用Map来计算数组中数字出现的频率 之后利用一个优先队列，在存储的过程中按照频率进行排序，且只存储频率最高的前K个数 由于题目要求的顺序可以不同，所以最后一次弹出queue中的数字到list中就好了 计算频率这个步骤需要 O(N)时间其中 N是列表中元素个数。 第二步建立堆，堆中添加一个元素的复杂度是 O(log(k))，要进行 N 次复杂度是 O(N)。 最后一步是输出结果，复杂度为 O(klog(k))。第二步和最后一步复杂度综合O(Nlog(k))。 因此总复杂度为O(N+Nlog(k)) = O(Nlog(k)) Java代码123456789101112131415161718192021222324class Solution &#123; public int[] topKFrequent(int[] nums, int k) &#123; Map&lt;Integer, Integer&gt; map = new HashMap&lt;&gt;(); List&lt;Integer&gt; list = new ArrayList&lt;&gt;(); for (int num : nums) &#123; map.put(num, map.getOrDefault(num, 0) + 1); &#125; PriorityQueue&lt;Map.Entry&lt;Integer, Integer&gt;&gt; queue = new PriorityQueue&lt;&gt;((v1, v2) -&gt; v1.getValue() - v2.getValue()); for (Map.Entry&lt;Integer, Integer&gt; entry : map.entrySet()) &#123; if (queue.size() &lt; k) &#123; queue.add(entry); &#125; else &#123; if (entry.getValue() &gt; queue.peek().getValue()) &#123; queue.poll(); queue.add(entry); &#125; &#125; &#125; while (!queue.isEmpty()) &#123; list.add(queue.poll().getKey()); &#125; return list.stream().mapToInt(Integer::intValue).toArray(); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>数组</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-114-二叉树展开为链表]]></title>
     <url>%2F2020%2F07%2F14%2FLeetCode-114-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%B1%95%E5%BC%80%E4%B8%BA%E9%93%BE%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[LeetCode-114-二叉树展开为链表给定一个二叉树，原地将它展开为一个单链表。 例如，给定二叉树 12345 1 / \ 2 5 / \ \3 4 6 将其展开为： 12345678910111 \ 2 \ 3 \ 4 \ 5 \ 6 解题思路方法1、递归： 先将根节点的左子树变成链表，之后将根节点的右子树变成链表 最后将变成链表的右子树放在变成链表的左子树的最右边 方法2、迭代： 从右至左的先序遍历，用一个栈来存储节点，先存储右节点后存储左节点，同时需要一个pre指针指向上一个节点，用于拼接前一个节点和当前节点 当栈中弹出节点时，当前节点始终是拼接在前一个节点的右侧，于是pre.left=null、pre.right=temp,当当前节点temp右子节点不为空时，右子节点入栈，当左子节点不为空时，左子节点入栈。完成当前节点的左右子节点遍历，前一个节点变为链表中当前节点即pre=pre.right Java代码11234567891011121314151617181920class Solution &#123; public void flatten(TreeNode root) &#123; if(root == null)&#123; return ; &#125; //将根节点的左子树变成链表 flatten(root.left); //将根节点的右子树变成链表 flatten(root.right); TreeNode temp = root.right; //把树的右边换成左边的链表 root.right = root.left; //记得要将左边置空 root.left = null; //找到树的最右边的节点 while(root.right != null) root = root.right; //把右边的链表接到刚才树的最右边的节点 root.right = temp; &#125;&#125; Java代码21234567891011121314151617181920212223242526272829303132333435/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode() &#123;&#125; * TreeNode(int val) &#123; this.val = val; &#125; * TreeNode(int val, TreeNode left, TreeNode right) &#123; * this.val = val; * this.left = left; * this.right = right; * &#125; * &#125; */class Solution &#123; public void flatten(TreeNode root) &#123; if(root==null) return; Stack&lt;TreeNode&gt; stack = new Stack&lt;&gt;(); stack.add(root); TreeNode pre = new TreeNode(-1); while(!stack.isEmpty())&#123; TreeNode temp = stack.pop(); pre.left = null; pre.right = temp; if(temp.right!=null)&#123; stack.add(temp.right); &#125; if(temp.left!=null)&#123; stack.add(temp.left); &#125; pre = pre.right; &#125; &#125;&#125;]]></content>
@@ -9,8 +48,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -154,8 +193,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
         <tag>BFS</tag>
       </tags>
@@ -302,7 +341,7 @@
   <entry>
     <title><![CDATA[海量数据TopK问题]]></title>
     <url>%2F2020%2F06%2F29%2F%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AETopK%E9%97%AE%E9%A2%98%2F</url>
-    <content type="text"><![CDATA[海量数据TopK问题在大规模数据处理中，经常会遇到这类问题：在海量数据中找到出现频率/数值最大的前K个数 本文主要提供这类问题的基本解决方法 假设这样一个场景，一个问题阅读量越高，说明这个问题越有价值，越应该推送给用户 假设数据量有1亿，取Top100 最容易想到的方法是将全部数据进行排序，但如果数据量太大 ，这显然是不能接受的。 第二种方法为局部淘汰法，该方法与排序方法类似，用一个容器保存前K个数，然后将剩余的所有数字——与容器内的最小数字相比，如果所有后续的元素都比容器内的K个数还小，那么容器内这个K个数就是最大K个数。如果某一后续元素比容器内最小数字大，则删掉容器内最小元素，并将该元素插入容器，最后遍历完这1亿个数，得到的结果容器中保存的数即为最终结果了。此时的时间复杂度为O（n+m^2），其中m为容器的大小，即K。 第三种方法是分治法，将1亿个数据分成100份，每份100万个数据，找到每份数据中最大的100个(即每份数据的TopK)，最后在剩下的100*100个数据里面找出最大的100个。如果100万数据选择足够理想，那么可以过滤掉1亿数据里面99%的数据。100万个数据里面查找最大的100个数据的方法如下：用快速排序的方法，将数据分为2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大堆个数N小于100个，就在小的那堆里面快速排序一次，找第100-n大的数字；递归以上过程，就可以找到第100大的数。参考上面的找出第100大数字，就可以类似的方法找到前100大数字了。 第四种方法是Hash法。如果这1亿个数里面有很多重复的数，先通过Hash法，把这1亿个数字去重复，这样如果重复率很高的话，会减少很大的内存用量，从而缩小运算空间，然后通过分治法或最小堆法查找最大的100个数。 第五种方法采用最小堆。首先读入前100个数来创建大小为100的最小堆，然后遍历后续的数字，并于堆顶（最小）数字进行比较。如果比最小的数小，则继续读取后续数字；如果比堆顶数字大，则替换堆顶元素并重新调整堆为最小堆。整个过程直至1亿个数全部遍历完为止。然后按照中序遍历的方式输出当前堆中的所有100个数字。建堆时间复杂度是O(m)，堆调整的时间复杂度是O(logm)，最终的时间复杂度=1次建堆的时间+n次堆调整的时间，所以该算法的时间复杂度为O(nlogm)，空间复杂度是100（常数）。 代码示例： 我们首先可以用HashMap去存储问题和阅读量的映射 1234567891011//伪代码String read;HashMap&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();while (fileStream.hasNext())&#123; url = read(); if (map.containsKey(read))&#123; map.get(read)++; &#125;else&#123; map.put(read, 1); &#125;&#125; 之后， 我们使用长度为100的最小堆来找到最热的100条数据。 12345678910111213141516171819PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue = new PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(100, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123; @Override public int compare(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2) &#123; return o1.getValue() - o2.getValue(); &#125; &#125;); int k = 100;for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123; if (queue.size() &lt; k)&#123; queue.add(entry); &#125; else &#123; if (entry.getValue() &gt; queue.peek().getValue())&#123; queue.poll(); queue.add(entry); &#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[海量数据TopK问题在大规模数据处理中，经常会遇到这类问题：在海量数据中找到出现频率/数值最大的前K个数 本文主要提供这类问题的基本解决方法 假设这样一个场景，一个问题阅读量越高，说明这个问题越有价值，越应该推送给用户 假设数据量有1亿，取Top100 最容易想到的方法是将全部数据进行排序，但如果数据量太大 ，这显然是不能接受的。 第二种方法为局部淘汰法，该方法与排序方法类似，用一个容器保存前K个数，然后将剩余的所有数字——与容器内的最小数字相比，如果所有后续的元素都比容器内的K个数还小，那么容器内这个K个数就是最大K个数。如果某一后续元素比容器内最小数字大，则删掉容器内最小元素，并将该元素插入容器，最后遍历完这1亿个数，得到的结果容器中保存的数即为最终结果了。此时的时间复杂度为O（n+m^2），其中m为容器的大小，即K。 第三种方法是分治法，将1亿个数据分成100份，每份100万个数据，找到每份数据中最大的100个(即每份数据的TopK)，最后在剩下的100*100个数据里面找出最大的100个。如果100万数据选择足够理想，那么可以过滤掉1亿数据里面99%的数据。100万个数据里面查找最大的100个数据的方法如下：用快速排序的方法，将数据分为2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大的那堆个数N大于100个，继续对大堆快速排序一次分成2堆，如果大堆个数N小于100个，就在小的那堆里面快速排序一次，找第100-n大的数字；递归以上过程，就可以找到第100大的数。参考上面的找出第100大数字，就可以类似的方法找到前100大数字了。 第四种方法是Hash法。如果这1亿个数里面有很多重复的数，先通过Hash法，把这1亿个数字去重复，这样如果重复率很高的话，会减少很大的内存用量，从而缩小运算空间，然后通过分治法或最小堆法查找最大的100个数。 第五种方法采用最小堆。首先读入前100个数来创建大小为100的最小堆，然后遍历后续的数字，并于堆顶（最小）数字进行比较。如果比最小的数小，则继续读取后续数字；如果比堆顶数字大，则替换堆顶元素并重新调整堆为最小堆。整个过程直至1亿个数全部遍历完为止。然后按照中序遍历的方式输出当前堆中的所有100个数字。建堆时间复杂度是O(m)，堆调整的时间复杂度是O(logm)，最终的时间复杂度=1次建堆的时间+n次堆调整的时间，所以该算法的时间复杂度为O(nlogm)，空间复杂度是100（常数）。 代码示例： 我们首先可以用HashMap去存储问题和阅读量的映射 1234567891011//伪代码String read;HashMap&lt;String, Integer&gt; map = new HashMap&lt;String, Integer&gt;();while (fileStream.hasNext())&#123; url = read(); if (map.containsKey(read))&#123; map.put(read,map.get(read)+1); &#125;else&#123; map.put(read, 1); &#125;&#125; 之后， 我们使用长度为100的最小堆来找到最热的100条数据。 12345678910111213141516171819PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt; queue = new PriorityQueue&lt;Map.Entry&lt;String, Integer&gt;&gt;(100, new Comparator&lt;Map.Entry&lt;String, Integer&gt;&gt;()&#123; @Override public int compare(Entry&lt;String, Integer&gt; o1, Entry&lt;String, Integer&gt; o2) &#123; return o1.getValue() - o2.getValue(); &#125; &#125;); int k = 100;for (Map.Entry&lt;String, Integer&gt; entry : map.entrySet())&#123; if (queue.size() &lt; k)&#123; queue.add(entry); &#125; else &#123; if (entry.getValue() &gt; queue.peek().getValue())&#123; queue.poll(); queue.add(entry); &#125; &#125;&#125;]]></content>
       <categories>
         <category>Java</category>
       </categories>
@@ -501,8 +540,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -671,8 +710,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -830,8 +869,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -1241,8 +1280,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -1255,8 +1294,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -1314,8 +1353,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1588,8 +1627,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1604,8 +1643,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1618,8 +1657,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>DFS</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -1635,8 +1674,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1650,8 +1689,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>BFS</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1681,8 +1720,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>BFS</tag>
         <tag>剑指Offer</tag>
@@ -1771,8 +1810,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1787,8 +1826,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1802,8 +1841,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1817,8 +1856,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1878,8 +1917,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -1892,8 +1931,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2117,8 +2156,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>树</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2133,8 +2172,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2468,8 +2507,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Numpy</tag>
-        <tag>k-近邻算法</tag>
         <tag>机器学习</tag>
+        <tag>k-近邻算法</tag>
       </tags>
   </entry>
   <entry>
@@ -2481,8 +2520,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>k-近邻算法</tag>
         <tag>机器学习</tag>
+        <tag>k-近邻算法</tag>
         <tag>matplotlib</tag>
       </tags>
   </entry>
@@ -2495,8 +2534,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>k-近邻算法</tag>
         <tag>机器学习</tag>
+        <tag>k-近邻算法</tag>
       </tags>
   </entry>
   <entry>
