@@ -1,3 +1,4 @@
+http://benym.cn/2020/07/26/LeetCode-890-查找和替换模式/
 http://benym.cn/2020/07/25/LeetCode-34-在排序数组中查找元素的第一个和最后一个位置/
 http://benym.cn/2020/07/20/LeetCode-494-目标和/
 http://benym.cn/2020/07/20/LeetCode-461-汉明距离/
@@ -7,4 +8,3 @@ http://benym.cn/2020/07/17/LeetCode-206-反转链表/
 http://benym.cn/2020/07/17/LeetCode-32-最长有效括号/
 http://benym.cn/2020/07/16/LeetCode-64-最小路径和/
 http://benym.cn/2020/07/16/LeetCode-739-每日温度/
-http://benym.cn/2020/07/15/LeetCode-102-二叉树的层序遍历/
