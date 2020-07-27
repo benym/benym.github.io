@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-07-26T12:38:34.191Z</updated>
+  <updated>2020-07-27T11:16:21.205Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-78-子集</title>
+    <link href="http://benym.cn/2020/07/27/LeetCode-78-%E5%AD%90%E9%9B%86/"/>
+    <id>http://benym.cn/2020/07/27/LeetCode-78-子集/</id>
+    <published>2020-07-27T07:29:47.000Z</published>
+    <updated>2020-07-27T11:16:21.205Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-78-子集"><a href="#LeetCode-78-子集" class="headerlink" title="LeetCode-78-子集"></a>LeetCode-78-子集</h2><p>给定一组<strong>不含重复元素</strong>的整数数组 <em>nums</em>，返回该数组所有可能的子集（幂集）。</p><p><strong>说明：</strong>解集不能包含重复的子集。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [1,2,3]</span><br><span class="line">输出:</span><br><span class="line">[</span><br><span class="line">  [3],</span><br><span class="line">  [1],</span><br><span class="line">  [2],</span><br><span class="line">  [1,2,3],</span><br><span class="line">  [1,3],</span><br><span class="line">  [2,3],</span><br><span class="line">  [1,2],</span><br><span class="line">  []</span><br><span class="line">]</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、迭代：</strong></p><p>外层循环遍历原始数组</p><p>内层循环遍历结果集，进行结果集的组合</p><p>特例：空集是所有结果的子集</p><p>当知道目前结果集有[[],[1]]时，想要得到[1,2]的所有子集，<strong>可以通过选择数字2和结果集进行组合得到</strong>；2与[]组合，得到[2]，2与1组合得到[1,2]。最终结果集为[[],[1],[2],[1,2]]满足数组[1,2]子集结果</p><p>在代码上想要进行这类组合，只需要在选择下一个数字后，计算当前结果集的大小，内部循环到size，进行各个位置存的结果的获取，获取之后往尾部添加选择的数字即可。</p><p><strong>方法2、回溯：</strong></p><p>可以画递归树，看起来更为清晰</p><p>回溯的框架：</p><ul><li>做出选择</li><li>递归进入下一层，此时i+1，从原始数组下一个开始，避免重复选择，所以不需要剪枝</li><li>当达到循环结束条件，即数组选完了，撤销上一次选择，走另外的路</li></ul><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; subsets(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        res.add(<span class="keyword">new</span> ArrayList&lt;&gt;());</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            <span class="keyword">int</span> size = res.size();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">                List&lt;Integer&gt; tmp = <span class="keyword">new</span> ArrayList&lt;&gt;(res.get(i));</span><br><span class="line">                tmp.add(num);</span><br><span class="line">                res.add(tmp);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; subsets(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) <span class="keyword">return</span> res;</span><br><span class="line">        List&lt;Integer&gt; path = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        backtrack(nums, <span class="number">0</span>, path, res);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> start, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; res)</span> </span>&#123;</span><br><span class="line">        res.add(<span class="keyword">new</span> ArrayList&lt;&gt;(path));</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; nums.length; i++) &#123;</span><br><span class="line">            path.add(nums[i]);</span><br><span class="line">            backtrack(nums, i + <span class="number">1</span>, path, res);</span><br><span class="line">            path.remove(path.size() - <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      子集
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-72-编辑距离</title>
+    <link href="http://benym.cn/2020/07/27/LeetCode-72-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB/"/>
+    <id>http://benym.cn/2020/07/27/LeetCode-72-编辑距离/</id>
+    <published>2020-07-27T01:53:31.000Z</published>
+    <updated>2020-07-27T06:54:38.449Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-72-编辑距离"><a href="#LeetCode-72-编辑距离" class="headerlink" title="LeetCode-72-编辑距离"></a>LeetCode-72-编辑距离</h2><p>给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。</p><p>你可以对一个单词进行如下三种操作：</p><ol><li>插入一个字符</li><li>删除一个字符</li><li>替换一个字符</li></ol><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;horse&quot;, word2 = &quot;ros&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：</span><br><span class="line">horse -&gt; rorse (将 &apos;h&apos; 替换为 &apos;r&apos;)</span><br><span class="line">rorse -&gt; rose (删除 &apos;r&apos;)</span><br><span class="line">rose -&gt; ros (删除 &apos;e&apos;)</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：word1 = &quot;intention&quot;, word2 = &quot;execution&quot;</span><br><span class="line">输出：5</span><br><span class="line">解释：</span><br><span class="line">intention -&gt; inention (删除 &apos;t&apos;)</span><br><span class="line">inention -&gt; enention (将 &apos;i&apos; 替换为 &apos;e&apos;)</span><br><span class="line">enention -&gt; exention (将 &apos;n&apos; 替换为 &apos;x&apos;)</span><br><span class="line">exention -&gt; exection (将 &apos;n&apos; 替换为 &apos;c&apos;)</span><br><span class="line">exection -&gt; execution (插入 &apos;u&apos;)</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>编辑距离是大厂面试的常考题目，是用作机器翻译和语音识别评价的基本算法</p><p>详解见官方<a href="https://leetcode-cn.com/problems/edit-distance/solution/bian-ji-ju-chi-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/edit-distance/solution/bian-ji-ju-chi-by-leetcode-solution/</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minDistance</span><span class="params">(String word1, String word2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n1 = word1.length();</span><br><span class="line">        <span class="keyword">int</span> n2 = word2.length();</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n1 + <span class="number">1</span>][n2 + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 边界状态初始化</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n1 + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            dp[i][<span class="number">0</span>] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n2 + <span class="number">1</span>; j++) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][j] = j;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n1 + <span class="number">1</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; n2 + <span class="number">1</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (word1.charAt(i - <span class="number">1</span>) == word2.charAt(j - <span class="number">1</span>)) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j - <span class="number">1</span>];</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = <span class="number">1</span> + Math.min(Math.min(dp[i - <span class="number">1</span>][j - <span class="number">1</span>], dp[i][j - <span class="number">1</span>]), dp[i - <span class="number">1</span>][j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n1][n2];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      编辑距离
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-890-查找和替换模式</title>
@@ -34,11 +90,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -60,11 +116,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -86,11 +142,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -116,9 +172,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -142,11 +198,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -176,11 +232,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -230,9 +286,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -256,11 +312,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -288,11 +344,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="栈" scheme="http://benym.cn/tags/%E6%A0%88/"/>
     
@@ -316,9 +372,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -342,9 +398,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -368,11 +424,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -394,9 +450,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -420,9 +476,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -472,11 +528,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -503,60 +559,6 @@
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="栈" scheme="http://benym.cn/tags/%E6%A0%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-152-乘积最大子数组</title>
-    <link href="http://benym.cn/2020/07/12/LeetCode-152-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/"/>
-    <id>http://benym.cn/2020/07/12/LeetCode-152-乘积最大子数组/</id>
-    <published>2020-07-12T02:15:54.000Z</published>
-    <updated>2020-07-12T07:19:42.722Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-152-乘积最大子数组"><a href="#LeetCode-152-乘积最大子数组" class="headerlink" title="LeetCode-152-乘积最大子数组"></a>LeetCode-152-乘积最大子数组</h2><p>给你一个整数数组 <code>nums</code> ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,3,-2,4]</span><br><span class="line">输出: 6</span><br><span class="line">解释: 子数组 [2,3] 有最大乘积 6。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [-2,0,-1]</span><br><span class="line">输出: 0</span><br><span class="line">解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>遍历数组的时候不断计算当前的最大值</p><p>同时还需要记录之前的最小值，当遍历的到的nums[i]为负数的时候</p><p>最大值*负数：会导致最大值变为最小</p><p>最小值*负数：会导致最小值变为最大</p><p>所以需要维护当前的最大值和当前的最小值</p><p>最大值可由<code>curMax = Math.max(curMax*nums[i],nums[i]);</code>计算</p><p>最小值可由<code>curMin = Math.min(curMin*nums[i],nums[i]);</code>计算</p><p>最大值和最小值会发生互换，导致结果不对</p><p>既然这样当遇到负数nums[i]的时候，提前将最大值和最小值互换，就可以维持原本的最大最小值</p><p>一个更好的题解来自<a href="https://leetcode-cn.com/problems/maximum-product-subarray/solution/dpfang-fa-xiang-jie-by-yang-cong-12/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/maximum-product-subarray/solution/dpfang-fa-xiang-jie-by-yang-cong-12/</a></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">int</span> curMax = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> curMin = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = curMax;</span><br><span class="line">                curMax = curMin;</span><br><span class="line">                curMin = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            curMax = Math.max(curMax*nums[i],nums[i]);</span><br><span class="line">            curMin = Math.min(curMin*nums[i],nums[i]);</span><br><span class="line">            max = Math.max(max,curMax);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>dp数组版本</p><h3 id="Java代码-1"><a href="#Java代码-1" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxProduct</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp_max = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span>[] dp_min = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> max = Integer.MIN_VALUE;</span><br><span class="line">        <span class="comment">// 由于存在负数，所以需要维护两个数组</span></span><br><span class="line">        <span class="comment">// dp_max[i] 指的是以第 i 个数结尾的 乘积最大 的连续子序列</span></span><br><span class="line">        <span class="comment">// dp_min[i] 指的是以第 i 个数结尾的 乘积最小 的连续子序列</span></span><br><span class="line">        dp_max[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp_min[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>;i &lt;= nums.length;i++)&#123;</span><br><span class="line">            <span class="comment">// 如果数组的数是负数，那么会导致 max 变成 min，min 变成 max</span></span><br><span class="line">            <span class="comment">// 故需要交换dp </span></span><br><span class="line">            <span class="keyword">if</span>(nums[i-<span class="number">1</span>] &lt; <span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">int</span> temp = dp_min[i-<span class="number">1</span>];</span><br><span class="line">                dp_min[i-<span class="number">1</span>] = dp_max[i-<span class="number">1</span>];</span><br><span class="line">                dp_max[i-<span class="number">1</span>] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">            dp_min[i] = Math.min(nums[i-<span class="number">1</span>],dp_min[i-<span class="number">1</span>]*nums[i-<span class="number">1</span>]);</span><br><span class="line">            dp_max[i] = Math.max(nums[i-<span class="number">1</span>],dp_max[i-<span class="number">1</span>]*nums[i-<span class="number">1</span>]);</span><br><span class="line">            max = Math.max(max,dp_max[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      乘积最大子数组
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-160-相交链表</title>
-    <link href="http://benym.cn/2020/07/11/LeetCode-160-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/07/11/LeetCode-160-相交链表/</id>
-    <published>2020-07-11T02:43:04.000Z</published>
-    <updated>2020-07-11T04:50:55.601Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-160-相交链表"><a href="#LeetCode-160-相交链表" class="headerlink" title="LeetCode-160-相交链表"></a>LeetCode-160-相交链表</h2><p>编写一个程序，找到两个单链表相交的起始节点。</p><p>如下面的两个链表<strong>：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">      a1---&gt;a2</span><br><span class="line">             \</span><br><span class="line">              \</span><br><span class="line">               c1---&gt;c2---&gt;c3</span><br><span class="line">              / </span><br><span class="line">             /  </span><br><span class="line">b1---&gt;b2---&gt;b3</span><br></pre></td></tr></table></figure><p>在节点c1开始相交</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,0,1,8,4,5], skipA = 2, skipB = 3</span><br><span class="line">输出：Reference of the node with value = 8</span><br><span class="line">输入解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,0,1,8,4,5]。在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 2, listA = [0,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1</span><br><span class="line">输出：Reference of the node with value = 2</span><br><span class="line">输入解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。从各自的表头开始算起，链表 A 为 [0,9,1,2,4]，链表 B 为 [3,2,4]。在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。</span><br></pre></td></tr></table></figure><p><strong>示例3：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2</span><br><span class="line">输出：null</span><br><span class="line">输入解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。</span><br><span class="line">解释：这两个链表不相交，因此返回 null。</span><br></pre></td></tr></table></figure><p>注意：</p><ul><li>如果两个链表没有交点，返回 null.</li><li>在返回结果后，两个链表仍须保持原有的结构。</li><li>可假定整个链表结构中没有循环。</li><li>程序尽量满足 O(n) 时间复杂度，且仅用 O(1) 内存。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、快慢指针：</strong></p><p>短链表的指针会先到达链表末尾，称为快指针，此时将短链表指针指向长链表头部，</p><p>当短链表到达末尾时，长链表还剩的节点就是长短链表的相差的个数n，</p><p>这个时候短链表和长链表继续向前走，当长链表的慢指针到达尾部的时候，快指针就会从长链表头部走n步，此时再将慢指针变为短链表头部，就能够使得长短链表开始的头部位置相同</p><p>继续往下遍历直到链表头部值相等，如果找完了都不相等则返回null</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123;</span></span><br><span class="line"><span class="comment"> *         val = x;</span></span><br><span class="line"><span class="comment"> *         next = null;</span></span><br><span class="line"><span class="comment"> *     &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">getIntersectionNode</span><span class="params">(ListNode headA, ListNode headB)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(headA==<span class="keyword">null</span>||headB==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        ListNode tempA = headA;</span><br><span class="line">        ListNode tempB = headB;</span><br><span class="line">        <span class="keyword">while</span>(tempA!=tempB)&#123;</span><br><span class="line">            <span class="keyword">if</span>(tempA!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                tempA = tempA.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tempA = headB;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(tempB!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                tempB = tempB.next;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                tempB = headA;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tempA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      相交链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
     
   </entry>
   
