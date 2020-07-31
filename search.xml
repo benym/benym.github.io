@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-560-和为K的子数组]]></title>
+    <url>%2F2020%2F07%2F31%2FLeetCode-560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%2F</url>
+    <content type="text"><![CDATA[LeetCode-560-和为K的子数组给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组的个数。 示例1： 12输入:nums = [1,1,1], k = 2输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。 说明 : 数组的长度为 [1, 20,000]。 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。 解题思路方法1、暴力累加： 以数组中每一个数字作为起点，不断向后累加，找到一个累加和为k的就让count++ 当以下一个数字为起点时，重置sum为0，即可得到最终结果 方法2、哈希表： 更好的题解https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/dai-ni-da-tong-qian-zhui-he-cong-zui-ben-fang-fa-y/ 方法1的瓶颈在于对于每个数字i，需要枚举所有的j来判断是否符合条件 这一步其实是可优化的 我们定义sum[i] 为 [0..i] 里所有数的和，则 sum[i]可以由sum[i−1]递推而来，即：sum[i]=sum[i−1]+nums[i] 那么[j..i]这个子数组和为 k这个条件我们可以转化为sum[i]−sum[j−1]==k 简单移项可得符合条件的下标j需要满足sum[j−1]==sum[i]−k 所以我们考虑以i结尾的和为k的连续子数组个数时只要统计有多少个前缀和为 sum[i]−k的 sum[j]即可。我们建立哈希表 mp，以和为键，出现次数为对应的值，记录 sum[i]出现的次数，从左往右边更新 mp边计算答案，那么以 i结尾的答案 mp[sum[i]−k] 即可在 O(1)时间内得到。最后的答案即为所有下标结尾的和为 k的子数组个数之和。 需要注意的是，从左往右边更新边计算的时候已经保证了mp[sum[i]−k]里记录的 sum[j]的下标范围是 0≤j≤i 。同时，由于sum[i]的计算只与前一项的答案有关，因此我们可以不用建立 sum数组，直接用sum变量来记录 sum[i−1] 的答案即可。 Java代码1123456789101112131415class Solution &#123; public int subarraySum(int[] nums, int k) &#123; int count = 0; for (int i = 0; i &lt; nums.length; i++) &#123; int sum = 0; for (int j = i; j &lt; nums.length; j++) &#123; sum += nums[j]; if (sum == k) &#123; count++; &#125; &#125; &#125; return count; &#125;&#125; Java代码2123456789101112131415161718class Solution &#123; public int subarraySum(int[] nums, int k) &#123; int count = 0; int sum = 0; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); map.put(0,1); for(int i=0;i&lt;nums.length;i++)&#123; sum+=nums[i]; // 如果sum-k这个数值之前存在，则需要统计在这个区间内之前的前缀和 if(map.containsKey(sum-k))&#123; count+=map.get(sum-k); &#125; // 存储当前的sum值，如果没有就是1，有则获取sum值出现的次数，次数再+1 map.put(sum,map.getOrDefault(sum,0)+1); &#125; return count; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode-77-组合]]></title>
+    <url>%2F2020%2F07%2F28%2FLeetCode-77-%E7%BB%84%E5%90%88%2F</url>
+    <content type="text"><![CDATA[LeetCode-77-组合给定两个整数 n 和 k，返回 1 … n 中所有可能的 k 个数的组合。 示例1： 12345678910输入: n = 4, k = 2输出:[ [2,4], [3,4], [2,3], [1,2], [1,3], [1,4],] 解题思路方法1、回溯： 典型的回溯题目，通过画一棵选择树不难看出，当有初始数组[1,2,3,4]，k=2时 选择1之后，选择2，3，4能够组合成新的字串 选择2之后，选择3，4，能够组合成新的字串 可以归纳为，对于第i个选择的数，其和i+1开始到n的所有数进行组合，能够得到新的字串，且不会发生重复。 递归的终止条件为，k==2时，将字串添加进res中 当选择到达要求进行返回时，撤销上一次的选择，进行新的选择组合成新的字串 Java代码12345678910111213141516171819class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); backtrack(res, 1, n, k, new ArrayList&lt;&gt;()); return res; &#125; private void backtrack(List&lt;List&lt;Integer&gt;&gt; res, int i, int n, int k, ArrayList&lt;Integer&gt; temp) &#123; if (k == temp.size()) &#123; res.add(new ArrayList&lt;&gt;(temp)); return; &#125; for (int start = i; start &lt; n + 1; start++) &#123; temp.add(start); backtrack(res, start + 1, n, k, temp); temp.remove(temp.size() - 1); &#125; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>回溯</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-78-子集]]></title>
     <url>%2F2020%2F07%2F27%2FLeetCode-78-%E5%AD%90%E9%9B%86%2F</url>
     <content type="text"><![CDATA[LeetCode-78-子集给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。 说明：解集不能包含重复的子集。 示例1： 123456789101112输入: nums = [1,2,3]输出:[ [3], [1], [2], [1,2,3], [1,3], [2,3], [1,2], []] 解题思路方法1、迭代： 外层循环遍历原始数组 内层循环遍历结果集，进行结果集的组合 特例：空集是所有结果的子集 当知道目前结果集有[[],[1]]时，想要得到[1,2]的所有子集，可以通过选择数字2和结果集进行组合得到；2与[]组合，得到[2]，2与1组合得到[1,2]。最终结果集为[[],[1],[2],[1,2]]满足数组[1,2]子集结果 在代码上想要进行这类组合，只需要在选择下一个数字后，计算当前结果集的大小，内部循环到size，进行各个位置存的结果的获取，获取之后往尾部添加选择的数字即可。 方法2、回溯： 可以画递归树，看起来更为清晰 回溯的框架： 做出选择 递归进入下一层，此时i+1，从原始数组下一个开始，避免重复选择，所以不需要剪枝 当达到循环结束条件，即数组选完了，撤销上一次选择，走另外的路 Java代码1123456789101112131415class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; subsets(int[] nums) &#123; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); res.add(new ArrayList&lt;&gt;()); for (int num : nums) &#123; int size = res.size(); for (int i = 0; i &lt; size; i++) &#123; List&lt;Integer&gt; tmp = new ArrayList&lt;&gt;(res.get(i)); tmp.add(num); res.add(tmp); &#125; &#125; return res; &#125;&#125; Java代码212345678910111213141516171819class Solution &#123; public List&lt;List&lt;Integer&gt;&gt; subsets(int[] nums) &#123; int len = nums.length; List&lt;List&lt;Integer&gt;&gt; res = new ArrayList&lt;&gt;(); if (len == 0) return res; List&lt;Integer&gt; path = new ArrayList&lt;&gt;(); backtrack(nums, 0, path, res); return res; &#125; private void backtrack(int[] nums, int start, List&lt;Integer&gt; path, List&lt;List&lt;Integer&gt;&gt; res) &#123; res.add(new ArrayList&lt;&gt;(path)); for (int i = start; i &lt; nums.length; i++) &#123; path.add(nums[i]); backtrack(nums, i + 1, path, res); path.remove(path.size() - 1); &#125; &#125;&#125;]]></content>
@@ -8,9 +35,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -23,8 +50,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>DP</tag>
+        <tag>Hard</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -36,9 +63,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -49,9 +76,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -62,9 +89,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>回溯</tag>
       </tags>
@@ -77,8 +104,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
       </tags>
   </entry>
@@ -90,11 +117,11 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>DFS</tag>
+        <tag>数组</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
         <tag>图论算法</tag>
         <tag>拓扑排序</tag>
       </tags>
@@ -107,9 +134,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -134,8 +161,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>DP</tag>
+        <tag>Hard</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -147,9 +174,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>矩阵</tag>
@@ -163,9 +190,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>栈</tag>
       </tags>
   </entry>
@@ -190,8 +217,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
       </tags>
   </entry>
@@ -203,9 +230,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -229,8 +256,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
       </tags>
   </entry>
@@ -255,9 +282,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -281,9 +308,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -308,8 +335,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
       </tags>
   </entry>
@@ -322,8 +349,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -335,9 +362,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -349,8 +376,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -364,8 +391,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Medium</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -376,9 +403,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -401,9 +428,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -416,8 +443,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
       </tags>
   </entry>
   <entry>
@@ -428,9 +455,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -442,9 +469,9 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -503,8 +530,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>反射</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -652,8 +679,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -665,10 +692,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -694,10 +721,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -721,8 +748,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
       </tags>
@@ -735,10 +762,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -749,8 +776,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>LeetCode</tag>
         <tag>Hard</tag>
       </tags>
@@ -763,8 +790,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>Python</tag>
@@ -778,10 +805,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -794,8 +821,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
         <tag>字符串</tag>
       </tags>
@@ -809,8 +836,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
       </tags>
   </entry>
@@ -823,8 +850,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -836,8 +863,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
       </tags>
@@ -851,8 +878,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -865,8 +892,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>DFS</tag>
       </tags>
   </entry>
@@ -893,8 +920,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -907,8 +934,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -949,8 +976,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>LeetCode</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -962,10 +989,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>DP</tag>
       </tags>
   </entry>
@@ -977,10 +1004,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -992,10 +1019,10 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>LeetCode</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
+        <tag>LeetCode</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -1038,8 +1065,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -1050,8 +1077,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -1066,8 +1093,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -1081,8 +1108,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -1096,8 +1123,8 @@
         <category>LeetCode</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>LeetCode</tag>
         <tag>DP</tag>
@@ -1185,8 +1212,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1227,8 +1254,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1241,8 +1268,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1255,8 +1282,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1269,9 +1296,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1298,8 +1325,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1342,8 +1369,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1357,8 +1384,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1372,9 +1399,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1387,9 +1414,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1402,10 +1429,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1418,11 +1445,11 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1477,10 +1504,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1492,8 +1519,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1506,8 +1533,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1522,8 +1549,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1535,10 +1562,10 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
-        <tag>Hard</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
+        <tag>Hard</tag>
         <tag>分治</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1609,9 +1636,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1625,9 +1652,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>DP</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -1642,9 +1669,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1658,9 +1685,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -1675,8 +1702,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>Python</tag>
+        <tag>Hard</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1689,8 +1716,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>DP</tag>
         <tag>Python</tag>
@@ -1705,8 +1732,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1719,9 +1746,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1747,8 +1774,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1764,8 +1791,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1782,8 +1809,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>Hard</tag>
         <tag>Python</tag>
+        <tag>Hard</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1812,8 +1839,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1828,8 +1855,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Medium</tag>
-        <tag>DFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1873,8 +1900,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -1949,8 +1976,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1964,8 +1991,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Easy</tag>
         <tag>树</tag>
+        <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1995,8 +2022,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2010,8 +2037,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2025,8 +2052,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2038,8 +2065,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2069,9 +2096,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Hard</tag>
         <tag>DP</tag>
         <tag>Python</tag>
+        <tag>Hard</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2086,8 +2113,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -2100,8 +2127,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2220,9 +2247,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2234,9 +2261,9 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>数组</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -2250,8 +2277,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2341,8 +2368,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>链表</tag>
         <tag>Python</tag>
+        <tag>链表</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2369,8 +2396,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2384,8 +2411,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2399,8 +2426,8 @@
         <category>剑指Offer</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2442,8 +2469,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -2456,8 +2483,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -2470,8 +2497,8 @@
         <category>数组</category>
       </categories>
       <tags>
-        <tag>数组</tag>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Easy</tag>
         <tag>Python</tag>
       </tags>
@@ -2497,8 +2524,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
         <tag>机器学习</tag>
+        <tag>matlab</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2675,8 +2702,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2715,9 +2742,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3095,9 +3122,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3106,9 +3133,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
