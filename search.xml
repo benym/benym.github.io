@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-236-二叉树的最近公共祖先]]></title>
+    <url>%2F2020%2F08%2F01%2FLeetCode-236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88%2F</url>
+    <content type="text"><![CDATA[LeetCode-236-二叉树的最近公共祖先给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。 百度百科中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（一个节点也可以是它自己的祖先）。” 例如，给定如下二叉树: root = [3,5,1,6,2,0,8,null,null,7,4] 示例1： 123输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1输出: 3解释: 节点 5 和节点 1 的最近公共祖先是节点 3。 示例2： 123输入: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4输出: 5解释: 节点 5 和节点 4 的最近公共祖先是节点 5。因为根据定义最近公共祖先节点可以为节点本身。 说明: 所有节点的值都是唯一的。 p、q 为不同节点且均存在于给定的二叉树中。 解题思路方法1、递归： 参考链接https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/236-er-cha-shu-de-zui-jin-gong-gong-zu-xian-hou-xu/ 根据上述示例可以得知，如果root是p，q的最近公共祖先，则可能的情况有以下3种： root节点的子树包含p和q两个节点，且p和q分别在root的左、右子树中； p=root，且q在root的左/右子树中； q=root，且p在root的左/右子树中； 递归解析： 1、终止条件： 当越过叶节点，则直接返回null； 当root等于p,q，则直接返回root； 2、递推工作： 开启递归左子节点，返回值记为left； 开启递归右子节点，返回值记为right； 3、返回值：根据left和right，可展开为四种情况； 当left和right同时为空：说明root的左/右子树中都不包含p,q，返回null； 当left和right同时不为空：说明p,q分列在root的左/右子树，因此root为最近公共祖先，返回root； 当left为空，right不为空：p,q都不在root的左子树中，直接返回right。具体可分为两种情况： p,q其中一个在root的右子树中，此时right指向p(假设为p)； p,q两节点都在root的右子树中，此时right指向最近公共祖先节点； 当left不为空，right为空：与情况3同理； 观察发现，情况1可合并至3和4内 Java代码112345678910111213141516171819/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123; if(root==null||root==p||root==q) return root; TreeNode left = lowestCommonAncestor(root.left,p,q); TreeNode right = lowestCommonAncestor(root.right,p,q); if(left==null) return right; if(right==null) return left; return root; &#125;&#125; Java代码21234567891011class Solution &#123; public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123; if(root == null || root == p || root == q) return root; TreeNode left = lowestCommonAncestor(root.left, p, q); TreeNode right = lowestCommonAncestor(root.right, p, q); if(left == null &amp;&amp; right == null) return null; // 1. if(left == null) return right; // 3. if(right == null) return left; // 4. return root; // 2. if(left != null and right != null) &#125;&#125; Java代码3逻辑更清晰版本，出处https://leetcode-cn.com/problems/lowest-common-ancestor-of-a-binary-tree/comments/ 123456789101112131415161718192021public class Solution &#123;//所有的递归的返回值有4种可能性，null、p、q、公共祖先 public TreeNode LowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) &#123; if (root == null) &#123;//当遍历到叶结点后就会返回null return root; &#125; if (root == p || root == q) &#123;//当找到p或者q的是时候就会返回pq return root;/*当然，值得一提的是，如果公共祖先是自己（pq），并不需要寻找另外 一个，我们在执行前序遍历会先找上面的，后找下面的，我们会直接返回公共祖先。*/ &#125; TreeNode left = LowestCommonAncestor(root.left, p, q);//返回的结点进行保存，可能是null TreeNode right = LowestCommonAncestor(root.right, p, q);//也可能是pq，还可能是公共祖先 if (left != null &amp;&amp; right != null) &#123; return root;//如果左右都存在，就说明pq都出现了，这就是，公共祖先，此时不用考虑公共祖先是自己的情况，因为上面已经做过判断了。 &#125; else if (left != null) &#123;//否则我们返回已经找到的那个值（存储在left，与right中），p或者q return left;//还有一种可能就是，由下面返回的公共祖先，并将这个值一路返回到最表层 &#125; else if (right != null) &#123; return right; &#125; return null; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>树</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-560-和为K的子数组]]></title>
     <url>%2F2020%2F07%2F31%2FLeetCode-560-%E5%92%8C%E4%B8%BAK%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%2F</url>
     <content type="text"><![CDATA[LeetCode-560-和为K的子数组给定一个整数数组和一个整数 k，你需要找到该数组中和为 k 的连续的子数组的个数。 示例1： 12输入:nums = [1,1,1], k = 2输出: 2 , [1,1] 与 [1,1] 为两种不同的情况。 说明 : 数组的长度为 [1, 20,000]。 数组中元素的范围是 [-1000, 1000] ，且整数 k 的范围是 [-1e7, 1e7]。 解题思路方法1、暴力累加： 以数组中每一个数字作为起点，不断向后累加，找到一个累加和为k的就让count++ 当以下一个数字为起点时，重置sum为0，即可得到最终结果 方法2、哈希表： 更好的题解https://leetcode-cn.com/problems/subarray-sum-equals-k/solution/dai-ni-da-tong-qian-zhui-he-cong-zui-ben-fang-fa-y/ 方法1的瓶颈在于对于每个数字i，需要枚举所有的j来判断是否符合条件 这一步其实是可优化的 我们定义sum[i] 为 [0..i] 里所有数的和，则 sum[i]可以由sum[i−1]递推而来，即：sum[i]=sum[i−1]+nums[i] 那么[j..i]这个子数组和为 k这个条件我们可以转化为sum[i]−sum[j−1]==k 简单移项可得符合条件的下标j需要满足sum[j−1]==sum[i]−k 所以我们考虑以i结尾的和为k的连续子数组个数时只要统计有多少个前缀和为 sum[i]−k的 sum[j]即可。我们建立哈希表 mp，以和为键，出现次数为对应的值，记录 sum[i]出现的次数，从左往右边更新 mp边计算答案，那么以 i结尾的答案 mp[sum[i]−k] 即可在 O(1)时间内得到。最后的答案即为所有下标结尾的和为 k的子数组个数之和。 需要注意的是，从左往右边更新边计算的时候已经保证了mp[sum[i]−k]里记录的 sum[j]的下标范围是 0≤j≤i 。同时，由于sum[i]的计算只与前一项的答案有关，因此我们可以不用建立 sum数组，直接用sum变量来记录 sum[i−1] 的答案即可。 Java代码1123456789101112131415class Solution &#123; public int subarraySum(int[] nums, int k) &#123; int count = 0; for (int i = 0; i &lt; nums.length; i++) &#123; int sum = 0; for (int j = i; j &lt; nums.length; j++) &#123; sum += nums[j]; if (sum == k) &#123; count++; &#125; &#125; &#125; return count; &#125;&#125; Java代码2123456789101112131415161718class Solution &#123; public int subarraySum(int[] nums, int k) &#123; int count = 0; int sum = 0; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); map.put(0,1); for(int i=0;i&lt;nums.length;i++)&#123; sum+=nums[i]; // 如果sum-k这个数值之前存在，则需要统计在这个区间内之前的前缀和 if(map.containsKey(sum-k))&#123; count+=map.get(sum-k); &#125; // 存储当前的sum值，如果没有就是1，有则获取sum值出现的次数，次数再+1 map.put(sum,map.getOrDefault(sum,0)+1); &#125; return count; &#125;&#125;]]></content>
@@ -120,8 +133,8 @@
         <tag>Java</tag>
         <tag>Medium</tag>
         <tag>数组</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>图论算法</tag>
         <tag>拓扑排序</tag>
       </tags>
@@ -391,8 +404,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
   <entry>
@@ -530,8 +543,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>反射</tag>
         <tag>Java</tag>
+        <tag>反射</tag>
       </tags>
   </entry>
   <entry>
@@ -602,8 +615,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>多线程</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1065,8 +1078,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1431,8 +1444,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1447,9 +1460,9 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Easy</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
-        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1506,8 +1519,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1549,8 +1562,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1564,8 +1577,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>分治</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1702,8 +1715,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1791,8 +1804,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1809,8 +1822,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1839,8 +1852,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1855,8 +1868,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>DFS</tag>
+        <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2022,8 +2035,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2037,8 +2050,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2052,8 +2065,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2097,8 +2110,8 @@
       <tags>
         <tag>Java</tag>
         <tag>DP</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>字符串</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2113,8 +2126,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2127,8 +2140,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2247,9 +2260,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
-        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2368,8 +2381,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -3122,9 +3135,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3133,9 +3146,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
