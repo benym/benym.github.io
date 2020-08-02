@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-01T13:55:32.855Z</updated>
+  <updated>2020-08-02T13:19:15.789Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-56-合并区间</title>
+    <link href="http://benym.cn/2020/08/02/LeetCode-56-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/"/>
+    <id>http://benym.cn/2020/08/02/LeetCode-56-合并区间/</id>
+    <published>2020-08-02T08:28:08.000Z</published>
+    <updated>2020-08-02T13:19:15.789Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-56-合并区间"><a href="#LeetCode-56-合并区间" class="headerlink" title="LeetCode-56-合并区间"></a>LeetCode-56-合并区间</h2><p>给出一个区间的集合，请合并所有重叠的区间。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,3],[2,6],[8,10],[15,18]]</span><br><span class="line">输出: [[1,6],[8,10],[15,18]]</span><br><span class="line">解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [[1,4],[4,5]]</span><br><span class="line">输出: [[1,5]]</span><br><span class="line">解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、排序+双指针：</strong></p><p>虽然示例中没有给出需要排序的案例，但需要考虑数组不是按照首位数组顺序排列的情况，这样会让区间难以判断，所以先做一个排序。</p><p>之后初始化双指针，指向第一个区间的start和end</p><p>进入for循环判断，判断下一个区间的首位是否大于上个区间的末尾</p><p>如果大于，则说明区间分离，加入新区间{start，end}，更新start</p><p>当下一个区间不大于end，即&lt;=end的时候，区间均要进行合并，此时区间为上一个区间的start，到当前区间和下一个区间end的最大值，所以<code>end = Math.max(end,intervals[i][1])</code></p><p>由于开始的start和end是上一个区间的结果，所以在最后一次时，暂时不会添加区间，<code>res.add(new int[]{start,end});</code>为最后一次添加之后转化为<code>int[][]</code>返回即可</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[][] merge(<span class="keyword">int</span>[][] intervals) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = intervals.length;</span><br><span class="line">        <span class="keyword">if</span> (intervals == <span class="keyword">null</span> || len &lt;= <span class="number">1</span>) <span class="keyword">return</span> intervals;</span><br><span class="line">        List&lt;<span class="keyword">int</span>[]&gt; res = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        Arrays.sort(intervals, (x, y) -&gt; x[<span class="number">0</span>] - y[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">int</span> start = intervals[<span class="number">0</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> end = intervals[<span class="number">0</span>][<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(intervals[i][<span class="number">0</span>]&gt;end)&#123;</span><br><span class="line">                res.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start,end&#125;);</span><br><span class="line">                start = intervals[i][<span class="number">0</span>];</span><br><span class="line">            &#125;</span><br><span class="line">            end = Math.max(end,intervals[i][<span class="number">1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 最后一次添加</span></span><br><span class="line">        res.add(<span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start,end&#125;);</span><br><span class="line">        <span class="keyword">return</span> res.toArray(<span class="keyword">new</span> <span class="keyword">int</span>[res.size()][<span class="number">2</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      合并区间
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-236-二叉树的最近公共祖先</title>
@@ -535,32 +561,6 @@
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-581-最短无序连续子数组</title>
-    <link href="http://benym.cn/2020/07/14/LeetCode-581-%E6%9C%80%E7%9F%AD%E6%97%A0%E5%BA%8F%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84/"/>
-    <id>http://benym.cn/2020/07/14/LeetCode-581-最短无序连续子数组/</id>
-    <published>2020-07-14T02:03:46.000Z</published>
-    <updated>2020-07-14T04:57:25.514Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-581-最短无序连续子数组"><a href="#LeetCode-581-最短无序连续子数组" class="headerlink" title="LeetCode-581-最短无序连续子数组"></a>LeetCode-581-最短无序连续子数组</h2><p>给定一个整数数组，你需要寻找一个<strong>连续的子数组</strong>，如果对这个子数组进行升序排序，那么整个数组都会变为升序排序。</p><p>你找到的子数组应是<strong>最短</strong>的，请输出它的长度。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [2, 6, 4, 8, 10, 9, 15]</span><br><span class="line">输出: 5</span><br><span class="line">解释: 你只需要对 [6, 4, 8, 10, 9] 进行升序排序，那么整个表都会变为升序排序。</span><br></pre></td></tr></table></figure><p><strong>说明 :</strong></p><ol><li>输入的数组长度范围在 [1, 10,000]。</li><li>输入的数组可能包含<strong>重复</strong>元素 ，所以<strong>升序</strong>的意思是<strong>&lt;=。</strong></li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、排序比较：</strong></p><p>先给数组排序，然后进行一一比较，遇到不相等的位置就更新start和end</p><p>start始终靠最小值比较，end始终靠最大值比较</p><p>之后就能够通过end-start+1得到未排序子数组的长度</p><p>特例判断：只有当end-start+1&gt;=0时，长度计算有效，否则为0</p><p><strong>方法2、双指针找边界：</strong></p><p>初步思路是，使用双指针，<strong>指针i从头开始遍历，指针j从尾开始遍历。分别找到第一个逆序的位置</strong>，之后返回长度即可，但这种方法不适用于数组中有重复的数字的情况，如[1,6,5,5]，这使得逆序位置的判断失效。</p><p>于是换一种思路，<strong>让指针分别找到最后逆序的位置</strong></p><p>同时从前往后和从后往前遍历，分别得到要排序数组的右边界和左边界；<br><strong>寻找右边界：</strong><br>从前往后遍历的过程中，用max记录遍历过的最大值，如果max大于当前的nums[i]，说明nums[i]的位置不正确，属于需要排序的数组，因此将右边界更新为i，然后更新max；这样最终可以找到需要排序的数组的右边界，右边界之后的元素都大于max；<br><strong>寻找左边界：</strong><br>从后往前遍历的过程中，用min记录遍历过的最小值，如果min小于当前的nums[j]，说明nums[j]的位置不正确，应该属于需要排序的数组，因此将左边界更新为j，然后更新min；这样最终可以找到需要排序的数组的左边界，左边界之前的元素都小于min；<br>（从前往后遍历和从后往前遍历两个过程可以分两次循环完成，也可以放一起完成，这样的话就有：j=len-i-1）</p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findUnsortedSubarray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] temp = nums.clone();</span><br><span class="line">        Arrays.sort(temp);</span><br><span class="line">        <span class="keyword">int</span> start = temp.length;</span><br><span class="line">        <span class="keyword">int</span> end = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; temp.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (nums[i] != temp[i]) &#123;</span><br><span class="line">                start = Math.min(start, i);</span><br><span class="line">                end = Math.max(end, i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> end - start + <span class="number">1</span> &gt;= <span class="number">0</span> ? end - start + <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findUnsortedSubarray</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> max = nums[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">int</span> min = nums[len-<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(max&gt;nums[i])&#123;</span><br><span class="line">                r = i;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                max = nums[i];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(min&lt;nums[len-i-<span class="number">1</span>])&#123;</span><br><span class="line">                l = len-i-<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                min = nums[len-i-<span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r-l+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      最短无序连续子数组
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
