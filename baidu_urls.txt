@@ -1,3 +1,5 @@
+http://benym.cn/2020/08/03/LeetCode-394-字符串解码/
+http://benym.cn/2020/08/03/LeetCode-448-找到所有数组中消失的数字/
 http://benym.cn/2020/08/02/LeetCode-56-合并区间/
 http://benym.cn/2020/08/01/LeetCode-236-二叉树的最近公共祖先/
 http://benym.cn/2020/07/31/LeetCode-560-和为K的子数组/
@@ -6,5 +8,3 @@ http://benym.cn/2020/07/27/LeetCode-78-子集/
 http://benym.cn/2020/07/27/LeetCode-72-编辑距离/
 http://benym.cn/2020/07/26/LeetCode-890-查找和替换模式/
 http://benym.cn/2020/07/25/LeetCode-34-在排序数组中查找元素的第一个和最后一个位置/
-http://benym.cn/2020/07/20/LeetCode-494-目标和/
-http://benym.cn/2020/07/20/LeetCode-461-汉明距离/
