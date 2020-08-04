@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-146-LRU缓存机制]]></title>
+    <url>%2F2020%2F08%2F04%2FLeetCode-146-LRU%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[LeetCode-146-LRU缓存机制运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。 获取数据 get(key) - 如果关键字 (key) 存在于缓存中，则获取关键字的值（总是正数），否则返回 -1。写入数据 put(key, value) - 如果关键字已经存在，则变更其数据值；如果关键字不存在，则插入该组「关键字/值」。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据值，从而为新的数据值留出空间。 进阶: 你是否可以在 O(1) 时间复杂度内完成这两种操作？ 示例1： 1234567891011LRUCache cache = new LRUCache( 2 /* 缓存容量 */ );cache.put(1, 1);cache.put(2, 2);cache.get(1); // 返回 1cache.put(3, 3); // 该操作会使得关键字 2 作废cache.get(2); // 返回 -1 (未找到)cache.put(4, 4); // 该操作会使得关键字 1 作废cache.get(1); // 返回 -1 (未找到)cache.get(3); // 返回 3cache.get(4); // 返回 4 解题思路方法1、队列+哈希表： 观察示例可知，当执行get(1)之后，后加入的key为2的数据会变为最久没有使用的 不难知道，在get操作之后需要对数据进行重排。而put操作也将依赖与重排的逻辑进行操作 这里选择先进先出的Queue作为重排的容器比较合适。 首先需要记录初始化的容量capacity 每进行一次put，队列中也会加入key，map中也会加入key，value，同时容量减1 当容量为0时，需要删除map中最久没有使用的key，value，再添加新的key，value 如果get的时候能够保证queue头部存储的最久没有使用的key，那么这一步操作就变得很简单。只需要如下操作即可。 123map.remove(queue.poll());queue.add(key);map.put(key,value); 那么如何让get操作，保证queue的头部存储的最久没有使用的key呢？ 想要实现这样的queue，换一种思路，使用了(get)之后的key应该放在队列的最后 那么当查找一个key的时候，通过判断queue是否有这个key来进行get操作 当有这个key的时候，将这个key拿出来，然后放到queue末尾，之后返回map中获得key的结果即可。 如果没有这个key，返回-1即可。 回到put函数这里，除了put中的1、2两个操作之外，还需要考虑第3种情况 如果put的过程中queue中有这个key，即put[1,2]之后又put[1,5]这种情况仅仅value不同，key相同，需要删除原本queue中的key，再添加新的key，因为put同一个key的操作或许不是连续的。同时需要更新map的key和value 方法2、哈希表+双向链表： 原文链接：https://leetcode-cn.com/problems/lru-cache/solution/lruhuan-cun-ji-zhi-by-leetcode-solution/ 利用LinkedHashMap，不利用LinkedHashMap两个版本 LRU 缓存机制可以通过哈希表辅以双向链表实现，我们用一个哈希表和一个双向链表维护所有在缓存中的键值对。 双向链表按照被使用的顺序存储了这些键值对，靠近头部的键值对是最近使用的，而靠近尾部的键值对是最久未使用的。 哈希表即为普通的哈希映射（HashMap），通过缓存数据的键映射到其在双向链表中的位置。 这样以来，我们首先使用哈希表进行定位，找出缓存项在双向链表中的位置，随后将其移动到双向链表的头部，即可在 O(1) 的时间内完成 get或者 put 操作。具体的方法如下： 对于 get 操作，首先判断 key是否存在： 如果 key 不存在，则返回−1； 如果 key存在，则 key对应的节点是最近被使用的节点。通过哈希表定位到该节点在双向链表中的位置，并将其移动到双向链表的头部，最后返回该节点的值。 对于 put 操作，首先判断key是否存在： 如果key 不存在，使用key和 value创建一个新的节点，在双向链表的头部添加该节点，并将 key和该节点添加进哈希表中。然后判断双向链表的节点数是否超出容量，如果超出容量，则删除双向链表的尾部节点，并删除哈希表中对应的项； 如果 key存在，则与 get操作类似，先通过哈希表定位，再将对应的节点的值更新为 value，并将该节点移到双向链表的头部。 上述各项操作中，访问哈希表的时间复杂度为 O(1)，在双向链表的头部添加节点、在双向链表的尾部删除节点的复杂度也为 O(1)。而将一个节点移到双向链表的头部，可以分成「删除该节点」和「在双向链表的头部添加节点」两步操作，都可以在O(1) 时间内完成。 小贴士 在双向链表的实现中，使用一个伪头部（dummy head）和伪尾部（dummy tail）标记界限，这样在添加节点和删除节点的时候就不需要检查相邻的节点是否存在。 Java代码11234567891011121314151617181920212223242526272829303132333435363738394041424344class LRUCache &#123; Queue&lt;Integer&gt; queue; HashMap&lt;Integer,Integer&gt; map; int capacity; public LRUCache(int capacity) &#123; this.map = new HashMap&lt;&gt;(); this.queue = new LinkedList&lt;&gt;(); this.capacity = capacity; &#125; public int get(int key) &#123; if(queue.contains(key))&#123; queue.remove(key); queue.add(key); return map.get(key); &#125;else&#123; return -1; &#125; &#125; public void put(int key, int value) &#123; if(queue.contains(key))&#123; queue.remove(key); queue.add(key); map.put(key,value); &#125; else if(capacity==0)&#123; map.remove(queue.poll()); queue.add(key); map.put(key,value); &#125;else&#123; queue.add(key); map.put(key,value); capacity--; &#125; &#125;&#125;/** * Your LRUCache object will be instantiated and called as such: * LRUCache obj = new LRUCache(capacity); * int param_1 = obj.get(key); * obj.put(key,value); */ Java代码2123456789101112131415161718192021222324252627282930class LRUCache &#123; private int cap; private Map&lt;Integer, Integer&gt; map = new LinkedHashMap&lt;&gt;(); // 保持插入顺序 public LRUCache(int capacity) &#123; this.cap = capacity; &#125; public int get(int key) &#123; if (map.keySet().contains(key)) &#123; int value = map.get(key); map.remove(key); // 保证每次查询后，都在末尾 map.put(key, value); return value; &#125; return -1; &#125; public void put(int key, int value) &#123; if (map.keySet().contains(key)) &#123; map.remove(key); &#125; else if (map.size() == cap) &#123; Iterator&lt;Map.Entry&lt;Integer, Integer&gt;&gt; iterator = map.entrySet().iterator(); iterator.next(); iterator.remove(); &#125; map.put(key, value); &#125;&#125; Java代码3完全手动实现LinkedHashMap 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283public class LRUCache &#123; class DLinkedNode &#123; int key; int value; DLinkedNode prev; DLinkedNode next; public DLinkedNode() &#123;&#125; public DLinkedNode(int _key, int _value) &#123;key = _key; value = _value;&#125; &#125; private Map&lt;Integer, DLinkedNode&gt; cache = new HashMap&lt;Integer, DLinkedNode&gt;(); private int size; private int capacity; private DLinkedNode head, tail; public LRUCache(int capacity) &#123; this.size = 0; this.capacity = capacity; // 使用伪头部和伪尾部节点 head = new DLinkedNode(); tail = new DLinkedNode(); head.next = tail; tail.prev = head; &#125; public int get(int key) &#123; DLinkedNode node = cache.get(key); if (node == null) &#123; return -1; &#125; // 如果 key 存在，先通过哈希表定位，再移到头部 moveToHead(node); return node.value; &#125; public void put(int key, int value) &#123; DLinkedNode node = cache.get(key); if (node == null) &#123; // 如果 key 不存在，创建一个新的节点 DLinkedNode newNode = new DLinkedNode(key, value); // 添加进哈希表 cache.put(key, newNode); // 添加至双向链表的头部 addToHead(newNode); ++size; if (size &gt; capacity) &#123; // 如果超出容量，删除双向链表的尾部节点 DLinkedNode tail = removeTail(); // 删除哈希表中对应的项 cache.remove(tail.key); --size; &#125; &#125; else &#123; // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部 node.value = value; moveToHead(node); &#125; &#125; private void addToHead(DLinkedNode node) &#123; node.prev = head; node.next = head.next; head.next.prev = node; head.next = node; &#125; private void removeNode(DLinkedNode node) &#123; node.prev.next = node.next; node.next.prev = node.prev; &#125; private void moveToHead(DLinkedNode node) &#123; removeNode(node); addToHead(node); &#125; private DLinkedNode removeTail() &#123; DLinkedNode res = tail.prev; removeNode(res); return res; &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>数组</tag>
+        <tag>Medium</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-394-字符串解码]]></title>
     <url>%2F2020%2F08%2F03%2FLeetCode-394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81%2F</url>
     <content type="text"><![CDATA[LeetCode-394-字符串解码给定一个经过编码的字符串，返回它解码后的字符串。 编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。 你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。 此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。 示例1： 12输入：s = &quot;3[a]2[bc]&quot;输出：&quot;aaabcbc&quot; 示例2： 12输入：s = &quot;3[a2[c]]&quot;输出：&quot;accaccacc&quot; 示例3： 12输入：s = &quot;2[abc]3[cd]ef&quot;输出：&quot;abcabccdcdcdef&quot; 示例4： 12输入：s = &quot;abc3[cd]xyz&quot;输出：&quot;abccdcdcdxyz&quot; 解题思路方法1、栈： 观察示例可知，当出现括号时，需要考虑括号前的数字 由于有时候括号不止1个，而且括号内的字符也不止1组，所以需要2个栈(或者队列)来进行存储，此外还需要一个res存储最终拼接的字符串。 顺序进行遍历，情况分为以下4种： 0&lt;=当前字符&lt;=9时，记录当前num，num=c[i]-&#39;0&#39;，但是num可能不止一个数字，当字符为100时，下一个也是num，如果直接覆盖会导致数字丢失，于是num=num * 10 + c[i] - &#39;0&#39;正是考虑这种情况。 当前字符==[左括号时，记录括号前的num，并将num置0，方便下次记录。同时需要记录数字之前出现的所有英文字符，使用str的栈进行先前结果的存储，strStack.push(res.toString());，复用res准备记录括号内的英文字符。 当前字符是a-z或者A-Z范围内时，直接进行字符串拼接res.append(c[i]) 当前字符==]右括号时，需要将括号内的字符重复，同时需要将之前保存的字符串和括号内的字符串进行拼接。首先弹出数字栈内的数字tempNum，利用一个临时的字符串tempStr保存之前的结果，从字符栈中弹出之前的字符串strStack.pop()，并转为StringBuilder类型赋值给tempStr，循环添加到tempStr中，此时的res保存的是括号内的字符，循环次数为tempNum。进行玩括号内字符添加后，将临时字符串赋值给res，继续进行循环判断。 最后，返回res.toString() Java代码1234567891011121314151617181920212223242526272829class Solution &#123; public String decodeString(String s) &#123; StringBuilder res = new StringBuilder(); Stack&lt;Integer&gt; numStack = new Stack&lt;&gt;(); Stack&lt;String&gt; strStack = new Stack&lt;&gt;(); char[] c = s.toCharArray(); int num = 0; for (int i = 0; i &lt; c.length; i++) &#123; if (c[i] &gt;= '0' &amp;&amp; c[i] &lt;= '9') &#123; num = num * 10 + c[i] - '0'; &#125; else if (c[i] == '[') &#123; numStack.push(num); num = 0; strStack.push(res.toString()); res = new StringBuilder(); &#125; else if (('a' &lt;= c[i] &amp;&amp; c[i] &lt;= 'z') || ('A' &lt;= c[i] &amp;&amp; c[i] &lt;= 'Z')) &#123; res.append(c[i]); &#125; else if (c[i] == ']') &#123; int tempNum = numStack.pop(); StringBuilder tempStr = new StringBuilder(strStack.pop()); for (int j = 0; j &lt; tempNum; j++) &#123; tempStr.append(res); &#125; res = tempStr; &#125; &#125; return res.toString(); &#125;&#125;]]></content>
@@ -172,8 +185,8 @@
         <tag>Java</tag>
         <tag>数组</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>图论算法</tag>
         <tag>拓扑排序</tag>
       </tags>
@@ -443,8 +456,8 @@
         <tag>Java</tag>
         <tag>树</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
       </tags>
   </entry>
   <entry>
@@ -582,8 +595,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>反射</tag>
         <tag>Java</tag>
+        <tag>反射</tag>
       </tags>
   </entry>
   <entry>
@@ -654,8 +667,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>多线程</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1117,8 +1130,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1499,8 +1512,8 @@
         <tag>Java</tag>
         <tag>Easy</tag>
         <tag>树</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1601,8 +1614,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1891,8 +1904,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2074,8 +2087,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2089,8 +2102,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2104,8 +2117,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2165,8 +2178,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2179,8 +2192,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2299,8 +2312,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2420,8 +2433,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2576,8 +2589,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>matlab</tag>
+        <tag>机器学习</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2754,8 +2767,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2794,9 +2807,9 @@
         <category>机器学习</category>
       </categories>
       <tags>
+        <tag>机器学习</tag>
         <tag>矩阵</tag>
         <tag>Numpy</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3130,9 +3143,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3141,9 +3154,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
