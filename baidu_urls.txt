@@ -1,3 +1,4 @@
+http://benym.cn/2020/08/05/LeetCode-416-分割等和子集/
 http://benym.cn/2020/08/04/LeetCode-146-LRU缓存机制/
 http://benym.cn/2020/08/03/LeetCode-394-字符串解码/
 http://benym.cn/2020/08/03/LeetCode-448-找到所有数组中消失的数字/
@@ -7,4 +8,3 @@ http://benym.cn/2020/07/31/LeetCode-560-和为K的子数组/
 http://benym.cn/2020/07/28/LeetCode-77-组合/
 http://benym.cn/2020/07/27/LeetCode-78-子集/
 http://benym.cn/2020/07/27/LeetCode-72-编辑距离/
-http://benym.cn/2020/07/26/LeetCode-890-查找和替换模式/
