@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-05T12:15:36.706Z</updated>
+  <updated>2020-08-06T07:13:51.401Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-62-不同路径</title>
+    <link href="http://benym.cn/2020/08/06/LeetCode-62-%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84/"/>
+    <id>http://benym.cn/2020/08/06/LeetCode-62-不同路径/</id>
+    <published>2020-08-06T05:19:12.000Z</published>
+    <updated>2020-08-06T07:13:51.401Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-62-不同路径"><a href="#LeetCode-62-不同路径" class="headerlink" title="LeetCode-62-不同路径"></a>LeetCode-62-不同路径</h2><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为“Start” ）。</p><p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为“Finish”）。</p><p>问总共有多少条不同的路径？</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 3, n = 2</span><br><span class="line">输出: 3</span><br><span class="line">解释:</span><br><span class="line">从左上角开始，总共有 3 条路径可以到达右下角。</span><br><span class="line">1. 向右 -&gt; 向右 -&gt; 向下</span><br><span class="line">2. 向右 -&gt; 向下 -&gt; 向右</span><br><span class="line">3. 向下 -&gt; 向右 -&gt; 向右</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: m = 7, n = 3</span><br><span class="line">输出: 28</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li><code>1 &lt;= m, n &lt;= 100</code></li><li>题目数据保证答案小于等于 <code>2 * 10 ^ 9</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>这道题是个经典的动态规划问题，初始化矩阵大小的dp数组保存数字，由于只能往右或者往下走所以第1行和第1列都是1</p><p><code>dp[i][j]</code>状态定义为：有多少条路径到i，j这一格</p><p>状态转移方程：</p><ul><li>当i==0或者j==0时，<code>dp[i][j]=1</code></li><li>其余位置，<code>dp[i][j]</code>的值依赖于左边位置的路径+上边位置的路径，即<code>dp[i - 1][j] + dp[i][j - 1]</code></li></ul><p>最后返回右下角的值即可</p><p><strong>方法2、动态规划(空间优化)：</strong></p><p>由于每格的值仅与左侧和上方的值有关，所以只需要维护一行的值即可，空间复杂度可以降到O(N)</p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n][m];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; m; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i == <span class="number">0</span> || j == <span class="number">0</span>) &#123;</span><br><span class="line">                    dp[i][j] = <span class="number">1</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] + dp[i][j - <span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n - <span class="number">1</span>][m - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">uniquePaths</span><span class="params">(<span class="keyword">int</span> m, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[m];</span><br><span class="line">        Arrays.fill(dp, <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt; m; j++) &#123;</span><br><span class="line">                dp[j] += dp[j - <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[m - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      不同路径
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-75-颜色分类</title>
+    <link href="http://benym.cn/2020/08/06/LeetCode-75-%E9%A2%9C%E8%89%B2%E5%88%86%E7%B1%BB/"/>
+    <id>http://benym.cn/2020/08/06/LeetCode-75-颜色分类/</id>
+    <published>2020-08-06T01:47:45.000Z</published>
+    <updated>2020-08-06T05:13:51.476Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-75-颜色分类"><a href="#LeetCode-75-颜色分类" class="headerlink" title="LeetCode-75-颜色分类"></a>LeetCode-75-颜色分类</h2><p>给定一个包含红色、白色和蓝色，一共 n 个元素的数组，原地对它们进行排序，使得相同颜色的元素相邻，并按照红色、白色、蓝色顺序排列。</p><p>此题中，我们使用整数 0、 1 和 2 分别表示红色、白色和蓝色。</p><p><strong>注意:</strong><br>不能使用代码库中的排序函数来解决这道题。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,0,2,1,1,0]</span><br><span class="line">输出: [0,0,1,1,2,2]</span><br></pre></td></tr></table></figure><p><strong>进阶：</strong></p><ul><li>一个直观的解决方案是使用计数排序的两趟扫描算法。<br>首先，迭代计算出0、1 和 2 元素的个数，然后按照0、1、2的排序，重写当前数组。</li><li>你能想出一个仅使用常数空间的一趟扫描算法吗？</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、计数排序：</strong></p><p>初始化max+1容量的桶，将数组值为下标的元素放入对应的桶内，并进行计数，如nums[2]=3，则bucket[3]+1。之后从每个桶中取出元素，重新放入原本的数组，实现原地修改。需要多次遍历数组。当然使用快排也可以，但题目要求使用一趟的扫描算法。</p><p><strong>方法2、三指针一次遍历(荷兰国旗问题)：</strong></p><p>我们用三个指针（p0, p2 和curr）来分别追踪0的最右边界，2的最左边界和当前考虑的元素。</p><p>本解法的思路是沿着数组移动 curr 指针，若nums[curr] = 0，则将其与 nums[p0]互换；若 nums[curr] = 2 ，则与 nums[p2]互换。</p><p>算法</p><ul><li><p>初始化0的最右边界：p0 = 0。在整个算法执行过程中 nums[idx &lt; p0] = 0.</p></li><li><p>初始化2的最左边界 ：p2 = n - 1。在整个算法执行过程中 nums[idx &gt; p2] = 2.</p></li><li><p>初始化当前考虑的元素序号 ：curr = 0.</p></li><li><p>While curr &lt;= p2 :</p><ul><li>若 nums[curr] = 0 ：交换第 curr个 和 第p0个 元素，并将指针都向右移。</li><li>若 nums[curr] = 2 ：交换第 curr个和第 p2个元素，并将 p2指针左移 。</li><li>若 nums[curr] = 1 ：将指针curr右移。</li></ul></li></ul><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">int</span> max = Integer.MIN_VALUE;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || len &lt; <span class="number">2</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            max = Math.max(max, num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] bucket = <span class="keyword">new</span> <span class="keyword">int</span>[max + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            bucket[nums[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; bucket.length; j++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (bucket[j] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                nums[index] = j;</span><br><span class="line">                bucket[j] -= <span class="number">1</span>;</span><br><span class="line">                index++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="comment">//只有三种数  0 1 2</span></span><br><span class="line">    <span class="comment">// 直接冒泡排序  时间复杂度不符合</span></span><br><span class="line">    <span class="comment">// 双指针  p_0 标注 0元素的最右边   p_2 标注 2元素的最最左边</span></span><br><span class="line">    <span class="comment">// curr 指针，标注当前元素</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sortColors</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> p1 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> p2 = nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> curr = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> temp;</span><br><span class="line">        <span class="keyword">while</span>(curr&lt;=p2)&#123;</span><br><span class="line">            <span class="comment">//如果当前元素等于0，则与P_0互换位置</span></span><br><span class="line">            <span class="keyword">if</span>(nums[curr]==<span class="number">0</span>)&#123;</span><br><span class="line">                temp = nums[p1];</span><br><span class="line">                nums[p1] = nums[curr];</span><br><span class="line">                nums[curr] = temp;</span><br><span class="line">                curr++;</span><br><span class="line">                p1++;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[curr]==<span class="number">2</span>)&#123;<span class="comment">//如果当前元素等于2，则与P_2互换位置</span></span><br><span class="line">                temp = nums[p2];</span><br><span class="line">                nums[p2] = nums[curr];</span><br><span class="line">                nums[curr] = temp;</span><br><span class="line">                p2--;</span><br><span class="line">            <span class="comment">//因为curr左边的值已经扫描过了，所以curr要++继续扫描下一位，而与p2交换的值，curr未扫描，要停下来扫描一下，所以curr不用++</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                curr++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      颜色分类
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-416-分割等和子集</title>
@@ -34,9 +88,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -62,9 +116,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -114,9 +168,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -140,9 +194,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -192,9 +246,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -218,9 +272,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -246,9 +300,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -276,9 +330,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
     
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
@@ -302,9 +356,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -328,9 +382,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -354,9 +408,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -384,9 +438,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -410,15 +464,15 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
-      <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
-    
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+      <category term="BFS" scheme="http://benym.cn/tags/BFS/"/>
     
       <category term="图论算法" scheme="http://benym.cn/tags/%E5%9B%BE%E8%AE%BA%E7%AE%97%E6%B3%95/"/>
     
@@ -444,9 +498,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -498,71 +552,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
     
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
       <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-64-最小路径和</title>
-    <link href="http://benym.cn/2020/07/16/LeetCode-64-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/"/>
-    <id>http://benym.cn/2020/07/16/LeetCode-64-最小路径和/</id>
-    <published>2020-07-16T06:16:19.000Z</published>
-    <updated>2020-07-16T07:25:05.122Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-64-最小路径和"><a href="#LeetCode-64-最小路径和" class="headerlink" title="LeetCode-64-最小路径和"></a>LeetCode-64-最小路径和</h2><p>给定一个包含非负整数的 <em>m</em> x <em>n</em> 网格，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。</p><p><strong>说明：</strong>每次只能向下或者向右移动一步。</p><a id="more"></a><p><strong>示例：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入:</span><br><span class="line">[</span><br><span class="line">  [1,3,1],</span><br><span class="line">  [1,5,1],</span><br><span class="line">  [4,2,1]</span><br><span class="line">]</span><br><span class="line">输出: 7</span><br><span class="line">解释: 因为路径 1→3→1→1→1 的总和最小。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>特例判断：当行或者列为空，行列其中一个为0的时候，数组没有意义，直接返回0</p><p>由于只能往下或者往右走，所以第一行和第一列的值始终是由单个方向移动得到</p><p>这一部分的值可以先通过循环累加得到</p><p>剩下的位置，以i=1，j=1的位置，数字5为例，数字5位置的最小值可以由，Min(上方位置的值+5，左方位置的值+5)计算得到</p><p>所以当前的<strong>状态</strong>可以定义为：从左方和右方计算得到的当前位置的路径最小值</p><p>不难看出，数值可以在原本的数组中原地改变且不影响结果。</p><p><strong>状态转移方程</strong>为：</p><p><code>grid[i][j] = Math.min(grid[i-1][j]+grid[i][j],grid[i][j-1]+grid[i][j]);</code></p><p>由于当前位置始终存储到达该位置的路径最小值，则最后到达右下角时，就是该矩阵中到达右下角总和最小的路径和</p><p>横向按顺序遍历的方法类似，这里不再重复介绍，详见Python代码</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minPathSum</span><span class="params">(<span class="keyword">int</span>[][] grid)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> rowlen = grid.length;</span><br><span class="line">        <span class="keyword">int</span> collen = grid[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">if</span>(grid==<span class="keyword">null</span>||rowlen==<span class="number">0</span>||grid[<span class="number">0</span>]==<span class="keyword">null</span>||collen==<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;collen;i++)&#123;</span><br><span class="line">            grid[<span class="number">0</span>][i] += grid[<span class="number">0</span>][i-<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;rowlen;j++)&#123;</span><br><span class="line">            grid[j][<span class="number">0</span>] += grid[j-<span class="number">1</span>][<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;rowlen;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;collen;j++)&#123;</span><br><span class="line">                grid[i][j] = Math.min(grid[i-<span class="number">1</span>][j]+grid[i][j],grid[i][j-<span class="number">1</span>]+grid[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> grid[rowlen-<span class="number">1</span>][collen-<span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Python代码"><a href="#Python代码" class="headerlink" title="Python代码"></a>Python代码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">minPathSum</span><span class="params">(self, grid: [[int]])</span> -&gt; int:</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(grid)):</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(len(grid[<span class="number">0</span>])):</span><br><span class="line">                <span class="keyword">if</span> i == j == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">elif</span> i == <span class="number">0</span>:  grid[i][j] = grid[i][j - <span class="number">1</span>] + grid[i][j]</span><br><span class="line">                <span class="keyword">elif</span> j == <span class="number">0</span>:  grid[i][j] = grid[i - <span class="number">1</span>][j] + grid[i][j]</span><br><span class="line">                <span class="keyword">else</span>: grid[i][j] = min(grid[i - <span class="number">1</span>][j], grid[i][j - <span class="number">1</span>]) + grid[i][j]</span><br><span class="line">        <span class="keyword">return</span> grid[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      最小路径和
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Python" scheme="http://benym.cn/tags/Python/"/>
-    
-      <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-739-每日温度</title>
-    <link href="http://benym.cn/2020/07/16/LeetCode-739-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/"/>
-    <id>http://benym.cn/2020/07/16/LeetCode-739-每日温度/</id>
-    <published>2020-07-16T01:33:43.000Z</published>
-    <updated>2020-07-16T03:23:30.273Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-739-每日温度"><a href="#LeetCode-739-每日温度" class="headerlink" title="LeetCode-739-每日温度"></a>LeetCode-739-每日温度</h2><p>请根据每日<code>气温</code>列表，重新生成一个列表。对应位置的输出为：要想观测到更高的气温，至少需要等待的天数。如果气温在这之后都不会升高，请在该位置用 0 来代替。</p><p>例如，给定一个列表<code>temperatures = [73, 74, 75, 71, 69, 72, 76, 73]</code>，你的输出应该是 <code>[1, 1, 4, 2, 1, 1, 0, 0]</code>。</p><p>提示：气温 列表长度的范围是 <code>[1, 30000]</code>。每个气温的值的均为华氏度，都是在 <code>[30, 100]</code>范围内的整数。</p><a id="more"></a><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、暴力破解：</strong></p><p>顺序遍历数组，固定第一个数，往后找比他大的数的位置，位置之差就是新数组中该数位置的值。之后固定第二个…直到数组结束</p><p><strong>方法2、单调栈：</strong></p><p>使用一个栈存储元素下标，当栈内有元素(不为空)，且新温度大于栈顶元素时，弹出栈顶元素，计算下标差值，作为栈顶元素位置的值。</p><p>继续看新的栈顶元素，直到当前数字小于等于栈顶元素停止，然后将数字入栈，这样就可以保持递减栈，且每个数字和第一个大于它的数的距离也可以算出来</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = T.length;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span> (j &lt; len) &#123;</span><br><span class="line">                <span class="keyword">if</span> (T[i] &lt; T[j]) &#123;</span><br><span class="line">                    dp[i] = j - i;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    j++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] dailyTemperatures(<span class="keyword">int</span>[] T) &#123;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">int</span> len = T.length;</span><br><span class="line">        <span class="keyword">int</span>[] res = <span class="keyword">new</span> <span class="keyword">int</span>[len];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty()&amp;&amp;T[i]&gt;T[stack.peek()])&#123;</span><br><span class="line">                <span class="keyword">int</span> pre = stack.pop();</span><br><span class="line">                res[pre] = i-pre;</span><br><span class="line">            &#125;</span><br><span class="line">            stack.add(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      每日温度
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="栈" scheme="http://benym.cn/tags/%E6%A0%88/"/>
     
   </entry>
   

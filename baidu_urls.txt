@@ -1,3 +1,5 @@
+http://benym.cn/2020/08/06/LeetCode-62-不同路径/
+http://benym.cn/2020/08/06/LeetCode-75-颜色分类/
 http://benym.cn/2020/08/05/LeetCode-416-分割等和子集/
 http://benym.cn/2020/08/04/LeetCode-146-LRU缓存机制/
 http://benym.cn/2020/08/03/LeetCode-394-字符串解码/
@@ -6,5 +8,3 @@ http://benym.cn/2020/08/02/LeetCode-56-合并区间/
 http://benym.cn/2020/08/01/LeetCode-236-二叉树的最近公共祖先/
 http://benym.cn/2020/07/31/LeetCode-560-和为K的子数组/
 http://benym.cn/2020/07/28/LeetCode-77-组合/
-http://benym.cn/2020/07/27/LeetCode-78-子集/
-http://benym.cn/2020/07/27/LeetCode-72-编辑距离/
