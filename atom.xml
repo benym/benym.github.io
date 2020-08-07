@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-06T07:13:51.401Z</updated>
+  <updated>2020-08-07T07:16:51.589Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-84-柱状图中最大的矩形</title>
+    <link href="http://benym.cn/2020/08/07/LeetCode-84-%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/"/>
+    <id>http://benym.cn/2020/08/07/LeetCode-84-柱状图中最大的矩形/</id>
+    <published>2020-08-07T02:13:52.000Z</published>
+    <updated>2020-08-07T07:16:51.589Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-84-柱状图中最大的矩形"><a href="#LeetCode-84-柱状图中最大的矩形" class="headerlink" title="LeetCode-84-柱状图中最大的矩形"></a>LeetCode-84-柱状图中最大的矩形</h2><p>给定 <em>n</em> 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p><p>求在该柱状图中，能够勾勒出来的矩形的最大面积。</p><p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 <code>[2,1,5,6,2,3]</code>。</p><p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 <code>10</code> 个单位。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [2,1,5,6,2,3]</span><br><span class="line">输出: 10</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、暴力破解：</strong></p><p>固定一个柱子的高度，往左和右寻找第一个高度小于当前柱子的柱体，向左和向右走的步数即是宽度</p><p>对于每个柱子，都计算一次以当前柱子为高度，左右寻找位置为宽度围成的矩形面积，最后得到最大的面积即可</p><p><strong>方法2、单调栈：</strong></p><p>我们可以 O(1) 的获取柱体 i 左边第一个比它小的柱体吗？答案就是单调增栈，因为对于栈中的柱体来说，栈中下一个柱体就是左边第一个高度小于自身的柱体。</p><p>视频详解<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhu-zhuang-tu-zhong-zui-da-de-ju-xing-by-leetcode-/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhu-zhuang-tu-zhong-zui-da-de-ju-xing-by-leetcode-/</a></p><p><strong>方法3、单调栈+哨兵：</strong></p><p>视频详解<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhu-zhuang-tu-zhong-zui-da-de-ju-xing-by-leetcode-/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/largest-rectangle-in-histogram/solution/zhu-zhuang-tu-zhong-zui-da-de-ju-xing-by-leetcode-/</a></p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = heights.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len;i++)&#123;</span><br><span class="line">            <span class="keyword">int</span> width = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> height = heights[i];</span><br><span class="line">            <span class="keyword">int</span> j = i;</span><br><span class="line">            <span class="keyword">while</span>(--j&gt;=<span class="number">0</span>&amp;&amp;heights[j]&gt;=height)&#123;</span><br><span class="line">                width++;</span><br><span class="line">            &#125;</span><br><span class="line">            j = i;</span><br><span class="line">            <span class="keyword">while</span>(++j&lt;len&amp;&amp;heights[j]&gt;=height)&#123;</span><br><span class="line">                width++;</span><br><span class="line">            &#125;</span><br><span class="line">            area = Math.max(area,width*height);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = heights.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;Integer&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty()&amp;&amp;heights[stack.peekLast()]&gt;heights[i])&#123;</span><br><span class="line">                <span class="keyword">int</span> height = heights[stack.removeLast()];</span><br><span class="line">                <span class="keyword">while</span>(!stack.isEmpty()&amp;&amp;heights[stack.peekLast()]==height)&#123;</span><br><span class="line">                    stack.removeLast();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">int</span> width;</span><br><span class="line">                <span class="keyword">if</span>(stack.isEmpty())&#123;</span><br><span class="line">                    width = i;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    width = i-stack.peekLast()-<span class="number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                area = Math.max(area,width*height);</span><br><span class="line">            &#125;</span><br><span class="line">            stack.addLast(i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(!stack.isEmpty())&#123;</span><br><span class="line">            <span class="keyword">int</span> height = heights[stack.removeLast()];</span><br><span class="line">            <span class="keyword">while</span>(!stack.isEmpty()&amp;&amp;heights[stack.peekLast()]==height)&#123;</span><br><span class="line">                stack.removeLast();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> width;</span><br><span class="line">            <span class="keyword">if</span>(stack.isEmpty())&#123;</span><br><span class="line">                width = len;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                width = len-stack.peekLast()-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            area = Math.max(area,width*height);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">largestRectangleArea</span><span class="params">(<span class="keyword">int</span>[] heights)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> area = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = heights.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> heights[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] newHeights = <span class="keyword">new</span> <span class="keyword">int</span>[len + <span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            newHeights[i + <span class="number">1</span>] = heights[i];</span><br><span class="line">        &#125;</span><br><span class="line">        len += <span class="number">2</span>;</span><br><span class="line">        heights = newHeights;</span><br><span class="line">        Deque&lt;Integer&gt; stack = <span class="keyword">new</span> ArrayDeque&lt;Integer&gt;();</span><br><span class="line">        stack.addLast(<span class="number">0</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">while</span> (heights[stack.peekLast()] &gt; heights[i]) &#123;</span><br><span class="line">                <span class="keyword">int</span> height = heights[stack.removeLast()];</span><br><span class="line">                <span class="keyword">int</span> width = i - stack.peekLast() - <span class="number">1</span>;</span><br><span class="line">                area = Math.max(area, width * height);</span><br><span class="line">            &#125;</span><br><span class="line">            stack.addLast(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> area;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      柱状图中最大的矩形
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-543-二叉树的直径</title>
+    <link href="http://benym.cn/2020/08/07/LeetCode-543-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/"/>
+    <id>http://benym.cn/2020/08/07/LeetCode-543-二叉树的直径/</id>
+    <published>2020-08-07T01:29:27.000Z</published>
+    <updated>2020-08-07T02:12:08.480Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-543-二叉树的直径"><a href="#LeetCode-543-二叉树的直径" class="headerlink" title="LeetCode-543-二叉树的直径"></a>LeetCode-543-二叉树的直径</h2><p>给定一棵二叉树，你需要计算它的直径长度。一棵二叉树的直径长度是任意两个结点路径长度中的最大值。这条路径可能穿过也可能不穿过根结点。</p><a id="more"></a><p><strong>示例1：</strong></p><p>给定二叉树</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    1</span><br><span class="line">   / \</span><br><span class="line">  2   3</span><br><span class="line"> / \     </span><br><span class="line">4   5</span><br></pre></td></tr></table></figure><p>返回 <strong>3</strong>, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。</p><p><strong>注意：</strong>两结点之间的路径长度是以它们之间边的数目表示。</p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、DFS：</strong></p><ol><li>二叉树的直径是不一定经过root节点的，可能存在于每个子树中，所以需要遍历每个节点的左右子树深度。动态记录最大的直径</li><li>直径 = max(左子树深度+右子树深度)</li><li>某节点子树的深度 = max(某节点左子树深度，某节点右子树深度)+1</li></ol><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     TreeNode left;</span></span><br><span class="line"><span class="comment"> *     TreeNode right;</span></span><br><span class="line"><span class="comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">diameterOfBinaryTree</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        calDepth(root);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">calDepth</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(root==<span class="keyword">null</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> left = calDepth(root.left);</span><br><span class="line">        <span class="keyword">int</span> right = calDepth(root.right);</span><br><span class="line">        res = Math.max(left+right,res);</span><br><span class="line">        <span class="keyword">return</span> Math.max(left,right)+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      二叉树的直径
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-62-不同路径</title>
@@ -62,11 +116,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -88,11 +142,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -116,11 +170,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -168,9 +222,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -194,11 +248,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -220,9 +274,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -246,11 +300,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -272,11 +326,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -300,11 +354,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -356,11 +410,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -382,11 +436,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -408,11 +462,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -438,9 +492,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
@@ -464,11 +518,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -498,65 +552,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
-  </entry>
-  
-  <entry>
-    <title>LeetCode-206-反转链表</title>
-    <link href="http://benym.cn/2020/07/17/LeetCode-206-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
-    <id>http://benym.cn/2020/07/17/LeetCode-206-反转链表/</id>
-    <published>2020-07-17T05:23:02.000Z</published>
-    <updated>2020-07-17T08:11:11.683Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-206-反转链表"><a href="#LeetCode-206-反转链表" class="headerlink" title="LeetCode-206-反转链表"></a>LeetCode-206-反转链表</h2><p>反转一个单链表。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure><p><strong>进阶:</strong><br>你可以迭代或递归地反转链表。你能否用两种方法解决这道题？</p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、迭代：</strong></p><p>利用pre指针指向null，并利用cur指针存储head节点，当cur不为空的时候</p><p>临时存储cur.next，因为要改变指向，将cur.next指向pre，将pre移动到cur的位置，将cur移动到cur.next即temp</p><p>最后返回pre即可</p><p><strong>方法2、递归：</strong></p><p>递归方法不容易理解，详见<a href="https://leetcode-cn.com/problems/reverse-linked-list/solution/dong-hua-yan-shi-206-fan-zhuan-lian-biao-by-user74/中的幻灯片演示" target="_blank" rel="noopener">https://leetcode-cn.com/problems/reverse-linked-list/solution/dong-hua-yan-shi-206-fan-zhuan-lian-biao-by-user74/中的幻灯片演示</a></p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Definition for singly-linked list.</span></span><br><span class="line"><span class="comment"> * public class ListNode &#123;</span></span><br><span class="line"><span class="comment"> *     int val;</span></span><br><span class="line"><span class="comment"> *     ListNode next;</span></span><br><span class="line"><span class="comment"> *     ListNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(head==<span class="keyword">null</span>||head.next==<span class="keyword">null</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode pre = <span class="keyword">null</span>;</span><br><span class="line">        ListNode cur = head;</span><br><span class="line">        <span class="keyword">while</span>(cur!=<span class="keyword">null</span>)&#123;</span><br><span class="line">            ListNode temp = cur.next;</span><br><span class="line">            cur.next = pre;</span><br><span class="line">            pre = cur;</span><br><span class="line">            cur = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">reverseList</span><span class="params">(ListNode head)</span> </span>&#123;</span><br><span class="line"><span class="comment">//递归终止条件是当前为空，或者下一个节点为空</span></span><br><span class="line"><span class="keyword">if</span>(head==<span class="keyword">null</span> || head.next==<span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="keyword">return</span> head;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//这里的cur就是最后一个节点</span></span><br><span class="line">ListNode cur = reverseList(head.next);</span><br><span class="line"><span class="comment">//这里请配合动画演示理解</span></span><br><span class="line"><span class="comment">//如果链表是 1-&gt;2-&gt;3-&gt;4-&gt;5，那么此时的cur就是5</span></span><br><span class="line"><span class="comment">//而head是4，head的下一个是5，下下一个是空</span></span><br><span class="line"><span class="comment">//所以head.next.next 就是5-&gt;4</span></span><br><span class="line">head.next.next = head;</span><br><span class="line"><span class="comment">//防止链表循环，需要将head.next设置为空</span></span><br><span class="line">head.next = <span class="keyword">null</span>;</span><br><span class="line"><span class="comment">//每层递归函数都返回cur，也就是最后一个节点</span></span><br><span class="line"><span class="keyword">return</span> cur;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      反转链表
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="链表" scheme="http://benym.cn/tags/%E9%93%BE%E8%A1%A8/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-32-最长有效括号</title>
-    <link href="http://benym.cn/2020/07/17/LeetCode-32-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/"/>
-    <id>http://benym.cn/2020/07/17/LeetCode-32-最长有效括号/</id>
-    <published>2020-07-17T01:43:11.000Z</published>
-    <updated>2020-07-17T05:24:13.404Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-32-最长有效括号"><a href="#LeetCode-32-最长有效括号" class="headerlink" title="LeetCode-32-最长有效括号"></a>LeetCode-32-最长有效括号</h2><p>给定一个只包含 <code>&#39;(&#39;</code> 和 <code>&#39;)&#39;</code> 的字符串，找出最长的包含有效括号的子串的长度。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;(()&quot;</span><br><span class="line">输出: 2</span><br><span class="line">解释: 最长有效括号子串为 &quot;()&quot;</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: &quot;)()())&quot;</span><br><span class="line">输出: 4</span><br><span class="line">解释: 最长有效括号子串为 &quot;()()&quot;</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>详见链接：<a href="https://leetcode-cn.com/problems/longest-valid-parentheses/solution/zui-chang-you-xiao-gua-hao-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/longest-valid-parentheses/solution/zui-chang-you-xiao-gua-hao-by-leetcode-solution/</a></p><p><strong>方法2、栈：</strong></p><p>具体做法是我们始终保持栈底元素为当前已经遍历过的元素中「最后一个没有被匹配的右括号的下标」，这样的做法主要是考虑了边界条件的处理，栈里其他元素维护左括号的下标：</p><ul><li>对于遇到的每个‘(’ ，我们将它的下标放入栈中</li><li>对于遇到的每个 ‘)’ ，我们先弹出栈顶元素表示匹配了当前右括号：<ul><li>如果栈为空，说明当前的右括号为没有被匹配的右括号，我们将其下标放入栈中来更新我们之前提到的「最后一个没有被匹配的右括号的下标」</li><li>如果栈不为空，当前右括号的下标减去栈顶元素即为「以该右括号为结尾的最长有效括号的长度」</li></ul></li></ul><p>我们从前往后遍历字符串并更新答案即可。</p><p>需要注意的是，如果一开始栈为空，第一个字符为左括号的时候我们会将其放入栈中，这样就不满足提及的「最后一个没有被匹配的右括号的下标」，为了保持统一，我们在一开始的时候往栈中放入一个值为 −1 的元素。</p><p><strong>方法3、双指针：</strong></p><p>在此方法中，我们利用两个计数器 left 和right 。首先，我们从左到右遍历字符串，对于遇到的每个‘(’，我们增加 left 计数器，对于遇到的每个‘)’ ，我们增加 right 计数器。每当 left 计数器与 right 计数器相等时，我们计算当前有效字符串的长度，并且记录目前为止找到的最长子字符串。当 right 计数器比 left 计数器大时，我们将 left 和 right 计数器同时变回 0。</p><p>这样的做法贪心地考虑了以当前字符下标结尾的有效括号长度，每次当右括号数量多于左括号数量的时候之前的字符我们都扔掉不再考虑，重新从下一个字符开始计算，但这样会漏掉一种情况，就是遍历的时候左括号的数量始终大于右括号的数量，即 (() ，这种时候最长有效括号是求不出来的。</p><p>解决的方法也很简单，我们只需要从右往左遍历用类似的方法计算即可，只是这个时候判断条件反了过来：</p><p>当left 计数器比right 计数器大时，我们将left 和right 计数器同时变回 0<br>当 left 计数器与 right 计数器相等时，我们计算当前有效字符串的长度，并且记录目前为止找到的最长子字符串<br>这样我们就能涵盖所有情况从而求解出答案。</p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> maxans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> dp[] = <span class="keyword">new</span> <span class="keyword">int</span>[s.length()];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">')'</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (s.charAt(i - <span class="number">1</span>) == <span class="string">'('</span>) &#123;</span><br><span class="line">                    dp[i] = (i &gt;= <span class="number">2</span> ? dp[i - <span class="number">2</span>] : <span class="number">0</span>) + <span class="number">2</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i - dp[i - <span class="number">1</span>] &gt; <span class="number">0</span> &amp;&amp; s.charAt(i - dp[i - <span class="number">1</span>] - <span class="number">1</span>) == <span class="string">'('</span>) &#123;</span><br><span class="line">                    dp[i] = dp[i - <span class="number">1</span>] + ((i - dp[i - <span class="number">1</span>]) &gt;= <span class="number">2</span> ? dp[i - dp[i - <span class="number">1</span>] - <span class="number">2</span>] : <span class="number">0</span>) + <span class="number">2</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                maxans = Math.max(maxans, dp[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> max = <span class="number">0</span>;</span><br><span class="line">        Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        stack.push(-<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s.charAt(i)==<span class="string">'('</span>)&#123;</span><br><span class="line">                stack.push(i);</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                stack.pop();</span><br><span class="line">                <span class="keyword">if</span>(stack.isEmpty())&#123;</span><br><span class="line">                    stack.push(i);</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    max = Math.max(max,i-stack.peek());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestValidParentheses</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> left = <span class="number">0</span>, right = <span class="number">0</span>, maxlength = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; s.length(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'('</span>) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (left == right) &#123;</span><br><span class="line">                maxlength = Math.max(maxlength, <span class="number">2</span> * right);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (right &gt; left) &#123;</span><br><span class="line">                left = <span class="number">0</span>;</span><br><span class="line">                right = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        left = <span class="number">0</span>;</span><br><span class="line">        right = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = s.length() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (s.charAt(i) == <span class="string">'('</span>) &#123;</span><br><span class="line">                left++;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (left == right) &#123;</span><br><span class="line">                maxlength = Math.max(maxlength, <span class="number">2</span> * left);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (left &gt; right) &#123;</span><br><span class="line">                left = <span class="number">0</span>;</span><br><span class="line">                right = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxlength;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      最长有效括号
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
