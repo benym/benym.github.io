@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-10T03:25:48.366Z</updated>
+  <updated>2020-08-11T08:04:13.178Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,60 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-221-最大正方形</title>
+    <link href="http://benym.cn/2020/08/11/LeetCode-221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2/"/>
+    <id>http://benym.cn/2020/08/11/LeetCode-221-最大正方形/</id>
+    <published>2020-08-11T03:22:30.000Z</published>
+    <updated>2020-08-11T08:04:13.178Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-221-最大正方形"><a href="#LeetCode-221-最大正方形" class="headerlink" title="LeetCode-221-最大正方形"></a>LeetCode-221-最大正方形</h2><p>在一个由 0 和 1 组成的二维矩阵内，找到只包含 1 的最大正方形，并返回其面积。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入: </span><br><span class="line"></span><br><span class="line">1 0 1 0 0</span><br><span class="line">1 0 1 1 1</span><br><span class="line">1 1 1 1 1</span><br><span class="line">1 0 0 1 0</span><br><span class="line"></span><br><span class="line">输出: 4</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、暴力破解：</strong></p><p>引用链接<a href="https://leetcode-cn.com/problems/maximal-square/solution/zui-da-zheng-fang-xing-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/maximal-square/solution/zui-da-zheng-fang-xing-by-leetcode-solution/</a></p><p>暴力法是最简单直观的做法，具体做法如下：</p><ul><li><p>遍历矩阵中的每个元素，每次遇到 1，则将该元素作为正方形的左上角；</p></li><li><p>确定正方形的左上角后，根据左上角所在的行和列计算可能的最大正方形的边长（正方形的范围不能超出矩阵的行数和列数），在该边长范围内寻找只包含 1 的最大正方形；</p></li><li><p>每次在下方新增一行以及在右方新增一列，判断新增的行和列是否满足所有元素都是 1。</p></li></ul><p><strong>方法2、动态规划：</strong></p><ul><li>状态<code>dp[i][j]</code>表示以第<code>i</code>行第<code>j</code>列为右下角所能构成的最大正方形边长</li></ul><p>则当<code>i==0</code>或者<code>j==0</code>，最大正方形边长始终为1，则<code>dp[i][j]=1</code></p><p>右下角的正方形的最大边长，最多比它的上方，左方，左上方为右下角的正方形边长+1</p><p>最好的情况是这三个方向的正方形大小都一样，这样加上右下角这个点就可以构成更大的正方形。但是如果其中某一个方向形成的正方形大小不一样，合起来就会缺少某个点，这时候的正方形大小只能取3个正方形中，最小的正方形边长+1了。</p><ul><li>状态转移方程为：<code>dp[i][j] = Math.min(dp[i-1][j-1],Math.min(dp[i-1][j],dp[i][j-1]))+1</code></li></ul><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> maxSide = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> maxSide;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> rows = matrix.length, columns = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; rows; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; columns; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">'1'</span>) &#123;</span><br><span class="line">                    <span class="comment">// 遇到一个 1 作为正方形的左上角</span></span><br><span class="line">                    maxSide = Math.max(maxSide, <span class="number">1</span>);</span><br><span class="line">                    <span class="comment">// 计算可能的最大正方形边长</span></span><br><span class="line">                    <span class="keyword">int</span> currentMaxSide = Math.min(rows - i, columns - j);</span><br><span class="line">                    <span class="comment">// 遍历可能的最大正方形内的每个元素</span></span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt; currentMaxSide; k++) &#123;</span><br><span class="line">                        <span class="comment">// 判断新增的一行一列是否均为 1</span></span><br><span class="line">                        <span class="comment">// 先判断对角线是否为0</span></span><br><span class="line">                        <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">                        <span class="keyword">if</span> (matrix[i + k][j + k] == <span class="string">'0'</span>) &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="comment">// 再判断左上角点的右边和下边是否为0</span></span><br><span class="line">                        <span class="keyword">for</span> (<span class="keyword">int</span> m = <span class="number">0</span>; m &lt; k; m++) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (matrix[i + k][j + m] == <span class="string">'0'</span> || matrix[i + m][j + k] == <span class="string">'0'</span>) &#123;</span><br><span class="line">                                flag = <span class="keyword">false</span>;</span><br><span class="line">                                <span class="keyword">break</span>;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="comment">// 如果flag仍然为true则说明矩阵中全部是1，更新最大边长</span></span><br><span class="line">                        <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">                            maxSide = Math.max(maxSide, k + <span class="number">1</span>);</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="keyword">break</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> maxSide * maxSide;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maximalSquare</span><span class="params">(<span class="keyword">char</span>[][] matrix)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (matrix == <span class="keyword">null</span> || matrix.length == <span class="number">0</span> || matrix[<span class="number">0</span>].length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> row = matrix.length;</span><br><span class="line">        <span class="keyword">int</span> col = matrix[<span class="number">0</span>].length;</span><br><span class="line">        <span class="keyword">int</span> matLen = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[row][col];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;row;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;col;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span> (matrix[i][j] == <span class="string">'1'</span>) &#123;</span><br><span class="line">                    <span class="keyword">if</span>(i==<span class="number">0</span>||j==<span class="number">0</span>)&#123;</span><br><span class="line">                        dp[i][j] = <span class="number">1</span>;</span><br><span class="line">                    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                        dp[i][j] = Math.min(dp[i-<span class="number">1</span>][j-<span class="number">1</span>],Math.min(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]))+<span class="number">1</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                    matLen = Math.max(dp[i][j],matLen);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> matLen*matLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      最大正方形
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="矩阵" scheme="http://benym.cn/tags/%E7%9F%A9%E9%98%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-1247-交换字符使得字符串相同</title>
+    <link href="http://benym.cn/2020/08/11/LeetCode-1247-%E4%BA%A4%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%BD%BF%E5%BE%97%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%90%8C/"/>
+    <id>http://benym.cn/2020/08/11/LeetCode-1247-交换字符使得字符串相同/</id>
+    <published>2020-08-11T01:43:28.000Z</published>
+    <updated>2020-08-11T03:21:34.119Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-1247-交换字符使得字符串相同"><a href="#LeetCode-1247-交换字符使得字符串相同" class="headerlink" title="LeetCode-1247-交换字符使得字符串相同"></a>LeetCode-1247-交换字符使得字符串相同</h2><p>有两个长度相同的字符串 s1 和 s2，且它们其中 只含有 字符 “x” 和 “y”，你需要通过「交换字符」的方式使这两个字符串相同。</p><p>每次「交换字符」的时候，你都可以在两个字符串中各选一个字符进行交换。</p><p>交换只能发生在两个不同的字符串之间，绝对不能发生在同一个字符串内部。也就是说，我们可以交换 s1[i] 和 s2[j]，但不能交换 s1[i] 和 s1[j]。</p><p>最后，请你返回使 s1 和 s2 相同的最小交换次数，如果没有方法能够使得这两个字符串相同，则返回 -1 。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：s1 = &quot;xx&quot;, s2 = &quot;yy&quot;</span><br><span class="line">输出：1</span><br><span class="line">解释：</span><br><span class="line">交换 s1[0] 和 s2[1]，得到 s1 = &quot;yx&quot;，s2 = &quot;yx&quot;。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：s1 = &quot;xy&quot;, s2 = &quot;yx&quot;</span><br><span class="line">输出：2</span><br><span class="line">解释：</span><br><span class="line">交换 s1[0] 和 s2[0]，得到 s1 = &quot;yy&quot;，s2 = &quot;xx&quot; 。</span><br><span class="line">交换 s1[0] 和 s2[1]，得到 s1 = &quot;xy&quot;，s2 = &quot;xy&quot; 。</span><br><span class="line">注意，你不能交换 s1[0] 和 s1[1] 使得 s1 变成 &quot;yx&quot;，因为我们只能交换属于两个不同字符串的字符。</span><br></pre></td></tr></table></figure><p><strong>示例3：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s1 = &quot;xx&quot;, s2 = &quot;xy&quot;</span><br><span class="line">输出：-1</span><br></pre></td></tr></table></figure><p><strong>示例4：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s1 = &quot;xxyyxyxyxx&quot;, s2 = &quot;xyyxyxxxyx&quot;</span><br><span class="line">输出：4</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li><code>1 &lt;= s1.length, s2.length &lt;= 1000</code></li><li><code>s1, s2</code> 只包含 <code>&#39;x&#39;</code> 或 <code>&#39;y&#39;</code>。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>根据示例1和示例2可知，</p><ul><li>当满足’xx’和’yy’、’yy’和’xx’的时候，只需要1步就可以完成交换</li><li>当满足’xy’和’yx’、’yx’和’xy’的时候，只需要2步就可以完成交换</li></ul><p>以上两种情况可以总结为，当s1=x、s2=y时，记录位x++；当s1=y、s2=x时，记录位y++</p><p>通过判断x和y的个数，计算最少交换字符的次数</p><p>如果x+y是奇数，则返回-1，因为这说明最后还剩下一对，x和y，单字符无法进行交换</p><p>如果x+y是偶数，则分为以下两种情况：</p><ul><li>奇数x+奇数y：每两个x和y对应移动1次，剩下一对x和y对应移动2次</li><li>偶数x+偶数y：每两个x和y对应移动1次</li></ul><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">minimumSwap</span><span class="params">(String s1, String s2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> x = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> y = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s1.length();i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(s1.charAt(i)==<span class="string">'x'</span>&amp;&amp;s2.charAt(i)==<span class="string">'y'</span>)&#123;</span><br><span class="line">                x++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(s1.charAt(i)==<span class="string">'y'</span>&amp;&amp;s2.charAt(i)==<span class="string">'x'</span>)&#123;</span><br><span class="line">                y++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>((x+y)%<span class="number">2</span>==<span class="number">1</span>) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="comment">// x是奇数</span></span><br><span class="line">        <span class="keyword">if</span>(x%<span class="number">2</span>!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> x/<span class="number">2</span>+y/<span class="number">2</span>+<span class="number">2</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> x/<span class="number">2</span>+y/<span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      交换字符使得字符串相同
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+  </entry>
   
   <entry>
     <title>网易2021秋招-最小字典序字符串</title>
@@ -114,9 +168,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -170,9 +224,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -196,9 +250,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -224,9 +278,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -302,9 +356,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -354,9 +408,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -380,9 +434,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -408,9 +462,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -436,11 +490,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -464,9 +518,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -490,65 +544,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-494-目标和</title>
-    <link href="http://benym.cn/2020/07/20/LeetCode-494-%E7%9B%AE%E6%A0%87%E5%92%8C/"/>
-    <id>http://benym.cn/2020/07/20/LeetCode-494-目标和/</id>
-    <published>2020-07-20T01:52:58.000Z</published>
-    <updated>2020-07-20T07:46:30.892Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-494-目标和"><a href="#LeetCode-494-目标和" class="headerlink" title="LeetCode-494-目标和"></a>LeetCode-494-目标和</h2><p>给定一个非负整数数组，a1, a2, …, an, 和一个目标数，S。现在你有两个符号 + 和 -。对于数组中的任意一个整数，你都可以从 + 或 -中选择一个符号添加在前面。</p><p>返回可以使最终数组和为目标数 S 的所有添加符号的方法数。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入：nums: [1, 1, 1, 1, 1], S: 3</span><br><span class="line">输出：5</span><br><span class="line">解释：</span><br><span class="line"></span><br><span class="line">-1+1+1+1+1 = 3</span><br><span class="line">+1-1+1+1+1 = 3</span><br><span class="line">+1+1-1+1+1 = 3</span><br><span class="line">+1+1+1-1+1 = 3</span><br><span class="line">+1+1+1+1-1 = 3</span><br><span class="line"></span><br><span class="line">一共有5种方法让最终目标和为3。</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li>数组非空，且长度不会超过 20 。</li><li>初始的数组的和不会超过 1000 。</li><li>保证返回的最终结果能被 32 位整数存下。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、回溯：</strong></p><p>每一步选择都有该位置数的正负2种选择方案，画成树状图可以知道需要DFS遍历2棵树</p><p>1棵树以第1位数<strong>为正</strong>开始寻找，1棵树以第1位数<strong>为负</strong>开始寻找，找到符合要求的答案。</p><p>类似于暴力穷举。</p><p>当遍历的深度达到数组长度，且路径和等于S的时候，说明找到了一条路径，count++</p><p>当不满足路径和要求时，返回上一层，进行回溯，撤销上一次的选择。</p><p><strong>方法2、动态规划：</strong></p><p>详见<a href="https://leetcode-cn.com/problems/target-sum/solution/494-mu-biao-he-by-ming-zhi-shan-you-m9rfkvkdad/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/target-sum/solution/494-mu-biao-he-by-ming-zhi-shan-you-m9rfkvkdad/</a></p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTargetSumWays</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> S)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        backtrack(<span class="number">0</span>,nums,S,len);</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span>[] nums,<span class="keyword">int</span> S,<span class="keyword">int</span> len)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(i==len)&#123;</span><br><span class="line">            <span class="keyword">if</span>(res==S)&#123;</span><br><span class="line">                count++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 选择正号</span></span><br><span class="line">        res+=nums[i];</span><br><span class="line">        backtrack(i+<span class="number">1</span>,nums,S,len);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        res-=nums[i];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 选择负号</span></span><br><span class="line">        res-=nums[i];</span><br><span class="line">        backtrack(i+<span class="number">1</span>,nums,S,len);</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        res+=nums[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">findTargetSumWays</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> S)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) sum += nums[i];</span><br><span class="line">        <span class="keyword">if</span> (Math.abs(S) &gt; Math.abs(sum)) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length][sum*<span class="number">2</span>+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">if</span>(nums[<span class="number">0</span>] == <span class="number">0</span>) dp[<span class="number">0</span>][sum] = <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            dp[<span class="number">0</span>][sum+nums[<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">            dp[<span class="number">0</span>][sum-nums[<span class="number">0</span>]] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i&lt;nums.length; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j&lt;(sum*<span class="number">2</span>+<span class="number">1</span>);j++)&#123;</span><br><span class="line">                <span class="keyword">int</span> l = (j - nums[i]) &gt;= <span class="number">0</span> ? j - nums[i] : <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">int</span> r = (j + nums[i]) &lt; (sum*<span class="number">2</span>+<span class="number">1</span>) ? j + nums[i] : <span class="number">0</span>;</span><br><span class="line">                dp[i][j] = dp[i-<span class="number">1</span>][l] + dp[i-<span class="number">1</span>][r];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[nums.length-<span class="number">1</span>][sum+S];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      目标和
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
-    
-      <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-461-汉明距离</title>
-    <link href="http://benym.cn/2020/07/20/LeetCode-461-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/"/>
-    <id>http://benym.cn/2020/07/20/LeetCode-461-汉明距离/</id>
-    <published>2020-07-20T01:22:22.000Z</published>
-    <updated>2020-07-20T01:51:44.012Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-461-汉明距离"><a href="#LeetCode-461-汉明距离" class="headerlink" title="LeetCode-461-汉明距离"></a>LeetCode-461-汉明距离</h2><p>两个整数之间的<a href="https://baike.baidu.com/item/汉明距离" target="_blank" rel="noopener">汉明距离</a>指的是这两个数字对应二进制位不同的位置的数目。</p><p>给出两个整数 <code>x</code> 和 <code>y</code>，计算它们之间的汉明距离。</p><p><strong>注意：</strong><br>0 ≤ <code>x</code>, <code>y</code> &lt; 2^31.</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">输入: x = 1, y = 4</span><br><span class="line"></span><br><span class="line">输出: 2</span><br><span class="line"></span><br><span class="line">解释:</span><br><span class="line">1   (0 0 0 1)</span><br><span class="line">4   (0 1 0 0)</span><br><span class="line">       ↑   ↑</span><br><span class="line"></span><br><span class="line">上面的箭头指出了对应二进制位不同的位置。</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、异或+移位：</strong></p><p>不难看出异或运算能够保留数据中不相同位置的1，之后我们只需要统计1的个数即可</p><p>在Java中内置函数<code>Integer.bitCount(x^y)</code>可以快速计算出1的个数</p><p>另外一种方式是将每个位逻辑位移，移动到最左侧，或者最右侧，检查该位是否为1</p><p>这里采用移动到最右侧的方式，即右移运算</p><p>使用取模%2运算或者AND运算&amp;1，检查最右边的一位是否为1，这两个操作都会屏蔽最右位以外的其他位。</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> xOry = x^y;</span><br><span class="line">        <span class="keyword">int</span> distance = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(xOry!=<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>((xOry%<span class="number">2</span>)==<span class="number">1</span>)&#123; <span class="comment">// 或者使用(xOry&amp;1)也可以</span></span><br><span class="line">                distance++;</span><br><span class="line">            &#125;</span><br><span class="line">            xOry=xOry&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> distance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      汉明距离
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
