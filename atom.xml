@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-11T08:04:13.178Z</updated>
+  <updated>2020-08-14T08:44:29.595Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-279-完全平方数</title>
+    <link href="http://benym.cn/2020/08/14/LeetCode-279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/"/>
+    <id>http://benym.cn/2020/08/14/LeetCode-279-完全平方数/</id>
+    <published>2020-08-14T05:38:52.000Z</published>
+    <updated>2020-08-14T08:44:29.595Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-279-完全平方数"><a href="#LeetCode-279-完全平方数" class="headerlink" title="LeetCode-279-完全平方数"></a>LeetCode-279-完全平方数</h2><p>给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 12</span><br><span class="line">输出: 3 </span><br><span class="line">解释: 12 = 4 + 4 + 4.</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: n = 13</span><br><span class="line">输出: 2</span><br><span class="line">解释: 13 = 4 + 9.</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong></p><p>详见<a href="https://leetcode-cn.com/problems/perfect-squares/solution/hua-jie-suan-fa-279-wan-quan-ping-fang-shu-by-guan/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/perfect-squares/solution/hua-jie-suan-fa-279-wan-quan-ping-fang-shu-by-guan/</a></p><p>首先初始化长度为n+1的数组dp，每个位置都为0<br>如果n为0，则结果为0<br>对数组进行遍历，下标为i，每次都将当前数字先更新为最大的结果，即dp[i]=i，比如i=4，最坏结果为4=1+1+1+1即为4个数字<br>动态转移方程为：dp[i] = MIN(dp[i], dp[i - j <em> j] + 1)，i表示当前数字，`j</em>j`表示平方数</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">numSquares</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>]; <span class="comment">// 默认初始化值都为0</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            dp[i] = i; <span class="comment">// 最坏的情况就是每次+1</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; i - j * j &gt;= <span class="number">0</span>; j++) &#123; </span><br><span class="line">                dp[i] = Math.min(dp[i], dp[i - j * j] + <span class="number">1</span>); <span class="comment">// 动态转移方程</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      完全平方数
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode-1143-最长公共子序列</title>
+    <link href="http://benym.cn/2020/08/14/LeetCode-1143-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97/"/>
+    <id>http://benym.cn/2020/08/14/LeetCode-1143-最长公共子序列/</id>
+    <published>2020-08-14T02:02:20.000Z</published>
+    <updated>2020-08-14T05:35:21.747Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-1143-最长公共子序列"><a href="#LeetCode-1143-最长公共子序列" class="headerlink" title="LeetCode-1143-最长公共子序列"></a>LeetCode-1143-最长公共子序列</h2><p>给定两个字符串 text1 和 text2，返回这两个字符串的最长公共子序列的长度。</p><p>一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。<br>例如，”ace” 是 “abcde” 的子序列，但 “aec” 不是 “abcde” 的子序列。两个字符串的「公共子序列」是这两个字符串所共同拥有的子序列。</p><p>若这两个字符串没有公共子序列，则返回 0。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 = &quot;abcde&quot;, text2 = &quot;ace&quot; </span><br><span class="line">输出：3  </span><br><span class="line">解释：最长公共子序列是 &quot;ace&quot;，它的长度为 3。</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 = &quot;abc&quot;, text2 = &quot;abc&quot;</span><br><span class="line">输出：3</span><br><span class="line">解释：最长公共子序列是 &quot;abc&quot;，它的长度为 3。</span><br></pre></td></tr></table></figure><p><strong>示例3：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：text1 = &quot;abc&quot;, text2 = &quot;def&quot;</span><br><span class="line">输出：0</span><br><span class="line">解释：两个字符串没有公共子序列，返回 0。</span><br></pre></td></tr></table></figure><p><strong>提示:</strong></p><ul><li><code>1 &lt;= text1.length &lt;= 1000</code></li><li><code>1 &lt;= text2.length &lt;= 1000</code></li><li>输入的字符串只含有小写英文字符。</li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong><br>详见大佬解析<a href="https://leetcode-cn.com/problems/longest-common-subsequence/solution/dong-tai-gui-hua-zhi-zui-chang-gong-gong-zi-xu-lie/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/longest-common-subsequence/solution/dong-tai-gui-hua-zhi-zui-chang-gong-gong-zi-xu-lie/</a></p><p>初始化DP表</p><p>第0列和第0行均为空串，对应位置为0</p><p>状态<code>dp[i][j]</code>表示：对于text1[1…i]和text2[1…j]，他们的LCS的长度为<code>dp[i][j]</code></p><p>状态转移方程：根据DP表得到，是前一列的LCS长度和上一行的LCS长度的最大值</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestCommonSubsequence</span><span class="params">(String text1, String text2)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> lenT1 = text1.length();</span><br><span class="line">        <span class="keyword">int</span> lenT2 = text2.length();</span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[lenT1+<span class="number">1</span>][lenT2+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=lenT1;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=lenT2;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(text1.charAt(i-<span class="number">1</span>)==text2.charAt(j-<span class="number">1</span>))&#123;</span><br><span class="line">                    dp[i][j] = dp[i-<span class="number">1</span>][j-<span class="number">1</span>]+<span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    dp[i][j] = Math.max(dp[i-<span class="number">1</span>][j],dp[i][j-<span class="number">1</span>]);</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[text1.length()][text2.length()];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      最长公共子序列
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
+      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-221-最大正方形</title>
@@ -166,11 +222,11 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -224,9 +280,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -250,9 +306,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -278,9 +334,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -356,9 +412,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -380,9 +436,9 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
@@ -408,9 +464,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -434,9 +490,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -462,9 +518,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="回溯" scheme="http://benym.cn/tags/%E5%9B%9E%E6%BA%AF/"/>
     
@@ -490,63 +546,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
       <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
-    
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-890-查找和替换模式</title>
-    <link href="http://benym.cn/2020/07/26/LeetCode-890-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2%E6%A8%A1%E5%BC%8F/"/>
-    <id>http://benym.cn/2020/07/26/LeetCode-890-查找和替换模式/</id>
-    <published>2020-07-26T09:00:32.000Z</published>
-    <updated>2020-07-26T12:38:34.191Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-890-查找和替换模式"><a href="#LeetCode-890-查找和替换模式" class="headerlink" title="LeetCode-890-查找和替换模式"></a>LeetCode-890-查找和替换模式</h2><p>你有一个单词列表 words 和一个模式  pattern，你想知道 words 中的哪些单词与模式匹配。</p><p>如果存在字母的排列 p ，使得将模式中的每个字母 x 替换为 p(x) 之后，我们就得到了所需的单词，那么单词与模式是匹配的。</p><p>（回想一下，字母的排列是从字母到字母的双射：每个字母映射到另一个字母，没有两个字母映射到同一个字母。）</p><p>返回 words 中与给定模式匹配的单词列表。</p><p>你可以按任何顺序返回答案。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">输入：words = [&quot;abc&quot;,&quot;deq&quot;,&quot;mee&quot;,&quot;aqq&quot;,&quot;dkd&quot;,&quot;ccc&quot;], pattern = &quot;abb&quot;</span><br><span class="line">输出：[&quot;mee&quot;,&quot;aqq&quot;]</span><br><span class="line">解释：</span><br><span class="line">&quot;mee&quot; 与模式匹配，因为存在排列 &#123;a -&gt; m, b -&gt; e, ...&#125;。</span><br><span class="line">&quot;ccc&quot; 与模式不匹配，因为 &#123;a -&gt; c, b -&gt; c, ...&#125; 不是排列。</span><br><span class="line">因为 a 和 b 映射到同一个字母。</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li><code>1 &lt;= words.length &lt;= 50</code></li><li><code>1 &lt;= pattern.length = words[i].length &lt;= 20</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>我们可以用两个映射表（map）存储字母到字母的映射关系，第一个映射表保证一个字母不会映射到两个字母，第二个映射表保证不会有两个字母映射到同一个字母。例如 word 为 a，pattern 为 x，那么第一个映射表存储 a -&gt; x，第二个映射表存储 x -&gt; a。</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">findAndReplacePattern</span><span class="params">(String[] words, String pattern)</span> </span>&#123;</span><br><span class="line">        List&lt;String&gt; ans = <span class="keyword">new</span> ArrayList();</span><br><span class="line">        <span class="keyword">for</span> (String word : words)</span><br><span class="line">            <span class="keyword">if</span> (match(word, pattern))</span><br><span class="line">                ans.add(word);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">match</span><span class="params">(String word, String pattern)</span> </span>&#123;</span><br><span class="line">        Map&lt;Character, Character&gt; m1 = <span class="keyword">new</span> HashMap();</span><br><span class="line">        Map&lt;Character, Character&gt; m2 = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; word.length(); ++i) &#123;</span><br><span class="line">            <span class="keyword">char</span> w = word.charAt(i);</span><br><span class="line">            <span class="keyword">char</span> p = pattern.charAt(i);</span><br><span class="line">            <span class="keyword">if</span> (!m1.containsKey(w)) m1.put(w, p);</span><br><span class="line">            <span class="keyword">if</span> (!m2.containsKey(p)) m2.put(p, w);</span><br><span class="line">            <span class="keyword">if</span> (m1.get(w) != p || m2.get(p) != w)</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      查找和替换模式
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-34-在排序数组中查找元素的第一个和最后一个位置</title>
-    <link href="http://benym.cn/2020/07/25/LeetCode-34-%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"/>
-    <id>http://benym.cn/2020/07/25/LeetCode-34-在排序数组中查找元素的第一个和最后一个位置/</id>
-    <published>2020-07-25T07:33:38.000Z</published>
-    <updated>2020-07-25T14:08:19.300Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-34-在排序数组中查找元素的第一个和最后一个位置"><a href="#LeetCode-34-在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="LeetCode-34-在排序数组中查找元素的第一个和最后一个位置"></a>LeetCode-34-在排序数组中查找元素的第一个和最后一个位置</h2><p>给定一个按照升序排列的整数数组 nums，和一个目标值 target。找出给定目标值在数组中的开始位置和结束位置。</p><p>你的算法时间复杂度必须是 O(log n) 级别。</p><p>如果数组中不存在目标值，返回 [-1, -1]。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [5,7,7,8,8,10], target = 8</span><br><span class="line">输出: [3,4]</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: nums = [5,7,7,8,8,10], target = 6</span><br><span class="line">输出: [-1,-1]</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、双指针暴力法(low)：</strong></p><p>特例判断：</p><ul><li>当数组为空或数组长度为0时，直接返回[-1,1]</li><li>当数组长度为1时，判断第一个数字是否等于target，等于则返回[0,0]，否则返回[-1,-1]</li></ul><p>初始化头尾指针</p><p>移动头指针，直到找到第一个等于target的位置，如果找完了都没有找到，返回[-1,-1]</p><p>移动尾指针，直到找到最后一个等于target的位置，如果找完了都没有找到，返回[-1,-1]</p><p>当头尾指针相同时，说明只有一个target，返回当前位置[start,start]或[end,end]</p><p>反之，返回头尾指针区间[start,end]</p><p><strong>方法2、二分查找(fast)：</strong></p><p>通过判断mid位置的数值，决定左右边界的移动</p><p>当<code>nums[mid]&lt;target</code>时，说明target在mid右方，<code>start = mid+1</code></p><p>当<code>nums[mid]&gt;target</code>时，说明target在mid左方，<code>end = mid-1</code></p><p>当<code>nums[mid]==target</code>时，说明左右边界有一个地方等于target，这时候只需要查找另外一个边界等于target的即可，可以进行循环移动查找，最后返回[start,end]即可</p><p>如果没有找到，返回[-1,-1]</p><p><strong>方法3、递归分治(low)：</strong></p><p>通过二分查找切分数组寻找左右子数组的target位置，迭代到只有一个，判断是否是目标值，返回一个都是当前index的数组，然后进行合并即可</p><p><strong>方法4、二次二分找左右边界(fast)：</strong></p><p>第一次二分找左边界，第二次二分找右边界，找左边界时向右逼近，找右边界时向左逼近</p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||len==<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>]==target? <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>&#125;: <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = len-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(nums[start]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>((start+<span class="number">1</span>)&gt;len-<span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            start++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(nums[end]!=target)&#123;</span><br><span class="line">            <span class="keyword">if</span>((end-<span class="number">1</span>)&lt;<span class="number">0</span>)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            end--;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(start==end) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start,start&#125;;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start,end&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||len==<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span>(len==<span class="number">1</span>) <span class="keyword">return</span> nums[<span class="number">0</span>]==target? <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">0</span>,<span class="number">0</span>&#125;: <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = len-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(start&lt;=end)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = start+(end-start)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]&lt;target)&#123;</span><br><span class="line">                start = mid+<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span>(nums[mid]&gt;target)&#123;</span><br><span class="line">                end = mid-<span class="number">1</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">while</span>(nums[start]!=target) start++;</span><br><span class="line">                <span class="keyword">while</span>(nums[end]!=target) end--;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;start,end&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">if</span>(nums.length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">return</span> subSearch(nums,target,<span class="number">0</span>,nums.length-<span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] subSearch(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> target,<span class="keyword">int</span> left, <span class="keyword">int</span> right)&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums[left]&gt;target || nums[right]&lt;target) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">if</span>(left==right)&#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[left] == target) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;left,left&#125;;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;-<span class="number">1</span>,-<span class="number">1</span>&#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> mid = (left+right)/<span class="number">2</span>;</span><br><span class="line">        <span class="keyword">int</span>[] leftRe = subSearch(nums,target,left,mid);</span><br><span class="line">        <span class="keyword">int</span>[] rightRe = subSearch(nums,target,mid+<span class="number">1</span>,right);</span><br><span class="line">        <span class="keyword">if</span>(leftRe[<span class="number">0</span>] &gt;=<span class="number">0</span> &amp;&amp; rightRe[<span class="number">0</span>] &gt;=<span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;leftRe[<span class="number">0</span>],rightRe[<span class="number">1</span>]&#125;;</span><br><span class="line">        <span class="keyword">if</span>(leftRe[<span class="number">0</span>] &gt;=<span class="number">0</span>) <span class="keyword">return</span> leftRe;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> rightRe;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码4"><a href="#Java代码4" class="headerlink" title="Java代码4"></a>Java代码4</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] searchRange(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        result[<span class="number">0</span>] = binarySearchLeftBound(nums, target);</span><br><span class="line">        result[<span class="number">1</span>] = binarySearchRightBound(nums, target);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearchLeftBound</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + ((r - l) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target)  &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &gt; target) &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;        </span><br><span class="line">        <span class="keyword">if</span> (l &gt;= nums.length || nums[l] != target) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> l;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearchRightBound</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> l = <span class="number">0</span>, r = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (l &lt;= r) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = l + ((r - l) &gt;&gt; <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> (nums[mid] &lt; target)  &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] &gt; target) &#123;</span><br><span class="line">                r = mid - <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (nums[mid] == target) &#123;</span><br><span class="line">                l = mid + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (r &lt; <span class="number">0</span> || nums[r] != target) <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      在排序数组中查找元素的第一个和最后一个位置
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
