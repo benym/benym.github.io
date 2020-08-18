@@ -5,10 +5,11 @@ description: 滑动窗口的最大值
 categories: 剑指Offer
 tags:
 - 数组
+- 滑动窗口
 - Java
 - Hard
 - 剑指Offer
-keywords: 数组,Java,Hard,剑指Offer
+keywords: 数组,Java,滑动窗口,Hard,剑指Offer
 ---
 
 ## LeetCode-面试题59-1-滑动窗口的最大值

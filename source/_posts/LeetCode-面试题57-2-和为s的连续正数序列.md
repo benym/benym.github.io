@@ -5,11 +5,12 @@ description: 和为s的两个数字
 categories: 剑指Offer
 tags:
 - 数组
+- 滑动窗口
 - Java
 - Python
 - Easy
 - 剑指Offer
-keywords: 数组,Java,Python,Easy,剑指Offer
+keywords: 数组,滑动窗口,Java,Python,Easy,剑指Offer
 ---
 
 ## LeetCode-面试题57-2-和为s的连续正数序列

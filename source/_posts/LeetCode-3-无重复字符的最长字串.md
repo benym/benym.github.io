@@ -6,9 +6,10 @@ categories: LeetCode
 tags: 
 - 字符串
 - Java
+- 滑动窗口
 - Medium
 - LeetCode
-keywords: 字符串,Java,Medium,LeetCode
+keywords: 字符串,Java,滑动窗口,Medium,LeetCode
 ---
 
 ## LeetCode-3-无重复字符的最长字串
