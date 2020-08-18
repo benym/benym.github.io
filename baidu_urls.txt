@@ -1,3 +1,5 @@
+http://benym.cn/2020/08/18/LeetCode-567-字符串的排列/
+http://benym.cn/2020/08/18/LeetCode-438-找到字符串中所有字母异位词/
 http://benym.cn/2020/08/14/LeetCode-279-完全平方数/
 http://benym.cn/2020/08/14/LeetCode-1143-最长公共子序列/
 http://benym.cn/2020/08/11/LeetCode-221-最大正方形/
@@ -6,5 +8,3 @@ http://benym.cn/2020/08/10/网易2021秋招-最小字典序字符串/
 http://benym.cn/2020/08/10/网易2021秋招-数组的最多素数个数/
 http://benym.cn/2020/08/07/LeetCode-84-柱状图中最大的矩形/
 http://benym.cn/2020/08/07/LeetCode-543-二叉树的直径/
-http://benym.cn/2020/08/06/LeetCode-62-不同路径/
-http://benym.cn/2020/08/06/LeetCode-75-颜色分类/
