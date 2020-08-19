@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode-76-最小覆盖字串]]></title>
+    <url>%2F2020%2F08%2F19%2FLeetCode-76-%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%97%E4%B8%B2%2F</url>
+    <content type="text"><![CDATA[LeetCode-76-最小覆盖字串给你一个字符串 S、一个字符串 T 。请你设计一种算法，可以在 O(n) 的时间复杂度内，从字符串 S 里面找出：包含 T 所有字符的最小子串。 示例1： 12输入：S = &quot;ADOBECODEBANC&quot;, T = &quot;ABC&quot;输出：&quot;BANC&quot; 提示： 如果 S 中不存这样的子串，则返回空字符串 &quot;&quot;。 如果 S 中存在这样的子串，我们保证它是唯一的答案。 解题思路方法1、滑动窗口(数组)： 示例中只列出了大写字母，但实际测试中含有小写字母，且同一字母可能会出现多次 用2个128长度的数组存储窗口window和实际需要的数组need 先将两个字串转为char数组，用need数组存储对应字符的出现次数 初始化滑动窗口指针，left、right、valid(记录匹配的长度) 因为需要返回匹配的最短字串，所以使用start和end指针记录子串的首尾位置 当右边界小于s的长度时，进行窗口滑动，直到包含t中所有字符为止 当valid长度达到t子串长度时，停止增加右边界，记录当前匹配的串的start和end；之后不断减小左边界，直到窗口中的字符不符合要求 重复4、5步，直到right达到s长度 返回子串start,start+end 方法2、滑动窗口(哈希表)： 和上面类似，改为哈希表存储 Java代码112345678910111213141516171819202122232425262728293031323334class Solution &#123; public String minWindow(String s, String t) &#123; char[] arrs = s.toCharArray(); char[] arrt = t.toCharArray(); int[] window = new int[128]; int[] need = new int[128]; for (int i = 0; i &lt; arrt.length; i++) &#123; need[arrt[i]]++; &#125; int left = 0, right = 0, valid = 0; int start = 0, end = Integer.MAX_VALUE; while (right &lt; arrs.length) &#123; char cright = arrs[right]; right++; window[cright]++; if (window[cright] &lt;= need[cright]) &#123; valid++; &#125; while (valid == arrt.length) &#123; if (right - left &lt; end) &#123; start = left; end = right - left; &#125; char cleft = arrs[left]; left++; if (window[cleft] == need[cleft]) &#123; valid--; &#125; window[cleft]--; &#125; &#125; return end == Integer.MAX_VALUE ? "" : s.substring(start, start + end); &#125;&#125; Java代码212345678910111213141516171819202122232425262728293031323334353637class Solution &#123; public String minWindow(String s, String t) &#123; Map&lt;Character,Integer&gt; need = new HashMap&lt;&gt;(); Map&lt;Character,Integer&gt; window = new HashMap&lt;&gt;(); for(char c: t.toCharArray())&#123; need.put(c,need.getOrDefault(c,0)+1); &#125; int left = 0,right = 0; int valid = 0; int start = 0,len = Integer.MAX_VALUE; while(right&lt;s.length())&#123; char cright = s.charAt(right); right++; if(need.containsKey(cright))&#123; window.put(cright,window.getOrDefault(cright,0)+1); if((int)window.get(cright)==(int)need.get(cright))&#123; valid++; &#125; &#125; while(valid==need.size())&#123; if(right-left&lt;len)&#123; start = left; len = right - left; &#125; char dleft = s.charAt(left); left++; if(need.containsKey(dleft))&#123; if((int)window.get(dleft)==(int)need.get(dleft))&#123; valid--; &#125; window.put(dleft,window.get(dleft)-1); &#125; &#125; &#125; return len==Integer.MAX_VALUE? "" : s.substring(start,start+len); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>字符串</tag>
+        <tag>Hard</tag>
+        <tag>滑动窗口</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-567-字符串的排列]]></title>
     <url>%2F2020%2F08%2F18%2FLeetCode-567-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E6%8E%92%E5%88%97%2F</url>
     <content type="text"><![CDATA[LeetCode-567-字符串的排列给定两个字符串 s1 和 s2，写一个函数来判断 s2 是否包含 s1 的排列。 换句话说，第一个字符串的排列之一是第二个字符串的子串。 示例1： 123输入: s1 = &quot;ab&quot; s2 = &quot;eidbaooo&quot;输出: True解释: s2 包含 s1 的排列之一 (&quot;ba&quot;). 示例2： 12输入: s1= &quot;ab&quot; s2 = &quot;eidboaoo&quot;输出: False 注意： 输入的字符串只包含小写字母 两个字符串的长度都在 [1, 10,000] 之间 解题思路方法1、滑动窗口(套模版)： https://leetcode-cn.com/problems/permutation-in-string/solution/wo-xie-liao-yi-shou-shi-ba-suo-you-hua-dong-chuang/ 方法2、滑动窗口(数组优化)： 由于都是小写字符，所以初始化两个数组作为need和window，剩余步骤依旧按照模版走，详见注释。 Java代码1123456789101112131415161718192021222324252627282930313233343536class Solution &#123; public boolean checkInclusion(String s1, String s2) &#123; Map&lt;Character,Integer&gt; need =new HashMap&lt;&gt;(); Map&lt;Character,Integer&gt; window =new HashMap&lt;&gt;(); for(char c:s1.toCharArray()) need.put(c,need.getOrDefault(c,0)+1); int left = 0,right = 0; int valid = 0; int start=0,len =Integer.MAX_VALUE; while(right &lt; s2.length())&#123; char c = s2.charAt(right); right++; if(need.containsKey(c))&#123; window.put(c,window.getOrDefault(c,0)+1); if((int)window.get(c) ==(int) need.get(c))&#123; valid++; &#125; &#125; while(right-left == s1.length())&#123; if(valid == need.size())&#123; return true; &#125; char d = s2.charAt(left); left++; if(need.containsKey(d))&#123; if((int)window.get(d) == (int)need.get(d))&#123; valid--; &#125; window.put(d,window.get(d)-1); &#125; &#125; &#125; return false; &#125;&#125; Java代码2123456789101112131415161718192021222324252627282930313233343536373839404142class Solution &#123; public boolean checkInclusion(String s1, String s2) &#123; char[] arrS1 = s1.toCharArray(); char[] arrS2 = s2.toCharArray(); int[] needs = new int[26]; int[] window = new int[26]; int cntChar = 0; // 有效字母个数(不同的字母个数) for(char c: arrS1)&#123; if(needs[c-'a']==0) cntChar++;// 如果该字母第一次出现，记录下来 needs[c-'a']+=1; &#125; int left = 0; int right = 0; int valid = 0; while(right &lt; arrS2.length)&#123; char c = arrS2[right]; // 对窗口内数据进行一系列更新 window[c-'a']+=1; if(window[c-'a']==needs[c-'a'])&#123; valid++; &#125; // 当窗口扩散到包含s1时，进行左边界收缩 while(cntChar==valid)&#123; // 如果窗口大小为s1的长度，则说明找到了 if(right-left+1==arrS1.length)&#123; return true; &#125; char d = arrS2[left]; // 窗口缩小，对应字符出现次数-1 window[d-'a']-=1; // 当字符次数小于s1中字符出现次数时，则说明窗口达到包含s1字符的最小窗口 if(window[d-'a']&lt;needs[d-'a'])&#123; valid--; &#125; left++; &#125; right++; &#125; return false; &#125;&#125;]]></content>
@@ -972,7 +986,7 @@
   <entry>
     <title><![CDATA[LeetCode-105-从前序与中序遍历构造二叉树]]></title>
     <url>%2F2020%2F06%2F22%2FLeetCode-105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
-    <content type="text"><![CDATA[LeetCode-105-从前序与中序遍历构造二叉树根据一棵树的前序遍历与中序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。 示例 1: 例如，给出 12前序遍历 preorder = [3,9,20,15,7]中序遍历 inorder = [9,3,15,20,7] 返回如下的二叉树： 12345 3 / \9 20 / \ 15 7 解题思路方法1、递归： 前序遍历：根左右 中序遍历：左根右 对于任意一棵树而言，前序遍历的形式总是 1[根节点，[左子树的前序遍历结果],[右子树的前序遍历结果]] 根节点总是，前序遍历中的第一个节点 中序遍历的形式总是 1[[左子树的中序遍历结果],根节点,[右子树的中序遍历结果]] 只要能够在中序遍历中定位到根节点，那么就可以得到对应的左右子树的节点数目 由于前序遍历和中序遍历的长度是相同的，所以我们也能知道前序遍历的左右字数的区间范围 之后进行递归，问题就变为了： 知道左子树的前序和中序遍历，重建左子树；知道右子树的前序和中序遍历，重建右子树； 定位优化： 在中序遍历中需要根据前序遍历的根节点，定位到中序遍历中的根节点 直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了 Java代码12345678910111213141516171819202122232425262728293031323334353637383940414243/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public TreeNode buildTree(int[] preorder, int[] inorder) &#123; if(preorder==null||preorder.length==0)&#123; return null; &#125; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); for(int i=0;i&lt;inorder.length;i++)&#123; map.put(inorder[i],i); &#125; int length = preorder.length-1; TreeNode root = reconstrTree(preorder,0,length,inorder,0,length,map); return root; &#125; public TreeNode reconstrTree(int[] preorder,int postart,int poend,int[] inorder,int instart,int inend,Map&lt;Integer,Integer&gt; map)&#123; if(postart&gt;poend)&#123; return null; &#125; int rootNode = preorder[postart]; TreeNode root = new TreeNode(rootNode); if(postart==poend)&#123; return root; &#125;else&#123; int rootIndex = map.get(rootNode); int leftRange = rootIndex - instart; int rightRange = inend - rootIndex; TreeNode leftTree = reconstrTree(preorder,postart+1,postart+leftRange,inorder,instart,rootIndex-1,map); TreeNode rightTree = reconstrTree(preorder,poend-rightRange+1,poend,inorder,rootIndex+1,inend,map); root.left = leftTree; root.right = rightTree; return root; &#125; &#125;&#125;]]></content>
+    <content type="text"><![CDATA[LeetCode-105-从前序与中序遍历构造二叉树根据一棵树的前序遍历与中序遍历构造二叉树。 注意:你可以假设树中没有重复的元素。 示例 1: 例如，给出 12前序遍历 preorder = [3,9,20,15,7]中序遍历 inorder = [9,3,15,20,7] 返回如下的二叉树： 12345 3 / \9 20 / \ 15 7 解题思路方法1、递归： 前序遍历：根左右 中序遍历：左根右 对于任意一棵树而言，前序遍历的形式总是 1[根节点，[左子树的前序遍历结果],[右子树的前序遍历结果]] 根节点总是，前序遍历中的第一个节点 中序遍历的形式总是 1[[左子树的中序遍历结果],根节点,[右子树的中序遍历结果]] 只要能够在中序遍历中定位到根节点，那么就可以得到对应的左右子树的节点数目 由于前序遍历和中序遍历的长度是相同的，所以我们也能知道前序遍历的左右字数的区间范围 之后进行递归，问题就变为了： 知道左子树的前序和中序遍历，重建左子树；知道右子树的前序和中序遍历，重建右子树； 定位优化： 在中序遍历中需要根据前序遍历的根节点，定位到中序遍历中的根节点 直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了 方法2、迭代： https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/cong-qian-xu-yu-zhong-xu-bian-li-xu-lie-gou-zao-9/ Java代码112345678910111213141516171819202122232425262728293031323334353637383940414243/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public TreeNode buildTree(int[] preorder, int[] inorder) &#123; if(preorder==null||preorder.length==0)&#123; return null; &#125; Map&lt;Integer,Integer&gt; map = new HashMap&lt;&gt;(); for(int i=0;i&lt;inorder.length;i++)&#123; map.put(inorder[i],i); &#125; int length = preorder.length-1; TreeNode root = reconstrTree(preorder,0,length,inorder,0,length,map); return root; &#125; public TreeNode reconstrTree(int[] preorder,int postart,int poend,int[] inorder,int instart,int inend,Map&lt;Integer,Integer&gt; map)&#123; if(postart&gt;poend)&#123; return null; &#125; int rootNode = preorder[postart]; TreeNode root = new TreeNode(rootNode); if(postart==poend)&#123; return root; &#125;else&#123; int rootIndex = map.get(rootNode); int leftRange = rootIndex - instart; int rightRange = inend - rootIndex; TreeNode leftTree = reconstrTree(preorder,postart+1,postart+leftRange,inorder,instart,rootIndex-1,map); TreeNode rightTree = reconstrTree(preorder,poend-rightRange+1,poend,inorder,rootIndex+1,inend,map); root.left = leftTree; root.right = rightTree; return root; &#125; &#125;&#125; Java代码2123456789101112131415161718192021222324252627282930313233343536/** * Definition for a binary tree node. * public class TreeNode &#123; * int val; * TreeNode left; * TreeNode right; * TreeNode(int x) &#123; val = x; &#125; * &#125; */class Solution &#123; public TreeNode buildTree(int[] preorder, int[] inorder) &#123; if (preorder == null || preorder.length == 0) &#123; return null; &#125; TreeNode root = new TreeNode(preorder[0]); Stack&lt;TreeNode&gt; stack = new Stack&lt;TreeNode&gt;(); stack.push(root); int inorderIndex = 0; for (int i = 1; i &lt; preorder.length; i++) &#123; int preorderVal = preorder[i]; TreeNode node = stack.peek(); if (node.val != inorder[inorderIndex]) &#123; node.left = new TreeNode(preorderVal); stack.push(node.left); &#125; else &#123; while (!stack.isEmpty() &amp;&amp; stack.peek().val == inorder[inorderIndex]) &#123; node = stack.pop(); inorderIndex++; &#125; node.right = new TreeNode(preorderVal); stack.push(node.right); &#125; &#125; return root; &#125;&#125;]]></content>
       <categories>
         <category>LeetCode</category>
       </categories>
@@ -1308,8 +1322,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1794,8 +1808,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1809,8 +1823,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>分治</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1947,8 +1961,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2054,8 +2068,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2084,8 +2098,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2267,8 +2281,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2282,8 +2296,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2297,8 +2311,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2343,8 +2357,8 @@
         <tag>Java</tag>
         <tag>字符串</tag>
         <tag>DP</tag>
-        <tag>Python</tag>
         <tag>Hard</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2358,8 +2372,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2372,8 +2386,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2451,9 +2465,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -2467,9 +2481,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -2613,8 +2627,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2769,8 +2783,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>matlab</tag>
         <tag>机器学习</tag>
+        <tag>matlab</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -2947,8 +2961,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
         <tag>k-近邻算法</tag>
       </tags>
   </entry>
@@ -2988,8 +3002,8 @@
       </categories>
       <tags>
         <tag>矩阵</tag>
-        <tag>机器学习</tag>
         <tag>Numpy</tag>
+        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3367,9 +3381,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3378,9 +3392,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
