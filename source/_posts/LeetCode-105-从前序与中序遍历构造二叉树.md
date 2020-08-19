@@ -74,7 +74,11 @@ keywords: 树,Java,Medium
 
 直接进行扫描匹配的耗时比较大，可以在一开始对中序遍历建立hash表，Key代表元素的值，value代表在中序遍历中出现的位置。之后寻找对应值就能够快速定位了
 
-### Java代码
+**方法2、迭代：**
+
+https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/cong-qian-xu-yu-zhong-xu-bian-li-xu-lie-gou-zao-9/
+
+### Java代码1
 
 ```java
 /**
@@ -118,6 +122,47 @@ class Solution {
             root.right = rightTree;
             return root;
         }
+    }
+}
+```
+
+### Java代码2
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if (preorder == null || preorder.length == 0) {
+            return null;
+        }
+        TreeNode root = new TreeNode(preorder[0]);
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        int inorderIndex = 0;
+        for (int i = 1; i < preorder.length; i++) {
+            int preorderVal = preorder[i];
+            TreeNode node = stack.peek();
+            if (node.val != inorder[inorderIndex]) {
+                node.left = new TreeNode(preorderVal);
+                stack.push(node.left);
+            } else {
+                while (!stack.isEmpty() && stack.peek().val == inorder[inorderIndex]) {
+                    node = stack.pop();
+                    inorderIndex++;
+                }
+                node.right = new TreeNode(preorderVal);
+                stack.push(node.right);
+            }
+        }
+        return root;
     }
 }
 ```
