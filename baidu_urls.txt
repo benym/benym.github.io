@@ -1,3 +1,4 @@
+http://benym.cn/2020/08/25/01背包问题详解/
 http://benym.cn/2020/08/21/LeetCode-322-零钱兑换/
 http://benym.cn/2020/08/20/获取满足指数的最长字符串/
 http://benym.cn/2020/08/19/LeetCode-76-最小覆盖字串/
@@ -7,4 +8,3 @@ http://benym.cn/2020/08/14/LeetCode-279-完全平方数/
 http://benym.cn/2020/08/14/LeetCode-1143-最长公共子序列/
 http://benym.cn/2020/08/11/LeetCode-221-最大正方形/
 http://benym.cn/2020/08/11/LeetCode-1247-交换字符使得字符串相同/
-http://benym.cn/2020/08/10/网易2021秋招-最小字典序字符串/
