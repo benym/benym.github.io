@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="0到n-1中缺失的数字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-08-29T14:18:51.889Z">
+<meta property="og:updated_time" content="2020-08-29T14:34:55.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-面试题53-2-0到n-1中缺失的数字">
 <meta name="twitter:description" content="0到n-1中缺失的数字">
@@ -446,7 +446,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-08-29T22:18:51+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-29T22:34:55+08:00">
                 2020-08-29
               </time>
             
@@ -517,7 +517,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,019
+                  1,044
                 </span>
               
 
@@ -600,7 +600,7 @@
 
 <p><strong>方法、异或运算：</strong></p>
 <p>数组无序的情况依旧可以使用异或运算进行处理</p>
-<p>先初始化<code>r=0</code>，将<code>r</code>与数组所有值异或一次，之后将<code>r</code>和数组<code>i+1</code>异或一次(因为下标从<code>1</code>开始，但循环从<code>0</code>开始)，由于补全之后，数组的长度是<code>n</code>，当前的数组长度为<code>n-1</code>，所以还需要再异或最后一位数字的索引，即<code>nums.length+1</code>，才能得到缺失的数字。</p>
+<p>先初始化<code>r=0</code>，将<code>r</code>与数组所有值异或一次，之后将<code>r</code>和数组<code>i+1</code>异或一次(因为下标从<code>1</code>开始，但循环从<code>0</code>开始)，由于补全之后，数组的长度是<code>n</code>，当前的数组长度为<code>n-1</code>，所以还需要再异或最后一位数字的索引，因为数组的范围从1开始，所以最后的异或同样有1的偏移，即<code>nums.length+1</code>，才能得到缺失的数字。</p>
 <p>无论数组是否有序，异或2次之后，缺失的数字就是剩下的，如果不缺失则2次异或完毕的结果为0</p>
 <h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeetCode53_2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            r ^= (nums[i] ^ (i+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(r ^ (nums.length+<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

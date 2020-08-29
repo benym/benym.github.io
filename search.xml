@@ -417,8 +417,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>图论算法</tag>
         <tag>拓扑排序</tag>
@@ -688,8 +688,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
       </tags>
   </entry>
@@ -755,8 +755,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -828,8 +828,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>反射</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -900,8 +900,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>多线程</tag>
         <tag>Java</tag>
+        <tag>多线程</tag>
       </tags>
   </entry>
   <entry>
@@ -913,8 +913,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>字符串</tag>
         <tag>回溯</tag>
       </tags>
@@ -1206,8 +1206,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1335,8 +1335,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Hard</tag>
-        <tag>矩阵</tag>
         <tag>回溯</tag>
+        <tag>矩阵</tag>
         <tag>二维数组</tag>
       </tags>
   </entry>
@@ -1364,8 +1364,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1792,8 +1792,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -1815,7 +1815,7 @@
   <entry>
     <title><![CDATA[LeetCode-面试题53-2-0到n-1中缺失的数字]]></title>
     <url>%2F2020%2F05%2F12%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9853-2-0%E5%88%B0n-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题53-2-0到n-1中缺失的数字一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。 示例1： 12输入: [0,1,3]输出: 2 示例2： 12输入: [0,1,2,3,4,5,6,7,9]输出: 8 限制： 1 &lt;= 数组长度 &lt;= 10000 解题思路方法1、二分查找： 递增且数字范围在0~n-1的数组(有序数组)，数字和它对应的下标一定是相等的，缺失的数子会造成，该数字之后的数组下标在原本相等的情况下+1 排序数组中的搜索问题，首先想到二分查找解决 分析可知，数组可以分为左右子数组2部分： 左子数组：nums[i]=i 右子数组：nums[i]!=i 缺失的数字=右子数组的首位元素对应的索引 初始化头尾指针start，end 当start&lt;end时，计算mid = (start+end)/2 若nums[mid] = mid，则”右子数组的首位元素”一定在闭区间[mid+1,end]中，因此执行start = mid+1; 若nums[mid]!=mid，则”左子数组的末位元素”一定在闭区间[start,mid-1]中，因此end = mid -1; 跳出时，start就是指向右子数组的首位元素，end指向左子数组的末位元素，因此返回start即可 时间复杂度O(logN)，空间复杂度O(1) 方法2、异或运算： 异或运算，可以使得相同的数字异或为0，如b^b=0，a^b^b=a 由于数组有序且递增，除了缺失数字外，每一位元素和索引进行异或均为0 初始化res=0，即先假设这个数字为0，先把数组的[0,n-1]范围内的数组异或一遍，此时等于n个数字全部异或，再把他和对应的[0,n-1]索引下标异或一遍，这两个操作可以在一个循环中搞定。 因为元素和下标是相等的，异或为0，所以缺失的数字一定会在异或2次操作后剩下，因为缺失的数字和下标是不等的 最后再将res异或上数组下标n也就是此时i的值(因为此时，数组已经异或了n个，而下标只异或了n-1个，所以循环之外还需要再次异或数组下标i++即n)，就可以得到缺失的数字。 Java代码112345678910111213class Solution &#123; public int missingNumber(int[] nums) &#123; int start = 0, end = nums.length - 1; while(start &lt;= end) &#123; int mid = (start + end) / 2; if(nums[mid] == mid) start = mid + 1; else end = mid - 1; &#125; return start; &#125;&#125; Java代码21234567891011class Solution &#123; public int missingNumber(int[] nums) &#123; int n = nums.length; int res = 0; for (int i=0;i&lt;nums.length;i++)&#123; res^=nums[i]; res^=i; &#125; return res^n; &#125;&#125; 2020年8月29日 22:10:10更新，当数组是无序的时候，且数组范围在[1,n-1]，应该怎么去做？ 方法、异或运算： 数组无序的情况依旧可以使用异或运算进行处理 先初始化r=0，将r与数组所有值异或一次，之后将r和数组i+1异或一次(因为下标从1开始，但循环从0开始)，由于补全之后，数组的长度是n，当前的数组长度为n-1，所以还需要再异或最后一位数字的索引，即nums.length+1，才能得到缺失的数字。 无论数组是否有序，异或2次之后，缺失的数字就是剩下的，如果不缺失则2次异或完毕的结果为0 Java代码312345678910public class LeetCode53_2 &#123; public static void main(String[] args) &#123; int[] nums = new int[]&#123;1, 3, 2, 5, 4, 7, 8&#125;; int r = 0; for (int i = 0; i &lt; nums.length; i++) &#123; r ^= (nums[i] ^ (i+1)); &#125; System.out.println(r ^ (nums.length+1)); &#125;&#125;]]></content>
+    <content type="text"><![CDATA[LeetCode-面试题53-2-0到n-1中缺失的数字一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内。在范围0～n-1内的n个数字中有且只有一个数字不在该数组中，请找出这个数字。 示例1： 12输入: [0,1,3]输出: 2 示例2： 12输入: [0,1,2,3,4,5,6,7,9]输出: 8 限制： 1 &lt;= 数组长度 &lt;= 10000 解题思路方法1、二分查找： 递增且数字范围在0~n-1的数组(有序数组)，数字和它对应的下标一定是相等的，缺失的数子会造成，该数字之后的数组下标在原本相等的情况下+1 排序数组中的搜索问题，首先想到二分查找解决 分析可知，数组可以分为左右子数组2部分： 左子数组：nums[i]=i 右子数组：nums[i]!=i 缺失的数字=右子数组的首位元素对应的索引 初始化头尾指针start，end 当start&lt;end时，计算mid = (start+end)/2 若nums[mid] = mid，则”右子数组的首位元素”一定在闭区间[mid+1,end]中，因此执行start = mid+1; 若nums[mid]!=mid，则”左子数组的末位元素”一定在闭区间[start,mid-1]中，因此end = mid -1; 跳出时，start就是指向右子数组的首位元素，end指向左子数组的末位元素，因此返回start即可 时间复杂度O(logN)，空间复杂度O(1) 方法2、异或运算： 异或运算，可以使得相同的数字异或为0，如b^b=0，a^b^b=a 由于数组有序且递增，除了缺失数字外，每一位元素和索引进行异或均为0 初始化res=0，即先假设这个数字为0，先把数组的[0,n-1]范围内的数组异或一遍，此时等于n个数字全部异或，再把他和对应的[0,n-1]索引下标异或一遍，这两个操作可以在一个循环中搞定。 因为元素和下标是相等的，异或为0，所以缺失的数字一定会在异或2次操作后剩下，因为缺失的数字和下标是不等的 最后再将res异或上数组下标n也就是此时i的值(因为此时，数组已经异或了n个，而下标只异或了n-1个，所以循环之外还需要再次异或数组下标i++即n)，就可以得到缺失的数字。 Java代码112345678910111213class Solution &#123; public int missingNumber(int[] nums) &#123; int start = 0, end = nums.length - 1; while(start &lt;= end) &#123; int mid = (start + end) / 2; if(nums[mid] == mid) start = mid + 1; else end = mid - 1; &#125; return start; &#125;&#125; Java代码21234567891011class Solution &#123; public int missingNumber(int[] nums) &#123; int n = nums.length; int res = 0; for (int i=0;i&lt;nums.length;i++)&#123; res^=nums[i]; res^=i; &#125; return res^n; &#125;&#125; 2020年8月29日 22:10:10更新，当数组是无序的时候，且数组范围在[1,n-1]，应该怎么去做？ 方法、异或运算： 数组无序的情况依旧可以使用异或运算进行处理 先初始化r=0，将r与数组所有值异或一次，之后将r和数组i+1异或一次(因为下标从1开始，但循环从0开始)，由于补全之后，数组的长度是n，当前的数组长度为n-1，所以还需要再异或最后一位数字的索引，因为数组的范围从1开始，所以最后的异或同样有1的偏移，即nums.length+1，才能得到缺失的数字。 无论数组是否有序，异或2次之后，缺失的数字就是剩下的，如果不缺失则2次异或完毕的结果为0 Java代码312345678910public class LeetCode53_2 &#123; public static void main(String[] args) &#123; int[] nums = new int[]&#123;1, 3, 2, 5, 4, 7, 8&#125;; int r = 0; for (int i = 0; i &lt; nums.length; i++) &#123; r ^= (nums[i] ^ (i+1)); &#125; System.out.println(r ^ (nums.length+1)); &#125;&#125;]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -1850,8 +1850,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2091,8 +2091,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>字符串</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
@@ -2125,8 +2125,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2140,8 +2140,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2155,8 +2155,8 @@
       <tags>
         <tag>Java</tag>
         <tag>树</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -2323,8 +2323,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2338,8 +2338,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2353,8 +2353,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2414,8 +2414,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2428,8 +2428,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2507,9 +2507,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
+    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -2523,9 +2523,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-面试题14-2-剪绳子(大数)]]></title>
-    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-2-%E5%89%AA%E7%BB%B3%E5%AD%90(%E5%A4%A7%E6%95%B0)%2F</url>
-    <content type="text"><![CDATA[LeetCode-面试题14-2-剪绳子(大数)给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 1000 解题思路这个题和上个题主体一样，但是是求的大数环境下，求指数就超过int的区间了，需要求模。还是尽可能的多切长度为3的，最后把不足3的乘上就是结果，都要求余 Java代码112345678910111213class Solution &#123; public int cuttingRope(int n) &#123; if(n&lt;=3) return n-1; long product = 1; while(n&gt;4)&#123; product *=3; product = product%1000000007; n-=3; &#125; return (int)(product*n%1000000007); &#125;&#125; Python代码123456789class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 dp = [0 for i in range(n+1)] dp[0],dp[1],dp[2],dp[3]= 0,1,2,3 for i in range(4, n+1): for j in range(1, i // 2+1): dp[i] = max(dp[i],(dp[j]*dp[i-j])) return dp[n] % 1000000007]]></content>
+    <title><![CDATA[LeetCode-面试题14-1-剪绳子]]></title>
+    <url>%2F2020%2F04%2F13%2FLeetCode-%E9%9D%A2%E8%AF%95%E9%A2%9814-1-%E5%89%AA%E7%BB%B3%E5%AD%90%2F</url>
+    <content type="text"><![CDATA[LeetCode-面试题14-1-剪绳子给你一根长度为 n 的绳子，请把绳子剪成整数长度的 m 段（m、n都是整数，n&gt;1并且m&gt;1），每段绳子的长度记为 k[0],k[1]…k[m] 。请问 k[0]k[1]…k[m] 可能的最大乘积是多少？例如，当绳子的长度是8时，我们把它剪成长度分别为2、3、3的三段，此时得到的最大乘积是18。 示例1 123输入: 2输出: 1解释: 2 = 1 + 1, 1 × 1 = 1 示例2 123输入: 10输出: 36解释: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36 提示: 2 &lt;= n &lt;= 58 解题思路方法1、动态规划 整体目标为最大化f(n)=max(f(i) x f(n-i))，可以看成递归自顶向下解决，但是这样会有很多重复计算。一个更好的方法是自底向上，把小的子问题最优解，然后再往上计算，子问题要存储起来，避免重复的计算过程。对于f(0)~f(3)，最优解的值是n-1，对于n&gt;=4的数，比如4，可以切分为1，2，3的数字组合，于是dp[1]，dp[2]，dp[3]分别等于1，2，3。这里的dp[3]不等于最优解2，因为切分4并不需要对数字3再次切分。 另外一种解释是把线切的方法分为切成2段或者切成很多段，切成2段的乘积可以表示为第一段长度j，第二段长度i-j。切成多段的乘积可以表示为第一段长度为j，第二段长度为f(j-i)。到底是切2段大还是切多段大，用max函数比较一下。同时与现存的dp[i]的值比较，取最大的值。如Java代码2所示，也能够解决。 方法2、贪心算法 切的时候尽可能的使乘积最大，当n&gt;=5时，尽可能多切长度为3的绳子；当剩下的长度为4时，切成2段长度为2的绳子，之后乘积就是切成3的次数*切成2的次数 Java代码11234567891011121314151617181920class Solution &#123; public int cuttingRope(int n) &#123; // 此处计算f(0)~f(3)的最优解 if(n &lt; 4) return n-1; int[] dp = new int[n+1]; // 当n&gt;=4时，切分的长度有1，2，3的可能，dp[3]并不是代表f(3)的最优解 // 因为长度为1、2、3的线是4的子集，不需要再切分 dp[0] = 0; dp[1] = 1; dp[2] = 2; dp[3] = 3; for(int i=4;i&lt;=n;i++)&#123; for(int j=1;j&lt;=i/2;j++)&#123; dp[i] = Math.max((dp[j]*dp[i-j]),dp[i]); &#125; &#125; return dp[n]; &#125;&#125; Java代码2123456789101112class Solution &#123; public int cuttingRope(int n) &#123; int[] dp = new int[n + 1]; dp[1] = 1; for (int i = 2; i &lt;= n; i++) &#123; for (int j = 1; j &lt; i; j++) &#123; dp[i] = Math.max(dp[i], Math.max(j * (i - j), j * dp[i - j])); &#125; &#125; return dp[n]; &#125;&#125; Python代码12345678910class Solution: def cuttingRope(self, n: int) -&gt; int: if(n&lt;=3): return n-1 # 尽可能多的剪去长度为3的绳子 count3 = n//3 # 当绳子剩下的长度为4时，不再剪去长度为3的绳子，因为2x2&gt;3x1，剪为3的次数减少1次 if(n-count3*3): count3-=1 # 重新计算差值，计算剪为2的次数 count2 = (n-count3*3)//2 return int(math.pow(3,count3)*math.pow(2,count2))]]></content>
       <categories>
         <category>剑指Offer</category>
       </categories>
@@ -2547,8 +2547,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>DFS</tag>
         <tag>Medium</tag>
+        <tag>DFS</tag>
         <tag>BFS</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
@@ -2669,8 +2669,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -3379,9 +3379,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3390,9 +3390,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3423,9 +3423,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[文件操作]]></title>
-    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
-    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
+    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
+    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
+    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3434,9 +3434,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[输入输出——回文字串的判断（加强版）]]></title>
-    <url>%2F2018%2F07%2F23%2F%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E2%80%94%E2%80%94%E5%9B%9E%E6%96%87%E5%AD%97%E4%B8%B2%E7%9A%84%E5%88%A4%E6%96%AD%EF%BC%88%E5%8A%A0%E5%BC%BA%E7%89%88%EF%BC%89%2F</url>
-    <content type="text"><![CDATA[输入输出——回文字串的判断（加强版）123456789101112131415161718192021222324252627forbindden_word = (' ', ',', ';', '.', '!', '//', '?')# 样例字符串Rise to vote,sir. 共17长度def ignore_word(text): # 去除忽略的特殊字符 strdemo = list(text.lower()) count = 0 print('长度为:', len(strdemo)) for i in list(range(len(strdemo))): # 遍历从0-16，共17长度 ，debug一下就懂了 if strdemo[i - count] in forbindden_word: del strdemo[i - count] # 删除特殊字符 count += 1 return strdemodef reverse(text): return text[::-1]def is_reverse(text): # 判断是否为回文 return text == reverse(text)something = input('随便输入点什么:')if is_reverse(ignore_word(something)): print('恭喜！他是回文文本')else: print('这好像不是回文文本哦') 运行结果123随便输入点什么:Rise to vote,sir.长度为: 17恭喜！他是回文文本]]></content>
+    <title><![CDATA[文件操作]]></title>
+    <url>%2F2018%2F07%2F23%2F%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C%2F</url>
+    <content type="text"><![CDATA[文件操作代码12345678910111213141516171819202122232425262728poem = '''Programming is funWhen the work is doneif you wanna make your work also fun: use Python!'''# 打开文件以编辑（'w'riting）f = open('poem.txt', 'w')# 向文件中编写文本f.write(poem)# 关闭文件f.close()# 如果没有特别指定# 将假定启用默认的阅读（'r'ead）模式f = open('poem.txt')while True: line = f.readline() # 零长度指示 EOF , 用来判断文档结尾 if len(line) == 0: break # 每行（'line'）的末尾 # 都已经有了换行符 # 因为它是从一个文件中进行读取的 print(line, end=' ')# 关闭文件f.close() 运行结果1234Programming is funWhen the work is doneif you wanna make your work also fun: use Python!]]></content>
       <categories>
         <category>Python</category>
       </categories>
