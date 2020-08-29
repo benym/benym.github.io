@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="0到n-1中缺失的数字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-05-18T03:02:07.062Z">
+<meta property="og:updated_time" content="2020-08-29T14:18:51.889Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-面试题53-2-0到n-1中缺失的数字">
 <meta name="twitter:description" content="0到n-1中缺失的数字">
@@ -446,8 +446,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-05-18T11:02:07+08:00">
-                2020-05-18
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-29T22:18:51+08:00">
+                2020-08-29
               </time>
             
           </span>
@@ -517,7 +517,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  491
+                  1,019
                 </span>
               
 
@@ -533,7 +533,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2
+                  4
                 </span>
               
             </div>
@@ -569,18 +569,40 @@
 <p><code>1 &lt;= 数组长度 &lt;= 10000</code></p>
 </li>
 </ul>
-<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>二分查找：</p>
-<p>递增且数字范围在0~n-1的数组，数字和它对应的下标一定是相等的，缺失的数子会造成，该数字之后的数组下标在原本相等的情况下+1</p>
-<p>可以利用二分查找，在当前位置数字不等于index的时候，考虑特殊情况2种</p>
+<h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、二分查找：</strong></p>
+<p>递增且数字范围在0~n-1的数组<strong>(有序数组)</strong>，数字和它对应的下标一定是相等的，缺失的数子会造成，该数字之后的数组下标在原本相等的情况下+1</p>
+<p>排序数组中的搜索问题，首先想到<strong>二分查找</strong>解决</p>
+<p>分析可知，数组可以分为左右子数组2部分：</p>
 <ul>
-<li>当前位置==0</li>
-<li>当前位置的前一个位置nums[mid-1]==mid-1，即前一个数字不缺失</li>
+<li>左子数组：<code>nums[i]=i</code></li>
+<li>右子数组：<code>nums[i]!=i</code></li>
 </ul>
-<p>这两种情况说明该位置就是缺失数字的位置，直接返回mid</p>
-<p>如果不符合特殊情况，则需要在mid左半边查找，end=mid-1</p>
-<p>如果该位置和下标相等，则表示mid左边不存在缺失，需要在右半边查找，start=mid+1</p>
-<p>如果找完了前面所有的都没有发现缺失的数字，说明缺失数字在数组末尾，此时start=mid+1=nums.length，缺失的数字即是num.length</p>
-<h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(nums==<span class="keyword">null</span>||nums.length==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> end = nums.length-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(start&lt;=end)&#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (start+end)/<span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid]!=mid)&#123;</span><br><span class="line">                <span class="keyword">if</span>(mid==<span class="number">0</span>||nums[mid-<span class="number">1</span>]==mid-<span class="number">1</span>)&#123;</span><br><span class="line">                    <span class="keyword">return</span> mid;</span><br><span class="line">                &#125;</span><br><span class="line">                end = mid-<span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                start = mid+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(start==nums.length)</span><br><span class="line">            <span class="keyword">return</span> nums.length;</span><br><span class="line">        <span class="comment">// 无效输入，比如数组不是排序的</span></span><br><span class="line">        <span class="comment">// 或者有数字不在0-n-1范围内</span></span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>缺失的数字=<strong>右子数组的首位元素</strong>对应的索引</p>
+<ol>
+<li>初始化头尾指针<code>start</code>，<code>end</code></li>
+<li>当<code>start&lt;end</code>时，计算<code>mid = (start+end)/2</code></li>
+<li>若<code>nums[mid] = mid</code>，则”右子数组的首位元素”一定在闭区间<code>[mid+1,end]</code>中，因此执行<code>start = mid+1</code>;</li>
+<li>若<code>nums[mid]!=mid</code>，则”左子数组的末位元素”一定在闭区间<code>[start,mid-1]</code>中，因此<code>end = mid -1</code>;</li>
+<li>跳出时，<code>start</code>就是指向右子数组的首位元素，<code>end</code>指向左子数组的末位元素，因此返回<code>start</code>即可</li>
+</ol>
+<p>时间复杂度O(logN)，空间复杂度O(1)</p>
+<p><strong>方法2、异或运算：</strong></p>
+<p>异或运算，可以使得相同的数字异或为0，如b^b=0，a^b^b=a</p>
+<p>由于数组有序且递增，除了缺失数字外，每一位元素和索引进行异或均为0</p>
+<ol>
+<li>初始化<code>res=0</code>，即先假设这个数字为<code>0</code>，先把数组的<code>[0,n-1]</code>范围内的数组异或一遍，此时等于<code>n</code>个数字全部异或，再把他和对应的<code>[0,n-1]</code>索引下标异或一遍，这两个操作可以在一个循环中搞定。</li>
+<li>因为元素和下标是相等的，异或为<code>0</code>，所以缺失的数字一定会在异或2次操作后剩下，因为缺失的数字和下标是不等的</li>
+<li>最后再将<code>res</code>异或上数组下标<code>n</code>也就是此时<code>i</code>的值(因为此时，数组已经异或了<code>n</code>个，而下标只异或了<code>n-1</code>个，所以循环之外还需要再次异或数组下标<code>i++</code>即<code>n</code>)，就可以得到缺失的数字。</li>
+</ol>
+<h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> start = <span class="number">0</span>, end = nums.length - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(start &lt;= end) &#123;</span><br><span class="line">            <span class="keyword">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">            <span class="keyword">if</span>(nums[mid] == mid) </span><br><span class="line">                start = mid + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">                end = mid - <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> start;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">missingNumber</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = nums.length;</span><br><span class="line">        <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++)&#123;</span><br><span class="line">            res^=nums[i];</span><br><span class="line">            res^=i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res^n;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="note info"><p>2020年8月29日 22:10:10更新，当数组是无序的时候，且数组范围在[1,n-1]，应该怎么去做？</p></div>
+
+<p><strong>方法、异或运算：</strong></p>
+<p>数组无序的情况依旧可以使用异或运算进行处理</p>
+<p>先初始化<code>r=0</code>，将<code>r</code>与数组所有值异或一次，之后将<code>r</code>和数组<code>i+1</code>异或一次(因为下标从<code>1</code>开始，但循环从<code>0</code>开始)，由于补全之后，数组的长度是<code>n</code>，当前的数组长度为<code>n-1</code>，所以还需要再异或最后一位数字的索引，即<code>nums.length+1</code>，才能得到缺失的数字。</p>
+<p>无论数组是否有序，异或2次之后，缺失的数字就是剩下的，如果不缺失则2次异或完毕的结果为0</p>
+<h3 id="Java代码3"><a href="#Java代码3" class="headerlink" title="Java代码3"></a>Java代码3</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LeetCode53_2</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] nums = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">7</span>, <span class="number">8</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> r = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nums.length; i++) &#123;</span><br><span class="line">            r ^= (nums[i] ^ (i+<span class="number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(r ^ (nums.length+<span class="number">1</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -864,7 +886,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-面试题53-2-0到n-1中缺失的数字"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-面试题53-2-0到n-1中缺失的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路"><span class="nav-number">1.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码"><span class="nav-number">1.2.</span> <span class="nav-text">Java代码</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-面试题53-2-0到n-1中缺失的数字"><span class="nav-number">1.</span> <span class="nav-text">LeetCode-面试题53-2-0到n-1中缺失的数字</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解题思路"><span class="nav-number">1.1.</span> <span class="nav-text">解题思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码1"><span class="nav-number">1.2.</span> <span class="nav-text">Java代码1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码2"><span class="nav-number">1.3.</span> <span class="nav-text">Java代码2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java代码3"><span class="nav-number">1.4.</span> <span class="nav-text">Java代码3</span></a></li></ol></li></ol></div>
             
 
           </div>
