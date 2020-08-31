@@ -2023,7 +2023,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff38ff;
+  background: #26ffff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3498,7 +3498,7 @@ code.description {
   display: none;
   width: 0;
   height: 2px;
-  background: #6d6d6d;
+  background: #66b1ff;
 }
 @-moz-keyframes heartAnimate {
   0%, 100% {
