@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-08-30T09:23:51.334Z</updated>
+  <updated>2020-08-31T14:36:40.557Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://benym.cn/2020/08/30/LeetCode-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F/"/>
     <id>http://benym.cn/2020/08/30/LeetCode-字符串排序/</id>
     <published>2020-08-30T09:23:46.000Z</published>
-    <updated>2020-08-30T09:23:51.334Z</updated>
+    <updated>2020-08-31T14:36:40.557Z</updated>
     
     <content type="html"><![CDATA[<h2 id="LeetCode-字符串排序"><a href="#LeetCode-字符串排序" class="headerlink" title="LeetCode-字符串排序"></a>LeetCode-字符串排序</h2><p>编写一个程序，将输入字符串中的字符按如下规则排序。<br>规则 1 ：英文字母从 A 到 Z 排列，不区分大小写。<br>如，输入： Type 输出： epTy<br>规则 2 ：同一个英文字母的大小写同时存在时，按照输入顺序排列。<br>如，输入： BabA 输出： aABb<br>规则 3 ：非英文字母的其它字符保持原来的位置。<br>如，输入： By?e 输出： Be?y</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">A Famous Saying: Much Ado About Nothing(2012/8).</span><br><span class="line"></span><br><span class="line">输出：</span><br><span class="line">A aaAAbc dFgghh : iimM nNn oooos Sttuuuy (2012/8).</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入例子:</span><br><span class="line">A Famous Saying: Much Ado About Nothing (2012/8).</span><br><span class="line"></span><br><span class="line">输出例子:</span><br><span class="line">A aaAAbc dFgghh: iimM nNn oooos Sttuuuy (2012/8).</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>外层循环按照26个字母的顺序循环，内层进行字母顺序进行字符串的遍历，如按照A字母内层一轮，将A和a加入到结果集。循环完毕之后，res中即存储的排序好的字符串</p><p>由于需要保持原本的非英文字符串不变，再遍历一次字符串，将非英文字符按照原位置插入到res中即可。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner sc = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        String str = sc.nextLine().trim();</span><br><span class="line">        <span class="keyword">char</span>[] cs = str.toCharArray();</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="comment">//  循环26个字符</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">26</span>; i++) &#123;</span><br><span class="line">            <span class="comment">// 循环字符串排序，按照A字母一轮，B字母一轮添加进builder</span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; str.length(); j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (cs[j] == (i + <span class="string">'a'</span>) || cs[j] == (i + <span class="string">'A'</span>)) &#123;</span><br><span class="line">                    res.append(cs[j]);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//再次遍历字符串</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; str.length(); i++) &#123;</span><br><span class="line">            <span class="comment">// 如果不是英文字符，直接添加进结果</span></span><br><span class="line">            <span class="keyword">if</span> (!(cs[i] &gt;= <span class="string">'a'</span> &amp;&amp; cs[i] &lt;= <span class="string">'z'</span> || cs[i] &gt;= <span class="string">'A'</span> &amp;&amp; cs[i] &lt;= <span class="string">'Z'</span>)) &#123;</span><br><span class="line">                res.insert(i, cs[i]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(res.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -62,9 +62,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -92,9 +92,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -230,9 +230,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -260,9 +260,9 @@
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -366,9 +366,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -416,13 +416,13 @@
       <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
     
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
   </entry>
   
@@ -474,9 +474,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -500,9 +500,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -528,9 +528,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
