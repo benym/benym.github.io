@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Ming.Y">
 <meta property="og:description" content="博客文章阅读量排行榜">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2020-09-01T02:46:11.625Z">
+<meta property="og:updated_time" content="2020-09-01T05:54:00.665Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="热门文章">
 <meta name="twitter:description" content="博客文章阅读量排行榜">
@@ -241,7 +241,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
             
-            关于
+            关于我
           </a>
         </li>
       
@@ -282,6 +282,16 @@
               <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
             
             热门文章
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-fa fa-link"></i> <br>
+            
+            朋友圈
           </a>
         </li>
       
@@ -427,7 +437,7 @@
       time=result.time;
       title=result.title;
       url=result.url;
-      var content="<div id='top_inside'>"+"<a href='"+"https://benym.github.io"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"</div>"+"<br /><br />";
+      var content="<div id='top_inside'>"+"<a href='"+"https://benym.cn"+url+"'>"+title+"</a>"+"<br />"+"<font color='#555'>"+"阅读次数："+time+"</font>"+"</div>"+"<br /><br />";
       document.getElementById("top").innerHTML+=content
     }
   }, function (error) {
