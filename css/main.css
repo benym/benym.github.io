@@ -488,7 +488,7 @@ pre,
   padding: 0;
   font-size: 13px;
   color: #4d4d4c;
-  background: #f7f7f7;
+  background: #fff;
   line-height: 1.6;
 }
 pre,
@@ -561,7 +561,7 @@ pre code {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #f7f7f7;
+  background-color: #fff;
 }
 .highlight .line {
   height: 20px;
@@ -579,10 +579,10 @@ pre code {
   border: none;
 }
 pre .deletion {
-  background: #fdd;
+  background: #008000;
 }
 pre .addition {
-  background: #dfd;
+  background: #800000;
 }
 pre .meta {
   color: #8959a8;
@@ -2023,7 +2023,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff46d7;
+  background: #b36565;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3089,6 +3089,18 @@ pre .addition {
 }
 pre .deletion {
   background: #ffeef0;
+}
+pre .comment {
+  color: #4c923c;
+}
+pre .keyword {
+  color: #de1010;
+}
+pre .number {
+  color: #275cc1;
+}
+pre .string {
+  color: #0ead82;
 }
 .sidebar-toggle {
   right: 10px;
