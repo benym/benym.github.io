@@ -98,6 +98,7 @@ menu:
   categories: /categories/ || th
   archives: /archives/ || archive
   top: /top/ || signal
+  links: /links/ || fa fa-link
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -843,3 +844,27 @@ version: 5.1.4
 reward_comment: 打赏了解一下？
 #wechatpay: /path/to/wechat-reward-image
 alipay: /uploads/ali.jpg
+
+# 友情链接
+defaultlinks:
+  - nickname: Heson     # 昵称
+    avatar: http://heson.xyz/images/avatar03.png    # 头像地址
+    site: https://www.heson10.com #友链地址
+    info: 人生在勤，不索何获
+
+
+friendslinks:
+  - nickname: Felamin     # 昵称
+    avatar: https://felamin.gitee.io/avatar.jpg    # 头像地址
+    site: http://felamin.xyz #友链地址
+    info: 记得山间二十四摄氏度清风和草木的味道
+    
+  - nickname: Unclegem    # 昵称
+    avatar: https://unclegem.cn/img/kakaxi.jpg    # 头像地址
+    site: https://unclegem.cn #友链地址
+    info: 宝石叔叔
+
+  - nickname: BevisHe    # 昵称
+    avatar: http://bevishe.com/images/me.gif    # 头像地址
+    site: http://bevishe.com #友链地址
+    info: 萌萌
