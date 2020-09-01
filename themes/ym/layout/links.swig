@@ -35,6 +35,11 @@
             .card:nth-child(even) {
                 float: right;
             }
+			@media (max-width: 767px) {
+				.card:nth-child(even) {
+					float: left;
+				}
+			}
             .card:hover {
                 transform: scale(1.1);
                 box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
