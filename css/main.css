@@ -588,7 +588,7 @@ pre .meta {
   color: #8959a8;
 }
 pre .comment {
-  color: #8e908c;
+  color: #4c923c;
 }
 pre .variable,
 pre .attribute,
@@ -624,7 +624,7 @@ pre .xml .cdata,
 pre .special,
 pre .number,
 pre .formula {
-  color: #718c00;
+  color: #447dec;
 }
 pre .title,
 pre .css .hexcolor {
@@ -642,7 +642,7 @@ pre .coffeescript .title {
 }
 pre .keyword,
 pre .javascript .function {
-  color: #8959a8;
+  color: #f74747;
 }
 .full-image.full-image.full-image.full-image {
   border: none;
