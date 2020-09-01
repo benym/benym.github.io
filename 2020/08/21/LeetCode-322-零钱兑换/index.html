@@ -13,7 +13,6 @@
 <meta name="theme-color" content="#fff">
 
 
-
   
   
     
@@ -111,7 +110,7 @@
 <meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200821132154572.png">
 <meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200821153508353.png">
 <meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200821155315909.png">
-<meta property="og:updated_time" content="2020-08-21T08:31:22.037Z">
+<meta property="og:updated_time" content="2020-09-01T06:45:48.807Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LeetCode-322-零钱兑换">
 <meta name="twitter:description" content="零钱兑换">
@@ -460,8 +459,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2020-08-21T16:31:22+08:00">
-                2020-08-21
+              <time title="更新于" itemprop="dateModified" datetime="2020-09-01T14:45:48+08:00">
+                2020-09-01
               </time>
             
           </span>
@@ -583,7 +582,8 @@
 <p><strong>方法1、回溯：</strong></p>
 <p>用S代表总金额，ci是第i枚硬币的面值，xi是面值为ci的硬币数量，由于xi*ci不能超过S，可以得出xi的取值范围[0,S/xi]</p>
 <p>一个简单的解决方案是枚举每个硬币数量子集[x0,…,xn-1]。如果满足上述约束条件，计算硬币数量总和并返回所有子集中的最小值</p>
-<p>for循环每一个硬币，选择0个1面值硬币，判断当前选择情况<em>面值是否小于等于总面值S，进入下层递归选择硬币应该固定1面值，选择2面值，<code>idxCoin+1</code>，总面值应该减去当前选择的硬币个数乘以面值数，即` amount - i </em> coins[idxCoin]<code>，选择0个2面值硬币，进行判断...依次列推。固定某一面值选择数，深度优先穷举后续面值可能的选择数目，且硬币选择数目范围在</code>[0,S/xi]`</p>
+<p>for循环每一个硬币，选择0个1面值硬币，判断当前选择情况*面值是否小于等于总面值S，进入下层递归选择硬币应该固定1面值，选择2面值，<code>idxCoin+1</code>，总面值应该减去当前选择的硬币个数乘以面值数，即</p>
+<p><code>amount - i * coins[idxCoin]</code>，选择0个2面值硬币，进行判断…依次列推。固定某一面值选择数，深度优先穷举后续面值可能的选择数目，且硬币选择数目范围在<code>[0,S/xi]</code></p>
 <p>由于有重复计算，所以回溯的效率并不是很高</p>
 <p><strong>方法2、动态规划-自上而下：</strong></p>
 <p>利用动态规划，改进上面的指数时间复杂度的解，定义</p>
@@ -1782,10 +1782,7 @@ show_date_time();
         }, 300)
       }).append(e)
     })
-  </script>
-
- 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":250,"height":500},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -1802,4 +1799,7 @@ show_date_time();
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+<!-- hexo-inject:end -->
+
+ 
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":250,"height":500},"mobile":{"show":true},"log":false});</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
