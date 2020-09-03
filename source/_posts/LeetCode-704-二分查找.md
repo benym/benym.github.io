@@ -43,6 +43,8 @@ keywords: 查找,Java,Python,Easy
 
 二分查找是一个基本算法，简单来说就是头尾2个指针，看中间数比查找数大还是小，大的话说明要在右边范围找，小的话就要在左边范围找。
 
+**注意：**防止直接相加int溢出，取中点mid时，可采用`start+(end-start)/2`的方式
+
 ### Java代码
 
 ```java
@@ -54,6 +56,8 @@ class Solution {
         int start = 0;
         int end = nums.length - 1;
         while (start <= end) {
+            // 防止int溢出
+            // int mid = start + (end - start) / 2;
             int middle = (start + end) / 2;
             if (target == nums[middle])
                 return middle;
