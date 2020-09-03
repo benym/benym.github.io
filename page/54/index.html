@@ -409,7 +409,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/数据类型和arange方法_astype方法的使用/">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2018/08/22/Ndarray对象/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="BenY">
@@ -428,7 +428,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/08/22/数据类型和arange方法_astype方法的使用/" itemprop="url">数据类型和arange方法、astype方法的使用</a></h1>
+                <a class="post-title-link" href="/2018/08/22/Ndarray对象/" itemprop="url">Ndarray对象</a></h1>
         
 
         <div class="post-meta">
@@ -493,8 +493,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/08/22/数据类型和arange方法_astype方法的使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/22/数据类型和arange方法_astype方法的使用/" itemprop="commentCount"></span>
+                <a href="/2018/08/22/Ndarray对象/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2018/08/22/Ndarray对象/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -502,7 +502,7 @@
 
           
           
-             <span id="/2018/08/22/数据类型和arange方法_astype方法的使用/" class="leancloud_visitors" data-flag-title="数据类型和arange方法、astype方法的使用">
+             <span id="/2018/08/22/Ndarray对象/" class="leancloud_visitors" data-flag-title="Ndarray对象">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -527,7 +527,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  471
+                  447
                 </span>
               
 
@@ -551,7 +551,7 @@
 
           
               <div class="post-description">
-                  Numpy中的数据类型
+                  Numpy中的array
               </div>
           
 
@@ -569,100 +569,49 @@
 
       
         
-          <p>Numpy支持比Python更多的数字类型</p>
+          <p>NumPy 中定义的最重要的对象是称为  ndarray  的 N 维数组类型。 它描述相同类型的元素集合。 可以使用基于零的索引访问集合中的项目。ndarray  中的每个元素在内存中使用相同大小的块。基本<br>的 ndarray  是使用 NumPy 中的数组函数创建的，如：<code>numpy.array</code></p>
+<p>它从任何暴露数组接口的对象，或从返回数组的任何方法创建一个ndarray。</p>
+<p><code>numpy.array(object,dtype=None,copy=True,order=None,subok=False,ndmin=0</code></p>
+<p>上面的构造器接受以下参数：</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>数据类型</th>
-<th>描述</th>
+<th>序号</th>
+<th>参数及描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>bool_</code></td>
-<td>布尔（True或False），存储为一个字节</td>
+<td>1.</td>
+<td><code>object</code> 任何暴露数组接口方法的对象都会返回一个数组或任何（嵌套）序列。</td>
 </tr>
 <tr>
-<td><code>int_</code></td>
-<td>默认整数类型（与C<code>long</code>相同；通常是<code>int64</code>或<code>int32</code>）</td>
+<td>2.</td>
+<td><code>dtype</code> 数组的所需数据类型，可选。</td>
 </tr>
 <tr>
-<td>INTC</td>
-<td>与C<code>int</code>（通常为<code>int32</code>或<code>int64</code>）相同</td>
+<td>3.</td>
+<td><code>copy</code> 可选，默认为<code>true</code>，对象是否被复制。</td>
 </tr>
 <tr>
-<td>INTP</td>
-<td>用于索引的整数（与C<code>ssize_t</code>相同；通常是<code>int32</code>或<code>int64</code>）</td>
+<td>4.</td>
+<td><code>order</code> <code>C</code>（按行）、<code>F</code>（按列）或<code>A</code>（任意，默认）。</td>
 </tr>
 <tr>
-<td>INT8</td>
-<td>字节（-128至127）</td>
+<td>5.</td>
+<td><code>subok</code> 默认情况下，返回的数组被强制为基类数组。 如果为<code>true</code>，则返回子类。</td>
 </tr>
 <tr>
-<td>INT16</td>
-<td>整数（-32768至32767）</td>
-</tr>
-<tr>
-<td>INT32</td>
-<td>整数（-2147483648至2147483647）</td>
-</tr>
-<tr>
-<td>Int64的</td>
-<td>整数（-9223372036854775808至9223372036854775807）</td>
-</tr>
-<tr>
-<td>UINT8</td>
-<td>无符号整数（0到255）</td>
-</tr>
-<tr>
-<td>UINT16</td>
-<td>无符号整数（0到65535）</td>
-</tr>
-<tr>
-<td>UINT32</td>
-<td>无符号整数（0到4294967295）</td>
-</tr>
-<tr>
-<td>UINT64</td>
-<td>无符号整数（0到18446744073709551615）</td>
-</tr>
-<tr>
-<td>float_</td>
-<td><code>float64</code>的简写。</td>
-</tr>
-<tr>
-<td>float16</td>
-<td>半精度浮点：符号位，5位指数，10位尾数</td>
-</tr>
-<tr>
-<td>FLOAT32</td>
-<td>单精度浮点数：符号位，8位指数，23位尾数</td>
-</tr>
-<tr>
-<td>float64</td>
-<td>双精度浮点：符号位，11位指数，52位尾数</td>
-</tr>
-<tr>
-<td>complex_</td>
-<td><code>complex128</code>的简写。</td>
-</tr>
-<tr>
-<td>complex64</td>
-<td>复数，由两个32位浮点数（实部和虚部）</td>
-</tr>
-<tr>
-<td>complex128</td>
-<td>复数，由两个64位浮点数（实部和虚部）</td>
+<td>6.</td>
+<td><code>ndimin</code> 指定返回数组的最小维数。</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>除了<code>intc</code>之外，还定义了平台相关的C整数类型<code>short</code>，<code>long</code>，<code>longlong</code>。</p>
-<div class="note info"><p>arange函数用于创建等差数组，使用频率非常高，arange非常类似range函数 ,两者的区别仅仅是arange返回的是一个数据，而range返回的是list 。要转换数组的类型，请使用.astype()方法（首选）或类型本身作为函数</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/08/22/数据类型和arange方法_astype方法的使用/" rel="contents">
+            <a class="btn" href="/2018/08/22/Ndarray对象/" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2327,10 +2276,7 @@ show_date_time();
         }, 300)
       }).append(e)
     })
-  </script>
-
- 
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":250,"height":500},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+  </script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
 </script>
@@ -2347,4 +2293,7 @@ show_date_time();
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
 </script>
 <!-- End: Injected MathJax -->
-<!-- hexo-inject:end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
+<!-- hexo-inject:end -->
+
+ 
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":250,"height":500},"mobile":{"show":true},"log":false});</script><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
