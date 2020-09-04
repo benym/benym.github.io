@@ -2023,7 +2023,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff0393;
+  background: #5ec8ff;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -2969,7 +2969,7 @@ embed {
   background-color: #fff;
   border-radius: 3px;
   font-size: 15px;
-  box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.35);
+  box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.35);
   border: none !important;
   transition-property: unset;
   padding: 0px 15px;
@@ -2979,7 +2979,8 @@ embed {
   border-radius: 3px;
   font-size: 15px;
   box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.35);
-  background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+  background-image: linear-gradient(to right, #25aae1, #40e495);
+  box-shadow: 0 4px 15px 0 rgba(49,196,190,0.75);
 }
 .posts-expand .post-eof {
   margin: 0px;
