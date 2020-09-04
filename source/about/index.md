@@ -5,9 +5,10 @@ type: "about"
 ---
 
 <div class="about-me">
-    <img class="about-me-img" itemprop="image" src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg" alt="BenY">
-    <p class="about-me-name" itemprop="name">BenY</p>
-<div class="note info"><p>
+<img class="about-me-img" itemprop="image" src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg" alt="BenY">
+<p class="about-me-name" itemprop="name">BenY</p>
+<div class="note info">
+<p>
 站点介绍
 </p>
 </div>
@@ -16,7 +17,8 @@ type: "about"
 分享一些技术。
 建成之后由于平时学业任务比较多，有比较长的一段时间没有更新了<br/>
 2020年由于疫情的原因，重新了拾起小站的博客记录~
-<div class="note primary"><p>
+<div class="note primary">
+<p>
 关于我
 </p>
 </div>
