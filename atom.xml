@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-09-01T07:06:39.498Z</updated>
+  <updated>2020-09-08T12:57:35.609Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-16-最接近的三数之和</title>
+    <link href="http://benym.cn/2020/09/08/LeetCode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>http://benym.cn/2020/09/08/LeetCode-16-最接近的三数之和/</id>
+    <published>2020-09-08T02:20:20.000Z</published>
+    <updated>2020-09-08T12:57:35.609Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-16-最接近的三数之和"><a href="#LeetCode-16-最接近的三数之和" class="headerlink" title="LeetCode-16-最接近的三数之和"></a>LeetCode-16-最接近的三数之和</h2><p>给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：nums = [-1,2,1,-4], target = 1</span><br><span class="line">输出：2</span><br><span class="line">解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。</span><br></pre></td></tr></table></figure><p><strong>提示：</strong></p><ul><li><code>3 &lt;= nums.length &lt;= 10^3</code></li><li><code>-10^3 &lt;= nums[i] &lt;= 10^3</code></li><li><code>-10^4 &lt;= target &lt;= 10^4</code></li></ul><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、回溯：</strong></p><p>回溯穷举所有可能的排列，如果当前深度达到3，且当前sum值更接近target就更新答案res</p><p>从deep=0，sum=0，index=0开始遍历</p><p>回溯前深度+1，sum加上当前的nums[i]</p><p>回溯之后深度-1，sum减去上一轮加入的值</p><p><strong>方法2、排序+双指针：</strong></p><p>详见<a href="https://leetcode-cn.com/problems/3sum-closest/solution/zui-jie-jin-de-san-shu-zhi-he-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/3sum-closest/solution/zui-jie-jin-de-san-shu-zhi-he-by-leetcode-solution/</a></p><h3 id="Java代码1"><a href="#Java代码1" class="headerlink" title="Java代码1"></a>Java代码1</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        res = nums[<span class="number">0</span>] + nums[<span class="number">1</span>] + nums[<span class="number">2</span>];</span><br><span class="line">        backtrace(nums, target, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">backtrace</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target, <span class="keyword">int</span> deep, <span class="keyword">int</span> sum,  <span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (deep == <span class="number">3</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Math.abs(target - res) &gt; Math.abs(sum - target)) &#123;</span><br><span class="line">                res = sum;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = index; i &lt; nums.length; i++) &#123;</span><br><span class="line">            sum += nums[i];</span><br><span class="line">            deep++;</span><br><span class="line">            backtrace(nums, target, deep, sum,  i + <span class="number">1</span>);</span><br><span class="line">            sum -= nums[i];</span><br><span class="line">            deep--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="Java代码2"><a href="#Java代码2" class="headerlink" title="Java代码2"></a>Java代码2</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">threeSumClosest</span><span class="params">(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> target)</span> </span>&#123;</span><br><span class="line">        Arrays.sort(nums);</span><br><span class="line">        <span class="keyword">int</span> min = Integer.MAX_VALUE;</span><br><span class="line">        <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i] == nums[i - <span class="number">1</span>]) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">int</span> start = i + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">int</span> end = len - <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">while</span> (start &lt; end) &#123;</span><br><span class="line">                <span class="keyword">int</span> value = nums[i] + nums[start] + nums[end];</span><br><span class="line">                <span class="keyword">if</span> (value == target) &#123;</span><br><span class="line">                    <span class="keyword">return</span> value;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (Math.abs(value - target) &lt; min) &#123;</span><br><span class="line">                    min = Math.abs(value - target);</span><br><span class="line">                    ans = value;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (value &gt; target) &#123;</span><br><span class="line">                    end--;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    start++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      最接近的三数之和
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+  </entry>
   
   <entry>
     <title>LeetCode-字符串排序</title>
@@ -62,9 +90,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -92,9 +120,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -230,9 +258,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -418,9 +446,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -474,9 +502,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -500,9 +528,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -528,35 +556,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
+    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-394-字符串解码</title>
-    <link href="http://benym.cn/2020/08/03/LeetCode-394-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/"/>
-    <id>http://benym.cn/2020/08/03/LeetCode-394-字符串解码/</id>
-    <published>2020-08-03T03:11:29.000Z</published>
-    <updated>2020-08-03T06:55:27.662Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-394-字符串解码"><a href="#LeetCode-394-字符串解码" class="headerlink" title="LeetCode-394-字符串解码"></a>LeetCode-394-字符串解码</h2><p>给定一个经过编码的字符串，返回它解码后的字符串。</p><p>编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。</p><p>你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。</p><p>此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。</p><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;3[a]2[bc]&quot;</span><br><span class="line">输出：&quot;aaabcbc&quot;</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;3[a2[c]]&quot;</span><br><span class="line">输出：&quot;accaccacc&quot;</span><br></pre></td></tr></table></figure><p><strong>示例3：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;2[abc]3[cd]ef&quot;</span><br><span class="line">输出：&quot;abcabccdcdcdef&quot;</span><br></pre></td></tr></table></figure><p><strong>示例4：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入：s = &quot;abc3[cd]xyz&quot;</span><br><span class="line">输出：&quot;abccdcdcdxyz&quot;</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、栈：</strong></p><p>观察示例可知，当出现括号时，需要考虑括号前的数字</p><p>由于有时候括号不止1个，而且括号内的字符也不止1组，所以需要2个栈(或者队列)来进行存储，此外还需要一个res存储最终拼接的字符串。</p><p>顺序进行遍历，情况分为以下4种：</p><ol><li>0&lt;=当前字符&lt;=9时，记录当前num，<code>num=c[i]-&#39;0&#39;</code>，但是num可能不止一个数字，当字符为<code>100</code>时，下一个也是num，如果直接覆盖会导致数字丢失，于是<code>num=num * 10 + c[i] - &#39;0&#39;</code>正是考虑这种情况。</li><li>当前字符==<code>[</code>左括号时，记录括号前的num，并将num置0，方便下次记录。同时需要记录数字之前出现的所有英文字符，使用str的栈进行先前结果的存储，<code>strStack.push(res.toString());</code>，复用res准备记录括号内的英文字符。</li><li>当前字符是a-z或者A-Z范围内时，直接进行字符串拼接<code>res.append(c[i])</code></li><li>当前字符==<code>]</code>右括号时，需要将括号内的字符重复，同时需要将之前保存的字符串和括号内的字符串进行拼接。首先弹出数字栈内的数字<code>tempNum</code>，利用一个临时的字符串<code>tempStr</code>保存之前的结果，从字符栈中弹出之前的字符串<code>strStack.pop()</code>，并转为StringBuilder类型赋值给<code>tempStr</code>，循环添加到<code>tempStr</code>中，此时的<code>res</code>保存的是括号内的字符，循环次数为<code>tempNum</code>。进行玩括号内字符添加后，将临时字符串赋值给<code>res</code>，继续进行循环判断。</li></ol><p>最后，返回<code>res.toString()</code></p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">decodeString</span><span class="params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuilder res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        Stack&lt;Integer&gt; numStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        Stack&lt;String&gt; strStack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">        <span class="keyword">char</span>[] c = s.toCharArray();</span><br><span class="line">        <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; c.length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (c[i] &gt;= <span class="string">'0'</span> &amp;&amp; c[i] &lt;= <span class="string">'9'</span>) &#123;</span><br><span class="line">                num = num * <span class="number">10</span> + c[i] - <span class="string">'0'</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i] == <span class="string">'['</span>) &#123;</span><br><span class="line">                numStack.push(num);</span><br><span class="line">                num = <span class="number">0</span>;</span><br><span class="line">                strStack.push(res.toString());</span><br><span class="line">                res = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((<span class="string">'a'</span> &lt;= c[i] &amp;&amp; c[i] &lt;= <span class="string">'z'</span>) || (<span class="string">'A'</span> &lt;= c[i] &amp;&amp; c[i] &lt;= <span class="string">'Z'</span>)) &#123;</span><br><span class="line">                res.append(c[i]);</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (c[i] == <span class="string">']'</span>) &#123;</span><br><span class="line">                <span class="keyword">int</span> tempNum = numStack.pop();</span><br><span class="line">                StringBuilder tempStr = <span class="keyword">new</span> StringBuilder(strStack.pop());</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; tempNum; j++) &#123;</span><br><span class="line">                    tempStr.append(res);</span><br><span class="line">                &#125;</span><br><span class="line">                res = tempStr;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      字符串解码
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
