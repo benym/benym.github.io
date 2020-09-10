@@ -1,0 +1,1894 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#fff">
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="GGOs08Ncqj_CwyR81LjlOH5dPhuymd4eLVS5x6PPQew">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="e9cG98eOJU">
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+  
+
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#fff">
+
+
+  <link rel="manifest" href="/images/manifest.json">
+
+
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+
+
+
+  <meta name="keywords" content="数组,DP,背包问题,Java,Medium,LeetCode">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Ming.Y" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="01背包问题详解">
+<meta name="keywords" content="数组,DP,背包问题,Java,Medium,LeetCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01背包问题详解">
+<meta property="og:url" content="http://benym.cn/2020/08/25/01背包问题详解/index.html">
+<meta property="og:site_name" content="Ming.Y">
+<meta property="og:description" content="01背包问题详解">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-1.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-2.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-3.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-4.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-5.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-6.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-7.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-8.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-9.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-10.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-11.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-12.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-13.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-14.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-15.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154902119.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154924996.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154946629.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155038665.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155055030.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155111047.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155126003.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155144946.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155205168.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155224625.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155240955.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155256914.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155312307.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155337598.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155355312.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825161832802.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163404982.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163445617.png">
+<meta property="og:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163509043.png">
+<meta property="og:updated_time" content="2020-08-25T09:32:26.960Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="01背包问题详解">
+<meta name="twitter:description" content="01背包问题详解">
+<meta name="twitter:image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"perspectiveLeftIn","post_header":"fadeIn","post_body":"fadeIn","coll_header":"perspectiveLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://benym.cn/2020/08/25/01背包问题详解/">
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+  <title>01背包问题详解 | Ming.Y</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?67971ae2a90df2a30667e59ea312aab3";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	<a href="https://github.com/benym" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+	<header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+	<div class="top-scroll-bar"></div>
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Ming.Y</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Chances are for people who are prepared</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于我
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-top">
+          <a href="/top/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-signal"></i> <br>
+            
+            热门文章
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-fa fa-link"></i> <br>
+            
+            朋友圈
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+	<canvas width="1920" height="946" style="position: fixed; top: 0px; left: 0px; z-index: -1;"></canvas>
+    <script>
+    document.addEventListener('touchmove', function(e) {
+        e.preventDefault()
+    })
+    var c = document.getElementsByTagName('canvas')[0],
+        x = c.getContext('2d'),
+        pr = window.devicePixelRatio || 1,
+        w = window.innerWidth,
+        h = window.innerHeight,
+        f = 90,
+        q,
+        m = Math,
+        r = 0,
+        u = m.PI * 2,
+        v = m.cos,
+        z = m.random
+    c.width = w * pr
+    c.height = h * pr
+    x.scale(pr, pr)
+    x.globalAlpha = 0.6
+
+    function i() {
+        x.clearRect(0, 0, w, h)
+        q = [{ x: 0, y: h * .7 + f }, { x: 0, y: h * .7 - f }]
+        while (q[1].x < w + f) d(q[0], q[1])
+    }
+
+    function d(i, j) {
+        x.beginPath()
+        x.moveTo(i.x, i.y)
+        x.lineTo(j.x, j.y)
+        var k = j.x + (z() * 2 - 0.25) * f,
+            n = y(j.y)
+        x.lineTo(k, n)
+        x.closePath()
+        r -= u / -50
+        x.fillStyle = '#' + (v(r) * 127 + 128 << 16 | v(r + u / 3) * 127 + 128 << 8 | v(r + u / 3 * 2) * 127 + 128).toString(16)
+        x.fill()
+        q[0] = q[1]
+        q[1] = { x: k, y: n }
+    }
+
+    function y(p) {
+        var t = p + (z() * 2 - 1.1) * f
+        return (t > h || t < 0) ? y(p) : t
+    }
+    document.onclick = i
+    document.ontouchstart = i
+    i()
+    </script>
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://benym.cn/2020/08/25/01背包问题详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="BenY">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Ming.Y">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01背包问题详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-08-25T15:26:04+08:00">
+                2020-08-25
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-08-25T17:32:26+08:00">
+                2020-08-25
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/LeetCode/" itemprop="url" rel="index">
+                    <span itemprop="name">LeetCode</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2020/08/25/01背包问题详解/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2020/08/25/01背包问题详解/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2020/08/25/01背包问题详解/" class="leancloud_visitors" data-flag-title="01背包问题详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">热度&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4,370
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17
+                </span>
+              
+            </div>
+          
+
+          
+              <div class="post-description">
+                  01背包问题详解
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="01背包问题详解"><a href="#01背包问题详解" class="headerlink" title="01背包问题详解"></a>01背包问题详解</h2><p><strong>问题描述：</strong></p>
+<div class="note info"><p>给定 n 件物品，物品的重量为 w[i]，物品的价值为 c[i]。现挑选物品放入背包中，假定背包能承受的最大重量为 V，问应该如何选择装入背包中的物品，使得装入背包中物品的总价值最大？</p></div>
+
+<a id="more"></a>
+<p><strong>输入：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">4 4</span><br><span class="line">1 1500</span><br><span class="line">4 3000</span><br><span class="line">3 2000</span><br><span class="line">1 2000</span><br></pre></td></tr></table></figure>
+<p><strong>输出：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4000</span><br></pre></td></tr></table></figure>
+<p><strong>解释：</strong>输入的第一行n，W分别代表接下来有n组输入数据，背包的总容量为W；在接下来的n行中，每一行2个数字，分别表示为wi和vi，代表第n个物品的重量和价值。</p>
+<hr>
+<p>参考链接</p>
+<p><a href="https://www.jianshu.com/p/a66d5ce49df5" target="_blank" rel="noopener">https://www.jianshu.com/p/a66d5ce49df5</a></p>
+<p><a href="https://www.cnblogs.com/kkbill/p/12081172.html" target="_blank" rel="noopener">https://www.cnblogs.com/kkbill/p/12081172.html</a></p>
+<p><a href="https://blog.csdn.net/chanmufeng/article/details/82955730" target="_blank" rel="noopener">https://blog.csdn.net/chanmufeng/article/details/82955730</a></p>
+<p>动态规划类的问题，最重要的是如何去定义<strong>状态</strong>，找到问题的子问题，从而定义出<strong>状态转移方程</strong>。背包问题是一类经典的动态规划题目，01背包问题是其中最为基础的一个。本文结合多个题解，给出01背包问题的直观解释，以及多种求解方法的代码实现。</p>
+<h4 id="01背包问题的另一种风格描述"><a href="#01背包问题的另一种风格描述" class="headerlink" title="01背包问题的另一种风格描述"></a>01背包问题的另一种风格描述</h4><p>假设你是一个小偷，背着一个可装下<strong>4磅</strong>东西的背包，你可以偷窃的物品如下：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-1.png" alt="image-20200825153711754" style="zoom:80%;"></p>
+<p>为了让偷窃的商品价值最高，你该选择哪些商品？</p>
+<h4 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h4><p>最简单的算法是：尝试各种可能的商品组合，并找出价值最高的组合。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-2.png" alt="image-20200825153824472" style="zoom:80%;"></p>
+<p>这样显然是可行的，但是速度非常慢。在只有3件商品的情况下，你需要计算8个不同的集合；当有4件商品的时候，你需要计算16个不同的集合。每增加一件商品，需要计算的集合数都将翻倍！<strong>对于每一件商品，都有选或不选两种可能，即这种算法的运行时间是O(2ⁿ)。</strong></p>
+<h4 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h4><p>解决这样问题的答案就是使用动态规划！下面来看看动态规划的工作原理。动态规划先解决子问题，再逐步解决大问题。</p>
+<p>对于背包问题，你先解决小背包（子背包）问题，再逐步解决原来的问题。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-3.png" alt="image-20200825153854442" style="zoom:80%;"></p>
+<p>比较有趣的一句话是：<strong>每个动态规划都从一个网格开始。</strong> （所以学会网格的推导至关重要，而有些题解之所以写的不好，就是因为没有给出网格的推导过程，或者说，没有说清楚为什么要”这样“设计网格。本文恰是解决了我这方面长久以来的困惑！）</p>
+<p>背包问题的网格如下：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-4.png" alt="image-20200825153924860" style="zoom:80%;"></p>
+<p>网格的各行表示商品，各列代表不同容量（1~4磅）的背包。<strong>所有这些列你都需要，因为它们将帮助你计算子背包的价值。</strong></p>
+<p>网格最初是空的。<strong>你将填充其中的每个单元格，网格填满后，就找到了问题的答案！</strong></p>
+<h4 id="1-吉他行"><a href="#1-吉他行" class="headerlink" title="1. 吉他行"></a>1. 吉他行</h4><p>后面会列出计算这个网格中单元格值得公式，但现在我们先来一步一步做。首先来看第一行。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-5.png" alt="image-20200825154002985" style="zoom:80%;"></p>
+<p><strong>这是吉他行，意味着你将尝试将吉他装入背包。在每个单元格，都需要做一个简单的决定：偷不偷吉他？</strong>别忘了，你要找出一个价值最高的商品集合。</p>
+<p><strong>第一个单元格表示背包的的容量为1磅。吉他的重量也是1磅，这意味着它能装入背包！因此这个单元格包含吉他，价值为1500美元。</strong></p>
+<p>下面来填充网格。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-6.png" alt="image-20200825154030729" style="zoom:80%;"></p>
+<p>与这个单元格一样，<strong>每个单元格都将包含当前可装入背包的所有商品。</strong></p>
+<p>来看下一个单元格。这个单元格表示背包容量为2磅，完全能够装下吉他！</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-7.png" alt="image-20200825154058167" style="zoom:80%;"></p>
+<p>这行的其他单元格也一样。<strong>别忘了，这是第一行，只有吉他可供你选择，换而言之，你假装现在还没发偷窃其他两件商品。</strong></p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-8.png" alt="image-20200825154125762" style="zoom:80%;"></p>
+<p>此时你很可能心存疑惑：原来的问题说的是4磅的背包，我们为何要考虑容量为1磅、2磅等得背包呢？前面说过，<strong>动态规划从子问题着手，逐步解决大问题。</strong>这里解决的子问题将帮助你解决大问题。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-9.png" alt="image-20200825154203348" style="zoom:80%;"></p>
+<p>别忘了，你要做的是让背包中商品的价值最大。<em>这行表示的是当前的最大价值。</em>它指出，如果你有一个容量4磅的背包，可在其中装入的商品的最大价值为1500美元。</p>
+<p>你知道这不是最终解。随着算法往下执行，你将逐步修改最大价值。</p>
+<h4 id="2-音响行"><a href="#2-音响行" class="headerlink" title="2. 音响行"></a>2. 音响行</h4><p>我们来填充下一行——音响行。<strong>你现在处于第二行，可以偷窃的商品有吉他和音响。</strong></p>
+<p>我们先来看第一个单元格，它表示容量为1磅的背包。在此之前，可装入1磅背包的商品最大价值为1500美元。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-10.png" alt="image-20200825154236868" style="zoom:80%;"></p>
+<p>该不该偷音响呢？</p>
+<p>背包的容量为1磅，显然不能装下音响。由于容量为1磅的背包装不下音响，因此最大价值依然是1500美元。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-11.png" alt="image-20200825154304126" style="zoom:80%;"></p>
+<p>接下来的两个单元格的情况与此相同。在这些单元格中，背包的容量分别为2磅和3磅，而以前的最大价值为1500美元。由于这些背包装不下音响，因此最大的价值保持不变。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-12.png" alt="image-20200825154326186" style="zoom:80%;"></p>
+<p>背包容量为4磅呢？终于能够装下音响了！原来最大价值为1500美元，但如果在背包中装入音响而不是吉他，价值将为3000美元！因此还是偷音响吧。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-13.png" alt="image-20200825154353311" style="zoom:80%;"></p>
+<p>你更新了最大价值。如果背包的容量为4磅，就能装入价值至少3000美元的商品。在这个网格中，你逐步地更新最大价值。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-Package-14.png" alt="image-20200825154426433" style="zoom:80%;"></p>
+<h4 id="3-笔记本电脑行"><a href="#3-笔记本电脑行" class="headerlink" title="3. 笔记本电脑行"></a>3. 笔记本电脑行</h4><p>下面以同样的方式处理笔记本电脑。笔记本电脑重3磅，没法将其装入1磅或者2磅的背包，因此前两个单元格的最大价值仍然是1500美元。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/%20image-Package-15.png" alt="image-20200825154511130" style="zoom:80%;"></p>
+<p>对于容量为3磅的背包，原来的最大价值为1500美元，但现在你可以选择偷窃价值2000美元的笔记本电脑而不是吉他，这样新的最大价值将为2000美元。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154902119.png" alt="image-20200825154902119" style="zoom:80%;"></p>
+<p><strong>对于容量为4磅的背包，情况很有趣。</strong>这是非常重要的部分。当前的最大价值为3000美元，你可不偷音响，而偷笔记本电脑，但它只值2000美元。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154924996.png" alt="image-20200825154924996" style="zoom: 67%;"></p>
+<p>价值没有原来高，但是等一等，<strong>笔记本电脑的重量只有3磅，背包还有1磅的重量没用！</strong></p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825154946629.png" alt="image-20200825154946629" style="zoom:67%;"></p>
+<p><strong>在1磅的容量中，可装入的商品的最大价值是多少呢？</strong> 你之前计算过！</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155038665.png" alt="image-20200825155038665" style="zoom:80%;"></p>
+<p>根据之前计算的最大价值可知，在1磅的容量中可装入吉他，价值1500美元。因此，你需要做如下的比较：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155055030.png" alt="image-20200825155055030" style="zoom:67%;"></p>
+<p>你可能始终心存疑惑：为何计算小背包可装入的商品的最大价值呢？但愿你现在明白了其中的原因！<strong>当出现部分剩余空间时，你可根据这些子问题的答案来确定余下的空间可装入哪些商品。</strong>笔记本电脑和吉他的总价值为3500美元，因此偷它们是更好的选择。</p>
+<p>最终的网格类似于下面这样。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155111047.png" alt="image-20200825155111047" style="zoom:80%;"></p>
+<p>答案如下：将吉他和笔记本电脑装入背包时价值更高，为3500美元。</p>
+<p>你可能认为，计算最后一个单元格的价值时，我使用了不同的公式。那是因为填充之前的单元格时，我故意避开了一些复杂的因素。其实，计算每个单元格的价值时，使用的公式都相同。这个公式如下。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155126003.png" alt="image-20200825155126003"></p>
+<p>你可以使用这个公式来计算每个单元格的价值，最终的网格将与前一个网格相同。现在你明白了为何要求解子问题了吧？——因为你可以合并两个子问题的解来得到更大问题的解。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155144946.png" alt="image-20200825155144946" style="zoom: 67%;"></p>
+<h4 id="4-等等，再增加一件商品将如何变化呢？"><a href="#4-等等，再增加一件商品将如何变化呢？" class="headerlink" title="4. 等等，再增加一件商品将如何变化呢？"></a>4. 等等，再增加一件商品将如何变化呢？</h4><p>假设你发现还有第四件商品可偷——一个iPhone！<em>（或许你会毫不犹豫的拿走，但是请别忘了问题的本身是要拿走价值最大的商品）</em></p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155205168.png" alt="image-20200825155205168" style="zoom:50%;"></p>
+<p>此时需要重新执行前面所做的计算吗？不需要。别忘了，动态规划逐步计算最大价值。到目前为止，计算出的最大价值如下：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155224625.png" alt="image-20200825155224625" style="zoom:80%;"></p>
+<p>这意味着背包容量为4磅时，你最多可偷价值3500美元的商品。但这是以前的情况，下面再添加表示iPhone的行。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155240955.png" alt="image-20200825155240955" style="zoom: 67%;"></p>
+<p>我们还是从第一个单元格开始。iPhone可装入容量为1磅的背包。之前的最大价值为1500美元，但iPhone价值2000美元，因此该偷iPhone而不是吉他。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155256914.png" alt="image-20200825155256914" style="zoom: 80%;"></p>
+<p>在下一个单元格中，你可装入iPhone和吉他。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155312307.png" alt="image-20200825155312307" style="zoom:80%;"></p>
+<p>对于第三个单元格，也没有比装入iPhone和吉他更好的选择了。</p>
+<p>对于最后一个单元格，情况比较有趣。当前的最大价值为3500美元，但你可以偷iPhone，这将余下3磅的容量。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155337598.png" alt="image-20200825155337598" style="zoom: 50%;"></p>
+<p>3磅容量的最大价值为2000美元！再加上iPhone价值2000美元，总价值为4000美元。新的最大价值诞生了！</p>
+<p><strong>最终的网格如下</strong>：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825155355312.png" alt="image-20200825155355312" style="zoom: 80%;"></p>
+<hr>
+<p>现在回到问题本身，给定<code>n</code>个重量为<code>w1,w2,w3,....,wn</code>，价值为<code>v1,v2,v3,...,vn</code>的物品和容量为<code>W</code>的背包，问应该如何选择装入背包中的物品，使得装入背包中的物品的总价值最大？<strong>每个物品只能使用一次</strong>(01背包特点)</p>
+<p>依然用上文的3个物品为例，物品的重量<code>weight[]={1,3,1}</code>，对应的价值为<code>value[]={15,30,20}</code>，现挑选物品放入背包中，假定背包的最大重量<code>W=4</code></p>
+<p>令 <strong><code>dp[i][w]</code> 表示前 i 件物品放入容量为 w 的背包中可获得的最大价值</strong>。为了方便处理，我们约定下标从 1 开始。初始时，网格如下：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825161832802.png" alt="image-20200825161832802" style="zoom:80%;"></p>
+<p>根据之前已经引出的状态转移方程，我们再来理解一遍，对于编号为 i 的物品：</p>
+<ul>
+<li>如果选择它，那么，当前背包的最大价值等于” i 号物品的价值“ 加上 ”减去 i 号物品占用的空间后剩余的背包空间所能存放的最大价值“，即<code>dp[i][k] = value[i] + dp[i-1][k-weight[i]]</code>；</li>
+<li>如果不选择它，那么，当前背包的价值就等于前 i-1 个物品存放在背包中的最大价值，即<code>dp[i][k] = dp[i-1][k]</code></li>
+</ul>
+<p><code>dp[i][k]</code>的结果取两者的较大值，即：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][k] = max(value[i] + dp[i-<span class="number">1</span>][k-weight[i]], dp[i-<span class="number">1</span>][k])</span><br></pre></td></tr></table></figure>
+<h3 id="DP代码实现如下"><a href="#DP代码实现如下" class="headerlink" title="DP代码实现如下"></a>DP代码实现如下</h3><p><strong>动态规划+二维数组：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Package_01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] weights = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[] value = &#123;<span class="number">1500</span>, <span class="number">3000</span>, <span class="number">2000</span>, <span class="number">2000</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> W = <span class="number">4</span>;</span><br><span class="line">        System.out.println(maxValue(weights, value, W));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxValue</span><span class="params">(<span class="keyword">int</span>[] weight, <span class="keyword">int</span>[] value, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> n = weight.length;</span><br><span class="line">        <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[][] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n][W + <span class="number">1</span>];</span><br><span class="line">        <span class="comment">// 先初始化第 0 行，也就是尝试把 0 号物品放入容量为 k 的背包中</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= W; k++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k &gt;= weight[<span class="number">0</span>]) dp[<span class="number">0</span>][k] = value[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">1</span>; k &lt;= W; k++) &#123;</span><br><span class="line">                <span class="comment">// 存放 i 号物品（前提是放得下这件物品）</span></span><br><span class="line">                <span class="keyword">int</span> valueWith_i = (k-weight[i] &gt;= <span class="number">0</span>) ? (value[i] + dp[i-<span class="number">1</span>][k-weight[i]]) : <span class="number">0</span>;</span><br><span class="line">                <span class="comment">// 不存放 i 号物品</span></span><br><span class="line">                <span class="keyword">int</span> valueWithout_i = dp[i-<span class="number">1</span>][k];</span><br><span class="line">                dp[i][k] = Math.max(valueWith_i, valueWithout_i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n-<span class="number">1</span>][W];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>时间复杂度：O(nW)；空间复杂度O(nW)</p>
+<p><strong>动态规划+压缩空间：</strong></p>
+<p>观察上面的代码，会发现，<strong>当更新<code>dp[i][..]</code>时，只与<code>dp[i-1][..]</code>有关</strong>，也就是说，我们没有必要使用O(n*W)的空间，而是只使用O(W)的空间即可。下面先给出代码，再结合图例进行说明。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxValue</span><span class="params">(<span class="keyword">int</span>[] weight, <span class="keyword">int</span>[] value, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = weight.length;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 辅助空间只需要O(W)即可</span></span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">// 注意这里必须从后向前！！！</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = W; k &gt;= <span class="number">1</span>; k--) &#123;</span><br><span class="line">            <span class="keyword">int</span> valueWith_i = (k - weight[i] &gt;= <span class="number">0</span>) ? (dp[k - weight[i]] + value[i]) : <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">int</span> valueWithout_i = dp[k];</span><br><span class="line">            dp[k] = Math.max(valueWith_i, valueWithout_i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的状态转移方程变成了：<code>dp[k](新值) = max(value[i]+dp[k-weight[i]](旧值), dp[k](旧值))</code></p>
+<p>为什么说这里<strong>必须反向遍历来更新dp[]数组的值</strong>呢？原因是索引较小的元素可能会被覆盖。我们来看例子，假设我们已经遍历完了第 i=1 个元素（即weight=3, value=30），如下图所示：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163404982.png" alt="image-20200825163404982" style="zoom:80%;"></p>
+<p>现在要更新第 i=2 个元素（即weight=1, value=20），由于我们只申请了一维空间的数组，因此对dp[]数组的修改会覆盖上一轮dp[]数组的值，这里<strong>用浅色代表上一轮的值，深色代表当前这一轮的值</strong>。</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163445617.png" alt="image-20200825163445617" style="zoom:80%;"></p>
+<p>鉴于上面出现的问题，因此<strong>必须采用反向遍历来回避这个问题</strong>。仍然假设第 i=1 个元素已经更新完毕，现在更新第 i=2 个元素。示意图如下：</p>
+<p><img src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/img/image-20200825163509043.png" alt="image-20200825163509043" style="zoom: 80%;"></p>
+<p>可以看到，反向遍历就可以避免这个问题了！</p>
+<p>事实上，我们还可以进一步简化上面的代码，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">maxValue</span><span class="params">(<span class="keyword">int</span>[] weight, <span class="keyword">int</span>[] value, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = weight.length;</span><br><span class="line">    <span class="keyword">if</span> (n == <span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[W + <span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="comment">//只要确保 k&gt;=weight[i] 即可，而不是 k&gt;=1，从而减少遍历的次数</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> k = W; k &gt;= weight[i]; k--) &#123;</span><br><span class="line">            dp[k] = Math.max(dp[k - weight[i]] + value[i], dp[k]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[W];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为什么可以这样简化呢？我们重新看一下这段代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> k = W; k &gt;= <span class="number">1</span>; k--) &#123;</span><br><span class="line">    <span class="keyword">int</span> valueWith_i = (k - weight[i] &gt;= <span class="number">0</span>) ? (dp[k - weight[i]] + value[i]) : <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> valueWithout_i = dp[k];</span><br><span class="line">    dp[k] = Math.max(valueWith_i, valueWithout_i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果<code>k&gt;=weight[i]</code> 不成立，则<code>valueWith_i</code> 的值为0，那么显然有：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[k] = Math.max(valueWith_i, valueWithout_i) = max(<span class="number">0</span>, dp[k]) = dp[k]</span><br></pre></td></tr></table></figure>
+<p>也就是dp[k]没有更新过，它的值还是上一轮的值，因此就没必要执行了，可以提前退出循环！</p>
+<h3 id="递归代码实现"><a href="#递归代码实现" class="headerlink" title="递归代码实现"></a>递归代码实现</h3><p>这类问题同样可以采用递归的方式来解决</p>
+<p>我们用<code>F(n,W)</code>表示将前<code>n</code>个物品放进容量为<code>W</code>的背包中，得到的最大的价值</p>
+<p>我们用自顶向下的角度来看，假如我们已经进行到了最后一步(即求解将<code>n</code>个物品放到背包里获得的最大价值)，此时我们便有两种选择</p>
+<ol>
+<li>不放第<code>n</code>个物品，此时总价值为<code>F(n-1,W)</code></li>
+<li>放置第<code>n</code>个物品，此时总价值为<code>vn+F(n-1,W-wn)</code></li>
+</ol>
+<p>两种选择中总价值最大的方案就是我们的方案，转移方程为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F(i,W) = max(F(i-<span class="number">1</span>,W),vi+F(i-<span class="number">1</span>,W-wi))</span><br></pre></td></tr></table></figure>
+<p>编程实现如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] weights = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[] value = &#123;<span class="number">1500</span>, <span class="number">3000</span>, <span class="number">2000</span>, <span class="number">2000</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> W = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">int</span> index = weights.length - <span class="number">1</span>;</span><br><span class="line">        System.out.println(maxValue3(weights, value, index, W));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxValue3</span><span class="params">(<span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] value, <span class="keyword">int</span> index, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果索引无效或者容量不足，直接返回当前价值0</span></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || W &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 不放第index个物品所得价值</span></span><br><span class="line">        <span class="keyword">int</span> res = maxValue3(weights, value, index - <span class="number">1</span>, W);</span><br><span class="line">        <span class="comment">// 放第index个物品所得价值(前提是：第index个物品可以放得下)</span></span><br><span class="line">        <span class="keyword">if</span> (weights[index] &lt;= W) &#123;</span><br><span class="line">            res = Math.max(res, value[index] + maxValue3(weights, value, index - <span class="number">1</span>, W - weights[index]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="记忆化搜索"><a href="#记忆化搜索" class="headerlink" title="记忆化搜索"></a>记忆化搜索</h3><p>递归的代码可以很清晰的对照转移方程，不过因为重复计算太多，递归基本上会超时，效率十分低下</p>
+<p>我们可以将已经求得的子问题的结果保存下来，这样对子问题只会求解一次，这便是记忆化搜索。在递归的代码基础上，进行改进</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span>[][] memo;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] weights = &#123;<span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">1</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span>[] value = &#123;<span class="number">1500</span>, <span class="number">3000</span>, <span class="number">2000</span>, <span class="number">2000</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> W = <span class="number">4</span>;</span><br><span class="line">        <span class="keyword">int</span> index = weights.length - <span class="number">1</span>;</span><br><span class="line">        memo = <span class="keyword">new</span> <span class="keyword">int</span>[weights.length][W + <span class="number">1</span>];</span><br><span class="line">        System.out.println(maxValue4(weights, value, index, W));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">maxValue4</span><span class="params">(<span class="keyword">int</span>[] weights, <span class="keyword">int</span>[] value, <span class="keyword">int</span> index, <span class="keyword">int</span> W)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果索引无效或者容量不足，直接返回当前价值0</span></span><br><span class="line">        <span class="keyword">if</span> (index &lt; <span class="number">0</span> || W &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果此子问题已经求解过，则直接返回上次求解的结果</span></span><br><span class="line">        <span class="keyword">if</span> (memo[index][W] != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> memo[index][W];</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 不放第index个物品所得价值</span></span><br><span class="line">        <span class="keyword">int</span> res = maxValue4(weights, value, index - <span class="number">1</span>, W);</span><br><span class="line">        <span class="comment">// 放第index个物品所得价值(前提是：第index个物品可以放得下)</span></span><br><span class="line">        <span class="keyword">if</span> (weights[index] &lt;= W) &#123;</span><br><span class="line">            res = Math.max(res, value[index] + maxValue4(weights, value, index - <span class="number">1</span>, W - weights[index]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 添加子问题的解，便于下次直接使用</span></span><br><span class="line">        memo[index][W] = res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+
+	
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>打赏了解一下？</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/uploads/ali.jpg" alt="BenY 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    BenY
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://benym.cn/2020/08/25/01背包问题详解/" title="01背包问题详解">http://benym.cn/2020/08/25/01背包问题详解/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/Medium/" rel="tag"><i class="fa fa-tag"></i> Medium</a>
+          
+            <a href="/tags/数组/" rel="tag"><i class="fa fa-tag"></i> 数组</a>
+          
+            <a href="/tags/DP/" rel="tag"><i class="fa fa-tag"></i> DP</a>
+          
+            <a href="/tags/背包问题/" rel="tag"><i class="fa fa-tag"></i> 背包问题</a>
+          
+        </div>
+      
+
+      
+      
+        <div class="post-widgets">
+        
+
+        
+
+        
+          
+          <div id="needsharebutton-postbottom">
+            <span class="btn">
+              <i class="fa fa-share-alt" aria-hidden="true"></i>
+            </span>
+          </div>
+        
+        </div>
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/08/21/LeetCode-322-零钱兑换/" rel="next" title="LeetCode-322-零钱兑换">
+                <i class="fa fa-chevron-left"></i> LeetCode-322-零钱兑换
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/08/30/LeetCode-字符串排序/" rel="prev" title="LeetCode-字符串排序">
+                LeetCode-字符串排序 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://image-1-1257237419.cos.ap-chongqing.myqcloud.com/sitelogo3.jpg" alt="BenY">
+            
+              <p class="site-author-name" itemprop="name">BenY</p>
+              <p class="site-description motion-element" itemprop="description">愿祖国更加强大</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">278</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/benym" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/xu-ge-yuan-ba-68/activities" target="_blank" title="知乎">
+                      
+                        <i class="fa fa-fw fa-book"></i>知乎</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/qq_34438435" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-contao"></i>CSDN</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://felamin.xyz" title="Felamin" target="_blank">Felamin</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://unclegem.cn" title="Unclegem" target="_blank">Unclegem</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://bevishe.com" title="BevisHe" target="_blank">BevisHe</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#01背包问题详解"><span class="nav-number">1.</span> <span class="nav-text">01背包问题详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#01背包问题的另一种风格描述"><span class="nav-number">1.0.1.</span> <span class="nav-text">01背包问题的另一种风格描述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#暴力解法"><span class="nav-number">1.0.2.</span> <span class="nav-text">暴力解法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动态规划"><span class="nav-number">1.0.3.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-吉他行"><span class="nav-number">1.0.4.</span> <span class="nav-text">1. 吉他行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-音响行"><span class="nav-number">1.0.5.</span> <span class="nav-text">2. 音响行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-笔记本电脑行"><span class="nav-number">1.0.6.</span> <span class="nav-text">3. 笔记本电脑行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-等等，再增加一件商品将如何变化呢？"><span class="nav-number">1.0.7.</span> <span class="nav-text">4. 等等，再增加一件商品将如何变化呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DP代码实现如下"><span class="nav-number">1.1.</span> <span class="nav-text">DP代码实现如下</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">递归代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#记忆化搜索"><span class="nav-number">1.3.</span> <span class="nav-text">记忆化搜索</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">BenY</span>
+&
+<span><a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></span>
+  
+</div>
+
+
+
+
+
+
+
+
+<span id="days"></span> &
+<span class="BbeiAn-info"">
+  渝ICP备 -
+  <a href="http://www.miitbeian.gov.cn">18012574号</a>
+  
+</span>
+<script>
+function show_date_time(){
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("03/01/2018 15:13:14");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=setzero(Math.floor(e_hrsold));
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=setzero(Math.floor((e_hrsold-hrsold)*60));
+seconds=setzero(Math.floor((e_minsold-minsold)*60));
+document.getElementById('days').innerHTML="已运行"+daysold+"天"+hrsold+"小时"+minsold+"分"+seconds+"秒";
+}
+function setzero(i){
+if (i<10)
+{i="0" + i};
+return i;
+}
+show_date_time();
+</script>
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery_lazyload/1.9.7/jquery.lazyload.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.1/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/custom.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'rrJw3n1GITgknmle4GAv9Yfj-gzGzoHsz',
+        appKey: '6i8gxSzzOFIaGpEfldvoWGJO',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rrJw3n1GITgknmle4GAv9Yfj-gzGzoHsz", "6i8gxSzzOFIaGpEfldvoWGJO");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/needsharebutton/needsharebutton.css">
+
+  
+  
+  <script src="/lib/needsharebutton/needsharebutton.js"></script>
+
+  <script>
+    
+      pbOptions = {};
+      
+          pbOptions.iconStyle = "box";
+      
+          pbOptions.boxForm = "horizontal";
+      
+          pbOptions.position = "bottomCenter";
+      
+          pbOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-postbottom', pbOptions);
+    
+    
+      flOptions = {};
+      
+          flOptions.iconStyle = "box";
+      
+          flOptions.boxForm = "horizontal";
+      
+          flOptions.position = "middleRight";
+      
+          flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
+  
+
+  
+
+  
+
+  
+ 
+  
+  <style>
+    .copy-btn {
+      display: inline-block;
+      padding: 6px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 20px;
+      color: #333;
+      white-space: nowrap;
+      vertical-align: middle;
+      cursor: pointer;
+      background-color: rgba(255,255,255,0.85);
+      background-image: linear-gradient(rgba(255,255,255,0.0), rgba(255,255,255,0.5));
+      border: 1px solid #808080;
+      border-radius: 5px;
+      user-select: none;
+      outline: 0;
+    }
+
+    .highlight-wrap .copy-btn {
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      padding: 2px 6px;
+      position: absolute;
+      right: 4px;
+      top: 8px;
+    }
+
+    .highlight-wrap:hover .copy-btn,
+    .highlight-wrap .copy-btn:focus {
+      opacity: 1
+    }
+
+    .highlight-wrap {
+      position: relative;
+    }
+  </style>
+  
+  <script>
+    $('.highlight').each(function (i, e) {
+      var $wrap = $('<div>').addClass('highlight-wrap')
+      $(e).after($wrap)
+      $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function (e) {
+        var code = $(this).parent().find('.code').find('.line').map(function (i, e) {
+          return $(e).text()
+        }).toArray().join('\n')
+        var ta = document.createElement('textarea')
+        document.body.appendChild(ta)
+        ta.style.position = 'absolute'
+        ta.style.top = '0px'
+        ta.style.left = '0px'
+        ta.value = code
+        ta.select()
+        ta.focus()
+        var result = document.execCommand('copy')
+        document.body.removeChild(ta)
+        
+          if(result)$(this).text('复制成功')
+          else $(this).text('复制失败')
+        
+        $(this).blur()
+      })).on('mouseleave', function (e) {
+        var $b = $(this).find('.copy-btn')
+        setTimeout(function () {
+          $b.text('复制')
+        }, 300)
+      }).append(e)
+    })
+  </script>
+
+ 
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/tororo.model.json"},"display":{"position":"left","width":250,"height":500},"mobile":{"show":true},"log":false});</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end --><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
