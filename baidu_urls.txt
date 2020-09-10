@@ -1,3 +1,4 @@
+http://benym.cn/2020/09/10/判断一棵二叉树是否为二叉搜索树和完全二叉树/
 http://benym.cn/2020/09/08/LeetCode-16-最接近的三数之和/
 http://benym.cn/2020/08/30/LeetCode-字符串排序/
 http://benym.cn/2020/08/25/01背包问题详解/
@@ -7,4 +8,3 @@ http://benym.cn/2020/08/19/LeetCode-76-最小覆盖字串/
 http://benym.cn/2020/08/18/LeetCode-567-字符串的排列/
 http://benym.cn/2020/08/18/LeetCode-438-找到字符串中所有字母异位词/
 http://benym.cn/2020/08/14/LeetCode-279-完全平方数/
-http://benym.cn/2020/08/14/LeetCode-1143-最长公共子序列/

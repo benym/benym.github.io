@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[判断一棵二叉树是否为二叉搜索树和完全二叉树]]></title>
+    <url>%2F2020%2F09%2F10%2F%E5%88%A4%E6%96%AD%E4%B8%80%E6%A3%B5%E4%BA%8C%E5%8F%89%E6%A0%91%E6%98%AF%E5%90%A6%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E5%92%8C%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
+    <content type="text"><![CDATA[判断一棵二叉树是否为二叉搜索树和完全二叉树给定一棵二叉树，已经其中没有重复值的节点，请判断该二叉树是否为搜索二叉树和完全二叉树。 示例1： 12输入：&#123;2,1,3&#125;输出：[true,true] 备注： 1n&lt;=500000 解题思路详见注释理解 Java代码123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172import java.util.*;/* * public class TreeNode &#123; * int val = 0; * TreeNode left = null; * TreeNode right = null; * &#125; */public class Solution &#123; /** * * @param root TreeNode类 the root * @return bool布尔型一维数组 */ public boolean[] judgeIt(TreeNode root) &#123; // 二叉搜索树的中序遍历严格递增 // 每个节点左边节点小于右边节点，左子树的最大值一定小于根节点，小于右子树的最大值 if (root == null) &#123; return new boolean[]&#123;false, false&#125;; &#125; List&lt;Integer&gt; list = new ArrayList&lt;&gt;(); midSearch(root, list); boolean f1 = true; for (int i = 1; i &lt; list.size(); i++) &#123; if (list.get(i) &lt; list.get(i - 1)) &#123; f1 = false; break; &#125; &#125; boolean f2 = isCompleteTree(root); return new boolean[]&#123;f1, f2&#125;; &#125; private static boolean isCompleteTree(TreeNode root) &#123; // 完全二叉树，除了最后一层，每一层都是满的 // 层序遍历，当遇到节点为null的时候，队列中剩下的节点必须为叶子节点 Queue&lt;TreeNode&gt; queue = new LinkedList&lt;&gt;(); queue.offer(root); while (!queue.isEmpty()) &#123; TreeNode node = queue.poll(); if (node.left == null) &#123; if (node.right != null) return false; while (!queue.isEmpty()) &#123; TreeNode temp = queue.poll(); if (temp.left != null || temp.right != null) return false; &#125; return true; &#125; else &#123; queue.offer(node.left); &#125; if (node.right == null) &#123; while (!queue.isEmpty()) &#123; TreeNode temp = queue.poll(); if (temp.left != null || temp.right != null) return false; &#125; return true; &#125; else &#123; queue.offer(node.right); &#125; &#125; return true; &#125; private static void midSearch(TreeNode root, List&lt;Integer&gt; list) &#123; if (root == null) return; midSearch(root.left, list); list.add(root.val); midSearch(root.right, list); &#125;&#125;]]></content>
+      <categories>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+        <tag>树</tag>
+        <tag>Easy</tag>
+        <tag>LeetCode</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode-16-最接近的三数之和]]></title>
     <url>%2F2020%2F09%2F08%2FLeetCode-16-%E6%9C%80%E6%8E%A5%E8%BF%91%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C%2F</url>
     <content type="text"><![CDATA[LeetCode-16-最接近的三数之和给定一个包括 n 个整数的数组 nums 和 一个目标值 target。找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。 示例 1: 123输入：nums = [-1,2,1,-4], target = 1输出：2解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。 提示： 3 &lt;= nums.length &lt;= 10^3 -10^3 &lt;= nums[i] &lt;= 10^3 -10^4 &lt;= target &lt;= 10^4 解题思路方法1、回溯： 回溯穷举所有可能的排列，如果当前深度达到3，且当前sum值更接近target就更新答案res 从deep=0，sum=0，index=0开始遍历 回溯前深度+1，sum加上当前的nums[i] 回溯之后深度-1，sum减去上一轮加入的值 方法2、排序+双指针： 详见https://leetcode-cn.com/problems/3sum-closest/solution/zui-jie-jin-de-san-shu-zhi-he-by-leetcode-solution/ Java代码1123456789101112131415161718192021222324class Solution &#123; int res = 0; public int threeSumClosest(int[] nums, int target) &#123; res = nums[0] + nums[1] + nums[2]; backtrace(nums, target, 0, 0, 0); return res; &#125; private void backtrace(int[] nums, int target, int deep, int sum, int index) &#123; if (deep == 3) &#123; if (Math.abs(target - res) &gt; Math.abs(sum - target)) &#123; res = sum; &#125; return; &#125; for (int i = index; i &lt; nums.length; i++) &#123; sum += nums[i]; deep++; backtrace(nums, target, deep, sum, i + 1); sum -= nums[i]; deep--; &#125; &#125;&#125; Java代码212345678910111213141516171819202122232425262728293031class Solution &#123; public int threeSumClosest(int[] nums, int target) &#123; Arrays.sort(nums); int min = Integer.MAX_VALUE; int ans = 0; int len = nums.length; for (int i = 0; i &lt; len; i++) &#123; if (i &gt; 0 &amp;&amp; nums[i] == nums[i - 1]) &#123; continue; &#125; int start = i + 1; int end = len - 1; while (start &lt; end) &#123; int value = nums[i] + nums[start] + nums[end]; if (value == target) &#123; return value; &#125; if (Math.abs(value - target) &lt; min) &#123; min = Math.abs(value - target); ans = value; &#125; if (value &gt; target) &#123; end--; &#125; else &#123; start++; &#125; &#125; &#125; return ans; &#125;&#125;]]></content>
@@ -9,9 +23,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -36,9 +50,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>背包问题</tag>
       </tags>
   </entry>
@@ -51,9 +65,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -120,9 +134,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -242,8 +256,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -255,9 +269,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -269,8 +283,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -308,8 +322,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -334,8 +348,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -347,8 +361,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -361,8 +375,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -389,8 +403,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -402,8 +416,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -415,9 +429,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -444,9 +458,9 @@
       <tags>
         <tag>Java</tag>
         <tag>DFS</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>BFS</tag>
-        <tag>数组</tag>
         <tag>图论算法</tag>
         <tag>拓扑排序</tag>
       </tags>
@@ -460,8 +474,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -500,9 +514,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>矩阵</tag>
       </tags>
@@ -516,8 +530,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>栈</tag>
       </tags>
   </entry>
@@ -556,8 +570,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -608,8 +622,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -634,9 +648,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -688,8 +702,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -729,9 +743,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
       </tags>
   </entry>
   <entry>
@@ -754,8 +768,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>贪心算法</tag>
       </tags>
   </entry>
@@ -782,8 +796,8 @@
       <tags>
         <tag>Java</tag>
         <tag>DFS</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -795,8 +809,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -812,9 +826,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-基数排序]]></title>
-    <url>%2F2020%2F07%2F01%2FLeetCode-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[LeetCode-基数排序基数排序算法回顾 示例1 12输入: nums = [1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12]输出: [1,3,4,12,13,20,43,53,100,123,323,559230] 解题思路​ 基数排序也是非比较的排序算法，对每一位进行排序，从最低位开始排序，复杂度为O(kn),为数组长度，k为数组中的数的最大的位数； ​ 基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。基数排序基于分别排序，分别收集，所以是稳定的。 ​ 时间复杂度：设待排序列为n个记录，d个关键码，关键码的取值范围为radix，则进行链式基数排序的时间复杂度为O(d(n+radix))，其中，一趟分配时间复杂度为O(n)，一趟收集时间复杂度为O(radix)，共进行d趟分配和收集。 ​ 基数排序是稳定的排序算法 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556import java.util.*;public class RadixSort &#123; public static void main(String[] args) &#123; int[] array = &#123;1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12&#125;; sort(array); for (Integer i : array) &#123; System.out.print(i+" "); &#125; &#125; // 基数排序，注意这里只能排序正整数 public static void sort(int[] array) &#123; // 找到数组中最大数max，并计算它的位数maxDig int max = array[0]; for (int maxTemp : array) &#123; max = Math.max(max, maxTemp); &#125; int maxDig = String.valueOf(max).length(); // 创建从0-9的基数数据集 Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;(); for (int i = 0; i &lt; 10; i++) &#123; map.put(i, new ArrayList&lt;Integer&gt;()); &#125; // 从低位baseDig开始到高位maxDig进行指定位的基数排序 int baseDig = 1; while (baseDig &lt;= maxDig) &#123; // 第一阶段，遍历目标数组，将数组元素放入指定的基数数据集中 for (int temp : array) &#123; String strVal = String.valueOf(temp); // 获取元素baseDig位的数字，放入相对的基数数据集中 // 如果不存在，将该元素放入0基数数据集中 Integer key = null; if (strVal.length() &lt; baseDig) &#123; key = 0; &#125; else &#123; // 获取指定位上的字符，并转化成目标基数key char bitNum = strVal.charAt(strVal.length() - baseDig); key = Integer.valueOf(String.valueOf(bitNum)); &#125; map.get(key).add(temp); &#125; int j = 0; // 第二阶段，将0-9基数数据集中的数据，放回到数组中 // 表示当前baseDig位的基数排序完成 for (int i = 0; i &lt; 10; i++) &#123; Iterator&lt;Integer&gt; it = map.get(i).iterator(); while (it.hasNext()) &#123; array[j++] = it.next(); &#125; map.get(i).clear(); &#125; baseDig++; &#125; &#125;&#125;]]></content>
+    <title><![CDATA[LeetCode-堆排序]]></title>
+    <url>%2F2020%2F07%2F01%2FLeetCode-%E5%A0%86%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-堆排序堆排序算法回顾 示例1 12输入: nums = [1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12]输出: [1,3,4,12,13,20,43,53,100,123,323,559230] 解题思路一个不错的堆排序讲解，出处在这 了解堆排序首先需要了解堆 堆是一种具有如下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆 大顶堆满足：arr[i]&gt;=arr[2i+1]&amp;&amp;arr[i]&gt;=arr[2i+2] 小顶堆满足：arr[i]&lt;=arr[2i+1]&amp;&amp;arr[i]&lt;=arr[2i+2] 堆排序的基本思想是： 将待排序序列构造成一个大顶堆/小顶堆，此时，整个序列的最大值就是堆顶的根节点。 将其与末尾元素进行交换，此时末尾就为最大/小值。 然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。 如此反复执行，便能得到一个有序序列了 堆排序是一种选择排序，整体主要由构建初始堆+交换堆顶元素和末尾元素并重建堆两部分组成。 其中构建初始堆的复杂度为O(n)，在交换并重建堆的过程中，需交换n-1次，而重建堆的过程中，根据完全二叉树的性质 [log2(n-1),log2(n-2),….,1]逐步递减，所以时间复杂度近似为O(nlogn)，堆排序是一种不稳定的排序算法 Java代码123456789101112131415161718192021222324252627282930313233343536373839404142434445public class HeapSort &#123; public static void main(String[] args) &#123; int[] array = &#123;1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12&#125;; sort(array); for (Integer i : array) &#123; System.out.print(i + " "); &#125; &#125; public static void sort(int[] arr) &#123; // 构建大顶堆 for (int i = arr.length / 2 - 1; i &gt;= 0; i--) &#123; //从第一个非叶子节点从下至上，从右至左调整结构 adjustHeap(arr, i, arr.length); &#125; // 调整堆结构+交换堆顶元素与末尾元素 for (int j = arr.length - 1; j &gt; 0; j--) &#123; swap(arr, 0, j);// 将堆顶元素和末尾元素进行交换 adjustHeap(arr, 0, j);// 重新对堆进行调整 &#125; &#125; // 调整大顶堆(仅是调整过程，建立在大顶堆已构建的基础上) private static void adjustHeap(int[] arr, int i, int length) &#123; int temp = arr[i];// 先取出当前元素i for (int k = i * 2 + 1; k &lt; length; k = k * 2 + 1) &#123;// 从i节点的左子节点开始，也就是2i+1处开始 if (k + 1 &lt; length &amp;&amp; arr[k] &lt; arr[k + 1]) &#123;// 如果左子节点小于右子节点，k指向右子节点 k++; &#125; if (arr[k] &gt; temp) &#123;// 如果子节点大于父节点，将子节点值赋给父节点(不用进行交换) arr[i] = arr[k]; i = k; &#125; else &#123; break; &#125; &#125; arr[i] = temp;// 将temp值放到最终的位置 &#125; private static void swap(int[] arr, int i, int j) &#123; int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp; &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -824,9 +838,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[LeetCode-堆排序]]></title>
-    <url>%2F2020%2F07%2F01%2FLeetCode-%E5%A0%86%E6%8E%92%E5%BA%8F%2F</url>
-    <content type="text"><![CDATA[LeetCode-堆排序堆排序算法回顾 示例1 12输入: nums = [1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12]输出: [1,3,4,12,13,20,43,53,100,123,323,559230] 解题思路一个不错的堆排序讲解，出处在这 了解堆排序首先需要了解堆 堆是一种具有如下性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆 大顶堆满足：arr[i]&gt;=arr[2i+1]&amp;&amp;arr[i]&gt;=arr[2i+2] 小顶堆满足：arr[i]&lt;=arr[2i+1]&amp;&amp;arr[i]&lt;=arr[2i+2] 堆排序的基本思想是： 将待排序序列构造成一个大顶堆/小顶堆，此时，整个序列的最大值就是堆顶的根节点。 将其与末尾元素进行交换，此时末尾就为最大/小值。 然后将剩余n-1个元素重新构造成一个堆，这样会得到n个元素的次小值。 如此反复执行，便能得到一个有序序列了 堆排序是一种选择排序，整体主要由构建初始堆+交换堆顶元素和末尾元素并重建堆两部分组成。 其中构建初始堆的复杂度为O(n)，在交换并重建堆的过程中，需交换n-1次，而重建堆的过程中，根据完全二叉树的性质 [log2(n-1),log2(n-2),….,1]逐步递减，所以时间复杂度近似为O(nlogn)，堆排序是一种不稳定的排序算法 Java代码123456789101112131415161718192021222324252627282930313233343536373839404142434445public class HeapSort &#123; public static void main(String[] args) &#123; int[] array = &#123;1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12&#125;; sort(array); for (Integer i : array) &#123; System.out.print(i + " "); &#125; &#125; public static void sort(int[] arr) &#123; // 构建大顶堆 for (int i = arr.length / 2 - 1; i &gt;= 0; i--) &#123; //从第一个非叶子节点从下至上，从右至左调整结构 adjustHeap(arr, i, arr.length); &#125; // 调整堆结构+交换堆顶元素与末尾元素 for (int j = arr.length - 1; j &gt; 0; j--) &#123; swap(arr, 0, j);// 将堆顶元素和末尾元素进行交换 adjustHeap(arr, 0, j);// 重新对堆进行调整 &#125; &#125; // 调整大顶堆(仅是调整过程，建立在大顶堆已构建的基础上) private static void adjustHeap(int[] arr, int i, int length) &#123; int temp = arr[i];// 先取出当前元素i for (int k = i * 2 + 1; k &lt; length; k = k * 2 + 1) &#123;// 从i节点的左子节点开始，也就是2i+1处开始 if (k + 1 &lt; length &amp;&amp; arr[k] &lt; arr[k + 1]) &#123;// 如果左子节点小于右子节点，k指向右子节点 k++; &#125; if (arr[k] &gt; temp) &#123;// 如果子节点大于父节点，将子节点值赋给父节点(不用进行交换) arr[i] = arr[k]; i = k; &#125; else &#123; break; &#125; &#125; arr[i] = temp;// 将temp值放到最终的位置 &#125; private static void swap(int[] arr, int i, int j) &#123; int temp = arr[i]; arr[i] = arr[j]; arr[j] = temp; &#125;&#125;]]></content>
+    <title><![CDATA[LeetCode-基数排序]]></title>
+    <url>%2F2020%2F07%2F01%2FLeetCode-%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F%2F</url>
+    <content type="text"><![CDATA[LeetCode-基数排序基数排序算法回顾 示例1 12输入: nums = [1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12]输出: [1,3,4,12,13,20,43,53,100,123,323,559230] 解题思路​ 基数排序也是非比较的排序算法，对每一位进行排序，从最低位开始排序，复杂度为O(kn),为数组长度，k为数组中的数的最大的位数； ​ 基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。基数排序基于分别排序，分别收集，所以是稳定的。 ​ 时间复杂度：设待排序列为n个记录，d个关键码，关键码的取值范围为radix，则进行链式基数排序的时间复杂度为O(d(n+radix))，其中，一趟分配时间复杂度为O(n)，一趟收集时间复杂度为O(radix)，共进行d趟分配和收集。 ​ 基数排序是稳定的排序算法 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556import java.util.*;public class RadixSort &#123; public static void main(String[] args) &#123; int[] array = &#123;1, 4, 3, 100, 323, 53, 13, 559230, 123, 20, 43, 12&#125;; sort(array); for (Integer i : array) &#123; System.out.print(i+" "); &#125; &#125; // 基数排序，注意这里只能排序正整数 public static void sort(int[] array) &#123; // 找到数组中最大数max，并计算它的位数maxDig int max = array[0]; for (int maxTemp : array) &#123; max = Math.max(max, maxTemp); &#125; int maxDig = String.valueOf(max).length(); // 创建从0-9的基数数据集 Map&lt;Integer, List&lt;Integer&gt;&gt; map = new HashMap&lt;&gt;(); for (int i = 0; i &lt; 10; i++) &#123; map.put(i, new ArrayList&lt;Integer&gt;()); &#125; // 从低位baseDig开始到高位maxDig进行指定位的基数排序 int baseDig = 1; while (baseDig &lt;= maxDig) &#123; // 第一阶段，遍历目标数组，将数组元素放入指定的基数数据集中 for (int temp : array) &#123; String strVal = String.valueOf(temp); // 获取元素baseDig位的数字，放入相对的基数数据集中 // 如果不存在，将该元素放入0基数数据集中 Integer key = null; if (strVal.length() &lt; baseDig) &#123; key = 0; &#125; else &#123; // 获取指定位上的字符，并转化成目标基数key char bitNum = strVal.charAt(strVal.length() - baseDig); key = Integer.valueOf(String.valueOf(bitNum)); &#125; map.get(key).add(temp); &#125; int j = 0; // 第二阶段，将0-9基数数据集中的数据，放回到数组中 // 表示当前baseDig位的基数排序完成 for (int i = 0; i &lt; 10; i++) &#123; Iterator&lt;Integer&gt; it = map.get(i).iterator(); while (it.hasNext()) &#123; array[j++] = it.next(); &#125; map.get(i).clear(); &#125; baseDig++; &#125; &#125;&#125;]]></content>
       <categories>
         <category>算法</category>
       </categories>
@@ -855,8 +869,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>反射</tag>
         <tag>Java</tag>
+        <tag>反射</tag>
       </tags>
   </entry>
   <entry>
@@ -927,8 +941,8 @@
         <category>Java</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>多线程</tag>
+        <tag>Java</tag>
       </tags>
   </entry>
   <entry>
@@ -1004,9 +1018,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>LeetCode</tag>
         <tag>Medium</tag>
         <tag>字符串</tag>
-        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1018,9 +1032,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1047,9 +1061,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1075,8 +1089,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1088,9 +1102,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
       </tags>
   </entry>
   <entry>
@@ -1103,8 +1117,8 @@
       <tags>
         <tag>Java</tag>
         <tag>数组</tag>
-        <tag>Hard</tag>
         <tag>LeetCode</tag>
+        <tag>Hard</tag>
       </tags>
   </entry>
   <entry>
@@ -1131,10 +1145,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1146,10 +1160,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>LeetCode</tag>
         <tag>Medium</tag>
         <tag>字符串</tag>
         <tag>DP</tag>
-        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1161,9 +1175,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>LeetCode</tag>
         <tag>Medium</tag>
         <tag>字符串</tag>
-        <tag>LeetCode</tag>
         <tag>滑动窗口</tag>
       </tags>
   </entry>
@@ -1176,8 +1190,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1246,8 +1260,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1260,8 +1274,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1302,8 +1316,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>链表</tag>
       </tags>
   </entry>
@@ -1316,10 +1330,10 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1331,9 +1345,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -1346,9 +1360,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>Medium</tag>
         <tag>回溯</tag>
       </tags>
   </entry>
@@ -1362,8 +1376,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Hard</tag>
-        <tag>回溯</tag>
         <tag>矩阵</tag>
+        <tag>回溯</tag>
         <tag>二维数组</tag>
       </tags>
   </entry>
@@ -1391,8 +1405,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1405,9 +1419,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
         <tag>Python</tag>
       </tags>
   </entry>
@@ -1421,9 +1435,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1436,9 +1450,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1451,9 +1465,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
       </tags>
   </entry>
   <entry>
@@ -1466,9 +1480,9 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
+        <tag>LeetCode</tag>
         <tag>字符串</tag>
         <tag>DP</tag>
-        <tag>LeetCode</tag>
       </tags>
   </entry>
   <entry>
@@ -1481,8 +1495,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>LeetCode</tag>
+        <tag>DP</tag>
         <tag>Python</tag>
         <tag>贪心算法</tag>
       </tags>
@@ -1623,9 +1637,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1728,8 +1742,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1743,8 +1757,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1877,8 +1891,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -1965,9 +1979,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -1981,9 +1995,9 @@
       </categories>
       <tags>
         <tag>Java</tag>
+        <tag>数组</tag>
         <tag>Medium</tag>
         <tag>DP</tag>
-        <tag>数组</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -1998,8 +2012,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -2014,8 +2028,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>大数问题</tag>
         <tag>剑指Offer</tag>
@@ -2046,8 +2060,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>DP</tag>
         <tag>数组</tag>
+        <tag>DP</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2075,8 +2089,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
@@ -2167,8 +2181,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Medium</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2350,8 +2364,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2365,8 +2379,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2380,8 +2394,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2441,8 +2455,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
       </tags>
   </entry>
   <entry>
@@ -2455,8 +2469,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2590,8 +2604,8 @@
       </categories>
       <tags>
         <tag>Java</tag>
-        <tag>Medium</tag>
         <tag>数组</tag>
+        <tag>Medium</tag>
         <tag>Python</tag>
         <tag>回溯</tag>
         <tag>剑指Offer</tag>
@@ -2696,8 +2710,8 @@
       <tags>
         <tag>Java</tag>
         <tag>Easy</tag>
-        <tag>Python</tag>
         <tag>链表</tag>
+        <tag>Python</tag>
         <tag>剑指Offer</tag>
       </tags>
   </entry>
@@ -2852,8 +2866,8 @@
         <category>机器学习</category>
       </categories>
       <tags>
-        <tag>机器学习</tag>
         <tag>matlab</tag>
+        <tag>机器学习</tag>
         <tag>Coursera</tag>
       </tags>
   </entry>
@@ -3030,9 +3044,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
+        <tag>机器学习</tag>
         <tag>Numpy</tag>
         <tag>k-近邻算法</tag>
-        <tag>机器学习</tag>
       </tags>
   </entry>
   <entry>
@@ -3044,8 +3058,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>k-近邻算法</tag>
         <tag>机器学习</tag>
+        <tag>k-近邻算法</tag>
         <tag>matplotlib</tag>
       </tags>
   </entry>
@@ -3058,8 +3072,8 @@
       </categories>
       <tags>
         <tag>Python</tag>
-        <tag>k-近邻算法</tag>
         <tag>机器学习</tag>
+        <tag>k-近邻算法</tag>
       </tags>
   </entry>
   <entry>
@@ -3071,8 +3085,8 @@
       </categories>
       <tags>
         <tag>矩阵</tag>
-        <tag>Numpy</tag>
         <tag>机器学习</tag>
+        <tag>Numpy</tag>
       </tags>
   </entry>
   <entry>
@@ -3406,9 +3420,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[finally异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
+    <title><![CDATA[简单的异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
       <categories>
         <category>Python</category>
       </categories>
@@ -3417,9 +3431,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[简单的异常处理]]></title>
-    <url>%2F2018%2F07%2F23%2F%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
-    <content type="text"><![CDATA[简单的异常处理代码12345678try: text = input('Enter someting --&gt;')except EOFError: # 按ctrl+D print('Why did you do an EOF on me?')except KeyboardInterrupt: # 按ctrl+C print('You cancelled the operation.')else: print('You enterd &#123;&#125;'.format(text)) 运行结果12Enter someting --&gt;^DWhy did you do an EOF on me?]]></content>
+    <title><![CDATA[finally异常处理]]></title>
+    <url>%2F2018%2F07%2F23%2Ffinally%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%2F</url>
+    <content type="text"><![CDATA[finally异常处理代码123456789101112131415161718192021222324import sysimport timef = Nonetry: f = open("poem.txt") # 我们常用的文件阅读风格 while True: line = f.readline() if len(line) == 0: break print(line, end='') sys.stdout.flush() print("Press ctrl+c now") # 为了确保它能运行一段时间 time.sleep(2) # time.sleep 函数任意在每打印一行后插入两秒休眠except IOError: print("Could not find file poem.txt")except KeyboardInterrupt: print("!! You cancelled the reading from the file.")finally: # 始终执行 if f: f.close() print("(Cleaning up: Closed the file)") 运行结果1212165456478Press ctrl+c now(Cleaning up: Closed the file)]]></content>
       <categories>
         <category>Python</category>
       </categories>
