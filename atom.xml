@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://benym.cn/"/>
-  <updated>2020-09-10T08:33:55.531Z</updated>
+  <updated>2020-09-20T13:01:28.449Z</updated>
   <id>http://benym.cn/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>LeetCode-679-24点游戏</title>
+    <link href="http://benym.cn/2020/09/20/LeetCode-679-24%E7%82%B9%E6%B8%B8%E6%88%8F/"/>
+    <id>http://benym.cn/2020/09/20/LeetCode-679-24点游戏/</id>
+    <published>2020-09-20T02:32:30.000Z</published>
+    <updated>2020-09-20T13:01:28.449Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="LeetCode-679-24点游戏"><a href="#LeetCode-679-24点游戏" class="headerlink" title="LeetCode-679-24点游戏"></a>LeetCode-679-24点游戏</h2><p>你有 4 张写有 1 到 9 数字的牌。你需要判断是否能通过 <code>*</code>，<code>/</code>，<code>+</code>，<code>-</code>，<code>(</code>，<code>)</code> 的运算得到 24。</p> <a id="more"></a><p><strong>示例 1:</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入: [4, 1, 8, 7]</span><br><span class="line">输出: True</span><br><span class="line">解释: (8-4) * (7-1) = 24</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 2, 1, 2]</span><br><span class="line">输出: False</span><br></pre></td></tr></table></figure><p>注意:</p><ol><li>除法运算符 / 表示实数除法，而不是整数除法。例如 4 / (1 - 2/3) = 12 。</li><li>每个运算符对两个数进行运算。特别是我们不能用 - 作为一元运算符。例如，[1, 1, 1, 1] 作为输入时，表达式 -1 - 1 - 1 - 1 是不允许的。</li><li>你不能将数字连接在一起。例如，输入为 [1, 2, 1, 2] 时，不能写成 12 + 12 。</li></ol><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>题解来自<a href="https://leetcode-cn.com/problems/24-game/solution/24-dian-you-xi-by-leetcode-solution/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/24-game/solution/24-dian-you-xi-by-leetcode-solution/</a></p><p><strong>方法1、回溯：</strong></p><p>一共有 4 个数和 3 个运算操作，因此可能性非常有限。一共有多少种可能性呢？</p><p>首先从 4 个数字中有序地选出 2 个数字，共有 4×3=12 种选法，并选择加、减、乘、除 4 种运算操作之一，用得到的结果取代选出的 2个数字，剩下 3个数字。</p><p>然后在剩下的 3 个数字中有序地选出 2 个数字，共有3×2=6 种选法，并选择 4 种运算操作之一，用得到的结果取代选出的 2 个数字，剩下 2 个数字。</p><p>最后剩下 2 个数字，有 2 种不同的顺序，并选择 4 种运算操作之一。</p><p>因此，一共有12×4×6×4×2×4=9216 种不同的可能性。</p><p>可以通过回溯的方法遍历所有不同的可能性。具体做法是，使用一个列表存储目前的全部数字，每次从列表中选出 2 个数字，再选择一种运算操作，用计算得到的结果取代选出的 2 个数字，这样列表中的数字就减少了 1 个。重复上述步骤，直到列表中只剩下 1 个数字，这个数字就是一种可能性的结果，如果结果等于 24，则说明可以通过运算得到 24。如果所有的可能性的结果都不等于 24，则说明无法通过运算得到 24。</p><p>实现时，有一些细节需要注意。</p><ul><li><p>除法运算为实数除法，因此结果为浮点数，列表中存储的数字也都是浮点数。在判断结果是否等于 2424 时应考虑精度误差，这道题中，误差小于 10^{-6}可以认为是相等。</p></li><li><p>进行除法运算时，除数不能为 0，如果遇到除数为 0 的情况，则这种可能性可以直接排除。由于列表中存储的数字是浮点数，因此判断除数是否为 00 时应考虑精度误差，这道题中，当一个数字的绝对值小于 10^{-6} 时，可以认为该数字等于 00。</p></li></ul><p>还有一个可以优化的点。</p><ul><li>加法和乘法都满足交换律，因此如果选择的运算操作是加法或乘法，则对于选出的 22 个数字不需要考虑不同的顺序，在遇到第二种顺序时可以不进行运算，直接跳过。</li></ul><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> TARGET = <span class="number">24</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> EPSILON = <span class="number">1e-6</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ADD = <span class="number">0</span>, MULTIPLY = <span class="number">1</span>, SUBTRACT = <span class="number">2</span>, DIVIDE = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">judgePoint24</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        List&lt;Double&gt; list = <span class="keyword">new</span> ArrayList&lt;Double&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            list.add((<span class="keyword">double</span>) num);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> solve(list);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">solve</span><span class="params">(List&lt;Double&gt; list)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (list.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list.size() == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Math.abs(list.get(<span class="number">0</span>) - TARGET) &lt; EPSILON;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> size = list.size();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (i != j) &#123;</span><br><span class="line">                    List&lt;Double&gt; list2 = <span class="keyword">new</span> ArrayList&lt;Double&gt;();</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; size; k++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (k != i &amp;&amp; k != j) &#123;</span><br><span class="line">                            list2.add(list.get(k));</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> k = <span class="number">0</span>; k &lt; <span class="number">4</span>; k++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (k &lt; <span class="number">2</span> &amp;&amp; i &gt; j) &#123;</span><br><span class="line">                            <span class="keyword">continue</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (k == ADD) &#123;</span><br><span class="line">                            list2.add(list.get(i) + list.get(j));</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (k == MULTIPLY) &#123;</span><br><span class="line">                            list2.add(list.get(i) * list.get(j));</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (k == SUBTRACT) &#123;</span><br><span class="line">                            list2.add(list.get(i) - list.get(j));</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (k == DIVIDE) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (Math.abs(list.get(j)) &lt; EPSILON) &#123;</span><br><span class="line">                                <span class="keyword">continue</span>;</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                list2.add(list.get(i) / list.get(j));</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (solve(list2)) &#123;</span><br><span class="line">                            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">                        &#125;</span><br><span class="line">                        list2.remove(list2.size() - <span class="number">1</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      24点游戏
+    
+    </summary>
+    
+      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
+    
+    
+      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Hard" scheme="http://benym.cn/tags/Hard/"/>
+    
+  </entry>
   
   <entry>
     <title>判断一棵二叉树是否为二叉搜索树和完全二叉树</title>
@@ -316,9 +344,9 @@
     
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
-      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
-    
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
+    
+      <category term="字符串" scheme="http://benym.cn/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     
   </entry>
   
@@ -422,9 +450,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
   </entry>
   
@@ -476,9 +504,9 @@
     
       <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
-      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
-    
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
+    
+      <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
   </entry>
   
@@ -533,34 +561,6 @@
       <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>LeetCode-416-分割等和子集</title>
-    <link href="http://benym.cn/2020/08/05/LeetCode-416-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/"/>
-    <id>http://benym.cn/2020/08/05/LeetCode-416-分割等和子集/</id>
-    <published>2020-08-05T01:46:41.000Z</published>
-    <updated>2020-08-05T12:15:36.706Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="LeetCode-416-分割等和子集"><a href="#LeetCode-416-分割等和子集" class="headerlink" title="LeetCode-416-分割等和子集"></a>LeetCode-416-分割等和子集</h2><p>给定一个只包含正整数的非空数组。是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p><p><strong>注意:</strong></p><ol><li>每个数组中的元素不会超过 100</li><li>数组的大小不会超过 200</li></ol><a id="more"></a><p><strong>示例1：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 5, 11, 5]</span><br><span class="line"></span><br><span class="line">输出: true</span><br><span class="line"></span><br><span class="line">解释: 数组可以分割成 [1, 5, 5] 和 [11].</span><br></pre></td></tr></table></figure><p><strong>示例2：</strong></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入: [1, 2, 3, 5]</span><br><span class="line"></span><br><span class="line">输出: false</span><br><span class="line"></span><br><span class="line">解释: 数组不能分割成两个元素和相等的子集.</span><br></pre></td></tr></table></figure><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p><strong>方法1、动态规划：</strong>非常好的详解，0-1背包问题<a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/0-1-bei-bao-wen-ti-xiang-jie-zhen-dui-ben-ti-de-yo/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/partition-equal-subset-sum/solution/0-1-bei-bao-wen-ti-xiang-jie-zhen-dui-ben-ti-de-yo/</a></p><p>做这道题需要做这样一个等价转换：<strong>是否可以从这个数组中挑选出一些正整数，使得这些数的和等于整个数组元素的和的一半。</strong>前提条件是：数组的和一定得是偶数，即数组的和一定得被2整除，这一点是特判。</p><h3 id="Java代码"><a href="#Java代码" class="headerlink" title="Java代码"></a>Java代码</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">canPartition</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> len = nums.length;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> num : nums) &#123;</span><br><span class="line">            sum += num;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 特判：如果是奇数，就不符合要求</span></span><br><span class="line">        <span class="keyword">if</span> ((sum &amp; <span class="number">1</span>) == <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> target = sum / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建二维状态数组，行：物品索引，列：容量（包括 0）</span></span><br><span class="line">        <span class="keyword">boolean</span>[][] dp = <span class="keyword">new</span> <span class="keyword">boolean</span>[len][target + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 先填表格第 0 行，第 1 个数只能让容积为它自己的背包恰好装满</span></span><br><span class="line">        <span class="keyword">if</span> (nums[<span class="number">0</span>] &lt;= target) &#123;</span><br><span class="line">            dp[<span class="number">0</span>][nums[<span class="number">0</span>]] = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 再填表格后面几行</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= target; j++) &#123;</span><br><span class="line">                <span class="comment">// 直接从上一行先把结果抄下来，然后再修正</span></span><br><span class="line">                dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (nums[i] == j) &#123;</span><br><span class="line">                    dp[i][j] = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> (nums[i] &lt; j) &#123;</span><br><span class="line">                    dp[i][j] = dp[i - <span class="number">1</span>][j] || dp[i - <span class="number">1</span>][j - nums[i]];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[len - <span class="number">1</span>][target];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      分割等和子集
-    
-    </summary>
-    
-      <category term="LeetCode" scheme="http://benym.cn/categories/LeetCode/"/>
-    
-    
-      <category term="Java" scheme="http://benym.cn/tags/Java/"/>
-    
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
-      <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
-    
-      <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
   </entry>
   
