@@ -64,11 +64,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
   </entry>
   
@@ -92,11 +92,11 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
     
       <category term="LeetCode" scheme="http://benym.cn/tags/LeetCode/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
@@ -146,9 +146,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -176,9 +176,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -314,9 +314,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
       <category term="DP" scheme="http://benym.cn/tags/DP/"/>
     
@@ -502,9 +502,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
-    
       <category term="Easy" scheme="http://benym.cn/tags/Easy/"/>
+    
+      <category term="树" scheme="http://benym.cn/tags/%E6%A0%91/"/>
     
       <category term="DFS" scheme="http://benym.cn/tags/DFS/"/>
     
@@ -558,9 +558,9 @@
     
       <category term="Java" scheme="http://benym.cn/tags/Java/"/>
     
-      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
-    
       <category term="数组" scheme="http://benym.cn/tags/%E6%95%B0%E7%BB%84/"/>
+    
+      <category term="Medium" scheme="http://benym.cn/tags/Medium/"/>
     
   </entry>
   
