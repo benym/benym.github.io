@@ -22,10 +22,10 @@ type: "about"
 关于我
 </p>
 </div>
-重庆邮电大学计算机专硕在读(现研二)<br/>
+重庆邮电大学计算机专硕在读(现研三)<br/>
 研究方向关键词：Heterogeneous Network Embedding<br/>
 Graph Mining，Representation Learning<br/>
-目前一篇论文在投，正在为下半期秋招奋斗中
+两篇论文已完成，准备毕业啦~
 </div>
 
 
