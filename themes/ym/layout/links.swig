@@ -82,7 +82,7 @@
         </style>
         <div class="links-content">
 
-             <div class="no-icon note warning"><div class="link-info">👨‍🎓 大佬们</div></div>
+             <div class="no-icon note warning"><div class="link-info">👨‍🎓 冲浪</div></div>
             <div class="link-navigation">
                     {% for link in theme.defaultlinks %}
 
@@ -98,7 +98,7 @@
 
             </div>
 
-            <div class="no-icon note primary"><div class="link-info">🍭 朋友们</div></div>
+            <div class="no-icon note primary"><div class="link-info">🍭 吃糖</div></div>
 
              <div class="link-navigation">
                     {% for link in theme.friendslinks %}

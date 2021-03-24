@@ -848,7 +848,7 @@ alipay: /uploads/ali.jpg
 # 友情链接
 defaultlinks:
   - nickname: Heson     # 昵称
-    avatar: http://heson.xyz/images/avatar03.png    # 头像地址
+    avatar: https://cdn.jsdelivr.net/gh/heson525/pic@master/pic/avatar03.png    # 头像地址
     site: https://www.heson10.com #友链地址
     info: 人生在勤，不索何获
 
