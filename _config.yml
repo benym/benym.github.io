@@ -98,8 +98,8 @@ theme: ym
 deploy:
 - type: git
   repository:
-    github: git@github.com:benym/benym.github.io.git
-    coding: git@e.coding.net:benym/benym/benym.git
+    #github: git@github.com:benym/benym.github.io.git
+    #coding: git@e.coding.net:benym/benym/benym.git
     tencentcloud: git@118.24.24.247:/home/git/blog.git
   branch: master
 - type: baidu_url_submitter   
